@@ -6,17 +6,17 @@
 
 #include <list>
 
-#include "xe/Buffer.hpp"
-#include "xe/Vector.hpp"
-#include "xe/gfx/BufferType.hpp"
-#include "xe/gfx/Mesh.hpp"
-#include "xe/gfx/ShaderType.hpp"
-#include "xe/gfx/Program.hpp"
-#include "xe/gfx/Texture.hpp"
-#include "xe/gfx/UniformFormat.hpp"
-#include "xe/gfx/Material.hpp"
-#include "xe/gfx/Primitive.hpp"
-#include "xe/input/InputManager.hpp"
+#include <xe/Buffer.hpp>
+#include <xe/Vector.hpp>
+#include <xe/gfx/BufferType.hpp>
+#include <xe/gfx/Mesh.hpp>
+#include <xe/gfx/ShaderType.hpp>
+#include <xe/gfx/Program.hpp>
+#include <xe/gfx/Texture.hpp>
+#include <xe/gfx/UniformFormat.hpp>
+#include <xe/gfx/Material.hpp>
+#include <xe/gfx/Primitive.hpp>
+#include <xe/input/InputManager.hpp>
 
 namespace xe { namespace gfx {
 

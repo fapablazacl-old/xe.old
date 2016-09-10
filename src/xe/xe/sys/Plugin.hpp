@@ -17,48 +17,44 @@
 #include <memory>
 
 #include <xe/Version.hpp>
-
-namespace xe {
-    class EXENGAPI Core;
-}
+#include <xe/Forward.hpp>
+#include <xe/sys/Forward.hpp>
 
 namespace xe { namespace sys {
-    class EXENGAPI Library;
-    
     /**
      * @brief Plugin abstract class. All plugin-compliant modules must implement its methods
      */
-    class EXENGAPI Plugin {
+    class XE_API Plugin {
     public:
-        virtual ~Plugin() = 0;
+        virtual ~Plugin();
             
         /**
          * @brief Get the name of the plugin. The plugin name must be unique.
          */
-        virtual std::string getName() const;
+        virtual std::string getName() const = 0;
 
         /**
          * @brief Get the description of the plugin.
          */
-        virtual std::string getDescription() const;
+        virtual std::string getDescription() const = 0;
             
         /**
          * @brief Get the plugin version
          */
-        virtual Version getVersion() const;
+        virtual Version getVersion() const = 0;
 
         /**
          * @brief Initializes the plugin, extending and implementing interfaces already present
          * in the specified root object.
          * @param root Root instance to extend.
          */
-        virtual void initialize(Core *root);
+        virtual void initialize(Core *root) = 0;
             
         /**
          * @brief Terminate the plugin, removing its intefaces, and deallocating all created objects 
          * by any of its instances.
          */
-        virtual void terminate();
+        virtual void terminate() = 0;
     };
     
     typedef std::unique_ptr<Plugin> PluginPtr;
@@ -68,33 +64,32 @@ namespace xe { namespace sys {
      *
      * All plugins must at least export a function with this signature.
      */
-    typedef EXENG_EXPORT void (EXENG_CALLCONV *ExengGetPluginObjectProc)(std::unique_ptr<Plugin> &plugin); 
+    typedef XE_API_EXPORT void (XE_CALLCONV * ExengGetPluginObjectProc)(std::unique_ptr<Plugin> &plugin); 
 }}
 
 /**
  * @brief The name of the function to export in the dynamic module.
  */
-#define EXENG_STR(value)                    #value
-#define EXENG_GET_PLUGIN_OBJECT_NAME        ExengGetPluginObject
-#define EXENG_GET_PLUGIN_OBJECT_NAME_STR    EXENG_STR(ExengGetPluginObject)
+#define XE_STR(value)                    #value
+#define XE_GET_PLUGIN_OBJECT_NAME        XE_GetPluginObject
+#define XE_GET_PLUGIN_OBJECT_NAME_STR    XE_STR(XE_GetPluginObject)
 
 /**
  * @brief Aids in implementing plugins.
  */
 template<typename PluginClass>
-void ExengGetPluginObjectImpl(std::unique_ptr<xe::sys::Plugin> &plugin) 
-{
+void XE_GetPluginObjectImpl(std::unique_ptr<xe::sys::Plugin> &plugin) {
     plugin = std::unique_ptr<xe::sys::Plugin>(new PluginClass());
 }
 
 /**
  * @brief Export a plugin class on a DLL/SO
  */
-#define EXENG_EXPORT_PLUGIN(PluginImpl)                                                                            \
-extern "C" {                                                                                                    \
-    EXENG_EXPORT void EXENG_CALLCONV ExengGetPluginObject(std::unique_ptr<xe::sys::Plugin> &plugin) {        \
-        ExengGetPluginObjectImpl<PluginImpl>(plugin);                                                            \
-    }                                                                                                            \
+#define XE_EXPORT_PLUGIN(PluginImpl)                                                                \
+extern "C" {                                                                                        \
+    XE_API_EXPORT void XE_CALLCONV XE_GetPluginObject(std::unique_ptr<xe::sys::Plugin> &plugin) {   \
+        XE_GetPluginObjectImpl<PluginImpl>(plugin);                                                 \
+    }                                                                                               \
 }
 
 #endif //__EXENG_SYSTEM_PLUGIN_HPP__

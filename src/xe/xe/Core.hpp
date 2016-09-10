@@ -18,9 +18,9 @@
 #include <xe/Version.hpp>
 
 #include <xe/sys/PluginManager.hpp>
-#include <xe/gfx/GraphicsManager.hpp>
-#include <xe/gfx/TextureManager.hpp>
-#include <xe/gfx/MeshManager.hpp>
+#include <xe/gfx/Manager.hpp>
+//#include <xe/gfx/TextureManager.hpp>
+//#include <xe/gfx/MeshManager.hpp>
 #include <xe/sg/SceneManager.hpp>
 
 namespace xe {
@@ -37,6 +37,11 @@ namespace xe {
         
         Version getVersion() const;
 
+        xe::sys::PluginManager* getPluginManager() {
+            return &pluginManager;
+        }
+
+    private:
         xe::sys::PluginManager pluginManager;
     };
 }

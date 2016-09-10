@@ -27,7 +27,6 @@
 #include <boost/range/algorithm/sort.hpp>
 
 #include <xe/Core.hpp>
-#include <xe/Exception.hpp>
 #include <xe/sys/Library.hpp>
 #include <xe/sys/Plugin.hpp>
 #include <xe/sys/PluginLibrary.hpp>
@@ -72,7 +71,7 @@ namespace xe { namespace sys {
     };
     
     std::string plugin_filename(const std::string &pluginName) {
-#if defined(EXENG_WINDOWS)
+#if defined(_WINDOWS)
         return pluginName + std::string(".dll");
 #elif defined(EXENG_UNIX)
         return std::string("lib") + pluginName + std::string(".so");
@@ -179,7 +178,7 @@ namespace xe { namespace sys {
         pluginPath = pluginPath.normalize().parent_path();
         
         if (!fs::is_directory(pluginPath) || !fs::exists(pluginPath)) {
-            EXENG_THROW_EXCEPTION("The directory '" + pluginPath.string() + "' is not valid.");
+            throw std::runtime_error("The directory '" + pluginPath.string() + "' is not valid.");
         }
         
         impl->pluginPath = pluginPath;

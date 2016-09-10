@@ -6,9 +6,12 @@
 #if defined(_WINDOWS)
   #define XE_API_EXPORT __declspec(dllexport)
   #define XE_API_IMPORT __declspec(dllimport)
+
+  #define XE_CALLCONV __stdcall
 #else 
   #define XE_API_EXPORT
   #define XE_API_IMPORT
+  #define XE_CALLCONV
 #endif
 
 #if defined(XE_SHARED)

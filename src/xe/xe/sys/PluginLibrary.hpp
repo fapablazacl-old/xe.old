@@ -19,7 +19,6 @@
 #include <stdexcept>
 #include <iostream>
 #include <cassert>
-#include <xe/Exception.hpp>
 #include <xe/sys/Plugin.hpp>
 #include <xe/sys/Library.hpp>
 
@@ -48,17 +47,17 @@ namespace xe { namespace sys {
     
         std::string getPluginObjectNameStr = "";
 
-#if defined(EXENG_WINDOWS)
+#if defined(_WINDOWS)
 #  if defined(EXENG_32)
         getPluginObjectNameStr += "_";
-        getPluginObjectNameStr += EXENG_GET_PLUGIN_OBJECT_NAME_STR;
+        getPluginObjectNameStr += XE_GET_PLUGIN_OBJECT_NAME_STR;
         getPluginObjectNameStr += "@4";
 #  else 
-        getPluginObjectNameStr += EXENG_GET_PLUGIN_OBJECT_NAME_STR;
+        getPluginObjectNameStr += XE_GET_PLUGIN_OBJECT_NAME_STR;
 #  endif
 
 #else 
-        getPluginObjectNameStr += EXENG_GET_PLUGIN_OBJECT_NAME_STR;
+        getPluginObjectNameStr += XE_GET_PLUGIN_OBJECT_NAME_STR;
 #endif
 
         // get the plugin entry point from the library.
@@ -69,16 +68,16 @@ namespace xe { namespace sys {
             std::string msg;
             msg += "The loaded library object ";
             msg += "'" + library->getFileName() + "' doesn't have the exported function " ;
-            msg += "'" EXENG_GET_PLUGIN_OBJECT_NAME_STR "'.";
+            msg += "'" XE_GET_PLUGIN_OBJECT_NAME_STR "'.";
 
-            EXENG_THROW_EXCEPTION(msg);
+            throw std::runtime_error(msg);
         }
 
         std::unique_ptr<Plugin> plugin;
 
         getPluginObject(plugin);
         if (!plugin) {
-            EXENG_THROW_EXCEPTION("The library returned a nullptr object.");
+            throw std::runtime_error("The library returned a nullptr object.");
         }
 
         this->plugin = std::move(plugin);

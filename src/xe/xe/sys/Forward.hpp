@@ -4,11 +4,11 @@
 #ifndef __XE_SYS_FORWARD_HPP__
 #define __XE_SYS_FORWARD_HPP__
 
-#include <xe/Config.hpp>
+#include <xe/PreDef.hpp>
 
 namespace xe { namespace sys {
-    class EXENGAPI Plugin;
-    class EXENGAPI PluginManager;
+    class XE_API Plugin;
+    class XE_API PluginManager;
 }}
 
 #endif

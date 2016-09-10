@@ -12,6 +12,7 @@ set (sources
     xe/Matrix.hpp 
     xe/Quaternion.hpp 
     xe/Boundary.hpp
+    xe/Forward.hpp
     xe/Rect.hpp
     xe/Box.hpp
     xe/FileLocator.hpp 
@@ -44,6 +45,8 @@ set (sources_input
 set (sources_gfx 
     xe/gfx/Device.hpp 
     xe/gfx/Device.cpp 
+    xe/gfx/DeviceInfo.hpp
+    xe/gfx/DeviceInfo.cpp
     xe/gfx/BufferType.hpp
     xe/gfx/Program.hpp 
     xe/gfx/Program.cpp
@@ -57,6 +60,10 @@ set (sources_gfx
     xe/gfx/PixelFormat.cpp
     xe/gfx/UniformFormat.hpp
     xe/gfx/Material.hpp
+    xe/gfx/Manager.hpp
+    xe/gfx/Manager.cpp
+    xe/gfx/Factory.hpp
+    xe/gfx/Factory.cpp
 )
 
 set (sources_sfx
