@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 
+#include <xe/PreDef.hpp>
 #include "xe/gfx/UniformFormat.hpp"
 #include "xe/gfx/ShaderType.hpp"
 
@@ -16,7 +17,7 @@ namespace xe { namespace gfx {
         std::string source;
     };
 
-    class Program {
+    class XE_API Program {
     public:
         virtual ~Program();
 

@@ -43,4 +43,4 @@ add_definitions(-DXE_BUILD -DXE_SHARED)
 
 add_library(${target} SHARED ${sources})
 
-target_link_libraries(${target} xe ${GLFW3_LIBRARY} ${OPENGL_LIBRARIES} glfw)
+target_link_libraries(${target} xe ${OPENGL_LIBRARIES} glfw)

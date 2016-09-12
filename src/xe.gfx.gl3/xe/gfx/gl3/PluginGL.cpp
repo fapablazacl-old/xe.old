@@ -4,8 +4,8 @@
 #include "PluginGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3 {
-    static const char *s_pluginName = "";
-    static const char *s_pluginDesc = "";
+    static const char *s_pluginName = "OpenGL 3.3 Core Graphics Plugin";
+    static const char *s_pluginDesc = "No description.";
 
     PluginGL::PluginGL() : m_factory({s_pluginName, s_pluginDesc, Driver::GL_core, Language::GLSL}) {}
 

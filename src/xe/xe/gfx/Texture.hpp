@@ -47,11 +47,11 @@ namespace xe { namespace gfx {
         }
     };
 
-    class Texture;
+    class XE_API Texture;
     typedef std::unique_ptr<Texture> TexturePtr;
 
-    class Device;
-    class Texture {
+    class XE_API Device;
+    class XE_API Texture {
     public:
         virtual ~Texture() {}
 

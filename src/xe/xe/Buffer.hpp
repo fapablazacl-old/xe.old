@@ -4,6 +4,7 @@
 #ifndef __xe_buffer__
 #define __xe_buffer__
 
+#include <xe/PreDef.hpp>
 #include <memory>
 #include <cstdint>
 #include <cassert>
@@ -13,7 +14,7 @@ namespace xe {
     /**
      * @brief Memory area abstraction
      */
-    class Buffer {
+    class XE_API Buffer {
     public:
         typedef std::unique_ptr<Buffer> Ptr;
 

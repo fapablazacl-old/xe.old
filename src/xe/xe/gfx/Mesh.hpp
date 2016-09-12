@@ -4,9 +4,9 @@
 #ifndef __xe_gfx_subset__
 #define __xe_gfx_subset__
 
-#include "xe/Buffer.hpp"
-#include "xe/DataFormat.hpp"
-#include "xe/gfx/BufferType.hpp"
+#include <xe/Buffer.hpp>
+#include <xe/DataFormat.hpp>
+#include <xe/gfx/BufferType.hpp>
 
 namespace xe { namespace gfx {
 
@@ -27,7 +27,7 @@ namespace xe { namespace gfx {
 
     typedef xe::DataFormat<MeshAttrib> MeshFormat;
 
-    class Mesh {
+    class XE_API Mesh {
     public:
         virtual ~Mesh() {}
 

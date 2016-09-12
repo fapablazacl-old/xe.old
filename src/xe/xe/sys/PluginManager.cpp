@@ -241,7 +241,7 @@ namespace xe { namespace sys {
     int PluginManager::getPluginCount() const {
         assert(impl);
 
-        return impl->pluginArray.size();
+        return static_cast<int>(impl->pluginArray.size());
     }
 
     const Plugin* PluginManager::getPlugin(const int index) const {

@@ -141,9 +141,11 @@ source_group(\\gfx      FILES ${sources_gfx})
 source_group(\\sfx      FILES ${sources_sfx})
 source_group(\\sg       FILES ${sources_sg})
 source_group(\\input    FILES ${sources_input})
-source_group(\\sys        FILES ${sources_sys})
+source_group(\\sys		FILES ${sources_sys})
 
-add_library(${target} 
+add_definitions(-DXE_BUILD -DXE_SHARED)
+
+add_library(${target} SHARED
     ${sources} 
     ${sources_gfx} 
     ${sources_sfx} 
@@ -152,5 +154,4 @@ add_library(${target}
     ${sources_sys}
 )
 
-target_link_libraries(${target} ${Boost_LIBRARIES} #xe.gfx.gl3 xe.sfx.al
-)
+target_link_libraries(${target} ${Boost_LIBRARIES})

@@ -3,6 +3,11 @@ cmake_minimum_required(VERSION 3.0)
 
 project(xe)
 
+# 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 # Prepropressor for Visual C++
 add_definitions (-D_CRT_SECURE_NO_WARNINGS)    
 add_definitions (-D_SCL_SECURE_NO_WARNINGS)
@@ -11,6 +16,10 @@ add_definitions (-D_SCL_SECURE_NO_WARNINGS)
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+
+add_definitions (-DBOOST_ALL_DYN_LINK)
+add_definitions (-DBOOST_ALL_NO_LIB)
+add_definitions (-DBOOST_TEST_DYN_LINK)
 
 find_package (Boost 
     COMPONENTS
@@ -35,3 +44,8 @@ include_directories(src/xe)
 add_subdirectory(src/xe)
 add_subdirectory(src/xe.gfx.gl3)
 #add_subdirectory(src/xe.sfx.al)
+
+add_subdirectory(src/demo)
+
+# install information
+

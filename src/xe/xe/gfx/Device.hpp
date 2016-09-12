@@ -48,7 +48,7 @@ namespace xe { namespace gfx {
         }
     }
 
-    class Device {
+    class XE_API Device {
     public:
         virtual ~Device() {}
 
