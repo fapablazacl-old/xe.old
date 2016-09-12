@@ -194,17 +194,20 @@ namespace xe { namespace gfx { namespace gl3  {
             case Primitive::TriangleFan: mode=GL_TRIANGLE_FAN; break;
         }
 
+        const auto elementCount = static_cast<GLsizei>(count);
+        const auto elementStart = static_cast<GLint>(start);
+
         if (m_mesh->isIndexed()) {
             //!TODO: Get the index datatype from the buffer format
             GLenum type = GL_UNSIGNED_INT;
 
-            if (start==0) {
-                glDrawElements(mode, static_cast<GLsizei>(count), type, nullptr);    
+            if (elementStart==0) {
+                glDrawElements(mode, elementCount, type, nullptr);    
             } else {
-                glDrawElementsBaseVertex(mode, static_cast<GLsizei>(count), type, nullptr, start);
+                glDrawElementsBaseVertex(mode, elementCount, type, nullptr, elementStart);
             }
         } else {
-            glDrawArrays(mode, start, static_cast<GLsizei>(count));
+            glDrawArrays(mode, elementStart, elementCount);
         }
 
         glBindVertexArray(0);
@@ -223,46 +226,48 @@ namespace xe { namespace gfx { namespace gl3  {
 
         XE_GL_CHECK_ERROR();
 
+        const auto count = static_cast<GLsizei>(desc.count);
+
         switch (desc.type) {
         case xe::DataType::Int32:
             switch (desc.dim) {
 
             case 1:
-                if (desc.count==1) {
+                if (count==1) {
                     glUniform1i(desc.location, *(const GLint*)uniform);
                 } else {
-                    glUniform1iv(desc.location, desc.count, (const GLint*)uniform);
+                    glUniform1iv(desc.location, count, (const GLint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 2: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLint v0 = *((const GLint*)(uniform) + 0);
                     GLint v1 = *((const GLint*)(uniform) + 1);
 
                     glUniform2i(desc.location, v0, v1);
                 } else {
-                    glUniform2iv(desc.location, desc.count, (const GLint*)uniform);
+                    glUniform2iv(desc.location, count, (const GLint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 3: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLint v0 = *((const GLint*)(uniform) + 0);
                     GLint v1 = *((const GLint*)(uniform) + 1);
                     GLint v2 = *((const GLint*)(uniform) + 2);
 
                     glUniform3i(desc.location, v0, v1, v2);
                 } else {
-                    glUniform3iv(desc.location, desc.count, (const GLint*)uniform);
+                    glUniform3iv(desc.location, count, (const GLint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 4: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLint v0 = *((const GLint*)(uniform) + 0);
                     GLint v1 = *((const GLint*)(uniform) + 1);
                     GLint v2 = *((const GLint*)(uniform) + 2);
@@ -270,7 +275,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
                     glUniform4i(desc.location, v0, v1, v2, v3);
                 } else {
-                    glUniform4iv(desc.location, desc.count, (const GLint*)uniform);
+                    glUniform4iv(desc.location, count, (const GLint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
@@ -282,41 +287,41 @@ namespace xe { namespace gfx { namespace gl3  {
             switch (desc.dim) {
 
             case 1:
-                if (desc.count==1) {
+                if (count==1) {
                     glUniform1f(desc.location, *(const GLfloat*)uniform);
                 } else {
-                    glUniform1fv(desc.location, desc.count, (const GLfloat*)uniform);
+                    glUniform1fv(desc.location, count, (const GLfloat*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 2: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLfloat v0 = *((const GLfloat*)(uniform) + 0);
                     GLfloat v1 = *((const GLfloat*)(uniform) + 1);
 
                     glUniform2f(desc.location, v0, v1);
                 } else {
-                    glUniform2fv(desc.location, desc.count, (const GLfloat*)uniform);
+                    glUniform2fv(desc.location, count, (const GLfloat*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 3: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLfloat v0 = *((const GLfloat*)(uniform) + 0);
                     GLfloat v1 = *((const GLfloat*)(uniform) + 1);
                     GLfloat v2 = *((const GLfloat*)(uniform) + 2);
 
                     glUniform3f(desc.location, v0, v1, v2);
                 } else {
-                    glUniform3fv(desc.location, desc.count, (const GLfloat*)uniform);
+                    glUniform3fv(desc.location, count, (const GLfloat*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 4: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLfloat v0 = *((const GLfloat*)(uniform) + 0);
                     GLfloat v1 = *((const GLfloat*)(uniform) + 1);
                     GLfloat v2 = *((const GLfloat*)(uniform) + 2);
@@ -324,7 +329,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
                     glUniform4f(desc.location, v0, v1, v2, v3);
                 } else {
-                    glUniform4fv(desc.location, desc.count, (const GLfloat*)uniform);
+                    glUniform4fv(desc.location, count, (const GLfloat*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
@@ -336,41 +341,41 @@ namespace xe { namespace gfx { namespace gl3  {
             switch (desc.dim) {
 
             case 1:
-                if (desc.count==1) {
+                if (count==1) {
                     glUniform1ui(desc.location, *(const GLuint*)uniform);
                 } else {
-                    glUniform1uiv(desc.location, desc.count, (const GLuint*)uniform);
+                    glUniform1uiv(desc.location, count, (const GLuint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 2: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLuint v0 = *((const GLuint*)(uniform) + 0);
                     GLuint v1 = *((const GLuint*)(uniform) + 1);
 
                     glUniform2ui(desc.location, v0, v1);
                 } else {
-                    glUniform2uiv(desc.location, desc.count, (const GLuint*)uniform);
+                    glUniform2uiv(desc.location, count, (const GLuint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 3: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLuint v0 = *((const GLuint*)(uniform) + 0);
                     GLuint v1 = *((const GLuint*)(uniform) + 1);
                     GLuint v2 = *((const GLuint*)(uniform) + 2);
 
                     glUniform3ui(desc.location, v0, v1, v2);
                 } else {
-                    glUniform3uiv(desc.location, desc.count, (const GLuint*)uniform);
+                    glUniform3uiv(desc.location, count, (const GLuint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;
 
             case 4: 
-                if (desc.count==1) {
+                if (count==1) {
                     GLuint v0 = *((const GLuint*)(uniform) + 0);
                     GLuint v1 = *((const GLuint*)(uniform) + 1);
                     GLuint v2 = *((const GLuint*)(uniform) + 2);
@@ -378,7 +383,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
                     glUniform4ui(desc.location, v0, v1, v2, v3);
                 } else {
-                    glUniform4uiv(desc.location, desc.count, (const GLuint*)uniform);
+                    glUniform4uiv(desc.location, count, (const GLuint*)uniform);
                 };
                 XE_GL_CHECK_ERROR();  
                 break;

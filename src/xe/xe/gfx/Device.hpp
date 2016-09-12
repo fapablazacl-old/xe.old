@@ -72,7 +72,7 @@ namespace xe { namespace gfx {
         ProgramPtr createProgram(const ShaderSource &source) {
             std::list<ShaderSource> sources = {source};
 
-            return this->createProgram({source});
+            return this->createProgram(sources);
         }
 
         virtual ProgramPtr createProgram(const std::list<ShaderSource> &sources) = 0;

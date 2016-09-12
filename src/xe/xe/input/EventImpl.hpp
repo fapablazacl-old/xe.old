@@ -16,7 +16,7 @@ namespace xe { namespace input {
         virtual ~EventImpl() {}
 
         virtual int getHandlerCount() const override {
-            return handlers.size();
+            return static_cast<int>(handlers.size());
         }
 
         virtual EventHandler<EventData>* getHandler(const int index) override {

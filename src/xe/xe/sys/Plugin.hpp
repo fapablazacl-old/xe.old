@@ -46,9 +46,9 @@ namespace xe { namespace sys {
         /**
          * @brief Initializes the plugin, extending and implementing interfaces already present
          * in the specified root object.
-         * @param root Root instance to extend.
+         * @param core Root instance to extend.
          */
-        virtual void initialize(Core *root) = 0;
+        virtual void initialize(Core *core) = 0;
             
         /**
          * @brief Terminate the plugin, removing its intefaces, and deallocating all created objects 

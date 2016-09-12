@@ -64,6 +64,8 @@ set (sources_gfx
     xe/gfx/Manager.cpp
     xe/gfx/Factory.hpp
     xe/gfx/Factory.cpp
+    xe/gfx/FactoryImpl.hpp
+    xe/gfx/FactoryImpl.cpp
 )
 
 set (sources_sfx
