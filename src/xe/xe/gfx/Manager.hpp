@@ -17,7 +17,6 @@ namespace xe { namespace gfx {
     class XE_API Manager {
     public:
         Manager();
-
         ~Manager();
 
         std::vector<DeviceInfo> enumerateDevices();
@@ -29,6 +28,10 @@ namespace xe { namespace gfx {
         void registerFactory(Factory *factory);
 
         void unregisterFactory(Factory *factory);
+
+    private:
+        Manager(const Manager& other) = delete;
+        void operator= (const Manager& other) = delete;
 
     private:
         struct Private;

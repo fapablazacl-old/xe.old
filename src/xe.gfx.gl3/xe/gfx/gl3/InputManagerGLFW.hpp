@@ -5,9 +5,9 @@
 #define __xe_gfx_inputmanagerglfw_hpp__
 
 #include <memory>
-#include "xe/input/InputManager.hpp"
-#include "xe/input/EventImpl.hpp"
-#include "xe/gfx/gl3/OpenGL.hpp"
+#include <xe/input/InputManager.hpp>
+#include <xe/input/EventImpl.hpp>
+#include "OpenGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3 {
 

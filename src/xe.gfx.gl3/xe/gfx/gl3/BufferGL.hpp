@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <cassert>
+#include <vector>
 
 #include "OpenGL.hpp"
 #include "xe/Buffer.hpp"

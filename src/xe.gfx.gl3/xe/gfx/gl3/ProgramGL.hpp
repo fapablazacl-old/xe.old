@@ -10,7 +10,8 @@
 
 #include "xe/gfx/UniformFormat.hpp"
 #include "xe/gfx/Program.hpp"
-#include "xe/gfx/gl3/ShaderGL.hpp"
+
+#include "ShaderGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3  {
 

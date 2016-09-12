@@ -1,7 +1,7 @@
 
 
 #include "InputManagerGLFW.hpp"
-#include "xe/gfx/gl3/DeviceGL.hpp"
+#include "DeviceGL.hpp"
 
 #include <map>
 

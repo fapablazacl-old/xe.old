@@ -1,4 +1,15 @@
 
+# OpenGL
+find_package (OpenGL REQUIRED)
+include_directories (${OpenGL_INCLUDE_DIRS})
+link_directories (${OpenGL_LIBRARY_DIR})
+
+# GLFW3
+find_package(glfw3 3.2 REQUIRED)
+# for some reason, glfw's cmake on WIndows doesn't work, so we hack the paths...
+include_directories(${glfw3_DIR}/../../../include)
+link_directories(${glfw3_DIR}/../..)
+
 set (target xe.gfx.gl3)
 
 set (sources
@@ -20,6 +31,12 @@ set (sources
     xe/gfx/gl3/MeshGL.cpp
     xe/gfx/gl3/InputManagerGLFW.hpp    
     xe/gfx/gl3/InputManagerGLFW.cpp
+    xe/gfx/gl3/gl_core_3_3.h
+    xe/gfx/gl3/gl_core_3_3.c
 )
 
-add_library(${target} ${sources})
+add_definitions(-DXE_BUILD -DXE_SHARED)
+
+add_library(${target} SHARED ${sources})
+
+target_link_libraries(${target} xe ${GLFW3_LIBRARY} ${OPENGL_LIBRARIES} glfw)

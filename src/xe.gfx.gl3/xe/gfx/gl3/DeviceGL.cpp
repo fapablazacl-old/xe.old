@@ -2,8 +2,8 @@
 #include "DeviceGL.hpp"
 #include <cassert>
 
-#include "xe/gfx/gl3/TextureGL.hpp"
-#include "xe/gfx/gl3/Util.hpp"
+#include "TextureGL.hpp"
+#include "Util.hpp"
 
 namespace xe { namespace gfx { namespace gl3  {
     void window_size_callback(GLFWwindow* m_window, int width, int height) {
@@ -37,8 +37,10 @@ namespace xe { namespace gfx { namespace gl3  {
     
         glfwMakeContextCurrent(m_window);
         
-        glbinding::Binding::useCurrentContext();
-        glbinding::Binding::initialize(true);
+        // glbinding::Binding::useCurrentContext();
+        // glbinding::Binding::initialize(true);
+
+        ogl_LoadFunctions();
 
         XE_GL_CHECK_ERROR();
 
@@ -86,7 +88,7 @@ namespace xe { namespace gfx { namespace gl3  {
     }
 
     void DeviceGL::beginFrame(const ClearFlags flags, const ClearParams &params) {
-        gl::ClearBufferMask clearFlags = GL_NONE_BIT;
+        GLenum clearFlags = 0L;
 
         if (flags&ClearFlags::Color) {
             clearFlags |= GL_COLOR_BUFFER_BIT;
@@ -152,7 +154,7 @@ namespace xe { namespace gfx { namespace gl3  {
         const auto &layers = material->layers;
 
         for (size_t i=0; i<layers.size(); i++) {
-            glActiveTexture(GL_TEXTURE0 + i);
+            glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + i));
 
             if (layers[i].texture) {
                 auto textureGL = static_cast<TextureGL*>(layers[i].texture);
@@ -197,12 +199,12 @@ namespace xe { namespace gfx { namespace gl3  {
             GLenum type = GL_UNSIGNED_INT;
 
             if (start==0) {
-                glDrawElements(mode, count, type, nullptr);    
+                glDrawElements(mode, static_cast<GLsizei>(count), type, nullptr);    
             } else {
-                glDrawElementsBaseVertex(mode, count, type, nullptr, start);
+                glDrawElementsBaseVertex(mode, static_cast<GLsizei>(count), type, nullptr, start);
             }
         } else {
-            glDrawArrays(mode, start, count);
+            glDrawArrays(mode, start, static_cast<GLsizei>(count));
         }
 
         glBindVertexArray(0);

@@ -1,18 +1,8 @@
-/**
- * @file 
- * @brief 
- */
 
+#pragma once
 
-/*
- * Copyright (c) 2013 Felipe Apablaza.
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution.
- */
-
-#ifndef __EXENG_VERSION_HPP__
-#define __EXENG_VERSION_HPP__
+#ifndef __xe_version_hpp__
+#define __xe_version_hpp__
 
 #include <xe/PreDef.hpp>
 #include <iostream>
@@ -107,4 +97,4 @@ namespace xe {
     }
 }
 
-#endif    //__EXENG_VERSION_HPP__
+#endif

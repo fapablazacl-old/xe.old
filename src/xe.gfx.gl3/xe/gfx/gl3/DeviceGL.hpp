@@ -6,12 +6,13 @@
 
 #include <cassert>
 
-#include "xe/gfx/Device.hpp"
-#include "xe/gfx/UniformFormat.hpp"
-#include "xe/gfx/gl3/InputManagerGLFW.hpp"
-#include "xe/gfx/gl3/OpenGL.hpp"
-#include "xe/gfx/gl3/ProgramGL.hpp"
-#include "xe/gfx/gl3/MeshGL.hpp"
+#include <xe/gfx/Device.hpp>
+#include <xe/gfx/UniformFormat.hpp>
+
+#include "InputManagerGLFW.hpp"
+#include "OpenGL.hpp"
+#include "ProgramGL.hpp"
+#include "MeshGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3  {
 

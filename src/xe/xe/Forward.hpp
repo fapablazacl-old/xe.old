@@ -11,4 +11,4 @@ namespace xe {
     class XE_API Buffer;
 }
 
-#endif	
+#endif    

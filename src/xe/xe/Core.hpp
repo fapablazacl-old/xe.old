@@ -1,16 +1,5 @@
-/**
- * @file Root.hpp
- * @brief Define the main class of the Engine.
- */
 
-
-/*
- * Copyright (c) 2013 Felipe Apablaza.
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution.
- */
-
+#pragma once
 
 #ifndef __EXENG_CORE_HPP__
 #define __EXENG_CORE_HPP__
@@ -19,14 +8,12 @@
 
 #include <xe/sys/PluginManager.hpp>
 #include <xe/gfx/Manager.hpp>
-//#include <xe/gfx/TextureManager.hpp>
-//#include <xe/gfx/MeshManager.hpp>
 #include <xe/sg/SceneManager.hpp>
 
 namespace xe {
     
     /**
-    * @brief The root class of the multimedia engine. 
+    * @brief The core class of the engine. 
     * 
     * Holds all the extensible interfaces of the engine.
     */
@@ -34,15 +21,29 @@ namespace xe {
     public:
         Core();
         virtual ~Core();
-        
+
+        /** 
+         * @brief Get the engine version
+         */
         Version getVersion() const;
 
+        /**
+         * @brief Get the plugin engine manager.
+         */
         xe::sys::PluginManager* getPluginManager() {
-            return &pluginManager;
+            return &m_pluginManager;
+        }
+
+        /** 
+         * @brief Get the graphics engine manager.
+         */
+        xe::gfx::Manager* getGraphicsManager() {
+            return &m_graphicsManager;
         }
 
     private:
-        xe::sys::PluginManager pluginManager;
+        xe::sys::PluginManager m_pluginManager;
+        xe::gfx::Manager m_graphicsManager;
     };
 }
 

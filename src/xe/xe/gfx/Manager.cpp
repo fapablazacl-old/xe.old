@@ -11,7 +11,7 @@
 namespace xe { namespace gfx {
 
     struct Manager::Private {
-        std::map<xe::gfx::DeviceInfo, Factory*> factories;
+        std::map<DeviceInfo, Factory*> factories;
     };
 
     Manager::Manager() : m_impl(new Manager::Private()) {}

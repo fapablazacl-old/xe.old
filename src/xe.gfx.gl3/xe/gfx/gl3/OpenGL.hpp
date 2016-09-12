@@ -8,10 +8,11 @@
 
 #pragma warning (disable:4251)
 
-#include <glbinding/Binding.h>
-#include <glbinding/gl33core/gl.h>
+#include "gl_core_3_3.h"
 #include <GLFW/glfw3.h>
 
-using namespace gl33core;
+// #include <glbinding/Binding.h>
+// #include <glbinding/gl33core/gl.h>
+// using namespace gl33core;
 
 #endif
