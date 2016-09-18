@@ -10,6 +10,14 @@ namespace xe { namespace input {
         Press,
         Unknown
     };
+
+    inline bool isPressed(KeyStatus status) {
+        return status==KeyStatus::Press;
+    }
+
+    inline bool isReleased(KeyStatus status) {
+        return status==KeyStatus::Release;
+    }
 }}
 
 #endif
