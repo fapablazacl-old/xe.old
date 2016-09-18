@@ -4,7 +4,9 @@
 #ifndef __xe_gfx_deviceinfo_hpp__
 #define __xe_gfx_deviceinfo_hpp__
 
+#include <xe/PreDef.hpp>
 #include <string>
+#include <iosfwd>
 
 namespace xe { namespace gfx {
     /**
@@ -37,49 +39,15 @@ namespace xe { namespace gfx {
         Language lang;
     };
 
-    inline bool operator== (const DeviceInfo &info1, const DeviceInfo &info2) {
-        if (info1.name != info2.name) {
-            return false;
-        }
-
-        if (info1.desc != info2.desc) {
-            return false;
-        }
-
-        if (info1.driver != info2.driver) {
-            return false;
-        }
-
-        if (info1.lang != info2.lang) {
-            return false;
-        }
-
-        return true;
-    }
+    extern XE_API bool operator== (const DeviceInfo &info1, const DeviceInfo &info2);
 
     inline bool operator!= (const DeviceInfo &info1, const DeviceInfo &info2) {
         return !(info1 == info2);
     }
 
-    inline bool operator< (const DeviceInfo &info1, const DeviceInfo &info2) {
-        if (info1.name >= info2.name) {
-            return false;
-        }
-
-        if (info1.desc >= info2.desc) {
-            return false;
-        }
-
-        if (info1.driver >= info2.driver) {
-            return false;
-        }
-
-        if (info1.lang >= info2.lang) {
-            return false;
-        }
-
-        return true;
-    }
+    extern XE_API bool operator< (const DeviceInfo &info1, const DeviceInfo &info2);
 }}
+
+extern XE_API std::ostream& operator<< (std::ostream& os, const xe::gfx::DeviceInfo &info);
 
 #endif
