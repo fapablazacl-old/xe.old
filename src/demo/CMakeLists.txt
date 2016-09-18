@@ -6,4 +6,4 @@ source_group(\\ FILES ${sources})
 
 add_executable(${target} ${sources})
 
-target_link_libraries(${target} xe)
+target_link_libraries(${target} xe ${XE_SYS_LIBRARY})

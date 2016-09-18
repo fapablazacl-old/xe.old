@@ -12,6 +12,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_definitions (-D_CRT_SECURE_NO_WARNINGS)    
 add_definitions (-D_SCL_SECURE_NO_WARNINGS)
 
+# XE.SYS
+find_package(xe.sys REQUIRED)
+include_directories(${XE_SYS_INCLUDE_DIR})
+
 # Boost
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
@@ -46,6 +50,3 @@ add_subdirectory(src/xe.gfx.gl3)
 #add_subdirectory(src/xe.sfx.al)
 
 add_subdirectory(src/demo)
-
-# install information
-

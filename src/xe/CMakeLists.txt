@@ -21,8 +21,6 @@ set (sources
     xe/FileUtil.cpp
     xe/Core.hpp 
     xe/Core.cpp
-    xe/Version.hpp 
-    xe/Version.cpp
 )
 
 set (sources_input
@@ -73,20 +71,6 @@ set (sources_sfx
     xe/sfx/Source.cpp 
     xe/sfx/Device.hpp 
     xe/sfx/Device.cpp 
-)
-
-set (sources_sys
-    xe/sys/Library.cpp 
-    xe/sys/Plugin.cpp 
-    xe/sys/PluginManager.cpp 
-    xe/sys/LibraryPrivatePosix.cpp 
-    xe/sys/LibraryPrivateWin32.cpp
-    xe/sys/Forward.hpp        
-    xe/sys/Library.hpp        
-    xe/sys/Plugin.hpp         
-    xe/sys/PluginLibrary.hpp  
-    xe/sys/PluginManager.hpp  
-    xe/sys/LibraryPrivate.hpp 
 )
 
 set (sources_sg    
@@ -154,4 +138,4 @@ add_library(${target} SHARED
     ${sources_sys}
 )
 
-target_link_libraries(${target} ${Boost_LIBRARIES})
+target_link_libraries(${target} ${Boost_LIBRARIES} ${XE_SYS_LIBRARY})

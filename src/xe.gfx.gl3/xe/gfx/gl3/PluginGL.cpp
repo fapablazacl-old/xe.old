@@ -11,26 +11,17 @@ namespace xe { namespace gfx { namespace gl3 {
 
     PluginGL::~PluginGL() {}
 
-    std::string PluginGL::getName() const { 
-        return s_pluginName;
+    PluginData PluginGL::getData() const {
+        return {s_pluginName, s_pluginDesc, {1, 0}};
     }
 
-    std::string PluginGL::getDescription() const {
-        return s_pluginDesc;
-    }
-           
-    Version PluginGL::getVersion() const {
-        return {1, 0, 0, 0};
+    void PluginGL::start(Core *core) {
+        core->getGraphicsManager()->registerFactory(&m_factory);
     }
 
-    void PluginGL::initialize(Core *core) { 
-        m_core = core;
-        m_core->getGraphicsManager()->registerFactory(&m_factory);
-    }
-           
-    void PluginGL::terminate() {
-        m_core->getGraphicsManager()->unregisterFactory(&m_factory);
+    void PluginGL::stop(Core *core) {
+        core->getGraphicsManager()->unregisterFactory(&m_factory);
     }
 }}}
 
-XE_EXPORT_PLUGIN(xe::gfx::gl3::PluginGL);
+XE_EXPORT_PLUGIN(xe::Core, xe::gfx::gl3::PluginGL)

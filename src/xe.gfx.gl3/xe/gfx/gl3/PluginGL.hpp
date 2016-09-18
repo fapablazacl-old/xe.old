@@ -4,29 +4,25 @@
 #ifndef __xe_gfx_gl3_plugingl_hpp__
 #define __xe_gfx_gl3_plugingl_hpp__
 
-#include <xe/sys/Plugin.hpp>
+#include <xe/Core.hpp>
+#include <xe/Plugin.hpp>
 #include <xe/gfx/FactoryImpl.hpp>
 
 #include "DeviceGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3 {
-    class PluginGL : public xe::sys::Plugin {
+    class PluginGL : public Plugin<Core> {
     public:
         PluginGL();
         ~PluginGL();
 
-        virtual std::string getName() const override;
+        virtual PluginData getData() const override;
 
-        virtual std::string getDescription() const override;
-           
-        virtual Version getVersion() const override;
+        virtual void start(Core *core) override;
 
-        virtual void initialize(Core *core) override;
-           
-        virtual void terminate() override;
+        virtual void stop(Core *core) override;
 
     private:
-        xe::Core *m_core = nullptr;
         xe::gfx::FactoryImpl<DeviceGL> m_factory;
     };
 }}}
