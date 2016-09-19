@@ -33,10 +33,11 @@ int main() {
     std::string vertShader = R"(
         #version 330
 
-        in vec2 v_coord;
-
+        in vec3 v_coord;
+        in vec4 v_color;
+        
         void main() {
-            gl_Position = vec4(v_coord, 0.0f, 1.0f);
+            gl_Position = vec4(v_coord, 1.0f);
         }
     )";
 
@@ -59,20 +60,34 @@ int main() {
 
     // geometry descriptor
     xe::gfx::MeshFormat meshFormat = {{
-        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 2, "v_coord"),
+        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 3, "v_coord"),
+        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 4, "v_color"),
         xe::gfx::MeshAttrib::IndexAttrib(1, xe::DataType::UInt32),
     }};
     
-    // geometry data
+    // index data
     std::vector<unsigned int> indices = {
-        1, 2, 3
+        0, 1, 2
     };
 
-    std::vector<xe::Vector2f> coords = {
-        {0.0f, 0.0f}, {0.0f, 0.5f}, {-0.5f, -0.5f}, {0.5f, -0.5f}
+    // vertex data
+    struct Vertex {
+        xe::Vector3f coord;
+        xe::Vector4f color;
+        
+        Vertex() {}
+
+        Vertex(xe::Vector3f coord_, xe::Vector4f color_) 
+            : coord(coord_), color(color_) {}
     };
 
-    auto mesh = device->createMesh(meshFormat, {{coords},{indices}});
+    std::vector<Vertex> vertices = {
+        {{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+        {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+        {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
+    };
+
+    auto mesh = device->createMesh(meshFormat, {{vertices},{indices}});
 
     while(true) {
         inputManager->poll();

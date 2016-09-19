@@ -224,176 +224,41 @@ namespace xe { namespace gfx { namespace gl3  {
         assert(desc.dim<=4);
         assert(desc.count>0);
 
-        XE_GL_CHECK_ERROR();
-
         const auto count = static_cast<GLsizei>(desc.count);
 
         switch (desc.type) {
         case xe::DataType::Int32:
             switch (desc.dim) {
-
-            case 1:
-                if (count==1) {
-                    glUniform1i(desc.location, *(const GLint*)uniform);
-                } else {
-                    glUniform1iv(desc.location, count, (const GLint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 2: 
-                if (count==1) {
-                    GLint v0 = *((const GLint*)(uniform) + 0);
-                    GLint v1 = *((const GLint*)(uniform) + 1);
-
-                    glUniform2i(desc.location, v0, v1);
-                } else {
-                    glUniform2iv(desc.location, count, (const GLint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 3: 
-                if (count==1) {
-                    GLint v0 = *((const GLint*)(uniform) + 0);
-                    GLint v1 = *((const GLint*)(uniform) + 1);
-                    GLint v2 = *((const GLint*)(uniform) + 2);
-
-                    glUniform3i(desc.location, v0, v1, v2);
-                } else {
-                    glUniform3iv(desc.location, count, (const GLint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 4: 
-                if (count==1) {
-                    GLint v0 = *((const GLint*)(uniform) + 0);
-                    GLint v1 = *((const GLint*)(uniform) + 1);
-                    GLint v2 = *((const GLint*)(uniform) + 2);
-                    GLint v3 = *((const GLint*)(uniform) + 3);
-
-                    glUniform4i(desc.location, v0, v1, v2, v3);
-                } else {
-                    glUniform4iv(desc.location, count, (const GLint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
+                case 1: glUniform1iv(desc.location, count, (const GLint*)uniform); break;
+                case 2: glUniform2iv(desc.location, count, (const GLint*)uniform); break;
+                case 3: glUniform3iv(desc.location, count, (const GLint*)uniform); break;
+                case 4: glUniform4iv(desc.location, count, (const GLint*)uniform); break;
             }
-
             break;
             
         case xe::DataType::Float32:
             switch (desc.dim) {
-
-            case 1:
-                if (count==1) {
-                    glUniform1f(desc.location, *(const GLfloat*)uniform);
-                } else {
-                    glUniform1fv(desc.location, count, (const GLfloat*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 2: 
-                if (count==1) {
-                    GLfloat v0 = *((const GLfloat*)(uniform) + 0);
-                    GLfloat v1 = *((const GLfloat*)(uniform) + 1);
-
-                    glUniform2f(desc.location, v0, v1);
-                } else {
-                    glUniform2fv(desc.location, count, (const GLfloat*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 3: 
-                if (count==1) {
-                    GLfloat v0 = *((const GLfloat*)(uniform) + 0);
-                    GLfloat v1 = *((const GLfloat*)(uniform) + 1);
-                    GLfloat v2 = *((const GLfloat*)(uniform) + 2);
-
-                    glUniform3f(desc.location, v0, v1, v2);
-                } else {
-                    glUniform3fv(desc.location, count, (const GLfloat*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 4: 
-                if (count==1) {
-                    GLfloat v0 = *((const GLfloat*)(uniform) + 0);
-                    GLfloat v1 = *((const GLfloat*)(uniform) + 1);
-                    GLfloat v2 = *((const GLfloat*)(uniform) + 2);
-                    GLfloat v3 = *((const GLfloat*)(uniform) + 3);
-
-                    glUniform4f(desc.location, v0, v1, v2, v3);
-                } else {
-                    glUniform4fv(desc.location, count, (const GLfloat*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
+                case 1: glUniform1fv(desc.location, count, (const GLfloat*)uniform); break;
+                case 2: glUniform2fv(desc.location, count, (const GLfloat*)uniform); break;
+                case 3: glUniform3fv(desc.location, count, (const GLfloat*)uniform); break;
+                case 4: glUniform4fv(desc.location, count, (const GLfloat*)uniform); break;
             }
-
             break;
 
         case xe::DataType::UInt32:
             switch (desc.dim) {
-
-            case 1:
-                if (count==1) {
-                    glUniform1ui(desc.location, *(const GLuint*)uniform);
-                } else {
-                    glUniform1uiv(desc.location, count, (const GLuint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 2: 
-                if (count==1) {
-                    GLuint v0 = *((const GLuint*)(uniform) + 0);
-                    GLuint v1 = *((const GLuint*)(uniform) + 1);
-
-                    glUniform2ui(desc.location, v0, v1);
-                } else {
-                    glUniform2uiv(desc.location, count, (const GLuint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 3: 
-                if (count==1) {
-                    GLuint v0 = *((const GLuint*)(uniform) + 0);
-                    GLuint v1 = *((const GLuint*)(uniform) + 1);
-                    GLuint v2 = *((const GLuint*)(uniform) + 2);
-
-                    glUniform3ui(desc.location, v0, v1, v2);
-                } else {
-                    glUniform3uiv(desc.location, count, (const GLuint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
-
-            case 4: 
-                if (count==1) {
-                    GLuint v0 = *((const GLuint*)(uniform) + 0);
-                    GLuint v1 = *((const GLuint*)(uniform) + 1);
-                    GLuint v2 = *((const GLuint*)(uniform) + 2);
-                    GLuint v3 = *((const GLuint*)(uniform) + 3);
-
-                    glUniform4ui(desc.location, v0, v1, v2, v3);
-                } else {
-                    glUniform4uiv(desc.location, count, (const GLuint*)uniform);
-                };
-                XE_GL_CHECK_ERROR();  
-                break;
+                case 1: glUniform1uiv(desc.location, count, (const GLuint*)uniform); break;
+                case 2: glUniform2uiv(desc.location, count, (const GLuint*)uniform); break;
+                case 3: glUniform3uiv(desc.location, count, (const GLuint*)uniform); break;
+                case 4: glUniform4uiv(desc.location, count, (const GLuint*)uniform); break;
             }
-
             break;
 
         default:
             assert(false);
         }
+
+        XE_GL_CHECK_ERROR();  
     }
 
     void DeviceGL::setUniform(const UniformFormat *format, const void *uniforms) {
