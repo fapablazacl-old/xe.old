@@ -32,7 +32,7 @@ namespace xe { namespace gfx {
             // TODO: validate buffer format vs buffer creation params
             BufferCreateParams params = createParams[i];
 
-            buffers.push_back(this->createBuffer(params.type, params.size, params.data));
+            buffers.push_back(this->createBuffer(format.attribs[i].bufferType, params.size, params.data));
         }
 
         return this->createMesh(format, std::move(buffers));

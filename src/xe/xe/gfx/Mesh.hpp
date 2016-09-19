@@ -10,23 +10,47 @@
 
 namespace xe { namespace gfx {
 
+    /**
+     * @brief Mesh attribute descriptor.
+     */
     struct MeshAttrib : public Attrib {
         int bufferIndex = 0;
         BufferType bufferType = BufferType::Unknown;
 
         MeshAttrib() {}
 
-        MeshAttrib(const std::string &name_, const std::size_t dim_, const DataType type_, const int bufferIndex_, const BufferType bufferType_) {
-            name = name_;
-            dim = dim_;
-            type = type_;
+        MeshAttrib(const int bufferIndex_, const BufferType bufferType_, const DataType type_) {
             bufferIndex = bufferIndex_;
             bufferType = bufferType_;
+            type = type_;
+            dim = 1;
+            name = "";
+        }
+
+        MeshAttrib(const int bufferIndex_, const BufferType bufferType_, const DataType type_, const std::size_t dim_, const std::string &name_) {
+            bufferIndex = bufferIndex_;
+            bufferType = bufferType_;
+            type = type_;
+            dim = dim_;
+            name = name_;
+        }
+
+        static MeshAttrib VertexAttrib(const int bufferIndex, const DataType type, const std::size_t dim, const std::string &name) {
+            return MeshAttrib(bufferIndex, BufferType::Vertex, type, dim, name);
+        }
+
+        static MeshAttrib IndexAttrib(const int bufferIndex, const DataType type) {
+            assert(type == DataType::UInt16 || type == DataType::UInt32);
+
+            return MeshAttrib(bufferIndex, BufferType::Index, type);
         }
     };
 
     typedef xe::DataFormat<MeshAttrib> MeshFormat;
 
+    /**
+     * @brief Abstract geometry mesh interface
+     */
     class XE_API Mesh {
     public:
         virtual ~Mesh() {}

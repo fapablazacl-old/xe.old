@@ -49,17 +49,16 @@ namespace xe { namespace gfx {
     }
 
     struct BufferCreateParams {
-        BufferType type = BufferType::Unknown;
         std::size_t size = 0;
         const void *data = nullptr;
 
         BufferCreateParams() = default;
 
-        BufferCreateParams(BufferType type_, std::size_t size_, const void *data_ = nullptr) 
-            : type(type_), size(size_), data(data_) {}
+        BufferCreateParams(std::size_t size_, const void *data_ = nullptr) 
+            : size(size_), data(data_) {}
             
         template<typename Container>
-        BufferCreateParams(const BufferType type_, const Container& values) : type(type_) {
+        BufferCreateParams(const Container& values) {
             typedef typename Container::value_type Type;
 
             size = sizeof(Type) * values.size();

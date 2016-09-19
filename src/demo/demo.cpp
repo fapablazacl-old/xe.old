@@ -59,15 +59,20 @@ int main() {
 
     // geometry descriptor
     xe::gfx::MeshFormat meshFormat = {{
-        xe::gfx::MeshAttrib("v_coord", 2, xe::DataType::Float32, 0, xe::gfx::BufferType::Vertex)
+        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 2, "v_coord"),
+        xe::gfx::MeshAttrib::IndexAttrib(1, xe::DataType::UInt32),
     }};
     
     // geometry data
-    std::vector<xe::Vector2f> coords = {
-        {0.0f, 0.5f}, {-0.5f, -0.5f}, {0.5f, -0.5f}
+    std::vector<unsigned int> indices = {
+        1, 2, 3
     };
 
-    auto mesh = device->createMesh(meshFormat, {{xe::gfx::BufferType::Vertex, coords}});
+    std::vector<xe::Vector2f> coords = {
+        {0.0f, 0.0f}, {0.0f, 0.5f}, {-0.5f, -0.5f}, {0.5f, -0.5f}
+    };
+
+    auto mesh = device->createMesh(meshFormat, {{coords},{indices}});
 
     while(true) {
         inputManager->poll();

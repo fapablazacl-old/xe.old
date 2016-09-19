@@ -32,16 +32,20 @@ namespace xe { namespace gfx { namespace gl3  {
                 break;
             }
 
-            if (attrib.bufferType == BufferType::Index) {
-                m_indexed = true;
-            }
-
             auto buffer = m_buffers[attrib.bufferIndex].get();
 
             glBindBuffer(buffer->getTarget(), buffer->getId());
-            glEnableVertexAttribArray(vertexAttrib);
-            glVertexAttribPointer(vertexAttrib, attrib.dim, convertDataType(attrib.type), GL_FALSE, 0, nullptr);
+
+            if (attrib.bufferType == BufferType::Vertex) {
+                glEnableVertexAttribArray(vertexAttrib);
+                glVertexAttribPointer(vertexAttrib, attrib.dim, convertDataType(attrib.type), GL_FALSE, 0, nullptr);
+            }
+
             XE_GL_CHECK_ERROR();
+
+            if (attrib.bufferType == BufferType::Index) {
+                m_indexed = true;
+            }
 
             ++vertexAttrib;
         }        
