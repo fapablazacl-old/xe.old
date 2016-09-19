@@ -265,8 +265,6 @@ namespace xe { namespace gfx { namespace gl3  {
         assert(uniforms);
         assert(format->attribs.size() > 0);
 
-        // auto mat = static_cast<const ModelMaterial::Attributes*>(uniforms);
-
         auto uniform = static_cast<const std::uint8_t*>(uniforms);
 
         for (const UniformDescriptor &desc : format->attribs) {

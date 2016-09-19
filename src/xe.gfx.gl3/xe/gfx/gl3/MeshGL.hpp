@@ -47,6 +47,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
     protected:
         void construct(const MeshFormat &format, std::vector<BufferPtr> buffers);
+        void construct2(const MeshFormat &format, std::vector<BufferPtr> buffers);
 
     private:
         GLuint m_id = 0;
