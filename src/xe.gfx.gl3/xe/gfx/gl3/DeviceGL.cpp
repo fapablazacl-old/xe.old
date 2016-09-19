@@ -179,7 +179,7 @@ namespace xe { namespace gfx { namespace gl3  {
         m_mesh = static_cast<MeshGL*>(mesh);
     }
 
-    void DeviceGL::render(Primitive primitive, size_t start, size_t count) {
+    void DeviceGL::draw(Primitive primitive, size_t start, size_t count) {
         GLenum mode;
 
         glBindVertexArray(m_mesh->getId());

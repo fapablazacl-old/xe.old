@@ -67,13 +67,7 @@ int main() {
         {0.0f, 0.5f}, {-0.5f, -0.5f}, {0.5f, -0.5f}
     };
 
-    auto coordBuffer = device->createBuffer(xe::gfx::BufferType::Vertex, coords);
-
-    // pack geometry buffers
-    std::vector<std::unique_ptr<xe::Buffer>> buffers;
-    buffers.push_back(std::move(coordBuffer));
-
-    auto mesh = device->createMesh(meshFormat, std::move(buffers));
+    auto mesh = device->createMesh(meshFormat, {{xe::gfx::BufferType::Vertex, coords}});
 
     while(true) {
         inputManager->poll();
@@ -85,7 +79,7 @@ int main() {
         device->beginFrame(xe::gfx::ClearFlags::All, {{0.0f, 0.0f, 1.0f, 1.0f}});
 
         device->setMesh(mesh.get());
-        device->render(xe::gfx::Primitive::TriangleList, 0, 3);
+        device->draw(xe::gfx::Primitive::TriangleList, 0, 3);
 
         device->endFrame();
     }

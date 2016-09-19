@@ -30,9 +30,9 @@ namespace xe { namespace gfx {
     };
 
     enum class ClearFlags {
-        Color = 1,
-        Depth = 2,
-        Stencil = 4,
+        Color = 0x01,
+        Depth = 0x02,
+        Stencil = 0x04,
         ColorDepth = Color | Depth,
         All = Color | Depth | Stencil
     };
@@ -48,6 +48,25 @@ namespace xe { namespace gfx {
         }
     }
 
+    struct BufferCreateParams {
+        BufferType type = BufferType::Unknown;
+        std::size_t size = 0;
+        const void *data = nullptr;
+
+        BufferCreateParams() = default;
+
+        BufferCreateParams(BufferType type_, std::size_t size_, const void *data_ = nullptr) 
+            : type(type_), size(size_), data(data_) {}
+            
+        template<typename Container>
+        BufferCreateParams(const BufferType type_, const Container& values) : type(type_) {
+            typedef typename Container::value_type Type;
+
+            size = sizeof(Type) * values.size();
+            data = values.data();
+        }
+    };
+
     class XE_API Device {
     public:
         virtual ~Device() {}
@@ -56,7 +75,11 @@ namespace xe { namespace gfx {
 
         virtual const xe::input::InputManager* getInputManager() const = 0;
 
+        virtual MeshPtr createMesh(const MeshFormat &format, BufferPtr buffer);
+
         virtual MeshPtr createMesh(const MeshFormat &format, std::vector<BufferPtr> buffers) = 0;
+
+        virtual MeshPtr createMesh(const MeshFormat &format, std::vector<BufferCreateParams> createParams);
 
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data=nullptr) = 0;
 
@@ -69,12 +92,6 @@ namespace xe { namespace gfx {
 
         virtual TexturePtr createTexture(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData) = 0;
 
-        ProgramPtr createProgram(const ShaderSource &source) {
-            std::list<ShaderSource> sources = {source};
-
-            return this->createProgram(sources);
-        }
-
         virtual ProgramPtr createProgram(const std::list<ShaderSource> &sources) = 0;
 
         virtual void setProgram(Program *program) = 0;
@@ -85,7 +102,7 @@ namespace xe { namespace gfx {
 
         virtual void setMesh(Mesh *mesh) = 0;
 
-        virtual void render(Primitive primitive, size_t start, size_t count) = 0;
+        virtual void draw(Primitive primitive, size_t start, size_t count) = 0;
 
         virtual void beginFrame(const ClearFlags flags=ClearFlags::All, const ClearParams &params=ClearParams()) = 0;
 

@@ -48,7 +48,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
         virtual void setMesh(Mesh *mesh) override;
 
-        virtual void render(Primitive primitive, size_t start, size_t count) override;
+        virtual void draw(Primitive primitive, size_t start, size_t count) override;
 
         virtual void beginFrame(const ClearFlags flags, const ClearParams &params)  override;
 
