@@ -51,6 +51,8 @@ set (sources_gfx
     xe/gfx/ShaderType.hpp
     xe/gfx/Mesh.hpp 
     xe/gfx/Mesh.cpp
+	xe/gfx/MeshFormat.hpp 
+    xe/gfx/MeshFormat.cpp
     xe/gfx/Texture.hpp 
     xe/gfx/Texture.cpp
     xe/gfx/Image.hpp

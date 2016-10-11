@@ -15,6 +15,18 @@ namespace xe {
         Float16,    Float32 
     };
 
+    inline bool isFloat(DataType type) {
+        return type==DataType::Float16 || type==DataType::Float32;
+    }
+
+    inline bool isInt(DataType type) {
+        return type==DataType::Int8 || type==DataType::Int16 || type==DataType::Int32;
+    }
+
+    inline bool isUInt(DataType type) {
+        return type==DataType::UInt8 || type==DataType::UInt16 || type==DataType::UInt32;
+    }
+
     template<typename Type>
     constexpr DataType getDataType() {return DataType::Unknown;}
 

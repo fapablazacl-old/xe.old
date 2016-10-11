@@ -58,11 +58,10 @@ int main() {
 
     device->setProgram(program.get());
 
-    // geometry descriptor
-    xe::gfx::MeshFormat meshFormat = {{
-        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 3, "v_coord"),
-        xe::gfx::MeshAttrib::VertexAttrib(0, xe::DataType::Float32, 4, "v_color"),
-        xe::gfx::MeshAttrib::IndexAttrib(1, xe::DataType::UInt32),
+    xe::gfx::MeshFormat meshFormat {{
+        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 3, "v_coord"},
+        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}, 
+        {xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
     }};
     
     // index data
@@ -82,6 +81,7 @@ int main() {
     };
 
     std::vector<Vertex> vertices = {
+        //{{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}},
         {{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
         {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}

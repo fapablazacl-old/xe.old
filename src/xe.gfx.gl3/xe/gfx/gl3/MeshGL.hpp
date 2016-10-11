@@ -16,7 +16,7 @@ namespace xe { namespace gfx { namespace gl3  {
         MeshGL() {}
         
         MeshGL(const MeshFormat &format, std::vector<BufferPtr> buffers) {
-            this->construct(format, std::move(buffers));
+            this->construct2(format, std::move(buffers));
         }
         
         ~MeshGL();
@@ -46,7 +46,8 @@ namespace xe { namespace gfx { namespace gl3  {
         }
 
     protected:
-        void construct(const MeshFormat &format, std::vector<BufferPtr> buffers);
+        //void construct(const MeshFormat &format, std::vector<BufferPtr> buffers);
+
         void construct2(const MeshFormat &format, std::vector<BufferPtr> buffers);
 
     private:

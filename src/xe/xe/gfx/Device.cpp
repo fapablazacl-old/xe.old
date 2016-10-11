@@ -28,11 +28,16 @@ namespace xe { namespace gfx {
     MeshPtr Device::createMesh(const MeshFormat &format, std::vector<BufferCreateParams> createParams) {
         std::vector<BufferPtr> buffers;
 
-        for (int i=0; i<createParams.size(); i++) {
-            // TODO: validate buffer format vs buffer creation params
-            BufferCreateParams params = createParams[i];
+        // vertex attribute buffers
+        for (const MeshAttrib &attrib : format.attribs) {
+            BufferCreateParams params = createParams[attrib.bufferIndex];
+            buffers.push_back(this->createBuffer(BufferType::Vertex, params.size, params.data));
+        }
 
-            buffers.push_back(this->createBuffer(format.attribs[i].bufferType, params.size, params.data));
+        // index buffer
+        if (format.indexAttrib.isValid()) {
+            BufferCreateParams params = createParams[format.indexAttrib.bufferIndex];
+            buffers.push_back(this->createBuffer(BufferType::Index, params.size, params.data));
         }
 
         return this->createMesh(format, std::move(buffers));

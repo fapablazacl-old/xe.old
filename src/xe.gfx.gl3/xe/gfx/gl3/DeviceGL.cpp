@@ -1,9 +1,10 @@
 
 #include "DeviceGL.hpp"
-#include <cassert>
-
 #include "TextureGL.hpp"
 #include "Util.hpp"
+
+#include <cassert>
+#include <algorithm>
 
 namespace xe { namespace gfx { namespace gl3  {
     void window_size_callback(GLFWwindow* m_window, int width, int height) {
@@ -18,8 +19,11 @@ namespace xe { namespace gfx { namespace gl3  {
             {GLFW_CONTEXT_VERSION_MAJOR, 3},
             {GLFW_CONTEXT_VERSION_MINOR, 3},
             {GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE},
-            {GLFW_OPENGL_DEBUG_CONTEXT, 1},
-            
+
+#if defined(_DEBUG)
+            {GLFW_OPENGL_DEBUG_CONTEXT, 1},      
+#endif
+
             // framebuffer
             {GLFW_RED_BITS, 8},
             {GLFW_GREEN_BITS, 8},
@@ -198,9 +202,8 @@ namespace xe { namespace gfx { namespace gl3  {
         const auto elementStart = static_cast<GLint>(start);
 
         if (m_mesh->isIndexed()) {
-            //!TODO: Get the index datatype from the buffer format
-            GLenum type = GL_UNSIGNED_INT;
-
+            GLenum type = GL_UNSIGNED_INT; /*convertDataType(m_mesh->getFormat().indexAttrib.type)*/;
+            
             if (elementStart==0) {
                 glDrawElements(mode, elementCount, type, nullptr);    
             } else {
