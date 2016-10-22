@@ -60,8 +60,14 @@ namespace xe { namespace gfx {
             const auto &attribs = this->getAttribs(bufferIndex);
 
             for (const MeshAttrib &attrib : attribs) {
-                assert (attrib.bufferType != BufferType::Unknown);
-                assert (attrib.bufferType == attribs[0].bufferType);
+                
+                if (attrib.bufferType == BufferType::Unknown) {
+                    return false;
+                }
+                
+                if (attrib.bufferType != attribs[0].bufferType) {
+                    return false;
+                }
             }
         }
 
@@ -69,10 +75,8 @@ namespace xe { namespace gfx {
         auto count = std::count_if(std::begin(m_impl->attribs), std::end(m_impl->attribs), [](const MeshAttrib &attrib) {
             return attrib.bufferType == BufferType::Index;
         });
-
-        assert(count >= 0 && count <= 1);
-
-        return false;
+        
+        return count>=0 && count<=1;
     }
 
     bool MeshFormat::isIndexed() const {
