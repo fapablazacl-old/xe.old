@@ -40,7 +40,7 @@ int main() {
             gl_Position = vec4(v_coord, 1.0f);
         }
     )";
-
+    
     std::string fragShader = R"(
         #version 330
 
@@ -60,14 +60,16 @@ int main() {
 
     xe::gfx::MeshFormat meshFormat {{
         {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 3, "v_coord"},
-        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}, 
-        {xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
+        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}//, 
+        //{xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
     }};
     
     // index data
+    /*
     std::vector<unsigned int> indices = {
         0, 1, 2
     };
+    */
 
     // vertex data
     struct Vertex {
@@ -87,7 +89,7 @@ int main() {
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
     };
 
-    auto mesh = device->createMesh(&meshFormat, {{vertices},{indices}});
+    auto mesh = device->createMesh(&meshFormat, {{vertices}/*,{indices}*/});
 
     while(true) {
         inputManager->poll();
@@ -96,7 +98,7 @@ int main() {
             break;
         }
 
-        device->beginFrame(xe::gfx::ClearFlags::All, {{0.0f, 0.0f, 1.0f, 1.0f}});
+        device->beginFrame(xe::gfx::ClearFlags::All, {{0.2f, 0.2f, 0.8f, 1.0f}});
 
         device->setMesh(mesh.get());
         device->draw(xe::gfx::Primitive::TriangleList, 0, 3);

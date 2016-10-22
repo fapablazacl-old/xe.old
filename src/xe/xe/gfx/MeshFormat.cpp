@@ -22,16 +22,7 @@ namespace xe { namespace gfx {
             
             m_impl->bufferIndices.insert(attrib.bufferIndex);
             m_impl->indexedAttribs[attrib.bufferIndex].push_back(attrib);
-            //m_impl->typedAttribs[attrib.bufferType].push_back(attrib);
         }
-
-        /*
-        for (auto &pair : m_impl->typedAttribs) {
-            std::sort(pair.second.begin(), pair.second.end(), [](const MeshAttrib &a1, const MeshAttrib &a2) {
-                return a1.bufferIndex < a2.bufferIndex;
-            });
-        }
-        */
 
         assert(this->isValid());
     }
