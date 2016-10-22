@@ -60,17 +60,15 @@ int main() {
 
     xe::gfx::MeshFormat meshFormat {{
         {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 3, "v_coord"},
-        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}//, 
-        //{xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
+        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}, 
+        {xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
     }};
     
     // index data
-    /*
     std::vector<unsigned int> indices = {
         0, 1, 2
     };
-    */
-
+    
     // vertex data
     struct Vertex {
         xe::Vector3f coord;
@@ -89,8 +87,8 @@ int main() {
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
     };
 
-    auto mesh = device->createMesh(&meshFormat, {{vertices}/*,{indices}*/});
-
+    auto mesh = device->createMesh(&meshFormat, {{vertices},{indices}});
+    
     while(true) {
         inputManager->poll();
 
