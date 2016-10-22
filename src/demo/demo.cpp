@@ -87,7 +87,7 @@ int main() {
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
     };
 
-    auto mesh = device->createMesh(meshFormat, {{vertices},{indices}});
+    auto mesh = device->createMesh(&meshFormat, {{vertices},{indices}});
 
     while(true) {
         inputManager->poll();

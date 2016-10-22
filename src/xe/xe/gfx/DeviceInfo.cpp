@@ -1,6 +1,8 @@
 
 #include "DeviceInfo.hpp"
 
+#include <ostream>
+
 namespace xe { namespace gfx {
 
     XE_API bool operator== (const DeviceInfo &info1, const DeviceInfo &info2) {

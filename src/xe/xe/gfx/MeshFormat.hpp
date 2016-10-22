@@ -49,6 +49,10 @@ namespace xe { namespace gfx {
         }
     };
 
+    
+    /**
+     * @brief Describes the Vertex Structure of a Mesh 
+     */
     class XE_API MeshFormat {
     public:
         MeshFormat(const MeshFormat &other) = delete;
@@ -60,14 +64,26 @@ namespace xe { namespace gfx {
         
         ~MeshFormat();
 
+        /**
+         * @brief 
+         */
         std::size_t getAttribCount() const;
 
+        /**
+         * 
+         */
         const MeshAttrib* getAttrib(const std::size_t index) const;
 
+        /**
+         * 
+         */
         bool isEmpty() const {
             return this->getAttribCount() == 0;
         }
 
+        /**
+         * @brief Check if the current mesh is well formed.
+         */
         bool isValid() const;
 
         const std::set<int>& getBufferIndices() const;

@@ -74,12 +74,12 @@ namespace xe { namespace gfx {
 
         virtual const xe::input::InputManager* getInputManager() const = 0;
 
-        virtual MeshPtr createMesh(const MeshFormat &format, BufferPtr buffer);
-
-        virtual MeshPtr createMesh(const MeshFormat &format, std::vector<BufferPtr> buffers) = 0;
-
-        virtual MeshPtr createMesh(const MeshFormat &format, std::vector<BufferCreateParams> createParams);
-
+        virtual MeshPtr createMesh(const MeshFormat *format, BufferPtr buffer);
+        
+        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers) = 0;
+        
+        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferCreateParams> createParams);
+        
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data=nullptr) = 0;
 
         template<typename Container>

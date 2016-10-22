@@ -30,7 +30,7 @@ namespace xe { namespace gfx { namespace gl3  {
             return &m_inputManager;
         }
 
-        virtual MeshPtr createMesh(const MeshFormat &format, std::vector<BufferPtr> buffers)  override;
+        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers)  override;
 
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data)  override;
 

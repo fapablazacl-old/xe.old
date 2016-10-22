@@ -17,7 +17,7 @@ namespace xe { namespace gfx {
         }
     }
 
-    MeshPtr Device::createMesh(const MeshFormat &format, BufferPtr buffer) {
+    MeshPtr Device::createMesh(const MeshFormat *format, BufferPtr buffer) {
         std::vector<BufferPtr> buffers;
 
         buffers.push_back(std::move(buffer));
@@ -25,21 +25,19 @@ namespace xe { namespace gfx {
         return this->createMesh(format, std::move(buffers));
     }
 
-    MeshPtr Device::createMesh(const MeshFormat &format, std::vector<BufferCreateParams> createParams) {
+    MeshPtr Device::createMesh(const MeshFormat *format, std::vector<BufferCreateParams> createParams) {
         std::vector<BufferPtr> buffers;
 
         // vertex attribute buffers
-        for (const MeshAttrib &attrib : format.attribs) {
-            BufferCreateParams params = createParams[attrib.bufferIndex];
-            buffers.push_back(this->createBuffer(BufferType::Vertex, params.size, params.data));
+        for (int i=0; i<format->getAttribCount(); i++) {
+            const auto attrib = format->getAttrib(i);
+            const auto params = createParams[attrib->bufferIndex];
+            
+            auto buffer = this->createBuffer(attrib->bufferType, params.size, params.data);
+            
+            buffers.push_back(std::move(buffer));
         }
-
-        // index buffer
-        if (format.indexAttrib.isValid()) {
-            BufferCreateParams params = createParams[format.indexAttrib.bufferIndex];
-            buffers.push_back(this->createBuffer(BufferType::Index, params.size, params.data));
-        }
-
+        
         return this->createMesh(format, std::move(buffers));
     }
 }}

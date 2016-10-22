@@ -13,10 +13,10 @@ namespace xe { namespace gfx { namespace gl3  {
 
     class MeshGL : public Mesh {
     public:
-        MeshGL() {}
+        MeshGL() = default;
         
-        MeshGL(const MeshFormat &format, std::vector<BufferPtr> buffers) {
-            this->construct2(format, std::move(buffers));
+        MeshGL(const MeshFormat *format, std::vector<BufferPtr> buffers) {
+            this->construct(format, std::move(buffers));
         }
         
         ~MeshGL();
@@ -24,11 +24,7 @@ namespace xe { namespace gfx { namespace gl3  {
         GLuint getId() const {
             return m_id;
         }
-
-        virtual bool isIndexed() const override {
-            return m_indexed;
-        }
-
+        
         virtual std::size_t getBufferCount() const override {
             return m_buffers.size();
         }
@@ -41,20 +37,20 @@ namespace xe { namespace gfx { namespace gl3  {
             return m_buffers[index].get();
         }
 
-        MeshFormat getFormat() const override {
+        const MeshFormat* getFormat() const override {
             return m_format;
         }
 
     protected:
         //void construct(const MeshFormat &format, std::vector<BufferPtr> buffers);
 
-        void construct2(const MeshFormat &format, std::vector<BufferPtr> buffers);
+        void construct(const MeshFormat *format, std::vector<BufferPtr> buffers);
 
     private:
         GLuint m_id = 0;
         bool m_indexed = false;
         std::vector<BufferGLPtr> m_buffers;
-        MeshFormat m_format;
+        const MeshFormat *m_format = nullptr;
     };
 
     typedef std::unique_ptr<MeshGL> MeshGLPtr;

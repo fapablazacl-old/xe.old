@@ -78,7 +78,7 @@ namespace xe { namespace gfx { namespace gl3  {
         return std::make_unique<TextureGL>(desc, sourceFormat, sourceType, sourceData);
     }
     
-    MeshPtr DeviceGL::createMesh(const MeshFormat &format, std::vector<BufferPtr> buffers)   { 
+    MeshPtr DeviceGL::createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers)   { 
         return std::make_unique<MeshGL>(format, std::move(buffers));
     }
 
@@ -200,8 +200,8 @@ namespace xe { namespace gfx { namespace gl3  {
 
         const auto elementCount = static_cast<GLsizei>(count);
         const auto elementStart = static_cast<GLint>(start);
-
-        if (m_mesh->isIndexed()) {
+        
+        if (m_mesh->getFormat()->isIndexed()) {
             GLenum type = GL_UNSIGNED_INT; /*convertDataType(m_mesh->getFormat().indexAttrib.type)*/;
             
             if (elementStart==0) {

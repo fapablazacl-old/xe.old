@@ -18,7 +18,7 @@ namespace xe { namespace gfx {
     public:
         virtual ~Mesh() {}
 
-        virtual MeshFormat* getFormat() const = 0;
+        virtual const MeshFormat* getFormat() const = 0;
 
         virtual std::size_t getBufferCount() const = 0;
         virtual Buffer* getBuffer(const std::size_t index) = 0;
