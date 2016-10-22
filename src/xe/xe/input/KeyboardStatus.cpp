@@ -12,17 +12,6 @@ namespace xe { namespace input {
 
         m_previous.status[index] = m_current.status[index];
         m_current.status[index] = keyStatus;
-    
-        /*
-        if (keyCode == KeyCode::KeySpace) {
-            std::cout << "KeyboardStatus::setKeyStatus:" << std::endl;
-            std::cout 
-                << "    key: " << static_cast<int>(keyCode)
-                << ", status: " << static_cast<int>(keyStatus)
-                << ", previus: " << static_cast<int>(m_current.status[static_cast<int>(keyCode)])
-                << std::endl;
-        }
-        */
     }
 
     KeyStatus KeyboardStatus::getKeyStatus(KeyCode keyCode) const {
