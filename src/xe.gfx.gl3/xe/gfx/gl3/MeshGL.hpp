@@ -29,11 +29,11 @@ namespace xe { namespace gfx { namespace gl3  {
             return m_buffers.size();
         }
 
-        virtual Buffer* getBuffer(const std::size_t index)  override {
+        virtual BufferGL* getBuffer(const std::size_t index) override {
             return m_buffers[index].get();
         }
 
-        virtual const Buffer* getBuffer(const std::size_t index) const override {
+        virtual const BufferGL* getBuffer(const std::size_t index) const override {
             return m_buffers[index].get();
         }
 

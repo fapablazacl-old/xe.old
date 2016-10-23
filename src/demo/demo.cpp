@@ -59,9 +59,9 @@ int main() {
     device->setProgram(program.get());
 
     xe::gfx::MeshFormat meshFormat {{
-        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 3, "v_coord"},
-        {xe::gfx::BufferType::Vertex, 0, xe::DataType::Float32, 4, "v_color"}, 
-        {xe::gfx::BufferType::Index, 1, xe::DataType::UInt32, 1} 
+        {0, xe::DataType::Float32, 3, "v_coord"},
+        {0, xe::DataType::Float32, 4, "v_color"},
+        {1, xe::DataType::UInt32, 1}
     }};
     
     // index data
@@ -79,15 +79,19 @@ int main() {
         Vertex(xe::Vector3f coord_, xe::Vector4f color_) 
             : coord(coord_), color(color_) {}
     };
-
+    
     std::vector<Vertex> vertices = {
-        //{{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}},
         {{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
         {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
     };
 
-    auto mesh = device->createMesh(&meshFormat, {{vertices},{indices}});
+    std::vector<xe::gfx::BufferCreateParams> params = {
+        {xe::gfx::BufferType::Vertex, vertices},
+        {xe::gfx::BufferType::Index, indices}
+    };
+    
+    auto mesh = device->createMesh(&meshFormat, params);
     
     while(true) {
         inputManager->poll();

@@ -43,6 +43,10 @@ namespace xe { namespace gfx { namespace gl3  {
             
             glBindBuffer(buffer->getTarget(), buffer->getId());
             
+            if (buffer->getTarget() != GL_ARRAY_BUFFER) {
+                continue;
+            }
+            
             GLsizei offset = 0;
             
             // compute stride for current vertex buffer
@@ -50,12 +54,7 @@ namespace xe { namespace gfx { namespace gl3  {
                 return accum + static_cast<GLsizei>(attrib.getSize());
             });
             
-            
             for (const MeshAttrib &attrib : attribs) {
-                if (attrib.bufferType != BufferType::Vertex) {
-                    continue;
-                }
-                
                 glEnableVertexAttribArray(vertexAttrib);
                 
                 auto dim = static_cast<GLint>(attrib.dim);

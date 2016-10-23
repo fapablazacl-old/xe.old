@@ -37,15 +37,18 @@ namespace xe { namespace gfx { namespace gl3  {
             ::glfwWindowHint(hint[0], hint[1]);
         }
         
-        m_window = ::glfwCreateWindow(1024, 768, "test", nullptr, nullptr);
+        m_window = ::glfwCreateWindow(1360, 900, "test", nullptr, nullptr);
     
         glfwMakeContextCurrent(m_window);
         
-        // glbinding::Binding::useCurrentContext();
-        // glbinding::Binding::initialize(true);
-
+#if defined(GL_BINDING)
+        glbinding::Binding::useCurrentContext();
+        glbinding::Binding::initialize(true);
+        
+#else 
         ogl_LoadFunctions();
-
+#endif
+        
         XE_GL_CHECK_ERROR();
 
         glfwSetWindowUserPointer(m_window, this);
@@ -58,19 +61,18 @@ namespace xe { namespace gfx { namespace gl3  {
         ::glfwDestroyWindow(m_window);
         ::glfwTerminate();
     }
-
-
+    
+    static GLenum targets[] = {
+        GL_ARRAY_BUFFER, 
+        GL_ELEMENT_ARRAY_BUFFER
+    };
+    
     BufferPtr DeviceGL::createBuffer(const BufferType type, const std::size_t size, const void *data) { 
-        GLenum target;
-
-        switch (type) {
-            case BufferType::Vertex: target=GL_ARRAY_BUFFER; break;
-            case BufferType::Index: target=GL_ELEMENT_ARRAY_BUFFER; break;
-            default: assert(false); 
-        }
-
+        std::cout << "Creating buffer: " << type << ", size: " << size << std::endl;
+        
+        GLenum target = targets[static_cast<int>(type)];
         GLenum usage = GL_DYNAMIC_DRAW;
-
+        
         return std::make_unique<BufferGL>(target, usage, size, data);
     }
 
@@ -183,28 +185,43 @@ namespace xe { namespace gfx { namespace gl3  {
         m_mesh = static_cast<MeshGL*>(mesh);
     }
 
+    static GLenum primitives[] = {
+        GL_POINTS,
+        GL_LINES,
+        GL_LINE_STRIP,
+        GL_LINE_LOOP,
+        GL_TRIANGLES,
+        GL_TRIANGLE_STRIP,
+        GL_TRIANGLE_FAN
+    };
+    
     void DeviceGL::draw(Primitive primitive, size_t start, size_t count) {
-        GLenum mode;
-
+        GLenum mode = primitives[static_cast<int>(primitive)];
+        
         glBindVertexArray(m_mesh->getId());
-
-        switch (primitive) {
-            case Primitive::PointList: mode=GL_POINTS; break;
-            case Primitive::LineList: mode=GL_LINES; break;
-            case Primitive::LineStrip: mode=GL_LINE_STRIP; break;
-            case Primitive::LineLoop: mode=GL_LINE_LOOP; break;
-            case Primitive::TriangleList: mode=GL_TRIANGLES; break;
-            case Primitive::TriangleStrip: mode=GL_TRIANGLE_STRIP; break;
-            case Primitive::TriangleFan: mode=GL_TRIANGLE_FAN; break;
-        }
 
         const auto elementCount = static_cast<GLsizei>(count);
         const auto elementStart = static_cast<GLint>(start);
         
-        if (m_mesh->getFormat()->isIndexed()) {
-            GLenum type = GL_UNSIGNED_INT; /*convertDataType(m_mesh->getFormat().indexAttrib.type)*/;
+        // check if the geometry is indexed
+        DataType indexType = DataType::Unknown;
+        
+        for (int i=0; i<m_mesh->getFormat()->getAttribCount(); i++) {
+            auto attrib = m_mesh->getFormat()->getAttrib(i);
+            auto buffer = m_mesh->getBuffer(attrib->bufferIndex);
             
-            if (elementStart==0) {
+            if (buffer->getTarget() == GL_ELEMENT_ARRAY_BUFFER) {
+                indexType = attrib->type;
+            }
+        }
+        
+        bool isIndexed = indexType != DataType::Unknown;
+        
+        // draw the geometry, whenever is indexed or not
+        if (isIndexed) {
+            GLenum type = convertDataType(indexType);
+            
+            if (elementStart == 0) {
                 glDrawElements(mode, elementCount, type, nullptr);    
             } else {
                 glDrawElementsBaseVertex(mode, elementCount, type, nullptr, elementStart);
@@ -214,18 +231,20 @@ namespace xe { namespace gfx { namespace gl3  {
         }
 
         glBindVertexArray(0);
+        
         XE_GL_CHECK_ERROR();
     }
 
     void DeviceGL::setUniformMatrix(int location, int total, bool transpose, float *values) {
         glUniformMatrix4fv(location, total, transpose?GL_TRUE:GL_FALSE, values);
+        
         XE_GL_CHECK_ERROR();
     }
 
     void DeviceGL::setUniform(const UniformDescriptor &desc, const void* uniform) {
-        assert(desc.dim>=1);
-        assert(desc.dim<=4);
-        assert(desc.count>0);
+        assert(desc.dim >= 1);
+        assert(desc.dim <= 4);
+        assert(desc.count > 0);
 
         const auto count = static_cast<GLsizei>(desc.count);
 

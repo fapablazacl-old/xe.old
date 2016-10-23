@@ -23,8 +23,6 @@ namespace xe { namespace gfx {
             m_impl->bufferIndices.insert(attrib.bufferIndex);
             m_impl->indexedAttribs[attrib.bufferIndex].push_back(attrib);
         }
-
-        assert(this->isValid());
     }
 
     MeshFormat::~MeshFormat() {
@@ -41,41 +39,6 @@ namespace xe { namespace gfx {
         assert(m_impl);
 
         return &m_impl->attribs[index];
-    }
-
-    bool MeshFormat::isValid() const {
-        assert(m_impl);
-
-        // check correctly classified
-        for (int bufferIndex : this->getBufferIndices()) {
-            const auto &attribs = this->getAttribs(bufferIndex);
-
-            for (const MeshAttrib &attrib : attribs) {
-                
-                if (attrib.bufferType == BufferType::Unknown) {
-                    return false;
-                }
-                
-                if (attrib.bufferType != attribs[0].bufferType) {
-                    return false;
-                }
-            }
-        }
-
-        // check only one index buffer
-        auto count = std::count_if(std::begin(m_impl->attribs), std::end(m_impl->attribs), [](const MeshAttrib &attrib) {
-            return attrib.bufferType == BufferType::Index;
-        });
-        
-        return count>=0 && count<=1;
-    }
-
-    bool MeshFormat::isIndexed() const {
-        auto count = std::count_if(std::begin(m_impl->attribs), std::end(m_impl->attribs), [](const MeshAttrib &attrib) {
-            return attrib.bufferType == BufferType::Index;
-        });
-
-        return count > 0;
     }
 
     const std::set<int>& MeshFormat::getBufferIndices() const {

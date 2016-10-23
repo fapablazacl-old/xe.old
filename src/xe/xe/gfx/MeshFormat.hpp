@@ -15,21 +15,18 @@ namespace xe { namespace gfx {
      * @brief Mesh attribute descriptor.
      */
     struct MeshAttrib : public Attrib {
-        BufferType bufferType;
         int bufferIndex = 0;
         
         MeshAttrib() {}
 
-        MeshAttrib(const BufferType bufferType_, const int bufferIndex_, const DataType type_, const std::size_t dim_) {
-            bufferType = bufferType_;
+        MeshAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_) {
             bufferIndex = bufferIndex_;
             type = type_;
             dim = dim_;
             name = "";
         }
 
-        MeshAttrib(const BufferType bufferType_, const int bufferIndex_, const DataType type_, const std::size_t dim_, const std::string &name_) {
-            bufferType = bufferType_;
+        MeshAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_, const std::string &name_) {
             bufferIndex = bufferIndex_;
             type = type_;
             dim = dim_;
@@ -81,17 +78,10 @@ namespace xe { namespace gfx {
             return this->getAttribCount() == 0;
         }
 
-        /**
-         * @brief Check if the current mesh is well formed.
-         */
-        bool isValid() const;
-
         const std::set<int>& getBufferIndices() const;
 
         const std::vector<MeshAttrib>& getAttribs(const int bufferIndex) const;
-
-        bool isIndexed() const;
-
+        
     private:
         struct Private;
         Private *m_impl = nullptr;

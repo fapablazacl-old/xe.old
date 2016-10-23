@@ -49,21 +49,18 @@ namespace xe { namespace gfx {
     }
 
     struct BufferCreateParams {
+        BufferType type = BufferType::Unknown;
         std::size_t size = 0;
         const void *data = nullptr;
 
         BufferCreateParams() = default;
 
-        BufferCreateParams(std::size_t size_, const void *data_ = nullptr) 
-            : size(size_), data(data_) {}
+        BufferCreateParams(const BufferType type_, const std::size_t size_, const void *data_ = nullptr) 
+            : type(type_), size(size_), data(data_) {}
             
         template<typename Container>
-        BufferCreateParams(const Container& values) {
-            typedef typename Container::value_type Type;
-
-            size = sizeof(Type) * values.size();
-            data = values.data();
-        }
+        BufferCreateParams(const BufferType type_, const Container& values) 
+            : type(type_), size(sizeof(typename Container::value_type) * values.size()), data(values.data()) {}
     };
 
     class XE_API Device {

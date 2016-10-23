@@ -3,9 +3,9 @@
 
 namespace xe { namespace gfx {
     void Device::setUniform(const UniformFormat* format, const void *uniforms) {
+        assert(format && format->attribs.size() > 0);
         assert(uniforms);
-        assert(format->attribs.size() > 0);
-
+        
         auto uniform = static_cast<const std::uint8_t*>(uniforms);
 
         for (const UniformDescriptor &desc : format->attribs) {
@@ -18,6 +18,8 @@ namespace xe { namespace gfx {
     }
 
     MeshPtr Device::createMesh(const MeshFormat *format, BufferPtr buffer) {
+        assert(format);
+        
         std::vector<BufferPtr> buffers;
 
         buffers.push_back(std::move(buffer));
@@ -26,14 +28,13 @@ namespace xe { namespace gfx {
     }
 
     MeshPtr Device::createMesh(const MeshFormat *format, std::vector<BufferCreateParams> createParams) {
+        assert(format);
+        
         std::vector<BufferPtr> buffers;
 
-        // vertex attribute buffers
-        for (int i=0; i<format->getAttribCount(); i++) {
-            const auto attrib = format->getAttrib(i);
-            const auto params = createParams[attrib->bufferIndex];
-            
-            auto buffer = this->createBuffer(attrib->bufferType, params.size, params.data);
+        for (int i=0; i<createParams.size(); i++) {
+            auto &params = createParams[i];
+            auto buffer = this->createBuffer(params.type, params.size, params.data);
             
             buffers.push_back(std::move(buffer));
         }
