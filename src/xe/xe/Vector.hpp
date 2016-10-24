@@ -11,7 +11,7 @@
  * found in the file LICENSE in this distribution.
  */
 
-// #define EXENG_EXPERIMENTAL
+#define EXENG_EXPERIMENTAL
 
 #ifndef EXENG_EXPERIMENTAL
 
@@ -536,10 +536,12 @@ namespace xe {
 
 #else
 
-#include "Array.hpp"
-
 #ifndef __xe_vector_hpp__
 #define __xe_vector_hpp__
+
+#include "Array.hpp"
+#include <cstring>
+#include <cmath>
 
 namespace xe { 
     template<typename T, size_t Count>
@@ -612,27 +614,27 @@ namespace xe {
 
         explicit Vector(const T value) {
             for (size_t i=0; i<C; i++) {
-                values[i] = value;
+                this->values[i] = value;
             }
         }
 
         explicit operator const T*() const {
-            return values;
+            return this->values;
         }
 
         // array-like interface
         T& operator[](const size_t index) {
             assert(index < C);
-            return values[index];
+            return this->values[index];
         }
 
         const T& operator[](const size_t index) const {
             assert(index < C);
-            return values[index];
+            return this->values[index];
         }
 
         constexpr size_t size() const {
-            return count;
+            return this->count;
         }
     };
 
@@ -738,14 +740,19 @@ namespace xe {
             v1.x*v2.y - v1.y*v2.x
         };
     }
-
+    
+    template<typename T>
+    T cross(const Vector<T, 2> &v1, const Vector<T, 2> &v2) {
+        return v1.x*v2.y - v1.y*v2.x;
+    }
+    
     template<typename T>
     T dot(const Vector<T, 3> &v1, const Vector<T, 3> &v2, const Vector<T, 3> &v3) {
         return dot(cross(v1, v2), v3);
     }
 
     template<typename T>
-    Vector<T, 3> dot(const Vector<T, 3> &v1, const Vector<T, 3> &v2, const Vector<T, 3> &v3) {
+    Vector<T, 3> cross(const Vector<T, 3> &v1, const Vector<T, 3> &v2, const Vector<T, 3> &v3) {
         return cross(cross(v1, v2), v3);
     }
 
@@ -818,6 +825,23 @@ namespace xe {
     typedef Vector<unsigned char, 2> Vector2ub;
     typedef Vector<unsigned char, 3> Vector3ub;
     typedef Vector<unsigned char, 4> Vector4ub;
+}
+
+
+#include <iostream>
+#include <iomanip>
+
+template<typename T, std::size_t C>
+inline std::ostream& operator<< (std::ostream &os, const xe::Vector<T, C> &v) {
+    for(std::size_t i=0; i<C; ++i) {
+        os << std::fixed << std::setprecision(2) << v[i];
+
+        if (i+1 != C) {
+            os << ", ";
+        }
+    }
+    
+    return os;
 }
 
 #endif

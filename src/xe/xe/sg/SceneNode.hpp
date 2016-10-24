@@ -65,7 +65,7 @@ namespace xe { namespace sg {
     private:
         std::string m_name;
         Renderable *m_renderable = nullptr;
-        Matrix4f m_matrix = xe::identity<float, 4>();
+        Matrix4f m_matrix = Matrix4f::makeIdentity();
         
         std::vector<SceneNodePtr> m_childs;
     };

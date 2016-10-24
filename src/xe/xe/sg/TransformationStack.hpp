@@ -7,37 +7,37 @@
 #include <xe/Matrix.hpp>
 
 namespace xe { namespace sg {
-	class TransformationStack {
-	public:
-		void reset(const Matrix4f& m);
+    class TransformationStack {
+    public:
+        void reset(const Matrix4f& m);
 
-		void push(const Matrix4f& m);
+        void push(const Matrix4f& m);
 
-		void pop();
+        void pop();
 
-		Matrix4f top() const;
+        Matrix4f top() const;
 
-	public:
-		std::stack<Matrix4f> stack;
-	};
+    public:
+        std::stack<Matrix4f> stack;
+    };
 
-	inline void TransformationStack::reset(const Matrix4f& m) {
-		this->stack = std::stack<Matrix4f>();
-		this->stack.push(m);
-	}
+    inline void TransformationStack::reset(const Matrix4f& m) {
+        this->stack = std::stack<Matrix4f>();
+        this->stack.push(m);
+    }
 
-	inline void TransformationStack::push(const Matrix4f& m) {
-		Matrix4f current = this->top();
-		this->stack.push(current * m);
-	}
+    inline void TransformationStack::push(const Matrix4f& m) {
+        Matrix4f current = this->top();
+        this->stack.push(current * m);
+    }
 
-	inline void TransformationStack::pop() {
-		this->stack.pop();
-	}
+    inline void TransformationStack::pop() {
+        this->stack.pop();
+    }
 
-	inline Matrix4f TransformationStack::top() const {
-		return this->stack.top();
-	}
+    inline Matrix4f TransformationStack::top() const {
+        return this->stack.top();
+    }
 }}
 
 #endif 

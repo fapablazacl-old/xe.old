@@ -8,7 +8,6 @@
 #include <algorithm>
 
 namespace xe {
-
     template <template<typename, size_t> class Array, typename T, size_t C, T (*func)(T, T)>
     Array<T, C> operate(const Array<T, C> &arr1, const Array<T, C> &arr2) {
         Array<T, C> result;
@@ -36,7 +35,7 @@ namespace xe {
         Array<T, C> result;
 
         for (size_t i=0; i<C; i++) {
-            result[i] = func(arr1[i], arr2[i]);
+            result[i] = func(v1[i], v2[i]);
         }
 
         return result;
@@ -80,27 +79,27 @@ namespace xe {
 
     template <typename T>
     bool not_equal(const T value1, const T value2) {
-        return return value1 != value2;
+        return value1 != value2;
     }
 
     template <typename T>
     bool lesser(const T value1, const T value2) {
-        return return value1 < value2;
+        return value1 < value2;
     }
 
     template <typename T>
     bool greater(const T value1, const T value2) {
-        return return value1 > value2;
+        return value1 > value2;
     }
 
     template <typename T>
     bool lesser_equal(const T value1, const T value2) {
-        return return value1 <= value2;
+        return value1 <= value2;
     }
 
     template <typename T>
     bool greater_equal(const T value1, const T value2) {
-        return return value1 >= value2;
+        return value1 >= value2;
     }
 
     template <template<typename, size_t> class Array, typename T, size_t C>

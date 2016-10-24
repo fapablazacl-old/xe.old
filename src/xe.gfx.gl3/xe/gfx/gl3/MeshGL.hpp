@@ -48,7 +48,6 @@ namespace xe { namespace gfx { namespace gl3  {
 
     private:
         GLuint m_id = 0;
-        bool m_indexed = false;
         std::vector<BufferGLPtr> m_buffers;
         const MeshFormat *m_format = nullptr;
     };

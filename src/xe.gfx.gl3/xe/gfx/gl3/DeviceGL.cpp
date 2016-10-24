@@ -245,6 +245,7 @@ namespace xe { namespace gfx { namespace gl3  {
         assert(desc.dim >= 1);
         assert(desc.dim <= 4);
         assert(desc.count > 0);
+        assert(uniform);
 
         const auto count = static_cast<GLsizei>(desc.count);
 
@@ -284,8 +285,8 @@ namespace xe { namespace gfx { namespace gl3  {
     }
 
     void DeviceGL::setUniform(const UniformFormat *format, const void *uniforms) {
+        assert(format && format->attribs.size() > 0);
         assert(uniforms);
-        assert(format->attribs.size() > 0);
 
         auto uniform = static_cast<const std::uint8_t*>(uniforms);
 

@@ -16,8 +16,8 @@ namespace xe { namespace sg {
         
         TransformationStack transformStack;
 
-        transformStack.reset(xe::identity<float, 4>());
-
+        transformStack.reset(Matrix4f::makeIdentity());
+        
         m_pipeline->beginFrame(scene->getBackColor());
         this->renderNode(&transformStack, scene->getNode());
         m_pipeline->endFrame();

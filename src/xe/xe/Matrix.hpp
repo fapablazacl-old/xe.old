@@ -10,95 +10,103 @@
 #include <xe/Vector.hpp>
 
 namespace xe {
-    template<typename Type, int RowCount, int ColumnCount>
+    template<typename T, int R, int C>
     class Matrix {
     public:
-        typedef Matrix<Type, RowCount, ColumnCount> MatrixType;
-        static const int ValueCount = RowCount * ColumnCount;
+        typedef Matrix<T, R, C> MatrixType;
+        typedef Matrix<T, R, C> M;
+        
+        static const int ValueCount = R * C;
 
     public:
-        Matrix() {}
-
+        Matrix() = default;
+        
+        Matrix(const std::array<xe::Vector<T, C>, R> &values) {
+            for (int i=0; i<R; i++) {
+                this->setRow(i, values[i]);
+            }
+        }
+        
         // accessors
-        const Type& get(const int i, const int j) const {
+        const T& get(const int i, const int j) const {
             return values[offset(i, j)];
         }
 
-        Type& get(const int i, const int j) {
+        T& get(const int i, const int j) {
             return values[offset(i, j)];
         }
         
         template<int i, int j>
-        const Type& get() const {
+        const T& get() const {
             return values[offset(i, j)];
         }
 
         template<int i, int j>
-        Type& get() {
+        T& get() {
             return values[offset(i, j)];
         }
 
-        Vector<Type, RowCount> getColumn(const int j) const {
+        Vector<T, R> getColumn(const int j) const {
             assert(j >= 0);
-            assert(j < RowCount);
+            assert(j < R);
 
-            Vector<Type, RowCount> result;
+            Vector<T, R> result;
 
-            for (int i=0; i<RowCount; i++) {
+            for (int i=0; i<R; i++) {
                 result[i] = this->get(i, j);
             }
 
             return result;
         }
 
-        Vector<Type, ColumnCount> getRow(const int i) const {
+        Vector<T, C> getRow(const int i) const {
             assert(i >= 0);
-            assert(i < RowCount);
+            assert(i < R);
 
-            Vector<Type, ColumnCount> result;
+            Vector<T, C> result;
 
-            for (int j=0; j<ColumnCount; j++) {
+            for (int j=0; j<C; j++) {
                 result[j] = this->get(i, j);
             }
 
             return result;
         }
 
-        void setColumn(const int j, const Vector<Type, RowCount> &v) {
+        void setColumn(const int j, const Vector<T, R> &v) {
             assert(j >= 0);
-            assert(j < RowCount);
+            assert(j < R);
 
-            for (int i=0; i<RowCount; i++) {
+            for (int i=0; i<R; i++) {
                 this->get(i, j) = v[i];
             }
         }
 
-        void setRow(const int i, const Vector<Type, ColumnCount> &v) {
+        void setRow(const int i, const Vector<T, C> &v) {
             assert(i >= 0);
-            assert(i < RowCount);
+            assert(i < R);
 
-            for (int j=0; j<ColumnCount; j++) {
+            for (int j=0; j<C; j++) {
                 this->get(i, j) = v[j];
             }
         }
 
-        Matrix<Type, RowCount - 1, ColumnCount - 1> getSubMatrix(const int row, const int column) const {
+        Matrix<T, R - 1, C - 1> getSubMatrix(const int row, const int column) const {
             assert(row >= 0);
-            assert(row < RowCount);
+            assert(row < R);
 
             assert(column >= 0);
-            assert(column < ColumnCount);
+            assert(column < C);
 
-            Matrix<Type, RowCount-1, ColumnCount-1> result;
+            Matrix<T, R-1, C-1> result;
 
             int ii = 0, jj = 0;
 
-            for (int i=0; i<RowCount; ++i) {
+            for (int i=0; i<R; ++i) {
                 if (i == row) {
                     continue;
                 }
 
-                for(int j=0; j<ColumnCount; ++j) {
+                for(int j=0; j<C; ++j) {
                     if (j == column) {
                         continue;
                     }
@@ -115,25 +123,25 @@ namespace xe {
 
         }
 
-        Type* getPtr() {
+        T* getPtr() {
             return values;
         }
 
-        const Type* getPtr() const {
+        const T* getPtr() const {
             return values;
         }
 
         // operators
-        friend std::ostream& operator<< (std::ostream &os, const Matrix<Type, RowCount, ColumnCount>& Other) {
+        friend std::ostream& operator<< (std::ostream &os, const Matrix<T, R, C>& Other) {
             os << std::endl;
 
-            for (int i=0; i<RowCount; ++i) {
+            for (int i=0; i<R; ++i) {
                 os << "[";
             
-                for(int j=0; j<ColumnCount; ++j) {
+                for(int j=0; j<C; ++j) {
                     os << std::fixed << std::setprecision( 4 ) << Other.get(i, j);
                 
-                    if (j + 1 != ColumnCount) {
+                    if (j + 1 != C) {
                         os << ", ";
                     }
                 }
@@ -145,15 +153,15 @@ namespace xe {
             return os;
         }
 
-        const Type& operator() (const int i, const int j) const {
+        const T& operator() (const int i, const int j) const {
             return this->get(i, j);
         }
 
-        Type& operator() (const int i, const int j) {
+        T& operator() (const int i, const int j) {
             return this->get(i, j);
         }
 
-        MatrixType operator*(const Type factor) const {
+        MatrixType operator*(const T factor) const {
             MatrixType result;
 
             for (int i=0; i<ValueCount; i++) {
@@ -163,12 +171,12 @@ namespace xe {
             return result;
         }
 
-        friend MatrixType operator*(const Type factor, const MatrixType &m) {
+        friend MatrixType operator*(const T factor, const MatrixType &m) {
             return m * factor;
         }
 
-        MatrixType operator/(const Type factor) const {
-            return (*this) * (Type(1)/factor);
+        MatrixType operator/(const T factor) const {
+            return (*this) * (T(1)/factor);
         }
 
         MatrixType operator+() const {
@@ -176,7 +184,7 @@ namespace xe {
         }
 
         MatrixType operator-() const {
-            return (*this) * Type(-1);
+            return (*this) * T(-1);
         }
 
         MatrixType operator+(const MatrixType &other) const {
@@ -196,8 +204,8 @@ namespace xe {
         MatrixType operator*(const MatrixType &other) const {
             MatrixType result;
 
-            for (int i=0; i<RowCount; i++) {
-                for (int j=0; j<ColumnCount; j++) {
+            for (int i=0; i<R; i++) {
+                for (int j=0; j<C; j++) {
                     result(i, j) = dot(this->getRow(i), other.getColumn(j));
                 }
             }
@@ -229,13 +237,13 @@ namespace xe {
             return *this;
         }
 
-        MatrixType& operator*= (Type factor) {
+        MatrixType& operator*= (T factor) {
             *this = *this * factor;
 
             return *this;
         }
 
-        MatrixType& operator/= (Type factor) {
+        MatrixType& operator/= (T factor) {
             *this = *this / factor;
 
             return *this;
@@ -288,41 +296,38 @@ namespace xe {
         };
 
     public:
-        friend Type abs(const Matrix<Type, RowCount, ColumnCount> &m) {
-            static_assert(RowCount == ColumnCount, "");
+        friend T abs(const Matrix<T, R, C> &m) {
+            static_assert(R == C, "");
 
-            return Determinant<Type, RowCount>::compute(m);
+            return Determinant<T, R>::compute(m);
         }
 
-        friend MatrixType adjoint(const MatrixType &matrix) {
-            Matrix<Type, RowCount, ColumnCount> result;
+        friend M adjoint(const M &matrix) {
+            M result;
         
-            for(int i=0; i<RowCount; ++i) {
-                for(int j=0; j<ColumnCount; ++j) {
-                    Type factor = ((i+j)%2 == 1) ? Type(1) : Type(-1);
+            for(int i=0; i<R; ++i) {
+                for(int j=0; j<C; ++j) {
+                    T factor = ((i+j)%2 == 1) ? T(1) : T(-1);
                     result(i, j) = factor * abs(matrix.getSubMatrix(i, j));
                 }
             }
         
             return result;
         }
-
-        friend MatrixType transpose(const MatrixType &other) {
-            auto result = other;
-            int baseColumn = 1;
-
-            for(int i=0; i<RowCount-1; ++i) {
-                for(int j=baseColumn; j<ColumnCount; ++j) {
-                    std::swap( result(i, j), result(j, i) );
+        
+        friend Matrix<T, C, R> transpose(const Matrix<T, R, C> &other) {
+            Matrix<T, C, R> result;
+            
+            for (int i=0; i<R; ++i) {
+                for (int j=0; j<C; ++j) {
+                    result.get(j, i) = other.get(i, j);
                 }
-
-                ++baseColumn;
             }
         
             return result;
         }
 
-        friend MatrixType inverse(const MatrixType &m, Type det) {
+        friend MatrixType inverse(const MatrixType &m, T det) {
             return transpose(adjoint(m)) / det;
         }
         
@@ -330,239 +335,251 @@ namespace xe {
             return inverse(m, abs(m));
         }
 
+    public:
+        /**
+         * @brief Build a matrix initialized with zeros.
+         */
+        static Matrix<T, R, C> makeZero() {
+            Matrix<T, R, C> result;
+            
+            for(int i=0; i<R; ++i) {
+                for(int j=0; j<C; ++j) {
+                    result(i, j) = T(0);
+                }
+            }
+            
+            return result;
+        }
+        
+        /**
+         * @brief Build a identity matrix. Must be square.
+         */
+        static M makeIdentity() {
+            auto result = Matrix<T, R, C>::makeZero();
+            
+            for (int i=0; i<R; ++i) {
+                result(i, i) = T(1);
+            }
+            
+            return result;
+        }
+        
+        static M makeScale(const Vector<T, R> &scale) {
+            auto result = M::makeIdentity();
+            
+            for (int i=0; i<R; ++i) {
+                result(i, i) = scale[i];
+            }
+            
+            return result;
+        }
+        
+        static M makeTranslate(const Vector<T, R> &displace) {
+            auto result = M::makeIdentity();
+            
+            result.setColumn(C - 1, displace);
+            
+            return result;
+        }
+        
+        static M makeRotateX(const T radians) {
+            auto result = M::makeIdentity();
+            
+            T Cos = std::cos(radians);
+            T Sin = std::sin(radians);
+            
+            result.get(1, 1) = Cos;
+            result.get(2, 2) = Cos;
+            result.get(2, 1) = -Sin;
+            result.get(1, 2) = Sin;
+            
+            return result;
+        }
+        
+        static M makeRotateY(const T radians) {
+            auto result = M::makeIdentity();
+            
+            T Cos = std::cos(radians);
+            T Sin = std::sin(radians);
+            
+            result.get(0, 0) = Cos;
+            result.get(2, 2) = Cos;
+            result.get(2, 0) = -Sin;
+            result.get(0, 2) = Sin;
+            
+            return result;
+        }
+        
+        static M makeRotateZ(const T radians) {
+            auto result = M::makeIdentity();
+            
+            T Cos = std::cos(radians);
+            T Sin = std::sin(radians);
+            
+            result.get(0, 0) = Cos;
+            result.get(1, 1) = Cos;
+            result.get(1, 0) = Sin;
+            result.get(0, 1) = -Sin;
+            
+            return result;
+        }
+        
+        /**
+         * @brief Build a row matrix (matrix with only a row)
+         */
+        template<typename VT, int VC>
+        static Matrix<T, 1, VC>  makeRow(const Vector<VT, VC> &v) {
+            Matrix<T, 1, VC> result;
+            result.setRow(0, v);
+            return result;
+        }
+        
+        /**
+         * @brief Build a column matrix (matrix with only a column)
+         */
+        template<typename VT, int VC>
+        static Matrix<T, VC, 1>  makeColumn(const Vector<VT, VC> &v) {
+            Matrix<T, VC, 1> result;
+            
+            result.setColumn(0, v);
+            
+            return result;
+        }
+        
+        /**
+         * @brief Build a arbitrary rotation matrix 
+         */
+        static Matrix<T, R, C> makeRotate(T radians, const Vector<T, 3> &Axis) {
+            T Cos = std::cos(radians);
+            T Sin = std::sin(radians);
+            
+            auto U = Axis;
+            auto V = normalize(Axis);
+            
+            // auto MatS = Matrix<T, 3, 3>::makeZero();
+            // auto MatUut = Matrix<T, 3, 3>::makeZero();
+            auto matId = Matrix<T, 3, 3>::makeIdentity();
+            
+            //Iniciar S
+            Matrix<T, 3, 3> matS = {
+                {T(0), -V.z, V.y},
+                {V.z , T(0), -V.x}, 
+                {-V.y, V.x , T(0)}, 
+            };
+            
+            auto matU = Matrix<T, 1, 3>::makeRow(V);
+            auto matU_Ut = transpose(matU) * matU;
+            
+            //Iniciar u*ut
+            /*
+            MatUut.get(0, 0) = V.x * V.x;
+            MatUut.get(1, 0) = V.y * V.x;
+            MatUut.get(2, 0) = V.z * V.x;
+        
+            MatUut.get(0, 1) = V.x * V.y;
+            MatUut.get(1, 1) = V.y * V.y;
+            MatUut.get(2, 1) = V.z * V.y;
+            
+            MatUut.get(0, 2) = V.x * V.z;
+            MatUut.get(1, 2) = V.y * V.z;
+            MatUut.get(2, 2) = V.z * V.z;
+            */
+            
+            auto tempResult = matU_Ut + Cos * (matId - matU_Ut) + Sin * matS;
+            
+            auto result = M::makeIdentity();
+            
+            for (int i=0; i<3; ++i) {
+                for (int j=0; j<3; ++j) {
+                    result(i, j) = tempResult(i, j);
+                }
+            }
+            
+            return result;
+        }
+        
+        static Matrix<T, 4, 4> makeLookat(const Vector<T, 3> &Eye, const Vector<T, 3> &At, const Vector<T, 3> &Up) {
+            auto forward = normalize(At - Eye);
+            auto side = normalize(cross(forward, Up));
+            auto up = cross(side, forward);
+            
+            auto result = Matrix<T, 4, 4>::makeIdentity();
+            
+            result.get(0, 0) = side.x;
+            result.get(0, 1) = side.y;
+            result.get(0, 2) = side.z;
+        
+            result.get(1, 0) = up.x;
+            result.get(1, 1) = up.y;
+            result.get(1, 2) = up.z;
+        
+            result.get(2, 0) = -forward.x;
+            result.get(2, 1) = -forward.y;
+            result.get(2, 2) = -forward.z;
+            
+            result *= Matrix<T, 4, 4>::makeTranslate(-Eye);
+            
+            return result;
+        }
+        
+        static Matrix<T, 4, 4> makePerspective(T fov_radians, T aspect, T znear, T zfar) {
+            T f = T(1) / std::tan(fov_radians / T(2));
+            T zdiff = znear - zfar;
+            
+            auto result = Matrix<T, 4, 4>::makeIdentity();
+            
+            result.get(0, 0) = f / aspect;
+            result.get(1, 1) = f;
+            result.get(2, 2) = (zfar + znear) / zdiff;
+            result.get(3, 2) = T(-1);
+            result.get(2, 3) = (T(2)*znear * zfar) / zdiff;
+            
+            return result;
+        }
+        
+        static Matrix<T, 4, 4> makeOrtho(const Vector<T, 3> &pmin,  const Vector<T, 3> &pmax) {
+            
+            auto diff = pmax - pmin;
+            auto result = Matrix<T, 4, 4>::makeIdentity();
+            
+            result.get(0, 0) = T(2) / diff.x;
+            result.get(1, 1) = T(2) / diff.y;
+            result.get(2, 2) = T(-2) / diff.z;
+            result.get(3, 3) = T(1);
+            
+            result.get(0, 3) = -(pmax.x + pmin.x ) / diff.x;
+            result.get(1, 3) = -(pmax.y + pmin.y ) / diff.y;
+            result.get(2, 3) = -(pmax.z + pmin.z ) / diff.z;
+            
+            return result;
+        }
+        
     private:
         int offset(const int i, const int j) const {
             assert(i >= 0);
-            assert(i < RowCount);
+            assert(i < R);
 
             assert(j >= 0);
-            assert(j < ColumnCount);
+            assert(j < C);
 
-            return j * RowCount + i;
+            return j * R + i;
         }
         
         template<int i, int j>
         int offset() const {
             static_assert(i >= 0, "");
-            static_assert(i < RowCount, "");
+            static_assert(i < R, "");
 
             static_assert(j >= 0, "");
-            static_assert(j < ColumnCount, "");
+            static_assert(j < C, "");
 
-            return j * RowCount + i;
+            return j * R + i;
         }
 
     public:
-        Type values[ValueCount];
+        T values[ValueCount];
     };
     
-    // matrix factory functions
-
-    template<typename Type, int RowCount, int ColumnCount>
-    Matrix<Type, RowCount, ColumnCount> zero() {
-        Matrix<Type, RowCount, ColumnCount> result;
-        
-        for(int i=0; i<RowCount; ++i) {
-            for(int j=0; j<ColumnCount; ++j) {
-                result(i, j) = Type(0);
-            }
-        }
-        
-        return result;
-    }
-
-    template<typename Type, int Size>
-    Matrix<Type, Size, Size> identity() {
-        auto result = zero<Type, Size, Size>();
-        
-        for(int i=0; i<Size; ++i) {
-            result(i, i) = Type(1);
-        }
-        
-        return result;
-    }
-    
-    template<typename Type, int Size>
-    Matrix<Type, Size, Size> scale(const Vector<Type, 3> &scale) {
-        auto result = identity<Type, Size>();
-        
-        for(int i=0; i<3; ++i) {
-            result(i, i) = scale[i];
-        }
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> translate(const Vector<Type, 3> &RelPos) {
-        auto result = identity<Type, 4>();
-        
-        result.get(0, 3) = RelPos.x;
-        result.get(1, 3) = RelPos.y;
-        result.get(2, 3) = RelPos.z;
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> rotatex(const Type radians) {
-        auto result = identity<Type, 4>();
-        
-        Type Cos = std::cos(radians);
-        Type Sin = std::sin(radians);
-        
-        result.get(1, 1) = Cos;
-        result.get(2, 2) = Cos;
-        result.get(2, 1) = -Sin;
-        result.get(1, 2) = Sin;
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> rotatey(const Type radians) {
-        auto result = identity<Type, 4>();
-        
-        Type Cos = std::cos(radians);
-        Type Sin = std::sin(radians);
-        
-        result.get(0, 0) = Cos;
-        result.get(2, 2) = Cos;
-        result.get(2, 0) = -Sin;
-        result.get(0, 2) = Sin;
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> rotatez(const Type radians) {
-        auto result = identity<Type, 4>();
-        
-        Type Cos = std::cos(radians);
-        Type Sin = std::sin(radians);
-        
-        result.get(0, 0) = Cos;
-        result.get(1, 1) = Cos;
-        result.get(1, 0) = Sin;
-        result.get(0, 1) = -Sin;
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> rotate(Type radians, const Vector<Type, 3> &Axis) {
-        Type Cos = std::cos(radians);
-        Type Sin = std::sin(radians);
-        
-        Vector<Type, 3> U(Axis), V(normalize(Axis));
-        
-        auto MatS = xe::zero<Type, 3, 3>();
-        auto MatUut = xe::zero<Type, 3, 3>();
-        auto MatId = xe::identity<Type, 3>();
-        
-        //Iniciar S
-        MatS.get(0, 1) = -V.z;
-        MatS.get(1, 0) = V.z;
-    
-        MatS.get(0, 2) = V.y;
-        MatS.get(2, 0) = -V.y;
-    
-        MatS.get(1, 2) = -V.x;
-        MatS.get(2, 1) = V.x;
-
-        //Iniciar u*ut
-        MatUut.get(0, 0) = V.x * V.x;
-        MatUut.get(1, 0) = V.y * V.x;
-        MatUut.get(2, 0) = V.z * V.x;
-    
-        MatUut.get(0, 1) = V.x * V.y;
-        MatUut.get(1, 1) = V.y * V.y;
-        MatUut.get(2, 1) = V.z * V.y;
-        
-        MatUut.get(0, 2) = V.x * V.z;
-        MatUut.get(1, 2) = V.y * V.z;
-        MatUut.get(2, 2) = V.z * V.z;
-        
-        auto tempResult = MatUut + Cos * (MatId - MatUut) + Sin * MatS;
-        
-        auto result = identity<Type, 4>();
-        
-        for (int i=0; i<3; ++i) {
-            for (int j=0; j<3; ++j) {
-                result(i, j) = tempResult(i, j);
-            }
-        }
-        
-        return result;
-    }
-
-    template<typename Type>
-    Matrix<Type, 4, 4> lookat(const Vector<Type, 3> &Eye, const Vector<Type, 3> &At, const Vector<Type, 3> &Up) {
-        auto forward = normalize(At - Eye);
-        auto side = normalize(cross(forward, Up));
-        auto up = cross(side, forward);
-        
-        auto result = identity<Type, 4>();
-
-        result.get(0, 0) = side.x;
-        result.get(0, 1) = side.y;
-        result.get(0, 2) = side.z;
-    
-        result.get(1, 0) = up.x;
-        result.get(1, 1) = up.y;
-        result.get(1, 2) = up.z;
-    
-        result.get(2, 0) = -forward.x;
-        result.get(2, 1) = -forward.y;
-        result.get(2, 2) = -forward.z;
-        
-        result *= translate<Type>(-Eye);
-        
-        return result;
-    }
-    
-    template<typename Type>
-    Matrix<Type, 4, 4> perspective(Type fov_radians, Type aspect, Type znear, Type zfar) {
-        Type f = Type(1) / std::tan(fov_radians / Type(2));
-        Type zdiff = znear - zfar;
-        
-        auto result = identity<Type, 4>();
-        
-        result.get(0, 0) = f / aspect;
-        result.get(1, 1) = f;
-        result.get(2, 2) = (zfar + znear) / zdiff;
-        result.get(3, 2) = Type(-1);
-        result.get(2, 3) = (Type(2)*znear*zfar) / zdiff;
-        
-        return result;
-    }
-    
-    //!Orthographic projection
-    template<typename Type>
-    Matrix<Type, 4, 4> ortho(const xe::Vector<Type, 3> &pmin,  const xe::Vector<Type, 3> &pmax) {
-        Type left = pmin.x;
-        Type right = pmax.x;
-        
-        Type bottom = pmin.y;
-        Type top = pmax.y;
-
-        Type near = pmin.z;
-        Type far = pmax.z;
-        
-        auto result = identity<Type, 4>();
-        
-        result.get(0, 0) = Type(2) / ( right - left);
-        result.get(1, 1) = Type(2) / ( top - bottom );
-        result.get(2, 2) = Type(-2) / ( far - near  );
-        result.get(3, 3) = Type(1);
-        
-        result.get(0, 3) = - ( right + left ) / ( right - left );
-        result.get(1, 3) = - ( top + bottom ) / ( top - bottom );
-        result.get(2, 3) = - ( far + near ) / ( far - near );
-        
-        return result;
-    }
-
     template<typename Type, int Size>
     Vector<Type, Size> transform(const Matrix<Type, Size, Size> &m, const Vector<Type, Size> &v) {
         Vector<Type, Size> result;

@@ -36,16 +36,21 @@ int main() {
         in vec3 v_coord;
         in vec4 v_color;
         
+        out vec4 f_color;
+            
         void main() {
             gl_Position = vec4(v_coord, 1.0f);
+            f_color = v_color;
         }
     )";
     
     std::string fragShader = R"(
         #version 330
 
+        in vec4 f_color;
+            
         void main() {
-            gl_FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+            gl_FragColor = f_color;
         }
     )";
 
@@ -66,7 +71,7 @@ int main() {
     
     // index data
     std::vector<unsigned int> indices = {
-        0, 1, 2
+        1, 2, 3
     };
     
     // vertex data
@@ -81,6 +86,7 @@ int main() {
     };
     
     std::vector<Vertex> vertices = {
+        {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 0.0f}},
         {{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}},
         {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
         {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}}
@@ -100,7 +106,7 @@ int main() {
             break;
         }
 
-        device->beginFrame(xe::gfx::ClearFlags::All, {{0.2f, 0.2f, 0.8f, 1.0f}});
+        device->beginFrame(xe::gfx::ClearFlags::All, {{0.2f, 0.25f, 0.3f, 1.0f}});
 
         device->setMesh(mesh.get());
         device->draw(xe::gfx::Primitive::TriangleList, 0, 3);
