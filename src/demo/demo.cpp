@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <xe/Core.hpp>
+#include <xe/Matrix.hpp>
 #include <xe/PluginManager.hpp>
 #include <xe/gfx/Manager.hpp>
 #include <xe/gfx/Device.hpp>
@@ -37,9 +38,11 @@ int main() {
         in vec4 v_color;
         
         out vec4 f_color;
+        
+        uniform mat4 m_mvp;
             
         void main() {
-            gl_Position = vec4(v_coord, 1.0f);
+            gl_Position = m_mvp * vec4(v_coord, 1.0f);
             f_color = v_color;
         }
     )";
@@ -60,7 +63,7 @@ int main() {
     };
 
     auto program = device->createProgram(sources);
-
+    
     device->setProgram(program.get());
 
     xe::gfx::MeshFormat meshFormat {{
@@ -99,7 +102,15 @@ int main() {
     
     auto mesh = device->createMesh(&meshFormat, params);
     
+    float angle = 0.0f;
+    
     while(true) {
+        angle ++;
+        
+        if (angle > 360.0f) {
+            angle = 0.0f;
+        }
+        
         inputManager->poll();
 
         if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyEsc))) {
@@ -107,7 +118,13 @@ int main() {
         }
 
         device->beginFrame(xe::gfx::ClearFlags::All, {{0.2f, 0.25f, 0.3f, 1.0f}});
-
+        
+        auto mvp = xe::Matrix4f::makeIdentity();
+        
+        mvp = xe::Matrix4f::makeRotate(angle * 3.14159265f / 180.0f, xe::Vector3f(0.0f, 1.0f, 0.0f));
+        
+        device->setUniformMatrix(program->getUniform("m_mvp"), 1, false, mvp.values);
+        
         device->setMesh(mesh.get());
         device->draw(xe::gfx::Primitive::TriangleList, 0, 3);
 

@@ -21,6 +21,7 @@ set (sources
     xe/FileUtil.cpp
     xe/Core.hpp 
     xe/Core.cpp
+    xe/Metaprog.hpp 
 )
 
 set (sources_input

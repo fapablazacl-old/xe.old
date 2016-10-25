@@ -17,13 +17,26 @@ namespace xe {
         typedef Matrix<T, R, C> M;
         
         static const int ValueCount = R * C;
+        
+        static const int RowCount = R;
+        static const int ColumnCount = C;
 
     public:
         Matrix() = default;
         
-        Matrix(const std::array<xe::Vector<T, C>, R> &values) {
-            for (int i=0; i<R; i++) {
-                this->setRow(i, values[i]);
+        Matrix(std::initializer_list<T> params) {
+            //static_assert(params.size() == R * C, "Initializer list constructor doesn't match the matrix size.");
+            assert(params.size() == R * C);
+            
+            std::copy(params.begin(), params.end(), values);
+        }
+        
+        Matrix(std::initializer_list<Vector<T, C>> params) {
+            assert(params.size() == R);
+            
+            int i = 0;
+            for (const Vector<T, C> row : params) {
+                this->setRow(i++, row);
             }
         }
         
@@ -199,10 +212,10 @@ namespace xe {
 
         MatrixType operator-(const MatrixType &other) const {
             return *this + (-other);
-        }
-
-        MatrixType operator*(const MatrixType &other) const {
-            MatrixType result;
+        }   
+        
+        Matrix<T, R, C> operator*(const Matrix<T, R, C> &other) const {
+            Matrix<T, R, C> result;
 
             for (int i=0; i<R; i++) {
                 for (int j=0; j<C; j++) {
@@ -212,7 +225,26 @@ namespace xe {
 
             return result;
         }
+        
+        template<int OtherR, int OtherC>
+        Matrix<T, R, OtherC> operator*(const Matrix<T, OtherR, OtherC> &other) const {
+            static_assert(C == OtherR, "");
+            
+            Matrix<T, R, OtherC> result;
+            
+            for (int i=0; i<R; i++) {
+                for (int j=0; j<OtherC; j++) {
+                    
+                    const auto row = this->getRow(i);
+                    const auto col = other.getColumn(j);
+                    
+                    result(i, j) = dot(row, col);
+                }
+            }
 
+            return result;
+        }
+        
         MatrixType& operator+= (const MatrixType &other) {
             *this = *this + other;
 
@@ -425,28 +457,6 @@ namespace xe {
         }
         
         /**
-         * @brief Build a row matrix (matrix with only a row)
-         */
-        template<typename VT, int VC>
-        static Matrix<T, 1, VC>  makeRow(const Vector<VT, VC> &v) {
-            Matrix<T, 1, VC> result;
-            result.setRow(0, v);
-            return result;
-        }
-        
-        /**
-         * @brief Build a column matrix (matrix with only a column)
-         */
-        template<typename VT, int VC>
-        static Matrix<T, VC, 1>  makeColumn(const Vector<VT, VC> &v) {
-            Matrix<T, VC, 1> result;
-            
-            result.setColumn(0, v);
-            
-            return result;
-        }
-        
-        /**
          * @brief Build a arbitrary rotation matrix 
          */
         static Matrix<T, R, C> makeRotate(T radians, const Vector<T, 3> &Axis) {
@@ -456,22 +466,21 @@ namespace xe {
             auto U = Axis;
             auto V = normalize(Axis);
             
-            // auto MatS = Matrix<T, 3, 3>::makeZero();
-            // auto MatUut = Matrix<T, 3, 3>::makeZero();
-            auto matId = Matrix<T, 3, 3>::makeIdentity();
+            //auto MatS = Matrix<T, 3, 3>::makeZero();
+            auto MatUut = Matrix<T, 3, 3>::makeZero();
+            auto MatId = Matrix<T, 3, 3>::makeIdentity();
             
             //Iniciar S
-            Matrix<T, 3, 3> matS = {
-                {T(0), -V.z, V.y},
-                {V.z , T(0), -V.x}, 
-                {-V.y, V.x , T(0)}, 
+            Matrix<T, 3, 3> MatS = {
+                T(0), -V.z, V.y,
+                V.z , T(0), -V.x, 
+                -V.y, V.x , T(0), 
             };
             
-            auto matU = Matrix<T, 1, 3>::makeRow(V);
-            auto matU_Ut = transpose(matU) * matU;
+            //auto matU = Matrix<T, 1, 3>{V};
+            //auto matU_Ut = transpose(matU) * matU;
             
             //Iniciar u*ut
-            /*
             MatUut.get(0, 0) = V.x * V.x;
             MatUut.get(1, 0) = V.y * V.x;
             MatUut.get(2, 0) = V.z * V.x;
@@ -483,9 +492,8 @@ namespace xe {
             MatUut.get(0, 2) = V.x * V.z;
             MatUut.get(1, 2) = V.y * V.z;
             MatUut.get(2, 2) = V.z * V.z;
-            */
             
-            auto tempResult = matU_Ut + Cos * (matId - matU_Ut) + Sin * matS;
+            auto tempResult = MatUut + Cos * (MatId - MatUut) + Sin * MatS;
             
             auto result = M::makeIdentity();
             
