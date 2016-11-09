@@ -47,6 +47,7 @@ include_directories(src/xe)
 
 add_subdirectory(src/xe)
 add_subdirectory(src/xe.gfx.gl3)
+add_subdirectory(src/xe.tests)
 #add_subdirectory(src/xe.sfx.al)
 
 add_subdirectory(src/demo)

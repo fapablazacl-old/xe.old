@@ -31,8 +31,8 @@ namespace xe {
     }
 
     template <template<typename, size_t> class Array, typename T, size_t C, bool (*func)(T, T)>
-    Array<bool, C> compare(Array<T, C> &v1, Array<T, C> &v2) {
-        Array<T, C> result;
+    Array<bool, C> compare(const Array<T, C> &v1, const Array<T, C> &v2) {
+        Array<bool, C> result;
 
         for (size_t i=0; i<C; i++) {
             result[i] = func(v1[i], v2[i]);

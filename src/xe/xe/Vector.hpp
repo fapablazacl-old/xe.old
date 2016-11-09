@@ -647,7 +647,12 @@ namespace xe {
     Vector<T, C> operator- (const Vector<T, C> &v1, const Vector<T, C> &v2) {
         return sub(v1, v2);
     }
-
+    
+    template<typename T, size_t C> 
+    Vector<T, C> operator- (const Vector<T, C> &v) {
+        return v * T(-1);
+    }
+    
     template<typename T, size_t C> 
     Vector<T, C> operator* (const Vector<T, C> &v1, const Vector<T, C> &v2) {
         return mul(v1, v2);
@@ -831,17 +836,19 @@ namespace xe {
 #include <iostream>
 #include <iomanip>
 
-template<typename T, std::size_t C>
-inline std::ostream& operator<< (std::ostream &os, const xe::Vector<T, C> &v) {
-    for(std::size_t i=0; i<C; ++i) {
-        os << std::fixed << std::setprecision(2) << v[i];
-
-        if (i+1 != C) {
-            os << ", ";
-        }
-    }
+namespace std {    
+    template<typename T, std::size_t C>
+    inline std::ostream& operator<< (std::ostream &os, const xe::Vector<T, C> &v) {
+        for(std::size_t i=0; i<C; ++i) {
+            os << std::fixed << std::setprecision(2) << v[i];
     
-    return os;
+            if (i+1 != C) {
+                os << ", ";
+            }
+        }
+        
+        return os;
+    }
 }
 
 #endif
