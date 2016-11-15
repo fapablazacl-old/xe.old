@@ -1,10 +1,9 @@
 
 #include "FileLocator.hpp"
 
-#include <boost/filesystem.hpp>
-
 namespace xe {
     std::string FileLocator::locate(const std::string &name) {
+        /*
         namespace fs = boost::filesystem;
         
         std::string location = name;
@@ -18,5 +17,8 @@ namespace xe {
         }
 
         return location;
+        */
+
+        return "";
     }
 }

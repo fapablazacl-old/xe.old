@@ -36,7 +36,7 @@ namespace xe {
             };
         };
 
-        Quaternion() = default;
+        Quaternion() {}
         
         explicit Quaternion(const T *values_) {
             std::memcpy(values, values_, sizeof(Quaternion<T>));

@@ -47,7 +47,7 @@ namespace xe { namespace gfx { namespace gl3  {
                 continue;
             }
             
-            GLsizei offset = 0;
+            std::uint8_t *offset = 0;
             
             // compute stride for current vertex buffer
             GLsizei stride = std::accumulate(std::begin(attribs), std::end(attribs), 0, [](const GLsizei &accum, const MeshAttrib &attrib) {
@@ -60,9 +60,9 @@ namespace xe { namespace gfx { namespace gl3  {
                 auto dim = static_cast<GLint>(attrib.dim);
                 auto type = convertDataType(attrib.type);
                 
-                glVertexAttribPointer(vertexAttrib, dim, type, GL_FALSE, stride, reinterpret_cast<GLvoid*>(offset));
+                glVertexAttribPointer(vertexAttrib, dim, type, GL_FALSE, stride, offset);
                 
-                offset += static_cast<GLsizei>(attrib.getSize());
+                offset += static_cast<int>(attrib.getSize());
                 vertexAttrib ++;
             }
         }

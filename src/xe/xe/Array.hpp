@@ -172,6 +172,7 @@ namespace xe {
         return compare<Array, T, C, greater_equal>(array1, array2);
     }
 
+    /*
     template <template<typename, size_t> class Array, typename T, size_t C>
     T max(const Array<T, C> &v) {
         return accumulate<Array, T, C, std::max>(v);
@@ -181,6 +182,7 @@ namespace xe {
     T min(const Array<T, C> &v) {
         return accumulate<Array, T, C, std::min>(v);
     }
+    */
 }
 
 #endif
