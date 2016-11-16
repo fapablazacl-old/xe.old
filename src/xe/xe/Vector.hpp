@@ -607,7 +607,23 @@ namespace xe {
         using VectorStorage<T, C>::VectorStorage;
 
         Vector() {}
-
+        
+        Vector(const Vector<T, C-1> &other, T last) {
+            for (size_t i=0; i<C-1; i++) {
+                this->values[i] = other.values[i];
+            }
+            
+            this->values[C-1] = last;
+        }
+        
+        Vector(T first, const Vector<T, C-1> &remaining) {
+            this->values[0] = first;
+            
+            for (size_t i=0; i<C-1; i++) {
+                this->values[i + 1] = remaining.values[i];
+            }
+        }
+        
         explicit Vector(const T* values) {
             std::memcpy(this->values, values, sizeof(T) * C);
         }
@@ -617,7 +633,7 @@ namespace xe {
                 this->values[i] = value;
             }
         }
-
+        
         explicit operator const T*() const {
             return this->values;
         }
@@ -628,13 +644,13 @@ namespace xe {
             return this->values[index];
         }
 
-        const T& operator[](const size_t index) const {
+        const T operator[](const size_t index) const {
             assert(index < C);
             return this->values[index];
         }
 
         constexpr size_t size() const {
-            return this->count;
+            return C;
         }
     };
 
