@@ -62,17 +62,3 @@ TEST(TestVector_Operators)
     CHECK_EQUAL(v2 + v3, v2_add_v3);
     CHECK_EQUAL(v2 - v3, v2_sub_v3);
 }
-
-TEST(TestVector_Operations)
-{
-    xe::Vector4f v0(0.0f, 0.0f, 0.0f, 0.0f);
-    xe::Vector4f v1(1.0f, 1.0f, 1.0f, 0.0f);
-    xe::Vector4f vx(1.0f, 0.0f, 0.0f, 0.0f);
-    xe::Vector4f vy(0.0f, 1.0f, 0.0f, 0.0f);
-    xe::Vector4f vz(0.0f, 0.0f, 1.0f, 0.0f);
-    
-    xe::Vector4f p1(0.0f, 1.0f, 0.0f, 1.0f);
-    xe::Vector4f p2(1.0f, -1.0f, 0.0f, 1.0f);
-    xe::Vector4f p3(-1.0f, -1.0f, 0.0f, 1.0f);
-    
-}

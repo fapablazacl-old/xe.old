@@ -7,67 +7,75 @@
 #include <vector>
 #include <memory>
 
-#include "xe/Matrix.hpp"
-#include "xe/sg/Forward.hpp"
+#include <xe/PreDef.hpp>
+#include <xe/Matrix.hpp>
+#include <xe/sg/Forward.hpp>
 
 namespace xe { namespace sg {
-    class SceneNode;
-    typedef std::unique_ptr<SceneNode> SceneNodePtr;
-    
-    class SceneNode {
+
+    /**
+     * @brief Node of some scene.
+     */
+    class XE_API SceneNode {
     public:
         SceneNode();
+
         ~SceneNode();
 
-        SceneNode* addChild() {
-            auto* node = new SceneNode();
+    public:
+        /**
+         * @brief Create and returns a new child node.
+         */
+        SceneNode* createNode();
+        
+        /** 
+         * @brief Destroys the supplied child scene node only if a child of the current node.
+         */
+        void destroyNode(SceneNode *child);
 
-            m_childs.emplace_back(node);
+        /**
+         * @brief Set the name identifier of the node. Returns the 'this' pointer.
+         */
+        SceneNode* setName(const std::string &name) ;
 
-            return node;
-        }
+        /**
+         * @brief Set the associated renderable instance of the node. Returns the 'this' pointer.
+         */
+        SceneNode* setRenderable(Renderable *renderable);
 
-        SceneNode* setName(const std::string &name) {
-            m_name = name;
-            return this;
-        }
+        /**
+         * @brief Set transformation matrix of the node. Returns the 'this' pointer.
+         */
+        SceneNode* setMatrix(const Matrix4f &matrix);
 
-        SceneNode* setRenderable(Renderable *renderable) {
-            m_renderable = renderable;
-            return this;
-        }
+        /**
+         * @brief Returns the current identifier name of the node.
+         */
+        std::string getName() const;
 
-        SceneNode* setMatrix(const Matrix4f &matrix) {
-            m_matrix = matrix;
-            return this;
-        }
+        /**
+         * @brief Returns the associated renderable instance of the scene node.
+         */
+        Renderable* getRenderable() const;
 
-        std::string getName() const {
-            return m_name;
-        }
+        /**
+         * @brief Returns the current transformation matrix.
+         */
+        Matrix4f getMatrix() const;
 
-        Renderable* getRenderable() const {
-            return m_renderable;
-        }
+        /**
+         * @brief Returns the total child count.
+         */
+        std::size_t getNodeCount() const ;
 
-        Matrix4f getMatrix() const {
-            return m_matrix;
-        }
-
-        std::size_t getChildCount() const {
-            return m_childs.size();
-        }
-
-        SceneNode* getChild(const std::size_t index) const {
-            return m_childs[index].get();
-        }
+        /**
+         * @brief Returns the node located at the specified index.
+         */
+        SceneNode* getNode(const std::size_t index) const ;
 
     private:
-        std::string m_name;
-        Renderable *m_renderable = nullptr;
-        Matrix4f m_matrix = Matrix4f::makeIdentity();
-        
-        std::vector<SceneNodePtr> m_childs;
+        struct Private;
+        Private *m_impl = nullptr;
     };
 }}
 

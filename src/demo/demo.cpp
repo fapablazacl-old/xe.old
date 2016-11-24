@@ -7,6 +7,8 @@
 #include <xe/gfx/Device.hpp>
 #include <xe/gfx/DeviceInfo.hpp>
 
+#include <xe/sg/SceneNode.hpp>
+
 int main() {
     using xe::Core;
     using xe::input::isPressed;

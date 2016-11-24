@@ -10,4 +10,6 @@ add_definitions(-DXE_SHARED)
 
 add_executable(${target} ${sources})
 
+source_group(\\ FILES ${target})
+
 target_link_libraries(${target} xe UnitTest++)

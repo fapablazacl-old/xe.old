@@ -35,8 +35,8 @@ namespace xe { namespace sg {
             node->getRenderable()->renderWith(m_pipeline);
         }
 
-        for (std::size_t i=0; i<node->getChildCount(); i++) {
-            this->renderNode(transformStack, node->getChild(i));
+        for (std::size_t i=0; i<node->getNodeCount(); i++) {
+            this->renderNode(transformStack, node->getNode(i));
         }
 
         transformStack->pop();
