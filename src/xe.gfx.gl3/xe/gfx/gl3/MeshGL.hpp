@@ -6,16 +6,16 @@
 
 #include <memory>
 #include "xe/DataFormat.hpp"
-#include "xe/gfx/Mesh.hpp"
+#include "xe/gfx/Subset.hpp"
 #include "BufferGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3  {
 
-    class MeshGL : public Mesh {
+    class MeshGL : public Subset {
     public:
         MeshGL() = default;
         
-        MeshGL(const MeshFormat *format, std::vector<BufferPtr> buffers) {
+        MeshGL(const SubsetFormat *format, std::vector<BufferPtr> buffers) {
             this->construct(format, std::move(buffers));
         }
         
@@ -37,19 +37,19 @@ namespace xe { namespace gfx { namespace gl3  {
             return m_buffers[index].get();
         }
 
-        const MeshFormat* getFormat() const override {
+        const SubsetFormat* getFormat() const override {
             return m_format;
         }
 
     protected:
-        //void construct(const MeshFormat &format, std::vector<BufferPtr> buffers);
+        //void construct(const SubsetFormat &format, std::vector<BufferPtr> buffers);
 
-        void construct(const MeshFormat *format, std::vector<BufferPtr> buffers);
+        void construct(const SubsetFormat *format, std::vector<BufferPtr> buffers);
 
     private:
         GLuint m_id = 0;
         std::vector<BufferGLPtr> m_buffers;
-        const MeshFormat *m_format = nullptr;
+        const SubsetFormat *m_format = nullptr;
     };
 
     typedef std::unique_ptr<MeshGL> MeshGLPtr;

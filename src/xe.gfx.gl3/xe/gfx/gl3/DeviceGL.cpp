@@ -80,7 +80,7 @@ namespace xe { namespace gfx { namespace gl3  {
         return std::make_unique<TextureGL>(desc, sourceFormat, sourceType, sourceData);
     }
     
-    MeshPtr DeviceGL::createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers)   { 
+    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers)   { 
         return std::make_unique<MeshGL>(format, std::move(buffers));
     }
 
@@ -131,57 +131,65 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::setMaterial(Material *material) {
-
-        // set rendering flags
-        auto flags = material->flags;
-
-        if (flags.isEnabled(Material::DepthTest)) {
+    void DeviceGL::renderMaterialStatus(const MaterialStatus &status) {
+        if (status.depthTest) {
             glEnable(GL_DEPTH_TEST);
         } else {
             glDisable(GL_DEPTH_TEST);
         }
 
-        if (flags.isEnabled(Material::CullFace)) {
+        if (status.cullFace) {
             glEnable(GL_CULL_FACE);
         } else {
             glDisable(GL_CULL_FACE);
         }
 
-        if (flags.isEnabled(Material::Blending)) {
+        if (status.blending) {
             glEnable(GL_BLEND);
         } else {
             glDisable(GL_BLEND);
         }
 
         XE_GL_CHECK_ERROR();
+    }
+
+    void DeviceGL::renderMaterialLayers(const Material *material) {
+        assert(material);
 
         // apply texturing
-        const auto &layers = material->layers;
-
-        for (size_t i=0; i<layers.size(); i++) {
+        for (std::size_t i=0; i<material->getLayerCount(); i++) {
             glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + i));
 
-            if (layers[i].texture) {
-                auto textureGL = static_cast<TextureGL*>(layers[i].texture);
+            const MaterialLayer *layer = material->getLayer(i);
 
+            if (layer->texture) {
+                auto textureGL = static_cast<TextureGL*>(layer->texture);
                 glBindTexture(textureGL->getTarget(), textureGL->getId());
-
             } else {
                 glBindTexture(GL_TEXTURE_2D, 0);
             }
         }
 
         XE_GL_CHECK_ERROR();
+    }
 
-        // set the uniforms data
-        this->setUniform(material->format, material->getUniformPointer());
+    void DeviceGL::setMaterial(Material *material) {
+        assert(material);
+        
+        if (m_material == material) {
+            return;
+        }
 
-        // change the current material
+        this->renderMaterialStatus(material->getStatus());
+        this->renderMaterialLayers(material);
+
+        // render user defined material attributes
+        material->render(this);
+
         m_material = material;
     }
 
-    void DeviceGL::setMesh(Mesh *mesh) {
+    void DeviceGL::setMesh(Subset *mesh) {
         m_mesh = static_cast<MeshGL*>(mesh);
     }
 

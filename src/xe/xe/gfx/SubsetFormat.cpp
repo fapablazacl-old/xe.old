@@ -1,5 +1,5 @@
 
-#include "MeshFormat.hpp"
+#include "SubsetFormat.hpp"
 
 #include <cassert>
 #include <map>
@@ -7,15 +7,14 @@
 
 namespace xe { namespace gfx {
 
-    struct MeshFormat::Private {
+    struct SubsetFormat::Private {
         std::vector<MeshAttrib> attribs;
         std::set<int> bufferIndices;
         std::map<int, std::vector<MeshAttrib>> indexedAttribs;
-        //std::map<BufferType, std::vector<MeshAttrib>> typedAttribs;
     };
 
-    MeshFormat::MeshFormat(std::initializer_list<MeshAttrib> attribs) 
-        : m_impl(new MeshFormat::Private()) {
+    SubsetFormat::SubsetFormat(std::initializer_list<MeshAttrib> attribs) 
+        : m_impl(new SubsetFormat::Private()) {
 
         for (auto &attrib : attribs) {
             m_impl->attribs.push_back(attrib);
@@ -25,29 +24,29 @@ namespace xe { namespace gfx {
         }
     }
 
-    MeshFormat::~MeshFormat() {
+    SubsetFormat::~SubsetFormat() {
         delete m_impl;
     }
 
-    std::size_t MeshFormat::getAttribCount() const {
+    std::size_t SubsetFormat::getAttribCount() const {
         assert(m_impl);
 
         return m_impl->attribs.size();
     }
 
-    const MeshAttrib* MeshFormat::getAttrib(const std::size_t index) const {
+    const MeshAttrib* SubsetFormat::getAttrib(const std::size_t index) const {
         assert(m_impl);
 
         return &m_impl->attribs[index];
     }
 
-    const std::set<int>& MeshFormat::getBufferIndices() const {
+    const std::set<int>& SubsetFormat::getBufferIndices() const {
         assert(m_impl);
 
         return m_impl->bufferIndices;
     }
 
-    const std::vector<MeshAttrib>& MeshFormat::getAttribs(const int bufferIndex) const {
+    const std::vector<MeshAttrib>& SubsetFormat::getAttribs(const int bufferIndex) const {
         assert(m_impl);
 
         return m_impl->indexedAttribs[bufferIndex];

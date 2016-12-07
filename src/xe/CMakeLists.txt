@@ -50,10 +50,10 @@ set (sources_gfx
     xe/gfx/Program.hpp 
     xe/gfx/Program.cpp
     xe/gfx/ShaderType.hpp
-    xe/gfx/Mesh.hpp 
-    xe/gfx/Mesh.cpp
-	xe/gfx/MeshFormat.hpp 
-    xe/gfx/MeshFormat.cpp
+    xe/gfx/Subset.hpp 
+    xe/gfx/Subset.cpp
+	xe/gfx/SubsetFormat.hpp 
+    xe/gfx/SubsetFormat.cpp
     xe/gfx/Texture.hpp 
     xe/gfx/Texture.cpp
     xe/gfx/Image.hpp
@@ -81,20 +81,10 @@ set (sources_sg
     xe/sg/Pipeline.cpp
     xe/sg/SceneNode.cpp 
     xe/sg/Scene.cpp
-    xe/sg/SceneNodeAnimator.cpp
-    xe/sg/SceneLoader.cpp
-    xe/sg/SceneManager.cpp
-    xe/sg/SceneManagerImpl.cpp
-    xe/sg/SceneLoader.cpp
     xe/sg/Camera.cpp 
     xe/sg/Light.cpp
     xe/sg/Geometry.cpp
-    xe/sg/AssetsLibrary.cpp
-    xe/sg/GeometryLibrary.cpp
-    xe/sg/Renderer.cpp 
-    xe/sg/Pipeline2.cpp 
-    xe/sg/Pipeline2Base.cpp
-
+    
     xe/sg/Forward.hpp 
     xe/sg/Renderable.hpp
     xe/sg/Pipeline.hpp
@@ -112,15 +102,28 @@ set (sources_sg
     xe/sg/IntersectInfo.hpp  
     xe/sg/Sphere.hpp
     xe/sg/Triangle.hpp
-    xe/sg/SceneLoader.hpp
-    xe/sg/SceneManager.hpp
-    xe/sg/SceneManagerImpl.hpp
-    xe/sg/SceneNodeAnimator.hpp
-    xe/sg/AssetsLibrary.hpp
-    xe/sg/GeometryLibrary.hpp
-    xe/sg/Renderer.hpp 
-    xe/sg/Pipeline2.hpp 
-    xe/sg/Pipeline2Base.hpp
+
+	#xe/sg/AssetsLibrary.cpp
+    #xe/sg/GeometryLibrary.cpp
+    #xe/sg/AssetsLibrary.hpp
+	#xe/sg/GeometryLibrary.hpp
+	#xe/sg/Renderer.cpp 
+    #xe/sg/Pipeline2.cpp 
+    #xe/sg/Pipeline2Base.cpp
+	#xe/sg/Mesh.hpp
+	#xe/sg/Mesh.cpp
+	#xe/sg/Renderer.hpp 
+    #xe/sg/Pipeline2.hpp 
+    #xe/sg/Pipeline2Base.hpp
+	#xe/sg/SceneLoader.hpp
+    #xe/sg/SceneManager.hpp
+    #xe/sg/SceneManagerImpl.hpp
+    #xe/sg/SceneNodeAnimator.hpp
+	#xe/sg/SceneNodeAnimator.cpp
+    #xe/sg/SceneLoader.cpp
+    #xe/sg/SceneManager.cpp
+    #xe/sg/SceneManagerImpl.cpp
+    #xe/sg/SceneLoader.cpp
 )
 
 source_group(\\         FILES ${sources})

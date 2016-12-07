@@ -1,6 +1,25 @@
 
 set (target demo)
-set (sources demo.cpp)
+set (sources 
+	Application.hpp 
+	Application.cpp
+
+	PhongMaterial.hpp
+	PhongMaterial.cpp
+	PhongLight.hpp
+	PhongLight.cpp
+	PhongPipeline.hpp
+	PhongPipeline.cpp
+	Mesh.hpp
+	Mesh.cpp
+
+	#ModelPart.hpp
+	#ModelPart.cpp
+	#Model.hpp
+	#Model.cpp
+	#ModelRenderable.hpp
+	#ModelRenderable.cpp
+)
 
 source_group(\\ FILES ${sources})
 

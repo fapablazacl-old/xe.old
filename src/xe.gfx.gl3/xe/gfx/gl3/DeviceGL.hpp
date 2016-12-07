@@ -30,7 +30,7 @@ namespace xe { namespace gfx { namespace gl3  {
             return &m_inputManager;
         }
 
-        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers)  override;
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers)  override;
 
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data)  override;
 
@@ -46,7 +46,7 @@ namespace xe { namespace gfx { namespace gl3  {
         
         virtual void setMaterial(Material *material) override;
 
-        virtual void setMesh(Mesh *mesh) override;
+        virtual void setMesh(Subset *mesh) override;
 
         virtual void draw(Primitive primitive, size_t start, size_t count) override;
 
@@ -59,6 +59,11 @@ namespace xe { namespace gfx { namespace gl3  {
         virtual void setUniform(const UniformDescriptor &desc, const void* uniform) override;
 
         virtual void setUniform(const UniformFormat* format, const void *uniforms) override;
+
+    private:
+        void renderMaterialStatus(const MaterialStatus &status);
+
+        void renderMaterialLayers(const Material *material);
 
     private:
         GLFWwindow *m_window = nullptr;

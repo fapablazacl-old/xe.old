@@ -36,27 +36,50 @@ namespace xe { namespace gfx {
         explicit MaterialLayer(Texture *texture_) : texture(texture_) {}
     };
     
-    class Material {
-    public:
-        enum Enum {
-            None = 0,
-            CullFace = 2,
-            DepthTest = 4,
-            Blending = 8
-        };
-
-        Flags<Enum> flags = None;
-
-        std::vector<MaterialLayer> layers;
-
-        UniformFormat *format = nullptr;
-        
-        explicit Material(UniformFormat *format) {
-            this->format = format;
-        }
-
-        virtual const void* getUniformPointer() const = 0;
+    /**
+     * @brief Material device status
+     */
+    struct MaterialStatus {
+        bool cullFace = false;
+        bool depthTest = false;
+        bool blending = false;
     };
 
-    typedef std::unique_ptr<Material> MaterialPtr;
-}}
+    /** 
+     * @brief Material base class.
+     */
+    class Material {
+    public:
+        Material() {}
+
+        virtual ~Material() = 0{}
+
+        MaterialStatus getStatus() const {
+            return m_status;
+        }
+
+        void setStatus(const MaterialStatus &status) {
+            m_status = status;
+        }
+
+        std::size_t getLayerCount() const {
+            return m_layers.size();
+        }
+
+        MaterialLayer* getLayer(const std::size_t index) {
+            return &m_layers[index];
+        }
+
+        const MaterialLayer* getLayer(const std::size_t index) const {
+            return &m_layers[index];
+        }
+
+        virtual void render(xe::gfx::Device *device) = 0;
+
+    private:
+        std::vector<MaterialLayer> m_layers;
+        MaterialStatus m_status;
+    };
+
+    typedef std::unique_ptr<Material> MaterialPtr; 
+}} 

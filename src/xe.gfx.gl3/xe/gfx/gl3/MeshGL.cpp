@@ -18,7 +18,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
     
-    void MeshGL::construct(const MeshFormat *format, std::vector<BufferPtr> buffers) {
+    void MeshGL::construct(const SubsetFormat *format, std::vector<BufferPtr> buffers) {
         XE_GL_CHECK_ERROR();
 
         m_format = format;

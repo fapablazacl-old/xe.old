@@ -16,7 +16,7 @@ namespace xe { namespace sg {
         virtual ~Pipeline2();
 
         virtual void registerRenderer(const std::type_index &typeInfo, std::unique_ptr<Renderer> renderer) = 0;
-        virtual std::unique_ptr<Renderer> unregisterRenderer(const std::type_index&typeInfo) = 0;
+        virtual std::unique_ptr<Renderer> unregisterRenderer(const std::type_index& typeInfo) = 0;
 
         virtual void setMatrix(const Matrix4f &matrix) = 0;
 

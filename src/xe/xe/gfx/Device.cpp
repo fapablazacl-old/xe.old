@@ -17,17 +17,17 @@ namespace xe { namespace gfx {
         }
     }
 
-    MeshPtr Device::createMesh(const MeshFormat *format, BufferPtr buffer) {
+    SubsetPtr Device::createSubset(const SubsetFormat *format, BufferPtr buffer) {
         assert(format);
         
         std::vector<BufferPtr> buffers;
 
         buffers.push_back(std::move(buffer));
 
-        return this->createMesh(format, std::move(buffers));
+        return this->createSubset(format, std::move(buffers));
     }
 
-    MeshPtr Device::createMesh(const MeshFormat *format, std::vector<BufferCreateParams> createParams) {
+    SubsetPtr Device::createSubset(const SubsetFormat *format, std::vector<BufferCreateParams> createParams) {
         assert(format);
         
         std::vector<BufferPtr> buffers;
@@ -39,6 +39,6 @@ namespace xe { namespace gfx {
             buffers.push_back(std::move(buffer));
         }
         
-        return this->createMesh(format, std::move(buffers));
+        return this->createSubset(format, std::move(buffers));
     }
 }}

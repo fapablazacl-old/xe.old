@@ -1,10 +1,11 @@
 
 #pragma once 
 
-#ifndef __xe_gfx_meshformat_hpp__
-#define __xe_gfx_meshformat_hpp__
+#ifndef __xe_gfx_subsetformat_hpp__
+#define __xe_gfx_subsetformat_hpp__
 
 #include <set>
+#include <memory>
 #include <xe/PreDef.hpp>
 #include <xe/DataFormat.hpp>
 #include <xe/gfx/BufferType.hpp>
@@ -50,16 +51,16 @@ namespace xe { namespace gfx {
     /**
      * @brief Describes the Vertex Structure of a Mesh 
      */
-    class XE_API MeshFormat {
+    class XE_API SubsetFormat {
     public:
-        MeshFormat(const MeshFormat &other) = delete;
+        SubsetFormat(const SubsetFormat &other) = delete;
 
-        MeshFormat& operator=(const MeshFormat &other) = delete;
+        SubsetFormat& operator=(const SubsetFormat &other) = delete;
 
     public:
-        MeshFormat(std::initializer_list<MeshAttrib> attribs);
+        SubsetFormat(std::initializer_list<MeshAttrib> attribs);
         
-        ~MeshFormat();
+        ~SubsetFormat();
 
         /**
          * @brief 
@@ -86,6 +87,8 @@ namespace xe { namespace gfx {
         struct Private;
         Private *m_impl = nullptr;
     };
+
+    typedef std::unique_ptr<SubsetFormat> MeshFormatPtr;
 }}
 
 #endif

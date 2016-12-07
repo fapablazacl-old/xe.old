@@ -9,7 +9,7 @@
 #include <xe/Buffer.hpp>
 #include <xe/Vector.hpp>
 #include <xe/gfx/BufferType.hpp>
-#include <xe/gfx/Mesh.hpp>
+#include <xe/gfx/Subset.hpp>
 #include <xe/gfx/ShaderType.hpp>
 #include <xe/gfx/Program.hpp>
 #include <xe/gfx/Texture.hpp>
@@ -71,11 +71,11 @@ namespace xe { namespace gfx {
 
         virtual const xe::input::InputManager* getInputManager() const = 0;
 
-        virtual MeshPtr createMesh(const MeshFormat *format, BufferPtr buffer);
+        virtual SubsetPtr createSubset(const SubsetFormat *format, BufferPtr buffer);
         
-        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferPtr> buffers) = 0;
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers) = 0;
         
-        virtual MeshPtr createMesh(const MeshFormat *format, std::vector<BufferCreateParams> createParams);
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferCreateParams> createParams);
         
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data=nullptr) = 0;
 
@@ -96,7 +96,7 @@ namespace xe { namespace gfx {
         
         virtual void setMaterial(Material *material) = 0;
 
-        virtual void setMesh(Mesh *mesh) = 0;
+        virtual void setMesh(Subset *mesh) = 0;
 
         virtual void draw(Primitive primitive, size_t start, size_t count) = 0;
 
@@ -125,6 +125,11 @@ namespace xe { namespace gfx {
         template<typename Type>
         void setUniform(const int location, const int count, const Type value) {
             this->setUniform(location, count, &value, 1);
+        }
+
+        template<typename Type>
+        void setUniform(const std::string &name, const int count, const Type value) {
+            this->setUniform(this->getProgram()->getUniform(name), count, &value, 1);
         }
     };
 

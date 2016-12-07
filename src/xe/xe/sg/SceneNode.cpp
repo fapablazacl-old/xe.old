@@ -42,11 +42,12 @@ namespace xe { namespace sg {
         
     void SceneNode::destroyNode(SceneNode *child) {
         assert(child);
+        assert(m_impl);
 
         m_impl->m_childs.erase(this->m_impl->find(child));
     }
 
-    SceneNode* SceneNode::SceneNode::setName(const std::string &name) {
+    SceneNode* SceneNode::setName(const std::string &name) {
         assert(m_impl);
 
         m_impl->m_name = name;
