@@ -4,7 +4,8 @@
 namespace xe { namespace sg {
 
     Mesh::Mesh(std::vector<xe::gfx::SubsetPtr> subsets) 
-        : m_subsets(std::move(subsets)) {}
+        : m_subsets(std::move(subsets)) {
+    }
 
     Mesh::~Mesh() {}
 
@@ -34,27 +35,17 @@ namespace xe { namespace sg {
         return subset;
     }
 
-    void Mesh::setSubsetMaterial(const std::size_t index, xe::gfx::Material* material) {
-        assert(index >= 0);
-        assert(index < this->getSubsetCount());
-        assert(material);
+    Envelope* Mesh::getEnvelope(const std::size_t subsetIndex) {
+        assert(subsetIndex >= 0);
+        assert(subsetIndex < this->getSubsetCount());
 
-        xe::gfx::Subset* subset = this->getSubset(index);
-
-        m_subsetMaterial[subset] = material;
+        return &m_envelopes[subsetIndex];
     }
 
-    xe::gfx::Material* Mesh::getSubsetMaterial(const std::size_t index) const {
-        assert(index >= 0);
-        assert(index < this->getSubsetCount());
+    const Envelope* Mesh::getEnvelope(const std::size_t subsetIndex) const {
+        assert(subsetIndex >= 0);
+        assert(subsetIndex < this->getSubsetCount());
 
-        const xe::gfx::Subset* subset = this->getSubset(index);
-        const auto subsetMaterialIt = m_subsetMaterial.find(subset);
-
-        if (subsetMaterialIt == m_subsetMaterial.end()) {
-            return nullptr;
-        } else {
-            subsetMaterialIt->second;
-        }
+        return &m_envelopes[subsetIndex];
     }
 }}

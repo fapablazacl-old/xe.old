@@ -14,8 +14,6 @@ namespace xe { namespace sg {
             : transformation(transformation_), renderable(renderable_) {
 
             assert(renderable);
-
-            // TODO: Check if the transformation is affine
         }
     };
 
@@ -48,7 +46,7 @@ namespace xe { namespace sg {
         }
     };
 
-    SceneRenderer::SceneRenderer(xe::sg::Pipeline *pipeline) 
+    SceneRenderer::SceneRenderer(xe::sg::Pipeline *pipeline)
         : m_impl(new SceneRenderer::Private()) {
 
         assert(pipeline);
@@ -67,7 +65,7 @@ namespace xe { namespace sg {
         // extract render data
         const xe::Vector4f backColor = scene->getBackColor();
 
-        std::vector<RenderElement> elements = m_impl->filterScene(scene);
+        const std::vector<RenderElement> elements = m_impl->filterScene(scene);
 
         xe::sg::Pipeline *pipeline = m_impl->pipeline;
         assert(pipeline);

@@ -19,6 +19,8 @@ namespace xe { namespace sg {
             {xe::gfx::ShaderType::Vertex, vertexShader}, 
             {xe::gfx::ShaderType::Fragment, fragmentShader}
         });
+
+        assert(m_program);
     }
 
     PhongPipeline::~PhongPipeline() {}
@@ -42,6 +44,9 @@ namespace xe { namespace sg {
     void PhongPipeline::beginFrame(const xe::Vector4f &clearColor) {
         assert(m_device);
         assert(m_program);
+        assert(!m_frame);
+
+        m_frame = true;
 
         m_device->setProgram(m_program.get());
         m_device->beginFrame(xe::gfx::ClearFlags::All, xe::gfx::ClearParams(clearColor));
@@ -51,6 +56,7 @@ namespace xe { namespace sg {
         assert(m_device);
         assert(m_program);
         assert(renderable);
+        assert(m_frame);
 
         auto rendererIt = m_renderers.find(std::type_index(typeid(renderable)));
 
@@ -62,7 +68,9 @@ namespace xe { namespace sg {
     void PhongPipeline::endFrame() {
         assert(m_device);
         assert(m_program);
+        assert(m_frame);
 
+        m_frame = false;
         m_device->endFrame();
     }
 
@@ -115,10 +123,12 @@ uniform vec4 m_specular;
 uniform float m_shininess;
 
 // light data
-const int LT_POINT = 1;
-const int LT_DIRECTIONAL = 2;
+const int LT_POINT = 0;
+const int LT_DIRECTIONAL = 1;
 
 uniform int l_type;
+uniform vec3 l_position;
+uniform vec3 l_direction;
 uniform vec4 l_ambient;
 uniform vec4 l_diffuse;
 uniform vec4 l_specular;

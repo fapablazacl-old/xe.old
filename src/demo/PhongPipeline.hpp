@@ -37,6 +37,8 @@ namespace xe { namespace sg {
         xe::Matrix4f m_projViewModel;
 
         std::map<std::type_index, Renderer*> m_renderers;
+
+        bool m_frame = false;
     };
 }}
 

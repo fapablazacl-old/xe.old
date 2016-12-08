@@ -5,15 +5,27 @@
 #define __xe_sg_mesh_hpp__
 
 #include <vector>
-#include <map>
+#include <xe/gfx/Primitive.hpp>
 #include <xe/gfx/Subset.hpp>
 #include <xe/gfx/Material.hpp>
 
+#include "Renderable.hpp"
+
 namespace xe { namespace sg {
+
+    struct Envelope {
+        xe::gfx::Material *material = nullptr;
+
+        xe::gfx::Primitive primitive = xe::gfx::Primitive::TriangleStrip;
+
+        std::size_t start = 0;
+        std::size_t count = 0;
+    };
+
     /**
      * @brief Geometric mesh class. Used for render static meshes
      */
-    class Mesh {
+    class Mesh : public Renderable {
     public:
         Mesh(std::vector<xe::gfx::SubsetPtr> subsets);
 
@@ -25,13 +37,13 @@ namespace xe { namespace sg {
 
         const xe::gfx::Subset* getSubset(const std::size_t index) const;
 
-        void setSubsetMaterial(const std::size_t index, xe::gfx::Material* material);
+        Envelope* getEnvelope(const std::size_t subsetIndex);
 
-        xe::gfx::Material* getSubsetMaterial(const std::size_t index) const;
+        const Envelope* getEnvelope(const std::size_t subsetIndex) const;
 
     private:
         std::vector<xe::gfx::SubsetPtr> m_subsets;
-        std::map<const xe::gfx::Subset*, xe::gfx::Material*> m_subsetMaterial;
+        std::vector<Envelope> m_envelopes;
     };
 }}
 
