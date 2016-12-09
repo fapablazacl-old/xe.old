@@ -414,6 +414,10 @@ namespace xe {
             return result;
         }
         
+        static M makeTranslate(const Vector<T, R - 1> &displace) {
+            return M::makeTranslate(Vector<T, R>(displace, T(0)));
+        }
+
         static M makeRotateX(const T radians) {
             auto result = M::makeIdentity();
             

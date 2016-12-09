@@ -21,8 +21,11 @@ namespace xe { namespace sg {
             xe::gfx::Subset *subset = mesh->getSubset(i);
             xe::sg::Envelope *envelope = mesh->getEnvelope(i);
 
+            assert(subset);
             assert(envelope);
-
+            assert(envelope->start >= 0);
+            assert(envelope->count > 0);
+            
             // TODO: Think for another method for render materials
             envelope->material->render(m_device);
 

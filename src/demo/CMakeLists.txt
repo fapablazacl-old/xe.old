@@ -8,17 +8,22 @@ set (sources
 	PhongMaterial.cpp
 	PhongLight.hpp
 	PhongLight.cpp
+	PhongLightRenderer.hpp
+	PhongLightRenderer.cpp
 	PhongPipeline.hpp
 	PhongPipeline.cpp
 	Mesh.hpp
 	Mesh.cpp
-
-	#ModelPart.hpp
-	#ModelPart.cpp
-	#Model.hpp
-	#Model.cpp
-	#ModelRenderable.hpp
-	#ModelRenderable.cpp
+	MeshRenderer.hpp
+	MeshRenderer.cpp
+	Renderer.hpp
+	Renderer.cpp
+	Pipeline.hpp
+	Pipeline.cpp
+	SceneRenderer.hpp
+	SceneRenderer.cpp
+	Camera.hpp
+	Camera.cpp
 )
 
 source_group(\\ FILES ${sources})

@@ -23,7 +23,7 @@ namespace xe { namespace sg {
         xe::Vector4f specular = {0.0f, 0.0f, 0.0f, 1.0f};
 
         xe::Vector3f position = {0.0f, 0.0f, 0.0f};
-        xe::Vector3f direction = {0.0f, 0.0f, 0.0f};
+        xe::Vector3f direction = {0.0f, 0.0f, 1.0f};
 
         LightType type = LightType::Directional;
     };
