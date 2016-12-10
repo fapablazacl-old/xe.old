@@ -27,9 +27,14 @@ namespace xe { namespace sg {
      */
     class Mesh : public Renderable {
     public:
+        Mesh(xe::gfx::SubsetPtr subset);
         Mesh(std::vector<xe::gfx::SubsetPtr> subsets);
 
-        ~Mesh();
+        virtual ~Mesh();
+
+        virtual std::type_index getTypeIndex() const override {
+            return std::type_index(typeid(Mesh));
+        }
 
         std::size_t getSubsetCount() const;
 

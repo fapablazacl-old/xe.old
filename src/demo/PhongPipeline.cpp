@@ -4,6 +4,10 @@
 #include "Renderable.hpp"
 #include "Renderer.hpp"
 
+#include "Camera.hpp"
+#include "Mesh.hpp"
+#include "PhongLight.hpp"
+
 #include "CameraRenderer.hpp"
 #include "MeshRenderer.hpp"
 #include "PhongLightRenderer.hpp"
@@ -15,7 +19,7 @@ namespace xe { namespace sg {
     extern const std::string fragmentShader;
 
     PhongPipeline::PhongPipeline(xe::gfx::Device *device) 
-        : m_device(device), m_projViewModel(xe::Matrix4f::makeIdentity()) {
+        : m_device(device) {
 
         assert(device);
 
@@ -27,6 +31,10 @@ namespace xe { namespace sg {
         m_renderersStorage.emplace_back(new CameraRenderer(this));
         m_renderersStorage.emplace_back(new MeshRenderer(m_device));
         m_renderersStorage.emplace_back(new PhongLightRenderer(m_device));
+
+        this->registerRenderer(std::type_index(typeid(xe::sg::Camera)), m_renderersStorage[0].get());
+        this->registerRenderer(std::type_index(typeid(xe::sg::Mesh)), m_renderersStorage[1].get());
+        this->registerRenderer(std::type_index(typeid(xe::sg::PhongLight)), m_renderersStorage[2].get());
 
         assert(m_program);
     }
@@ -96,7 +104,7 @@ namespace xe { namespace sg {
         assert(renderable);
         assert(m_frame);
 
-        auto rendererIt = m_renderers.find(std::type_index(typeid(renderable)));
+        auto rendererIt = m_renderers.find(renderable->getTypeIndex());
 
         assert(rendererIt != m_renderers.end());
 
@@ -139,8 +147,9 @@ out vec3 p_normal;
 out vec2 p_texcoord;
 
 void main() {
-    gl_Position = mat_projViewModel * v_coord;
-    p_texcoord = v_texcoord;
+    gl_Position = mat_projViewModel * vec4(v_coord, 1.0f);
+    p_normal = v_normal;
+    //p_texcoord = v_texcoord;
 }
 
 )";

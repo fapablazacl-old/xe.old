@@ -24,6 +24,11 @@ set (sources
 	SceneRenderer.cpp
 	Camera.hpp
 	Camera.cpp
+	CameraRenderer.hpp
+	CameraRenderer.cpp
+
+	Renderable.cpp
+	Renderable.hpp
 )
 
 source_group(\\ FILES ${sources})

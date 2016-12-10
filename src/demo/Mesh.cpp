@@ -3,8 +3,16 @@
 
 namespace xe { namespace sg {
 
+    Mesh::Mesh(xe::gfx::SubsetPtr subset) {
+        m_subsets.push_back(std::move(subset));
+
+        m_envelopes.resize(m_subsets.size());
+    }
+
     Mesh::Mesh(std::vector<xe::gfx::SubsetPtr> subsets) 
         : m_subsets(std::move(subsets)) {
+
+        m_envelopes.resize(m_subsets.size());
     }
 
     Mesh::~Mesh() {}

@@ -16,6 +16,10 @@ namespace xe { namespace sg {
     public:
         virtual ~Camera() {}
 
+        virtual std::type_index getTypeIndex() const override {
+            return std::type_index(typeid(Camera));
+        }
+
         virtual xe::Matrix4f getProjMatrix() const = 0;
 
         virtual xe::Matrix4f getViewMatrix() const = 0;
@@ -41,7 +45,7 @@ namespace xe { namespace sg {
         xe::Vector3f up = {0.0f, 1.0f, 0.0f};
 
         xe::Matrix4f getViewMatrix() const {
-            xe::Matrix4f::makeLookat(position, lookAt, up);
+            return xe::Matrix4f::makeLookat(position, lookAt, up);
         }
     };
 
@@ -52,7 +56,7 @@ namespace xe { namespace sg {
         float zfar = 1000.0f;
 
         xe::Matrix4f getProjMatrix() const {
-            xe::Matrix4f::makePerspective(fov, aspect, znear, zfar);
+            return xe::Matrix4f::makePerspective(fov, aspect, znear, zfar);
         }
     };
 

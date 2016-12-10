@@ -9,32 +9,22 @@
 #include "xe/sg/SceneNode.hpp"
 
 namespace xe { namespace sg {
-    class Scene {
+    class XE_API Scene {
     public:
         Scene();
         ~Scene();
 
-        const SceneNode* getNode() const {
-            return &m_rootNode;
-        }
+        const SceneNode* getNode() const;
+        
+        SceneNode* getNode();
 
-        SceneNode* getNode() {
-            return &m_rootNode;
-        }
+        Vector4f getBackColor() const;
 
-        Vector4f getBackColor() const {
-            return m_backcolor;
-        }
-
-        Scene* setBackColor(const Vector4f &color) {
-            m_backcolor = color;
-
-            return this;
-        }
+        Scene* setBackColor(const Vector4f &color);
 
     private:
-        Vector4f m_backcolor = {0.2f, 0.2f, 0.2f, 1.0f};
-        SceneNode m_rootNode;
+        struct Private;
+        Private *m_impl = nullptr;
     };
 
     typedef std::unique_ptr<Scene> ScenePtr;

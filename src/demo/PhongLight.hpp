@@ -44,6 +44,10 @@ namespace xe { namespace sg {
 
         void render(xe::gfx::Device *device);
 
+        virtual std::type_index getTypeIndex() const override {
+            return std::type_index(typeid(PhongLight));
+        }
+
     private:
         PhongLightProperties m_properties;
     };

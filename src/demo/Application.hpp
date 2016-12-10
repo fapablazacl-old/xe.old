@@ -13,10 +13,14 @@
 #include <xe/PluginManager.hpp>
 #include <xe/gfx/Manager.hpp>
 #include <xe/gfx/Device.hpp>
+#include <xe/gfx/Material.hpp>
 #include <xe/gfx/DeviceInfo.hpp>
 #include <xe/sg/SceneNode.hpp>
 #include <xe/sg/Scene.hpp>
-#include <xe/sg/Renderable.hpp>
+
+#include "Renderable.hpp"
+#include "SceneRenderer.hpp"
+#include "Pipeline.hpp"
 
 namespace demo {
     class Application : public xe::Core {
@@ -30,21 +34,24 @@ namespace demo {
     private:
         xe::gfx::DevicePtr createDevice();
 
-        xe::gfx::ProgramPtr createProgram();
-
         xe::gfx::MeshFormatPtr createMeshFormat();
 
         xe::sg::ScenePtr createScene();
         
-        std::map<std::string, xe::sg::RenderablePtr> createRenderableMap();
+        std::map<std::string, xe::gfx::MaterialPtr> createMaterials();
+
+        std::map<std::string, xe::sg::RenderablePtr> createRenderables();
 
     private:
         xe::gfx::DevicePtr m_device;
-        xe::gfx::ProgramPtr m_program;
         xe::gfx::MeshFormatPtr m_meshFormat;
         xe::sg::ScenePtr m_scene;
 
-        std::map<std::string, xe::sg::RenderablePtr> m_renderableMap;
+        std::map<std::string, xe::sg::RenderablePtr> m_renderables;
+        std::map<std::string, xe::gfx::MaterialPtr> m_materials;
+
+        std::unique_ptr<xe::sg::Pipeline> m_pipeline;
+        std::unique_ptr<xe::sg::SceneRenderer> m_sceneRenderer;
     };
 }
 
