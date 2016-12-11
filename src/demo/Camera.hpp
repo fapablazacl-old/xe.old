@@ -35,7 +35,6 @@ namespace xe { namespace sg {
         }
 
         virtual xe::Matrix4f getViewMatrix() const {
-            //return xe::Matrix4f::makeIdentity();
             return ViewPolicy::getViewMatrix();
         }
     };
