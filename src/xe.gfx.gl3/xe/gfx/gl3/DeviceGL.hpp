@@ -61,7 +61,7 @@ namespace xe { namespace gfx { namespace gl3  {
         virtual void setUniform(const UniformFormat* format, const void *uniforms) override;
 
     private:
-        void renderMaterialStatus(const MaterialStatus &status);
+        void renderMaterialStatus(const MaterialStatus *status);
 
         void renderMaterialLayers(const Material *material);
 

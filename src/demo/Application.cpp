@@ -273,10 +273,8 @@ namespace demo {
         auto blankMaterial = std::make_unique<PhongMaterial>();
         auto properties = blankMaterial->getProperties();
 
-        properties.ambient = {0.8f, 0.8f, 0.8f, 1.0f};
-        properties.emission = {0.8f, 0.8f, 0.8f, 1.0f};
-
-        blankMaterial->setProperties(properties);
+        properties->ambient = {0.8f, 0.8f, 0.8f, 1.0f};
+        properties->emission = {0.8f, 0.8f, 0.8f, 1.0f};
 
         materials["blank"] = std::move(blankMaterial);
 
