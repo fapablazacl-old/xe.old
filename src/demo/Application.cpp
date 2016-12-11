@@ -61,6 +61,9 @@ namespace demo {
             std::uint32_t rows;
             std::uint32_t cols;
 
+            Grid(std::uint32_t base_, std::uint32_t rows_, std::uint32_t cols_)
+                : base(base_), rows(rows_), cols(cols_) {}
+
             std::uint32_t index(const std::uint32_t i, const std::uint32_t j) const {
                 assert(i >= 0);
                 assert(i < rows);
@@ -207,7 +210,11 @@ namespace demo {
 
             const float rad_angle = angle * 3.1415926535f / 180.0f;
 
-            m_meshNode->setMatrix(xe::Matrix4f::makeRotateY(rad_angle));
+            const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
+            const auto rotationY = xe::Matrix4f::makeRotateY(rad_angle);
+            const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
+
+            m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
 
             m_sceneRenderer->renderFrame(m_scene.get());
         }
@@ -252,9 +259,9 @@ namespace demo {
         renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
 
         // create a colored triangle mesh
-        std::vector<xe::Vector3f> coords = gensphere(1.0f, 16, 16);
+        std::vector<xe::Vector3f> coords = gensphere(1.0f, 5, 4);
         std::vector<xe::Vector3f> normals = genellipsoidnormals(coords);
-        std::vector<std::uint32_t> indices = gensphereindices(16, 16);
+        std::vector<std::uint32_t> indices = gensphereindices(5, 4);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
@@ -282,7 +289,7 @@ namespace demo {
         auto status = blankMaterial->getStatus();
 
         status->cullFace = true;
-
+        status->depthTest = true;
 
         auto properties = blankMaterial->getProperties();
 
@@ -305,7 +312,7 @@ namespace demo {
         auto scene = std::make_unique<xe::sg::Scene>();
 
         scene
-            ->setBackColor({0.2f, 0.2f, 0.8f, 1.0f})
+            ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
             ->getNode()->setRenderable(lookAtCamera)
                 ->createNode()->setRenderable(triangleMesh);
 

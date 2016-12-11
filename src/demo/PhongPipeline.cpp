@@ -192,7 +192,7 @@ void main() {
 
     float factor = min(0.0f, dot(l_direction, p_normal));
 
-    vec4 diffuse = factor*(l_diffuse * m_diffuse);
+    vec4 diffuse = factor * (l_diffuse * m_diffuse);
 
     p_color = m_emission + m_ambient + diffuse;
 }
