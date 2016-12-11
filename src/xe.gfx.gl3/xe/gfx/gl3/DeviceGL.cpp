@@ -131,20 +131,22 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::renderMaterialStatus(const MaterialStatus &status) {
-        if (status.depthTest) {
+    void DeviceGL::renderMaterialStatus(const MaterialStatus *status) {
+        assert(status);
+
+        if (status->depthTest) {
             glEnable(GL_DEPTH_TEST);
         } else {
             glDisable(GL_DEPTH_TEST);
         }
 
-        if (status.cullFace) {
+        if (status->cullFace) {
             glEnable(GL_CULL_FACE);
         } else {
             glDisable(GL_CULL_FACE);
         }
 
-        if (status.blending) {
+        if (status->blending) {
             glEnable(GL_BLEND);
         } else {
             glDisable(GL_BLEND);

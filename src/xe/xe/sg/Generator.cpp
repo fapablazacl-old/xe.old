@@ -5,6 +5,23 @@
 
 namespace xe { namespace sg {
 
+    //struct Triangle {
+    //    Triangle(const xe::Vector3f p0_, const xe::Vector3f p1_, const xe::Vector3f p2_) 
+    //        : p0(p0_), p1(p1_), p2(p2_), normal(getNormal()) {
+    //    }
+
+    //    const xe::Vector3f p0, p1, p2;
+    //    const xe::Vector3f normal;
+
+    //private:
+    //    xe::Vector3f getNormal() const {
+    //        const xe::Vector3f v1 = p1 - p0;
+    //        const xe::Vector3f v2 = p2 - p0;
+
+    //        return xe::normalize(xe::cross(v1, v2));
+    //    }
+    //};
+
     std::vector<xe::Vector3f> Generator::genNormals(const std::vector<xe::Vector3f> &coords) const  {
         assert(coords.size()%3 == 0);
 
@@ -13,8 +30,12 @@ namespace xe { namespace sg {
         normals.resize(coords.size());
 
         for (std::size_t i=0; i<coords.size(); i+=3) {
-            const xe::Vector3f v1 = coords[i + 1] - coords[i + 0];
-            const xe::Vector3f v2 = coords[i + 2] - coords[i + 0];
+            const xe::Vector3f p0 = coords[i + 0];
+            const xe::Vector3f p1 = coords[i + 1];
+            const xe::Vector3f p2 = coords[i + 2];
+
+            const xe::Vector3f v1 = p1 - p0;
+            const xe::Vector3f v2 = p2 - p0;
             const xe::Vector3f normal = xe::normalize(xe::cross(v1, v2));
 
             normals[i + 0] = normal;
@@ -23,6 +44,34 @@ namespace xe { namespace sg {
         }
 
         return normals;
+    }
+
+    std::vector<xe::Vector3f> Generator::genNormals(const std::vector<xe::Vector3f> &coords, const std::vector<std::uint32_t> &indices) const {
+        assert(indices.size() > 0);
+        assert(indices.size() % 3 == 0);
+
+        std::vector<xe::Vector3f> normals;
+
+        normals.resize(coords.size());
+
+        for (std::size_t i=0; i<indices.size(); i+=3) {
+            const xe::Vector3f p0 = coords[indices[i + 0]];
+            const xe::Vector3f p1 = coords[indices[i + 1]];
+            const xe::Vector3f p2 = coords[indices[i + 2]];
+
+            const xe::Vector3f v1 = p1 - p0;
+            const xe::Vector3f v2 = p2 - p0;
+            const xe::Vector3f normal = xe::normalize(xe::cross(v1, v2));
+
+            normals[indices[i + 0]] = normal;
+            normals[indices[i + 1]] = normal;
+            normals[indices[i + 2]] = normal;
+        }
+
+        return normals;
+    }
+    std::size_t SphereGenerator::getCoordCount() const {
+        return (stacks - 1) * slices + 2;
     }
 
     std::vector<xe::Vector3f> SphereGenerator::genCoords(const float radius) const {
@@ -45,7 +94,7 @@ namespace xe { namespace sg {
 
         std::vector<xe::Vector3f> points;
 
-        points.reserve((stacks - 1) * slices + 2);
+        points.reserve(this->getCoordCount());
 
         points.push_back(point);
 
@@ -130,24 +179,24 @@ namespace xe { namespace sg {
         }
 
         // bottom indices
-        std::uint32_t lastPoint = ((std::uint32_t)stacks - 1) * (std::uint32_t)slices + 2 - 1;    // compute sphere point count
+        const std::uint32_t lastPoint = (std::uint32_t)this->getCoordCount() - 1;    // compute sphere point count
 
         for (std::uint32_t i=1; i<slices; i++) {
             indices.push_back(lastPoint);
             indices.push_back(lastPoint - (i + 1));
-            indices.push_back(lastPoint + i);
+            indices.push_back(lastPoint - i);
         }
 
         indices.push_back(lastPoint);
         indices.push_back(lastPoint - 1);
         indices.push_back(lastPoint - (std::uint32_t)slices);
-
+        
         return indices;
     }
 
     /**
-        * @brief Generate the normal for any ellipsoid object (including spheres)
-        */
+     * @brief Generate the normal for any ellipsoid object (including spheres)
+     */
     std::vector<xe::Vector3f> SphereGenerator::genNormals(const std::vector<xe::Vector3f> &coords) const {
         std::vector<xe::Vector3f> normals;
 

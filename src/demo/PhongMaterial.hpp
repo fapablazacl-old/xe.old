@@ -25,12 +25,12 @@ namespace demo {
 
         virtual void render(xe::gfx::Device *device) override;
 
-        void setProperties(const PhongMaterialProperties &properties) {
-            m_properties = properties;
+        PhongMaterialProperties* getProperties() {
+            return &m_properties;
         }
 
-        PhongMaterialProperties getProperties() const {
-            return m_properties;
+        const PhongMaterialProperties* getProperties() const {
+            return &m_properties;
         }
 
     private:

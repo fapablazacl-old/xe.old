@@ -12,12 +12,12 @@
 namespace xe { namespace sg {
 
     struct XE_API Generator {
-        /**
-         * @brief Default normal generator.
-         */
         std::vector<xe::Vector3f> genNormals(const std::vector<xe::Vector3f> &coords) const;
-    };
 
+        std::vector<xe::Vector3f> genNormals(const std::vector<xe::Vector3f> &coords, const std::vector<std::uint32_t> &indices) const;
+
+        //std::vector<xe::Vector3f> genSmoothNormals(const std::vector<xe::Vector3f> &coords, const std::vector<std::uint32_t> &indices) const;
+    };
 
     struct XE_API SphereGenerator {
         std::size_t slices = 4;
@@ -27,6 +27,9 @@ namespace xe { namespace sg {
 
         SphereGenerator(const std::size_t slices_, const std::size_t stacks_)
             : slices(slices_), stacks(stacks_) {}
+
+
+        std::size_t getCoordCount() const;
 
         std::vector<xe::Vector3f> genCoords(const float radius) const;
 

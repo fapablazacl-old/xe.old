@@ -109,28 +109,6 @@ namespace xe { namespace gfx {
         virtual void setUniform(const UniformDescriptor &desc, const void* uniform) = 0;
 
         virtual void setUniform(const UniformFormat* format, const void *uniforms);
-
-        template<typename Type>
-        void setUniform(const int location, const int count, const Type *values, const int size) {
-            UniformDescriptor desc;
-
-            desc.type = xe::getDataType<Type>();
-            desc.dim = count;
-            desc.location = location;
-            desc.count = size;
-
-            this->setUniform(desc, values);
-        }
-
-        template<typename Type>
-        void setUniform(const int location, const int count, const Type value) {
-            this->setUniform(location, count, &value, 1);
-        }
-
-        template<typename Type>
-        void setUniform(const std::string &name, const int count, const Type value) {
-            this->setUniform(this->getProgram()->getUniform(name), count, &value, 1);
-        }
     };
 
     typedef std::unique_ptr<Device> DevicePtr;

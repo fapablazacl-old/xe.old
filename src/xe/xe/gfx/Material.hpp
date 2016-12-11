@@ -52,14 +52,14 @@ namespace xe { namespace gfx {
     public:
         Material() {}
 
-        virtual ~Material() = 0{}
+        virtual ~Material() {}
 
-        MaterialStatus getStatus() const {
-            return m_status;
+        const MaterialStatus* getStatus() const {
+            return &m_status;
         }
 
-        void setStatus(const MaterialStatus &status) {
-            m_status = status;
+        MaterialStatus* getStatus() {
+            return &m_status;
         }
 
         std::size_t getLayerCount() const {

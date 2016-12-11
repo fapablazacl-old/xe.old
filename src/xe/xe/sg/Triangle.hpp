@@ -1,19 +1,8 @@
-/**
- * @file Triangle.hpp
- * @brief Defines the Triangle structure
- */
 
+#pragma once
 
-/*
- * Copyright (c) 2013 Felipe Apablaza.
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution.
- */
-
-
-#ifndef __EXENG_SCENEGRAPH_TRIANGLE_HPP__
-#define __EXENG_SCENEGRAPH_TRIANGLE_HPP__
+#ifndef __xe_sg_triangle_hpp__
+#define __xe_sg_triangle_hpp__
 
 #include <xe/sg/Plane.hpp>
 #include <xe/sg/Ray.hpp>

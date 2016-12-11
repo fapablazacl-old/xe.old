@@ -24,23 +24,34 @@ namespace demo {
         m_renderables = this->createRenderables();
         m_scene = this->createScene();
 
+        m_meshNode = m_scene->getNode()->getNode(0);
+        assert(m_meshNode);
+
         auto inputManager = m_device->getInputManager();
         auto keyboardStatus = inputManager->getKeyboard()->getStatus();
         
         float angle = 0.0f;
     
         while(true) {
-            angle ++;
-        
+            angle += 0.3f;
+
             if (angle > 360.0f) {
                 angle = 0.0f;
             }
-        
+
             inputManager->poll();
 
             if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyEsc))) {
                 break;
             }
+
+            const float rad_angle = xe::radians(angle);
+
+            const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
+            const auto rotationY = xe::Matrix4f::makeRotateY(rad_angle);
+            const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
+
+            m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
 
             m_sceneRenderer->renderFrame(m_scene.get());
         }
@@ -85,11 +96,13 @@ namespace demo {
         renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
 
         // create a colored triangle mesh
-        xe::sg::SphereGenerator generator(16, 16);
+        xe::sg::Generator generator;
+        xe::sg::SphereGenerator sphereGenerator(16, 16);
 
-        std::vector<xe::Vector3f> coords = generator.genCoords(1.0f);
-        std::vector<xe::Vector3f> normals = generator.genNormals(coords);
-        std::vector<std::uint32_t> indices = generator.genIndices();
+        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(1.0f);
+        std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
+
+        std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
@@ -113,12 +126,17 @@ namespace demo {
         std::map<std::string, xe::gfx::MaterialPtr> materials;
 
         auto blankMaterial = std::make_unique<PhongMaterial>();
+
+        auto status = blankMaterial->getStatus();
+
+        status->cullFace = true;
+        status->depthTest = true;
+
         auto properties = blankMaterial->getProperties();
 
-        properties.ambient = {0.8f, 0.8f, 0.8f, 1.0f};
-        properties.emission = {0.8f, 0.8f, 0.8f, 1.0f};
-
-        blankMaterial->setProperties(properties);
+        properties->ambient = {0.8f, 0.8f, 0.8f, 1.0f};
+        properties->emission = {0.2f, 0.2f, 0.2f, 1.0f};
+        properties->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
 
         materials["blank"] = std::move(blankMaterial);
 
@@ -135,7 +153,7 @@ namespace demo {
         auto scene = std::make_unique<xe::sg::Scene>();
 
         scene
-            ->setBackColor({0.2f, 0.2f, 0.8f, 1.0f})
+            ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
             ->getNode()->setRenderable(lookAtCamera)
                 ->createNode()->setRenderable(triangleMesh);
 
