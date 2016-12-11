@@ -47,6 +47,9 @@ namespace demo {
         xe::gfx::MeshFormatPtr m_meshFormat;
         xe::sg::ScenePtr m_scene;
 
+        xe::sg::SceneNode *m_meshNode = nullptr;
+        float m_angle = 0.0f;
+
         std::map<std::string, xe::sg::RenderablePtr> m_renderables;
         std::map<std::string, xe::gfx::MaterialPtr> m_materials;
 

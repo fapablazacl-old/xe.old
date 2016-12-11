@@ -148,7 +148,7 @@ out vec2 p_texcoord;
 
 void main() {
     gl_Position = mat_projViewModel * vec4(v_coord, 1.0f);
-    p_normal = v_normal;
+    p_normal = (mat_projViewModel * vec4(v_normal, 0.0f)).xyz;
     //p_texcoord = v_texcoord;
 }
 
@@ -158,6 +158,7 @@ void main() {
 #version 330
 
 // vertex data
+
 in vec3 p_normal;
 //in vec2 p_texcoord;
 
@@ -171,6 +172,7 @@ uniform vec4 m_emission;
 uniform float m_shininess;
 
 // light data
+/*
 const int LT_POINT = 0;
 const int LT_DIRECTIONAL = 1;
 
@@ -181,9 +183,18 @@ uniform vec3 l_direction;
 uniform vec4 l_ambient;
 uniform vec4 l_diffuse;
 uniform vec4 l_specular;
+*/
 
 void main() {
-    p_color = m_emission + m_ambient;
+    // consider only the light position
+    vec3 l_direction = normalize(vec3(1.0f, -0.25, 1.0f));
+    vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+    float factor = min(0.0f, dot(l_direction, p_normal));
+
+    vec4 diffuse = factor*(l_diffuse * m_diffuse);
+
+    p_color = m_emission + m_ambient + diffuse;
 }
 )";
 

@@ -184,6 +184,9 @@ namespace demo {
         m_renderables = this->createRenderables();
         m_scene = this->createScene();
 
+        m_meshNode = m_scene->getNode()->getNode(0);
+        assert(m_meshNode);
+
         auto inputManager = m_device->getInputManager();
         auto keyboardStatus = inputManager->getKeyboard()->getStatus();
         
@@ -191,16 +194,20 @@ namespace demo {
     
         while(true) {
             angle ++;
-        
+
             if (angle > 360.0f) {
                 angle = 0.0f;
             }
-        
+
             inputManager->poll();
 
             if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyEsc))) {
                 break;
             }
+
+            const float rad_angle = angle * 3.1415926535f / 180.0f;
+
+            m_meshNode->setMatrix(xe::Matrix4f::makeRotateY(rad_angle));
 
             m_sceneRenderer->renderFrame(m_scene.get());
         }
@@ -271,10 +278,17 @@ namespace demo {
         std::map<std::string, xe::gfx::MaterialPtr> materials;
 
         auto blankMaterial = std::make_unique<PhongMaterial>();
+
+        auto status = blankMaterial->getStatus();
+
+        status->cullFace = true;
+
+
         auto properties = blankMaterial->getProperties();
 
         properties->ambient = {0.8f, 0.8f, 0.8f, 1.0f};
-        properties->emission = {0.8f, 0.8f, 0.8f, 1.0f};
+        properties->emission = {0.2f, 0.2f, 0.2f, 1.0f};
+        properties->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
 
         materials["blank"] = std::move(blankMaterial);
 
