@@ -84,6 +84,7 @@ set (sources_sg
     xe/sg/Camera.cpp 
     xe/sg/Light.cpp
     xe/sg/Geometry.cpp
+	xe/sg/Generator.cpp
     
     xe/sg/Forward.hpp 
     xe/sg/Renderable.hpp
@@ -102,6 +103,8 @@ set (sources_sg
     xe/sg/IntersectInfo.hpp  
     xe/sg/Sphere.hpp
     xe/sg/Triangle.hpp
+	xe/sg/Generator.hpp
+	xe/sg/Generators.hpp
 
 	#xe/sg/AssetsLibrary.cpp
     #xe/sg/GeometryLibrary.cpp

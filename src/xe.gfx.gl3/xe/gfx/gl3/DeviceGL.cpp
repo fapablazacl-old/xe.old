@@ -262,7 +262,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
 #if defined(_DEBUG)
         if (location > -1) {
-            std::clog << "DeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been linked into the shader. Ignoring uniform." << std::endl;
+            std::clog << "DeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been used in the shader, or isn't defined. Ignoring uniform." << std::endl;
         }
 #endif
 

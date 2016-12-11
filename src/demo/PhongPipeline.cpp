@@ -171,6 +171,7 @@ uniform vec4 m_emission;
 uniform float m_shininess;
 
 // light data
+/*
 const int LT_POINT = 0;
 const int LT_DIRECTIONAL = 1;
 
@@ -181,8 +182,15 @@ uniform vec3 l_direction;
 uniform vec4 l_ambient;
 uniform vec4 l_diffuse;
 uniform vec4 l_specular;
+*/
 
 void main() {
+    vec3 l_position = vec3(0.0f, 0.0f, 5.0f);
+    vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+    
+
+
     p_color = m_emission + m_ambient;
 }
 )";
