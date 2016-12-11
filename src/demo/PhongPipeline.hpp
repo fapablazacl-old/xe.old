@@ -19,7 +19,7 @@ namespace xe { namespace sg {
 
         virtual xe::Matrix4f getTransformation() const override;
 
-        virtual void setTransformation(const xe::Matrix4f &transformation) override;
+        virtual void setModelMatrix(const xe::Matrix4f &transformation) override;
 
         virtual void setProjMatrix(const xe::Matrix4f &proj);
 

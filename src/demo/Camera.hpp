@@ -35,6 +35,7 @@ namespace xe { namespace sg {
         }
 
         virtual xe::Matrix4f getViewMatrix() const {
+            //return xe::Matrix4f::makeIdentity();
             return ViewPolicy::getViewMatrix();
         }
     };
@@ -50,10 +51,10 @@ namespace xe { namespace sg {
     };
 
     struct PerspectiveProjPolicy {
-        float fov = 3.1415926f*2.0f/3.0f;
+        float fov = 60.0f * 3.1415926535f / 180.0f;
         float aspect = 1.333333f;
         float znear = 0.1f;
-        float zfar = 1000.0f;
+        float zfar = 100.0f;
 
         xe::Matrix4f getProjMatrix() const {
             return xe::Matrix4f::makePerspective(fov, aspect, znear, zfar);

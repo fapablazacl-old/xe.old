@@ -74,7 +74,7 @@ namespace xe { namespace sg {
         pipeline->beginFrame(backColor);
 
         for (const RenderElement &element : elements) {
-            pipeline->setTransformation(element.transformation);
+            pipeline->setModelMatrix(element.transformation);
             pipeline->render(element.renderable);
         }
 

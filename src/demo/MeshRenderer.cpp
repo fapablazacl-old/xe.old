@@ -26,9 +26,7 @@ namespace xe { namespace sg {
             assert(envelope->start >= 0);
             assert(envelope->count > 0);
             
-            // TODO: Think for another method for render materials
-            envelope->material->render(m_device);
-
+            m_device->setMaterial(envelope->material);
             m_device->setMesh(subset);
             m_device->draw(envelope->primitive, envelope->start, envelope->count);
         }

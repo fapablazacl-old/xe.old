@@ -25,7 +25,6 @@ namespace xe {
         Matrix() = default;
         
         Matrix(std::initializer_list<T> params) {
-            //static_assert(params.size() == R * C, "Initializer list constructor doesn't match the matrix size.");
             assert(params.size() == R * C);
             
             std::copy(params.begin(), params.end(), values);
@@ -415,7 +414,7 @@ namespace xe {
         }
         
         static M makeTranslate(const Vector<T, R - 1> &displace) {
-            return M::makeTranslate(Vector<T, R>(displace, T(0)));
+            return M::makeTranslate(Vector<T, R>(displace, T(1)));
         }
 
         static M makeRotateX(const T radians) {
@@ -511,9 +510,9 @@ namespace xe {
         }
         
         static Matrix<T, 4, 4> makeLookat(const Vector<T, 3> &Eye, const Vector<T, 3> &At, const Vector<T, 3> &Up) {
-            auto forward = normalize(At - Eye);
-            auto side = normalize(cross(forward, Up));
-            auto up = cross(side, forward);
+            const auto forward = normalize(At - Eye);
+            const auto side = normalize(cross(forward, Up));
+            const auto up = cross(side, forward);
             
             auto result = Matrix<T, 4, 4>::makeIdentity();
             
@@ -535,8 +534,8 @@ namespace xe {
         }
         
         static Matrix<T, 4, 4> makePerspective(T fov_radians, T aspect, T znear, T zfar) {
-            T f = T(1) / std::tan(fov_radians / T(2));
-            T zdiff = znear - zfar;
+            const T f = T(1) / std::tan(fov_radians / T(2));
+            const T zdiff = znear - zfar;
             
             auto result = Matrix<T, 4, 4>::makeIdentity();
             

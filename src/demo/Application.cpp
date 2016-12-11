@@ -84,7 +84,10 @@ namespace demo {
         std::vector<float> vertices = {
             0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
             0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 
+            0.0f, 0.5f, 0.0f, 0.0f, 0.0f, -1.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f, 
+            0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f
         };
 
         std::vector<xe::gfx::BufferCreateParams> params = {
@@ -95,10 +98,10 @@ namespace demo {
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["blank"].get();
-        mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleStrip;
-        mesh->getEnvelope(0)->count = 3;
+        mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
+        mesh->getEnvelope(0)->count = 6;
 
-        m_renderables["triangleMesh"] = std::move(mesh);
+        renderables["triangleMesh"] = std::move(mesh);
 
         return renderables;
     }
@@ -113,12 +116,18 @@ namespace demo {
     }
 
     xe::sg::ScenePtr Application::createScene() {
+        xe::sg::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
+        xe::sg::Renderable* triangleMesh = m_renderables["triangleMesh"].get();
+
+        assert(lookAtCamera);
+        assert(triangleMesh);
+
         auto scene = std::make_unique<xe::sg::Scene>();
 
         scene
             ->setBackColor({0.2f, 0.2f, 0.8f, 1.0f})
-            ->getNode()->setRenderable(m_renderables["lookAtCamera"].get())
-                ->createNode()->setRenderable(m_renderables["triangleMesh"].get());
+            ->getNode()->setRenderable(lookAtCamera)
+                ->createNode()->setRenderable(triangleMesh);
 
         return scene;
     }

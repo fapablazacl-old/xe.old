@@ -17,7 +17,7 @@ namespace xe { namespace sg {
 
         virtual xe::Matrix4f getTransformation() const = 0;
 
-        virtual void setTransformation(const xe::Matrix4f &transformation) = 0;
+        virtual void setModelMatrix(const xe::Matrix4f &transformation) = 0;
 
         virtual void beginFrame(const xe::Vector4f &clearColor) = 0;
 

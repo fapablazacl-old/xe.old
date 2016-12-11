@@ -57,7 +57,7 @@ namespace xe { namespace sg {
         m_device->setUniformMatrix(location, 1, false, m_projViewModel.getPtr());
     }
 
-    void PhongPipeline::setTransformation(const xe::Matrix4f &transformation) {
+    void PhongPipeline::setModelMatrix(const xe::Matrix4f &transformation) {
         assert(m_device);
         assert(m_program);
         assert(m_device->getProgram() == m_program.get());
