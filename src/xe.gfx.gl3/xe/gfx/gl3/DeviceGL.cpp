@@ -254,34 +254,43 @@ namespace xe { namespace gfx { namespace gl3  {
         assert(desc.dim <= 4);
         assert(desc.count > 0);
         assert(uniform);
+        assert(m_program);
 
         const auto count = static_cast<GLsizei>(desc.count);
+
+        const GLint location = m_program->getUniform(desc.name);
+
+#if defined(_DEBUG)
+        if (location > -1) {
+            std::clog << "DeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been linked into the shader. Ignoring uniform." << std::endl;
+        }
+#endif
 
         switch (desc.type) {
         case xe::DataType::Int32:
             switch (desc.dim) {
-                case 1: glUniform1iv(desc.location, count, (const GLint*)uniform); break;
-                case 2: glUniform2iv(desc.location, count, (const GLint*)uniform); break;
-                case 3: glUniform3iv(desc.location, count, (const GLint*)uniform); break;
-                case 4: glUniform4iv(desc.location, count, (const GLint*)uniform); break;
+                case 1: glUniform1iv(location, count, (const GLint*)uniform); break;
+                case 2: glUniform2iv(location, count, (const GLint*)uniform); break;
+                case 3: glUniform3iv(location, count, (const GLint*)uniform); break;
+                case 4: glUniform4iv(location, count, (const GLint*)uniform); break;
             }
             break;
             
         case xe::DataType::Float32:
             switch (desc.dim) {
-                case 1: glUniform1fv(desc.location, count, (const GLfloat*)uniform); break;
-                case 2: glUniform2fv(desc.location, count, (const GLfloat*)uniform); break;
-                case 3: glUniform3fv(desc.location, count, (const GLfloat*)uniform); break;
-                case 4: glUniform4fv(desc.location, count, (const GLfloat*)uniform); break;
+                case 1: glUniform1fv(location, count, (const GLfloat*)uniform); break;
+                case 2: glUniform2fv(location, count, (const GLfloat*)uniform); break;
+                case 3: glUniform3fv(location, count, (const GLfloat*)uniform); break;
+                case 4: glUniform4fv(location, count, (const GLfloat*)uniform); break;
             }
             break;
 
         case xe::DataType::UInt32:
             switch (desc.dim) {
-                case 1: glUniform1uiv(desc.location, count, (const GLuint*)uniform); break;
-                case 2: glUniform2uiv(desc.location, count, (const GLuint*)uniform); break;
-                case 3: glUniform3uiv(desc.location, count, (const GLuint*)uniform); break;
-                case 4: glUniform4uiv(desc.location, count, (const GLuint*)uniform); break;
+                case 1: glUniform1uiv(location, count, (const GLuint*)uniform); break;
+                case 2: glUniform2uiv(location, count, (const GLuint*)uniform); break;
+                case 3: glUniform3uiv(location, count, (const GLuint*)uniform); break;
+                case 4: glUniform4uiv(location, count, (const GLuint*)uniform); break;
             }
             break;
 

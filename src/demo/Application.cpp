@@ -270,7 +270,15 @@ namespace demo {
     std::map<std::string, xe::gfx::MaterialPtr> Application::createMaterials() {
         std::map<std::string, xe::gfx::MaterialPtr> materials;
 
-        materials["blank"] = std::make_unique<PhongMaterial>();
+        auto blankMaterial = std::make_unique<PhongMaterial>();
+        auto properties = blankMaterial->getProperties();
+
+        properties.ambient = {0.8f, 0.8f, 0.8f, 1.0f};
+        properties.emission = {0.8f, 0.8f, 0.8f, 1.0f};
+
+        blankMaterial->setProperties(properties);
+
+        materials["blank"] = std::move(blankMaterial);
 
         return materials;
     }

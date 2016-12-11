@@ -6,8 +6,7 @@
 
 namespace xe { namespace gfx {
     struct UniformDescriptor : public xe::Attrib {
-        int location = -1;    //! Location
-        size_t count = 0;        //! How many elements has the array
+        size_t count = 0;   //! How many elements has the array
 
         size_t getSize() const {
             return count * xe::Attrib::getSize();

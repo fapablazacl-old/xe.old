@@ -167,6 +167,7 @@ out vec4 p_color;
 uniform vec4 m_ambient;
 uniform vec4 m_diffuse;
 uniform vec4 m_specular;
+uniform vec4 m_emission;
 uniform float m_shininess;
 
 // light data
@@ -176,12 +177,13 @@ const int LT_DIRECTIONAL = 1;
 uniform int l_type;
 uniform vec3 l_position;
 uniform vec3 l_direction;
+
 uniform vec4 l_ambient;
 uniform vec4 l_diffuse;
 uniform vec4 l_specular;
 
 void main() {
-    p_color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    p_color = m_emission + m_ambient;
 }
 )";
 
