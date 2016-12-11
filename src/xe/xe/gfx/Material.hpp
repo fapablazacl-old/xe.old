@@ -52,7 +52,7 @@ namespace xe { namespace gfx {
     public:
         Material() {}
 
-        virtual ~Material() = 0{}
+        virtual ~Material() {}
 
         MaterialStatus getStatus() const {
             return m_status;
