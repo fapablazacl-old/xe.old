@@ -102,7 +102,7 @@ namespace demo {
         std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(1.0f);
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
 
-        std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
+        std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
@@ -134,7 +134,7 @@ namespace demo {
 
         auto properties = blankMaterial->getProperties();
 
-        properties->ambient = {0.8f, 0.8f, 0.8f, 1.0f};
+        properties->ambient = {0.2f, 0.2f, 0.2f, 1.0f};
         properties->emission = {0.2f, 0.2f, 0.2f, 1.0f};
         properties->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
 

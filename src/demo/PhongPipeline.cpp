@@ -158,7 +158,6 @@ void main() {
 #version 330
 
 // vertex data
-
 in vec3 p_normal;
 //in vec2 p_texcoord;
 
@@ -186,14 +185,22 @@ uniform vec4 l_specular;
 */
 
 void main() {
-    vec3 l_direction = normalize(vec3(1.0f, -0.25, 1.0f));
-    vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    const vec3 l_direction = normalize(vec3(1.0f, -0.25, -1.0f));
+    const vec4 l_ambient = vec4(0.2f, 0.2f, 0.2f, 1.0f);
+    const vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    
+    // compute emission compoennt
+    vec4 emission = m_emission;
 
-    float factor = min(0.0f, dot(l_direction, p_normal));
+    // compute ambient component
+    vec4 ambient = l_ambient * m_ambient;
 
+    // compute diffuse component
+    float factor = max(0.0f, dot(l_direction, p_normal));
     vec4 diffuse = factor * (l_diffuse * m_diffuse);
 
-    p_color = m_emission + m_ambient + diffuse;
+    // compute final color
+    p_color = emission + ambient + diffuse;
 }
 )";
 
