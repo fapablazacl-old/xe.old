@@ -62,8 +62,10 @@ namespace xe { namespace gfx { namespace gl3  {
 
     private:
         void renderMaterialStatus(const MaterialStatus *status);
+        
+        void postRenderMaterialLayers(const Material *material);
 
-        void renderMaterialLayers(const Material *material);
+        void preRenderMaterialLayers(const Material *material);
 
     private:
         GLFWwindow *m_window = nullptr;

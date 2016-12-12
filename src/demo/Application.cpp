@@ -6,6 +6,7 @@
 #include "Camera.hpp"
 #include "PhongMaterial.hpp"
 #include "PhongPipeline.hpp"
+#include "PhongLight.hpp"
 #include "Mesh.hpp"
 
 namespace demo {
@@ -24,7 +25,7 @@ namespace demo {
         m_renderables = this->createRenderables();
         m_scene = this->createScene();
 
-        m_meshNode = m_scene->getNode()->getNode(0);
+        m_meshNode = m_scene->getNode()->getNode(1);
         assert(m_meshNode);
 
         auto inputManager = m_device->getInputManager();
@@ -92,7 +93,7 @@ namespace demo {
     xe::sg::RenderablePtr Application::createSphereRenderable() {
         xe::sg::SphereGenerator sphereGenerator(16, 16);
 
-        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.5f);
+        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.25f);
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
 
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
@@ -138,6 +139,12 @@ namespace demo {
         return std::move(mesh);
     }
 
+    xe::sg::RenderablePtr Application::createLightRenderable() {
+        auto light = std::make_unique<xe::sg::PhongLight>();
+
+        return std::move(light);
+    }
+
     std::map<std::string, xe::sg::RenderablePtr> Application::createRenderables() {
         std::map<std::string, xe::sg::RenderablePtr> renderables;
 
@@ -145,6 +152,7 @@ namespace demo {
         renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
         renderables["sphereMesh"] = this->createSphereRenderable();
         renderables["planeMesh"] = this->createPlaneRenderable();
+        renderables["light"] = this->createLightRenderable();
 
         return renderables;
     }
@@ -174,6 +182,7 @@ namespace demo {
         xe::sg::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
         xe::sg::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
         xe::sg::Renderable* planeMesh = m_renderables["planeMesh"].get();
+        xe::sg::Renderable* light = m_renderables["light"].get();
 
         assert(lookAtCamera);
         assert(sphereMesh);
@@ -184,6 +193,8 @@ namespace demo {
         scene
             ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
             ->getNode()->setRenderable(lookAtCamera);
+
+        scene->getNode()->createNode()->setRenderable(light);
 
         scene->getNode()->createNode()->setRenderable(sphereMesh);
         scene->getNode()->createNode()->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));

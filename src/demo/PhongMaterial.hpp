@@ -10,6 +10,7 @@
 namespace demo {
 
     struct PhongMaterialProperties {
+        int texture = 0;
         xe::Vector4f ambient = {0.2f, 0.2f, 0.2f, 1.0f};
         xe::Vector4f diffuse = {0.8f, 0.8f, 0.8f, 1.0f};
         xe::Vector4f specular = {0.0f, 0.0f, 0.0f, 1.0f};

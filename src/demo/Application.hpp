@@ -47,6 +47,8 @@ namespace demo {
 
         xe::sg::RenderablePtr createPlaneRenderable();
 
+        xe::sg::RenderablePtr createLightRenderable();
+
     private:
         xe::gfx::DevicePtr m_device;
         xe::gfx::MeshFormatPtr m_meshFormat;

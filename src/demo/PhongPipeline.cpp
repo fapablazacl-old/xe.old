@@ -164,6 +164,7 @@ in vec3 p_normal;
 out vec4 p_color;
 
 // material data
+uniform sampler2D m_texture;
 uniform vec4 m_ambient;
 uniform vec4 m_diffuse;
 uniform vec4 m_specular;
@@ -171,7 +172,6 @@ uniform vec4 m_emission;
 uniform float m_shininess;
 
 // light data
-/*
 const int LT_POINT = 0;
 const int LT_DIRECTIONAL = 1;
 
@@ -182,13 +182,8 @@ uniform vec3 l_direction;
 uniform vec4 l_ambient;
 uniform vec4 l_diffuse;
 uniform vec4 l_specular;
-*/
 
 void main() {
-    const vec3 l_direction = normalize(vec3(1.0f, -0.25, -1.0f));
-    const vec4 l_ambient = vec4(0.2f, 0.2f, 0.2f, 1.0f);
-    const vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    const vec4 l_specular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
     const float l_attenuation = 1.0f;
     
     // compute emission compoennt

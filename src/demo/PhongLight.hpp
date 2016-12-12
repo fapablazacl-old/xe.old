@@ -18,14 +18,14 @@ namespace xe { namespace sg {
     };
 
     struct PhongLightProperties {
-        xe::Vector4f ambient = {0.0f, 0.0f, 0.0f, 1.0f};
+        LightType type = LightType::Point;
+
+        xe::Vector4f ambient = {0.2f, 0.2f, 0.2f, 1.0f};
         xe::Vector4f diffuse = {0.8f, 0.8f, 0.8f, 1.0f};
         xe::Vector4f specular = {0.0f, 0.0f, 0.0f, 1.0f};
 
         xe::Vector3f position = {0.0f, 0.0f, 0.0f};
-        xe::Vector3f direction = {0.0f, 0.0f, 1.0f};
-
-        LightType type = LightType::Directional;
+        xe::Vector3f direction = {0.0f, 0.0f, -1.0f};
     };
 
     class PhongLight : public Renderable {
@@ -34,12 +34,12 @@ namespace xe { namespace sg {
 
         virtual ~PhongLight();
 
-        PhongLightProperties getProperties() const {
-            return m_properties;
+        PhongLightProperties* getProperties() {
+            return &m_properties;
         }
 
-        void setProperties(const PhongLightProperties &properties) {
-            m_properties = properties;
+        const PhongLightProperties* getProperties() const {
+            return &m_properties;
         }
 
         void render(xe::gfx::Device *device);

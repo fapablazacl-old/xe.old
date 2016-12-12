@@ -136,26 +136,20 @@ namespace xe { namespace gfx { namespace gl3  {
 
         if (status->depthTest) {
             glEnable(GL_DEPTH_TEST);
-        } else {
-            glDisable(GL_DEPTH_TEST);
         }
 
         if (status->cullFace) {
             glEnable(GL_CULL_FACE);
-        } else {
-            glDisable(GL_CULL_FACE);
         }
 
         if (status->blending) {
             glEnable(GL_BLEND);
-        } else {
-            glDisable(GL_BLEND);
         }
 
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::renderMaterialLayers(const Material *material) {
+    void DeviceGL::preRenderMaterialLayers(const Material *material) {
         assert(material);
 
         // apply texturing
@@ -167,8 +161,26 @@ namespace xe { namespace gfx { namespace gl3  {
             if (layer->texture) {
                 auto textureGL = static_cast<TextureGL*>(layer->texture);
                 glBindTexture(textureGL->getTarget(), textureGL->getId());
-            } else {
-                glBindTexture(GL_TEXTURE_2D, 0);
+            }
+        }
+
+        glActiveTexture(GL_TEXTURE0);
+
+        XE_GL_CHECK_ERROR();
+    }
+
+    void DeviceGL::postRenderMaterialLayers(const Material *material) {
+        assert(material);
+
+        // apply texturing
+        for (std::size_t i=0; i<material->getLayerCount(); i++) {
+            glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + i));
+
+            const MaterialLayer *layer = material->getLayer(i);
+
+            if (layer->texture) {
+                auto textureGL = static_cast<TextureGL*>(layer->texture);
+                glBindTexture(textureGL->getTarget(), 0);
             }
         }
 
@@ -180,10 +192,12 @@ namespace xe { namespace gfx { namespace gl3  {
         
         if (m_material == material) {
             return;
+        } else if (m_material != nullptr) {
+            this->postRenderMaterialLayers(m_material);
         }
 
         this->renderMaterialStatus(material->getStatus());
-        this->renderMaterialLayers(material);
+        this->preRenderMaterialLayers(material);
 
         // render user defined material attributes
         material->render(this);
@@ -193,6 +207,14 @@ namespace xe { namespace gfx { namespace gl3  {
 
     void DeviceGL::setMesh(Subset *mesh) {
         m_mesh = static_cast<MeshGL*>(mesh);
+
+        if (m_mesh) {
+            glBindVertexArray(m_mesh->getId());
+        } else {
+            glBindVertexArray(0);
+        }
+
+        XE_GL_CHECK_ERROR();
     }
 
     static GLenum primitives[] = {
@@ -206,10 +228,12 @@ namespace xe { namespace gfx { namespace gl3  {
     };
     
     void DeviceGL::draw(Primitive primitive, size_t start, size_t count) {
+        assert(m_mesh);
+        assert(start >= 0);
+        assert(count > 0);
+
         GLenum mode = primitives[static_cast<int>(primitive)];
         
-        glBindVertexArray(m_mesh->getId());
-
         const auto elementCount = static_cast<GLsizei>(count);
         const auto elementStart = static_cast<GLint>(start);
         
@@ -225,7 +249,7 @@ namespace xe { namespace gfx { namespace gl3  {
             }
         }
         
-        bool isIndexed = indexType != DataType::Unknown;
+        const bool isIndexed = indexType != DataType::Unknown;
         
         // draw the geometry, whenever is indexed or not
         if (isIndexed) {
@@ -240,8 +264,6 @@ namespace xe { namespace gfx { namespace gl3  {
             glDrawArrays(mode, elementStart, elementCount);
         }
 
-        glBindVertexArray(0);
-        
         XE_GL_CHECK_ERROR();
     }
 

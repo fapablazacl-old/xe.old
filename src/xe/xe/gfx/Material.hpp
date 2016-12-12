@@ -31,9 +31,6 @@ namespace xe { namespace gfx {
         TextureWrap yWrap = TextureWrap::Repeat;
         TextureWrap zWrap = TextureWrap::Repeat;
         TextureWrap wWrap = TextureWrap::Repeat;
-
-        MaterialLayer() {}
-        explicit MaterialLayer(Texture *texture_) : texture(texture_) {}
     };
     
     /**

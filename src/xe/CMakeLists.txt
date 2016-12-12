@@ -21,6 +21,8 @@ set (sources
     xe/FileUtil.cpp
     xe/Core.hpp 
     xe/Core.cpp
+	xe/Stream.hpp 
+    xe/Stream.cpp
     xe/Meta.hpp 
 )
 
@@ -67,6 +69,8 @@ set (sources_gfx
     xe/gfx/Factory.cpp
     xe/gfx/FactoryImpl.hpp
     xe/gfx/FactoryImpl.cpp
+	xe/gfx/ImageLoader.cpp
+	xe/gfx/ImageLoader.hpp
 )
 
 set (sources_sfx
@@ -105,28 +109,6 @@ set (sources_sg
     xe/sg/Triangle.hpp
 	xe/sg/Generator.hpp
 	xe/sg/Generators.hpp
-
-	#xe/sg/AssetsLibrary.cpp
-    #xe/sg/GeometryLibrary.cpp
-    #xe/sg/AssetsLibrary.hpp
-	#xe/sg/GeometryLibrary.hpp
-	#xe/sg/Renderer.cpp 
-    #xe/sg/Pipeline2.cpp 
-    #xe/sg/Pipeline2Base.cpp
-	#xe/sg/Mesh.hpp
-	#xe/sg/Mesh.cpp
-	#xe/sg/Renderer.hpp 
-    #xe/sg/Pipeline2.hpp 
-    #xe/sg/Pipeline2Base.hpp
-	#xe/sg/SceneLoader.hpp
-    #xe/sg/SceneManager.hpp
-    #xe/sg/SceneManagerImpl.hpp
-    #xe/sg/SceneNodeAnimator.hpp
-	#xe/sg/SceneNodeAnimator.cpp
-    #xe/sg/SceneLoader.cpp
-    #xe/sg/SceneManager.cpp
-    #xe/sg/SceneManagerImpl.cpp
-    #xe/sg/SceneLoader.cpp
 )
 
 source_group(\\         FILES ${sources})
