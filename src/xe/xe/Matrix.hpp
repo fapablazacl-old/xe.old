@@ -7,6 +7,7 @@
 #include <cassert>
 #include <cmath>
 #include <iostream>
+#include <cassert>
 #include <xe/Vector.hpp>
 
 namespace xe {
@@ -463,6 +464,10 @@ namespace xe {
          * @brief Build a arbitrary rotation matrix 
          */
         static Matrix<T, R, C> makeRotate(T radians, const Vector<T, 3> &Axis) {
+            assert(!isnan(radians));
+            assert(!isinf(radians));
+            assert(!Axis.isZero());
+
             T Cos = std::cos(radians);
             T Sin = std::sin(radians);
             

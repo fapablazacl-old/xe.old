@@ -43,6 +43,11 @@ namespace demo {
         std::map<std::string, xe::sg::RenderablePtr> createRenderables();
 
     private:
+        xe::sg::RenderablePtr createSphereRenderable();
+
+        xe::sg::RenderablePtr createPlaneRenderable();
+
+    private:
         xe::gfx::DevicePtr m_device;
         xe::gfx::MeshFormatPtr m_meshFormat;
         xe::sg::ScenePtr m_scene;

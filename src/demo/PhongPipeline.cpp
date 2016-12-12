@@ -188,6 +188,8 @@ void main() {
     const vec3 l_direction = normalize(vec3(1.0f, -0.25, -1.0f));
     const vec4 l_ambient = vec4(0.2f, 0.2f, 0.2f, 1.0f);
     const vec4 l_diffuse = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    const vec4 l_specular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    const float l_attenuation = 1.0f;
     
     // compute emission compoennt
     vec4 emission = m_emission;
@@ -199,8 +201,17 @@ void main() {
     float factor = max(0.0f, dot(l_direction, p_normal));
     vec4 diffuse = factor * (l_diffuse * m_diffuse);
 
+    // compute specular component
+    /*
+    vec4 specular = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+    if (factor > 0.0f) {
+        vec4 specular_blend = l_attenuation * m_specular * l_specular;
+        vec3 reflection = reflect(-l_direction, p_normal);
+    }
+    */
+    
     // compute final color
-    p_color = emission + ambient + diffuse;
+    p_color = emission + ambient + diffuse/* + specular*/;
 }
 )";
 

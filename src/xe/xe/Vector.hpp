@@ -652,6 +652,16 @@ namespace xe {
         constexpr size_t size() const {
             return C;
         }
+
+        bool isZero() const {
+            for (const auto value : this->values) {
+                if (value != T(0)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     };
 
     template<typename T, size_t C> 

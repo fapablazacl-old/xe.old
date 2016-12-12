@@ -89,17 +89,10 @@ namespace demo {
         return xe::gfx::MeshFormatPtr(meshFormat);
     }
 
-    std::map<std::string, xe::sg::RenderablePtr> Application::createRenderables() {
-        std::map<std::string, xe::sg::RenderablePtr> renderables;
-
-        // create a basic camera 
-        renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
-
-        // create a colored triangle mesh
-        xe::sg::Generator generator;
+    xe::sg::RenderablePtr Application::createSphereRenderable() {
         xe::sg::SphereGenerator sphereGenerator(16, 16);
 
-        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(1.0f);
+        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.5f);
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
 
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
@@ -117,7 +110,41 @@ namespace demo {
         mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
         mesh->getEnvelope(0)->count = indices.size();
 
-        renderables["triangleMesh"] = std::move(mesh);
+        return std::move(mesh);
+    }
+
+    xe::sg::RenderablePtr Application::createPlaneRenderable() {
+        xe::sg::PlaneGenerator generator;
+
+        const xe::sg::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+        
+        std::vector<xe::Vector3f> coords = generator.genCoords(plane);
+        std::vector<std::uint32_t> indices = generator.genIndices();
+        std::vector<xe::Vector3f> normals = generator.genNormals(plane);
+
+        std::vector<xe::gfx::BufferCreateParams> params = {
+            {xe::gfx::BufferType::Vertex, coords}, 
+            {xe::gfx::BufferType::Vertex, normals}, 
+            {xe::gfx::BufferType::Index, indices}
+        };
+        
+        auto subset = m_device->createSubset(m_meshFormat.get(), params);
+        auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
+
+        mesh->getEnvelope(0)->material = m_materials["blank"].get();
+        mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
+        mesh->getEnvelope(0)->count = indices.size();
+
+        return std::move(mesh);
+    }
+
+    std::map<std::string, xe::sg::RenderablePtr> Application::createRenderables() {
+        std::map<std::string, xe::sg::RenderablePtr> renderables;
+
+        // create a basic camera 
+        renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
+        renderables["sphereMesh"] = this->createSphereRenderable();
+        renderables["planeMesh"] = this->createPlaneRenderable();
 
         return renderables;
     }
@@ -129,9 +156,9 @@ namespace demo {
 
         auto status = blankMaterial->getStatus();
 
-        status->cullFace = true;
+        status->cullFace = false;
         status->depthTest = true;
-
+        
         auto properties = blankMaterial->getProperties();
 
         properties->ambient = {0.2f, 0.2f, 0.2f, 1.0f};
@@ -145,18 +172,22 @@ namespace demo {
 
     xe::sg::ScenePtr Application::createScene() {
         xe::sg::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
-        xe::sg::Renderable* triangleMesh = m_renderables["triangleMesh"].get();
+        xe::sg::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
+        xe::sg::Renderable* planeMesh = m_renderables["planeMesh"].get();
 
         assert(lookAtCamera);
-        assert(triangleMesh);
+        assert(sphereMesh);
+        assert(planeMesh);
 
         auto scene = std::make_unique<xe::sg::Scene>();
 
         scene
             ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
-            ->getNode()->setRenderable(lookAtCamera)
-                ->createNode()->setRenderable(triangleMesh);
+            ->getNode()->setRenderable(lookAtCamera);
 
+        scene->getNode()->createNode()->setRenderable(sphereMesh);
+        scene->getNode()->createNode()->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
+        
         return scene;
     }
 }
