@@ -30,6 +30,9 @@ namespace xe {
         virtual bool seek(const int offset, const StreamOffset position) = 0;
         
         virtual std::uint32_t tell() const = 0;
+        
+    public:
+        
     };
 }
 

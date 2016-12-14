@@ -23,6 +23,10 @@ set (sources
     xe/Core.cpp
     xe/Stream.hpp 
     xe/Stream.cpp
+    xe/FileStream.hpp 
+    xe/FileStream.cpp
+    xe/MemoryStream.hpp 
+    xe/MemoryStream.cpp
     xe/Meta.hpp 
 )
 
