@@ -14,13 +14,14 @@
 
 #pragma once
 
-#ifndef __EXENG_GRAPHICS_IMAGE_HPP__
-#define __EXENG_GRAPHICS_IMAGE_HPP__
+#ifndef __xe_graphics_image_hpp__
+#define __xe_graphics_image_hpp__
 
 #include <memory>
-#include "xe/Buffer.hpp"
-#include "xe/Vector.hpp"
-#include "xe/gfx/PixelFormat.hpp"
+#include <xe/Buffer.hpp>
+#include <xe/Vector.hpp>
+#include <xe/PreDef.hpp>
+#include <xe/gfx/PixelFormat.hpp>
 
 namespace xe { namespace gfx {
 
@@ -39,7 +40,7 @@ namespace xe { namespace gfx {
         size_t depth = 0;
     };
 
-    class Image {
+    class XE_API Image {
     public:
         virtual ~Image() {}
 

@@ -8,6 +8,13 @@
 #include <xe/PreDef.hpp>
 
 namespace xe {
+
+    enum class StreamOffset {
+        Set,
+        Current, 
+        End
+    };
+
     class XE_API Stream {
     public:
         virtual ~Stream();
@@ -19,6 +26,10 @@ namespace xe {
         virtual bool isWrittable() const { return false; }
 
         virtual std::uint32_t write(const void *buffer, const std::uint32_t size) {return 0;}
+        
+        virtual bool seek(const int offset, const StreamOffset position) = 0;
+        
+        virtual std::uint32_t tell() const = 0;
     };
 }
 

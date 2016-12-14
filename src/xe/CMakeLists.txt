@@ -21,7 +21,7 @@ set (sources
     xe/FileUtil.cpp
     xe/Core.hpp 
     xe/Core.cpp
-	xe/Stream.hpp 
+    xe/Stream.hpp 
     xe/Stream.cpp
     xe/Meta.hpp 
 )
@@ -54,7 +54,7 @@ set (sources_gfx
     xe/gfx/ShaderType.hpp
     xe/gfx/Subset.hpp 
     xe/gfx/Subset.cpp
-	xe/gfx/SubsetFormat.hpp 
+    xe/gfx/SubsetFormat.hpp 
     xe/gfx/SubsetFormat.cpp
     xe/gfx/Texture.hpp 
     xe/gfx/Texture.cpp
@@ -69,8 +69,8 @@ set (sources_gfx
     xe/gfx/Factory.cpp
     xe/gfx/FactoryImpl.hpp
     xe/gfx/FactoryImpl.cpp
-	xe/gfx/ImageLoader.cpp
-	xe/gfx/ImageLoader.hpp
+    xe/gfx/ImageLoader.cpp
+    xe/gfx/ImageLoader.hpp
 )
 
 set (sources_sfx
@@ -88,7 +88,7 @@ set (sources_sg
     xe/sg/Camera.cpp 
     xe/sg/Light.cpp
     xe/sg/Geometry.cpp
-	xe/sg/Generator.cpp
+    xe/sg/Generator.cpp
     
     xe/sg/Forward.hpp 
     xe/sg/Renderable.hpp
@@ -107,8 +107,8 @@ set (sources_sg
     xe/sg/IntersectInfo.hpp  
     xe/sg/Sphere.hpp
     xe/sg/Triangle.hpp
-	xe/sg/Generator.hpp
-	xe/sg/Generators.hpp
+    xe/sg/Generator.hpp
+    xe/sg/Generators.hpp
 )
 
 source_group(\\         FILES ${sources})
@@ -116,7 +116,6 @@ source_group(\\gfx      FILES ${sources_gfx})
 source_group(\\sfx      FILES ${sources_sfx})
 source_group(\\sg       FILES ${sources_sg})
 source_group(\\input    FILES ${sources_input})
-source_group(\\sys		FILES ${sources_sys})
 
 add_definitions(-DXE_BUILD -DXE_SHARED)
 
@@ -126,7 +125,6 @@ add_library(${target} SHARED
     ${sources_sfx} 
     ${sources_sg} 
     ${sources_input}
-    ${sources_sys}
 )
 
 target_link_libraries(${target} ${Boost_LIBRARIES} ${XE_SYS_LIBRARY})

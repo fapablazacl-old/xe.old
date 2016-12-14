@@ -12,8 +12,11 @@
 namespace xe { namespace gfx {
     
     struct DeviceInfo;
+    
     class XE_API Factory;
     class XE_API Device;
+    class XE_API ImageLoader;
+    
     class XE_API Manager {
     public:
         Manager();
@@ -28,6 +31,12 @@ namespace xe { namespace gfx {
         void registerFactory(Factory *factory);
 
         void unregisterFactory(Factory *factory);
+        
+        void registerImageLoader(ImageLoader *loader);
+        
+        void unregisterImageLoader(ImageLoader *loader);
+        
+        
 
     private:
         Manager(const Manager& other) = delete;

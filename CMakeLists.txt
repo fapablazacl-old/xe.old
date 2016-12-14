@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(xe)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
 # 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -29,6 +31,7 @@ include_directories(src/xe)
 add_subdirectory(src/xe)
 add_subdirectory(src/xe.gfx.gl3)
 add_subdirectory(src/xe.tests)
+add_subdirectory(src/xe.gfx.fi)
 #add_subdirectory(src/xe.sfx.al)
 
 add_subdirectory(src/demo)

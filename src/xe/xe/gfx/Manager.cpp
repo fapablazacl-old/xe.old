@@ -7,6 +7,7 @@
 #include <xe/gfx/Device.hpp>
 #include <xe/gfx/DeviceInfo.hpp>
 #include <xe/gfx/Factory.hpp>
+#include <xe/gfx/ImageLoader.hpp>
 
 namespace xe { namespace gfx {
 
@@ -56,7 +57,7 @@ namespace xe { namespace gfx {
         auto pos = m_impl->factories.find(info);
 
         if (pos == m_impl->factories.end()) {
-            std::clog << "xe::gfx::Manager::createDevice: The specified device key is not registered." << std::endl;
+            std::clog << "xe::gfx::Manager::createDevice: The specified device key isn't registered." << std::endl;
         }
 
         return pos->second->createDevice();
@@ -90,5 +91,17 @@ namespace xe { namespace gfx {
         } else {
             std::clog << "xe::gfx::Manager::unregisterFactory: The specified factory isn't registered." << std::endl;
         }
+    }
+    
+    void Manager::registerImageLoader(ImageLoader *loader) {
+        assert(m_impl);
+        assert(loader);
+        
+    }
+    
+    void Manager::unregisterImageLoader(ImageLoader *loader) {
+        assert(m_impl);
+        assert(loader);
+        
     }
 }}

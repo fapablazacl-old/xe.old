@@ -5,7 +5,7 @@ include_directories (${OpenGL_INCLUDE_DIRS})
 link_directories (${OpenGL_LIBRARY_DIR})
 
 # GLFW3
-# for some reason, glfw's cmake on WIndows doesn't work, so we hack the paths...
+# for some reason, glfw's cmake on Windows doesn't work, so we hack the paths...
 find_package(glfw3 3.2 REQUIRED)
 include_directories(${glfw3_DIR}/../../../include)
 link_directories(${glfw3_DIR}/../..)

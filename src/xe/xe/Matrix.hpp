@@ -464,8 +464,8 @@ namespace xe {
          * @brief Build a arbitrary rotation matrix 
          */
         static Matrix<T, R, C> makeRotate(T radians, const Vector<T, 3> &Axis) {
-            assert(!isnan(radians));
-            assert(!isinf(radians));
+            assert(!std::isnan(radians));
+            assert(!std::isinf(radians));
             assert(!Axis.isZero());
 
             T Cos = std::cos(radians);
