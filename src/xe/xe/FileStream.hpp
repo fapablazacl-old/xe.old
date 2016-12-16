@@ -6,11 +6,12 @@
 
 #include <string>
 #include <xe/Stream.hpp>
+#include <istream>
 
 namespace xe {
     class XE_API FileStream : public Stream {
-    public:
-        explicit FileStream(const std::string &file);
+    public:;
+        explicit FileStream(std::istream *stdStream);
     
         virtual ~FileStream();
         
