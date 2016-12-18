@@ -9,6 +9,10 @@
 #include <memory>
 #include <xe/PreDef.hpp>
 
+namespace xe {
+    class XE_API Stream;
+}
+
 namespace xe { namespace gfx {
     
     struct DeviceInfo;
@@ -16,6 +20,7 @@ namespace xe { namespace gfx {
     class XE_API Factory;
     class XE_API Device;
     class XE_API ImageLoader;
+    class XE_API Image;
     
     class XE_API Manager {
     public:
@@ -36,8 +41,8 @@ namespace xe { namespace gfx {
         
         void unregisterImageLoader(ImageLoader *loader);
         
+        std::unique_ptr<Image> createImage(Stream *stream);
         
-
     private:
         Manager(const Manager& other) = delete;
         void operator= (const Manager& other) = delete;

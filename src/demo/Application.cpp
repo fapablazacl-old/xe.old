@@ -1,13 +1,18 @@
 
 #include "Application.hpp"
 
-#include <xe/sg/Generator.hpp>
-
 #include "Camera.hpp"
 #include "PhongMaterial.hpp"
 #include "PhongPipeline.hpp"
 #include "PhongLight.hpp"
 #include "Mesh.hpp"
+
+#include <fstream>
+
+#include <xe/IosStream.hpp>
+#include <xe/FileStream.hpp>
+#include <xe/gfx/Image.hpp>
+#include <xe/sg/Generator.hpp>
 
 namespace demo {
 
@@ -21,6 +26,8 @@ namespace demo {
         m_pipeline = std::make_unique<xe::sg::PhongPipeline>(m_device.get());
         m_sceneRenderer = std::make_unique<xe::sg::SceneRenderer>(m_pipeline.get());
 
+        m_textures = this->createTextures();
+        
         m_materials = this->createMaterials();
         m_renderables = this->createRenderables();
         m_scene = this->createScene();
@@ -158,6 +165,57 @@ namespace demo {
         return renderables;
     }
 
+    xe::gfx::TexturePtr Application::createTexture(const std::string &file) {
+        assert(m_device);
+        assert(file.size() > 0);
+     
+        //std::ifstream fs;
+        //fs.open(file.c_str());
+        //assert(fs.is_open());
+        //xe::IosStream stream(&fs);
+        
+        xe::FileStream stream(file);
+        
+        xe::gfx::ImagePtr image = this->getGraphicsManager()->createImage(&stream);
+        assert(image);
+        
+        const xe::gfx::ImageDesc imageDesc = image->getDesc();
+        
+        //const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData
+        
+        xe::gfx::TextureDesc desc;
+        desc.type = xe::gfx::TextureType::Tex2D;
+        desc.format = xe::gfx::PixelFormat::R8G8B8;
+        desc.width = imageDesc.width;
+        desc.height = imageDesc.height;
+        
+        return m_device->createTexture(desc, imageDesc.format, xe::gfx::getType(imageDesc.format), image->getPointer());
+    }
+    
+    std::map<std::string, xe::gfx::TexturePtr> Application::createTextures() {
+        
+        std::map<std::string, xe::gfx::TexturePtr> textures;
+        
+        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_albedo.tif'" << std::endl;
+        textures["rusted_plates_albedo"] = this->createTexture("assets/materials/rusted/rusted_plates_albedo.tif");
+        
+        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
+        textures["rusted_plates_diffuse"] = this->createTexture("assets/materials/rusted/rusted_plates_diffuse.tif");
+        
+        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
+        textures["rusted_plates_heightmap"] = this->createTexture("assets/materials/rusted/rusted_plates_heightmap.tif");
+        
+        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
+        textures["rusted_plates_normalmap"] = this->createTexture("assets/materials/rusted/rusted_plates_normalmap.tif");
+        
+        /*
+        std::cout << "Loading texture 'assets/textures/density.tiff'" << std::endl;
+        textures["rusted_plates_normalmap"] = this->createTexture("assets/textures/density.tiff");
+        */
+        
+        return textures;
+    }
+    
     std::map<std::string, xe::gfx::MaterialPtr> Application::createMaterials() {
         std::map<std::string, xe::gfx::MaterialPtr> materials;
 

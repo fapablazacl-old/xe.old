@@ -4,7 +4,6 @@
 #ifndef __xe_stream_hpp__
 #define __xe_stream_hpp__
 
-#include <cstdint>
 #include <xe/PreDef.hpp>
 
 namespace xe {
@@ -21,18 +20,15 @@ namespace xe {
 
         virtual bool isReadable() const { return false; }
 
-        virtual std::uint32_t read(void *buffer, const std::uint32_t size) {return 0;}
+        virtual int read(void *buffer, const int size, const int count) {return 0;}
 
         virtual bool isWrittable() const { return false; }
 
-        virtual std::uint32_t write(const void *buffer, const std::uint32_t size) {return 0;}
+        virtual int write(const void *buffer, const int size) {return 0;}
         
         virtual bool seek(const int offset, const StreamOffset position) = 0;
         
-        virtual std::uint32_t tell() const = 0;
-        
-    public:
-        
+        virtual int tell() const = 0;
     };
 }
 

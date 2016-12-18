@@ -2,17 +2,21 @@
 #include "Manager.hpp"
 
 #include <map>
+#include <set>
 #include <iostream>
 #include <cassert>
 #include <xe/gfx/Device.hpp>
 #include <xe/gfx/DeviceInfo.hpp>
 #include <xe/gfx/Factory.hpp>
+#include <xe/gfx/Image.hpp>
 #include <xe/gfx/ImageLoader.hpp>
 
 namespace xe { namespace gfx {
 
     struct Manager::Private {
         std::map<DeviceInfo, Factory*> factories;
+        
+        std::set<ImageLoader*> imageLoaders;
     };
 
     Manager::Manager() : m_impl(new Manager::Private()) {}
@@ -97,11 +101,45 @@ namespace xe { namespace gfx {
         assert(m_impl);
         assert(loader);
         
+        m_impl->imageLoaders.insert(loader);
+        
     }
     
     void Manager::unregisterImageLoader(ImageLoader *loader) {
         assert(m_impl);
         assert(loader);
+
+        m_impl->imageLoaders.erase(loader);
+    }
+    
+    std::unique_ptr<Image> Manager::createImage(Stream *stream) {
+        assert(m_impl);
+        assert(stream);
         
+        std::clog 
+                << "xe::gfx::Manager::createImage: Trying from the stream from " 
+                << m_impl->imageLoaders.size() 
+                << " ImageLoader implementation(s)" 
+                << std::endl;
+        
+        std::unique_ptr<Image> image;
+        
+        for (ImageLoader *loader : m_impl->imageLoaders) {
+            assert(loader);
+            
+            ImageProxyPtr proxy = loader->createProxy(stream);
+            
+            assert(proxy);
+            
+            if (proxy->isValid()) {
+                image = proxy->getImage();
+                break;
+            } else {
+                std::clog << "xe::gfx::Manager::createImage: Error while the image loading: " << std::endl;
+                std::clog << "    " << proxy->getErrorMessage() << std::endl;
+            }
+        }   
+        
+        return std::move(image);
     }
 }}

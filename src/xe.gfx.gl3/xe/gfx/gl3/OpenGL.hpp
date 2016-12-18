@@ -6,7 +6,9 @@
 
 #define GLFW_INCLUDE_NONE
 
+#if defined(_MSVC_VER)
 #pragma warning (disable:4251)
+#endif
 
 #include "gl_core_3_3.h"
 #include <GLFW/glfw3.h>

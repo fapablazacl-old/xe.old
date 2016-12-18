@@ -41,6 +41,11 @@ namespace demo {
         std::map<std::string, xe::gfx::MaterialPtr> createMaterials();
 
         std::map<std::string, xe::sg::RenderablePtr> createRenderables();
+        
+        xe::gfx::TexturePtr createTexture(const std::string &file);
+        
+        std::map<std::string, xe::gfx::TexturePtr> createTextures();
+        
 
     private:
         xe::sg::RenderablePtr createSphereRenderable();
@@ -55,10 +60,11 @@ namespace demo {
         xe::sg::ScenePtr m_scene;
 
         xe::sg::SceneNode *m_meshNode = nullptr;
-        float m_angle = 0.0f;
+        //float m_angle = 0.0f;
 
         std::map<std::string, xe::sg::RenderablePtr> m_renderables;
         std::map<std::string, xe::gfx::MaterialPtr> m_materials;
+        std::map<std::string, xe::gfx::TexturePtr> m_textures;
 
         std::unique_ptr<xe::sg::Pipeline> m_pipeline;
         std::unique_ptr<xe::sg::SceneRenderer> m_sceneRenderer;

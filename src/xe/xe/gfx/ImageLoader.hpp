@@ -9,13 +9,30 @@
 
 namespace xe { namespace gfx {
 
+    /**
+     * @brief Image Proxy Interface.
+     */
+    class XE_API ImageProxy {
+    public:
+        virtual ~ImageProxy() {}
+        
+        virtual bool isValid() const = 0;
+        
+        virtual std::string getErrorMessage() const = 0;
+        
+        virtual ImagePtr getImage() const = 0;
+    };
+    
+    typedef std::unique_ptr<ImageProxy> ImageProxyPtr;
+    
+    /**
+     * @brief Image Loader Interface. Creates image proxies from streams.
+     */    
     class XE_API ImageLoader {
     public:
         virtual ~ImageLoader();
-
-        virtual bool tryLoad(xe::Stream *stream) = 0;
         
-        virtual ImagePtr load(xe::Stream *stream) = 0;
+        virtual ImageProxyPtr createProxy(xe::Stream *stream) = 0;
     };
 }}
 

@@ -6,26 +6,31 @@
 
 #include <string>
 #include <xe/Stream.hpp>
-#include <istream>
+#include <cstdio>
 
 namespace xe {
+
+    /**
+     * @brief Stream implementation using C file streams.
+     */
     class XE_API FileStream : public Stream {
     public:;
-        explicit FileStream(std::istream *stdStream);
+        explicit FileStream(const std::string &file);
     
         virtual ~FileStream();
         
-        virtual bool isReadable() const override;
+        virtual bool isReadable() const override {
+            return true;
+        }
         
-        virtual std::uint32_t read(void *bufferOut, const std::uint32_t blockLength) override;
+        virtual int read(void *bufferOut, const int size, const int count) override;
         
         virtual bool seek(const int offset, const StreamOffset position) override;
         
-        virtual std::uint32_t tell() const override;
+        virtual int tell() const override;
         
     private:
-        struct Private;
-        Private *m_impl = nullptr;
+        FILE *m_file;
     };
 }
 

@@ -2,68 +2,51 @@
 #include "FileStream.hpp"
 
 #include <cassert>
-#include <fstream>
+#include <iostream>
 
 namespace xe {
-    struct FileStream::Private {
-        mutable std::istream *stdStream = nullptr;
-    };
-
-    FileStream::FileStream(std::istream *stdStream) : m_impl(new FileStream::Private())  {
-        assert(m_impl);
-        assert(stdStream);
-        
-        m_impl->stdStream = stdStream;
+    FileStream::FileStream(const std::string &name) {
+        m_file = std::fopen(name.c_str(), "rb");
+        assert(m_file);
     }
     
     FileStream::~FileStream() {
-        assert(m_impl);
-        
-        delete m_impl;
+        assert(m_file);
+        std::fclose(m_file);
     }
     
-    bool FileStream::isReadable() const { 
-        assert(m_impl);
-        
-        return true; 
-    }
-    
-    std::uint32_t FileStream::read(void *bufferOut, const std::uint32_t blockLength) {
-        assert(m_impl);
-        assert(bufferOut);
-        
-        auto pos = m_impl->stdStream->tellg();
-                
-        m_impl->stdStream->read((char*)bufferOut, blockLength);
-        
-        return m_impl->stdStream->tellg() - pos;
+    int FileStream::read(void *bufferOut, const int size, const int count) {
+        assert(m_file);
+        std::cout << "xe::FileStream::read: size=" << size << ", count=" << count << std::endl;
+        return std::fread(bufferOut, size, count, m_file);
     }
     
     bool FileStream::seek(const int offset, const StreamOffset position) {
-        assert(m_impl);
+        std::cout << "xe::FileStream::seek: offset=" << offset << ", count=" << (int)position << std::endl;
+        
+        assert(m_file);
+        
+        int whence;
         
         switch (position) {
-        case StreamOffset::Current:
-            m_impl->stdStream->seekg(offset, std::ios_base::cur);
-            break;
-            
-        case StreamOffset::Set:
-            m_impl->stdStream->seekg(offset);
-            break;
-            
-        case StreamOffset::End:
-            m_impl->stdStream->seekg(offset, std::ios_base::end);
-            
-        default:
-            assert(false);
+        case StreamOffset::Current: whence = SEEK_CUR; break;
+        case StreamOffset::Set: whence = SEEK_SET; break;
+        case StreamOffset::End: whence = SEEK_END; break;
+        default: assert(false); 
         }
         
-        return true;
+        if (std::fseek(m_file, offset, whence)) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
-    std::uint32_t FileStream::tell() const {
-        assert(m_impl);
+    int FileStream::tell() const {
+        assert(m_file);
         
-        return m_impl->stdStream->tellg();
+        std::cout << "xe::FileStream::tell: " << std::ftell(m_file) << std::endl;
+        
+        return std::ftell(m_file);
     }
 }

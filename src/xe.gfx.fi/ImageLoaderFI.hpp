@@ -13,9 +13,7 @@ namespace xe { namespace gfx {
         
         ~ImageLoaderFI();
         
-        virtual bool tryLoad(xe::Stream *stream) override;
-        
-        virtual ImagePtr load(xe::Stream *stream) override;
+        virtual ImageProxyPtr createProxy(xe::Stream *stream) override;
     };
 }}
 

@@ -26,6 +26,8 @@ namespace xe { namespace sg {
             {xe::gfx::ShaderType::Fragment, FileUtil::loadTextFile("assets/shaders/Phong.frag.glsl")}
         });
         
+        assert(m_program);
+        
         m_renderersStorage.emplace_back(new CameraRenderer(this));
         m_renderersStorage.emplace_back(new MeshRenderer(m_device));
         m_renderersStorage.emplace_back(new PhongLightRenderer(m_device));
@@ -33,8 +35,6 @@ namespace xe { namespace sg {
         this->registerRenderer(std::type_index(typeid(xe::sg::Camera)), m_renderersStorage[0].get());
         this->registerRenderer(std::type_index(typeid(xe::sg::Mesh)), m_renderersStorage[1].get());
         this->registerRenderer(std::type_index(typeid(xe::sg::PhongLight)), m_renderersStorage[2].get());
-        
-        assert(m_program);
     }
 
     PhongPipeline::~PhongPipeline() {}

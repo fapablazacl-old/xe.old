@@ -1,6 +1,8 @@
 
 #include "PixelFormat.hpp"
 
+#include <cassert>
+
 namespace xe { namespace gfx {
     std::size_t size(PixelFormat format) {
         switch (format) {
@@ -17,8 +19,32 @@ namespace xe { namespace gfx {
         case PixelFormat::B8G8R8A8:
             return 32;
 
+        case PixelFormat::R16G16B16:
+            return 48;
+            
+        case PixelFormat::R16G16B16A16:
+            return 64;
+            
         default:
+            assert(false);
             return 0;
+        }
+    }
+    
+    xe::DataType getType(const xe::gfx::PixelFormat format) {
+        switch (format) {
+        case PixelFormat::B8G8R8:
+        case PixelFormat::B8G8R8A8:
+        case PixelFormat::R8G8B8:
+        case PixelFormat::R8G8B8A8:
+            return xe::DataType::UInt8;
+            
+        case PixelFormat::R16G16B16:
+        case PixelFormat::R16G16B16A16:
+            return xe::DataType::UInt16;
+        
+        default: 
+            return xe::DataType::Unknown;
         }
     }
 }}

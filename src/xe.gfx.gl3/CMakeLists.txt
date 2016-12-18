@@ -35,6 +35,7 @@ set (sources
     xe/gfx/gl3/gl_core_3_3.c
     xe/gfx/gl3/PluginGL.hpp
     xe/gfx/gl3/PluginGL.cpp
+    xe/gfx/gl3/Util.hpp
 )
 
 source_group (\\ FILES ${sources})

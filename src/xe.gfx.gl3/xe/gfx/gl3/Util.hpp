@@ -11,21 +11,48 @@
 namespace xe { namespace gfx { namespace gl3 {
     inline GLenum convertFormat(xe::gfx::PixelFormat pixelFormat) {
         switch (pixelFormat) {
-        case PixelFormat::R8G8B8: return GL_RGB;
-        case PixelFormat::R8G8B8A8: return GL_RGBA;
+        case PixelFormat::R8G8B8: 
+        case PixelFormat::R16G16B16:
+            return GL_RGB;
+            
+        case PixelFormat::R8G8B8A8: 
+        case PixelFormat::R16G16B16A16:
+            return GL_RGBA;
+        
+            /*
         case PixelFormat::R5G5B5A1: 
         case PixelFormat::R5G5B5X1:
             return GL_RGB5_A1;
+            */
 
         case PixelFormat::B8G8R8: return GL_BGR;
-        case PixelFormat::B8G8R8A8: return GL_BGR;
+        case PixelFormat::B8G8R8A8: return GL_BGRA;
 
-        default: assert(false); 
+        default: 
+            std::cout << (int)pixelFormat << std::endl;
+            assert(false); 
         }
 
         return GLenum();
     }
-
+    
+    inline GLenum getTypeFromFormat(const xe::gfx::PixelFormat pixelFormat) {
+        switch (pixelFormat) {
+        
+        case PixelFormat::B8G8R8:
+        case PixelFormat::B8G8R8A8:
+        case PixelFormat::R8G8B8:
+        case PixelFormat::R8G8B8A8:
+            return GL_UNSIGNED_BYTE;
+            
+        case PixelFormat::R16G16B16:
+        case PixelFormat::R16G16B16A16:
+            return GL_UNSIGNED_SHORT;
+        
+        default: assert(false);
+        }
+    }
+    
     inline GLenum convertTarget(TextureType textureType) {
         switch (textureType) {
         case TextureType::Tex1D: return GL_TEXTURE_1D;

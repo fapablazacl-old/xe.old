@@ -25,6 +25,8 @@ set (sources
     xe/Stream.cpp
     xe/FileStream.hpp 
     xe/FileStream.cpp
+    xe/IosStream.hpp 
+    xe/IosStream.cpp
     xe/MemoryStream.hpp 
     xe/MemoryStream.cpp
     xe/Meta.hpp 

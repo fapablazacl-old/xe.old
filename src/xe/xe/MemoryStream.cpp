@@ -18,14 +18,14 @@ namespace xe {
         return true; 
     }
     
-    std::uint32_t MemoryStream::read(void *bufferOut, const std::uint32_t blockLength) {
+    int MemoryStream::read(void *bufferOut, const int size, const int count) {
         assert(m_data);
         assert(bufferOut);
         
-        std::memcpy(bufferOut, &m_data[m_offset], blockLength);
-        m_offset += blockLength;
+        std::memcpy(bufferOut, &m_data[m_offset], size * count);
+        m_offset += (size * count);
     
-        return blockLength;
+        return count;
     }
     
     bool MemoryStream::seek(const int offset, const StreamOffset position) {
@@ -49,7 +49,7 @@ namespace xe {
         return true;
     }
     
-    std::uint32_t MemoryStream::tell() const {
+    int MemoryStream::tell() const {
         return m_offset;
     }
 }

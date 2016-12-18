@@ -4,6 +4,7 @@
 #ifndef __xe_filestream_hpp__
 #define __xe_filestream_hpp__
 
+#include <cstdint>
 #include <xe/Stream.hpp>
 
 namespace xe {
@@ -15,17 +16,17 @@ namespace xe {
         
         virtual bool isReadable() const override;
         
-        virtual std::uint32_t read(void *bufferOut, const std::uint32_t blockLength) override;
+        virtual int read(void *bufferOut, const int size, const int count) override;
         
         virtual bool seek(const int offset, const StreamOffset position) override;
         
-        virtual std::uint32_t tell() const override;
+        virtual int tell() const override;
         
     private:
         const std::uint8_t *m_data;
         const std::size_t m_size;
         
-        std::uint32_t m_offset = 0;
+        int m_offset = 0;
     };
 }
 
