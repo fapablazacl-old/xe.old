@@ -40,6 +40,8 @@ namespace xe { namespace sg {
          * @brief Generate the normal for any ellipsoid object (including spheres)
          */
         std::vector<xe::Vector3f> genNormals(const std::vector<xe::Vector3f> &coords) const;
+        
+        std::vector<xe::Vector2f> genTexCoords(const std::vector<xe::Vector3f> &normals) const;
     };
 
     struct XE_API PlaneGenerator {

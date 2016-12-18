@@ -104,14 +104,11 @@ namespace demo {
     xe::sg::RenderablePtr Application::createSphereRenderable() {
         xe::sg::SphereGenerator sphereGenerator(16, 16);
 
-        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.25f);
-        
-        // TODO: Generate texture coordinates for spheres
-        std::vector<xe::Vector2f> texcoords;
-        texcoords.resize(coords.size());
+        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.5f);
         
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
+        std::vector<xe::Vector2f> texcoords = sphereGenerator.genTexCoords(normals);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
@@ -123,7 +120,7 @@ namespace demo {
         auto subset = m_device->createSubset(m_meshFormat.get(), params);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
-        mesh->getEnvelope(0)->material = m_materials["blank"].get();
+        mesh->getEnvelope(0)->material = m_materials["custom"].get();
         mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
         mesh->getEnvelope(0)->count = indices.size();
 

@@ -210,6 +210,22 @@ namespace xe { namespace sg {
 
         return normals;
     }
+    
+    std::vector<xe::Vector2f> SphereGenerator::genTexCoords(const std::vector<xe::Vector3f> &normals) const {
+        std::vector<xe::Vector2f> texCoords;
+        
+        texCoords.reserve(normals.size());
+        
+        for (const xe::Vector3f &normal : normals) {
+            const float x = std::asin(normal.x) / xe::pi + 0.5f;
+            const float y = std::asin(normal.y) / xe::pi + 0.5f;
+            
+            texCoords.push_back({x, y});
+        }
+        
+        return texCoords;
+    }
+    
 }}
 
 namespace xe { namespace sg {
