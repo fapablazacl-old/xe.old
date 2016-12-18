@@ -46,19 +46,19 @@ namespace xe { namespace gfx {
         case FIT_BITMAP:
             switch (bpp) {
             case 16: desc.format = PixelFormat::R5G6B5; break;
-            case 24: desc.format = PixelFormat::R8G8B8; break;
-            case 32: desc.format = PixelFormat::R8G8B8A8; break;
+            case 24: desc.format = PixelFormat::RGB_8; break;
+            case 32: desc.format = PixelFormat::RGBA_8; break;
             default: assert(false);
             }
         
             break;
         
         case FIT_RGB16:
-            desc.format = PixelFormat::R16G16B16; 
+            desc.format = PixelFormat::RGB_16; 
             break;
             
         case FIT_UINT16: 
-            desc.format = PixelFormat::R16;
+            desc.format = PixelFormat::R_16;
             break;
             
         default:

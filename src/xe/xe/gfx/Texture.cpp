@@ -16,7 +16,7 @@ namespace xe { namespace gfx {
         assert(tilesInX > 0);
         assert(tilesInY > 0);
 
-        auto pixelFormat = PixelFormat::R8G8B8;
+        auto pixelFormat = PixelFormat::RGB_8;
         auto pixelArray = std::vector<uint8_t>(desc.width * desc.height * getSize(pixelFormat));
         auto pixels = pixelArray.data();
         

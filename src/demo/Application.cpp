@@ -187,7 +187,7 @@ namespace demo {
         
         xe::gfx::TextureDesc desc;
         desc.type = xe::gfx::TextureType::Tex2D;
-        desc.format = xe::gfx::PixelFormat::R8G8B8;
+        desc.format = xe::gfx::PixelFormat::RGB_8;
         desc.width = imageDesc.width;
         desc.height = imageDesc.height;
         

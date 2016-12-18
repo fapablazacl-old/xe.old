@@ -11,12 +11,12 @@
 namespace xe { namespace gfx { namespace gl3 {
     inline GLenum convertFormat(xe::gfx::PixelFormat pixelFormat) {
         switch (pixelFormat) {
-        case PixelFormat::R8G8B8: 
-        case PixelFormat::R16G16B16:
+        case PixelFormat::RGB_8: 
+        case PixelFormat::RGB_16:
             return GL_RGB;
             
-        case PixelFormat::R8G8B8A8: 
-        case PixelFormat::R16G16B16A16:
+        case PixelFormat::RGBA_8: 
+        case PixelFormat::RGBA_16:
             return GL_RGBA;
         
             /*
@@ -25,10 +25,10 @@ namespace xe { namespace gfx { namespace gl3 {
             return GL_RGB5_A1;
             */
 
-        case PixelFormat::B8G8R8: return GL_BGR;
-        case PixelFormat::B8G8R8A8: return GL_BGRA;
+        case PixelFormat::BGR_8: return GL_BGR;
+        case PixelFormat::BGRA_8: return GL_BGRA;
 
-        case PixelFormat::R16: return GL_RED;
+        case PixelFormat::R_16: return GL_RED;
             
         default: 
             std::clog << pixelFormat << std::endl;
@@ -41,14 +41,14 @@ namespace xe { namespace gfx { namespace gl3 {
     inline GLenum getTypeFromFormat(const xe::gfx::PixelFormat pixelFormat) {
         switch (pixelFormat) {
         
-        case PixelFormat::B8G8R8:
-        case PixelFormat::B8G8R8A8:
-        case PixelFormat::R8G8B8:
-        case PixelFormat::R8G8B8A8:
+        case PixelFormat::BGR_8:
+        case PixelFormat::BGRA_8:
+        case PixelFormat::RGB_8:
+        case PixelFormat::RGBA_8:
             return GL_UNSIGNED_BYTE;
             
-        case PixelFormat::R16G16B16:
-        case PixelFormat::R16G16B16A16:
+        case PixelFormat::RGB_16:
+        case PixelFormat::RGBA_16:
             return GL_UNSIGNED_SHORT;
         
         default: assert(false);

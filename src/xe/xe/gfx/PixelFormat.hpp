@@ -21,13 +21,13 @@ namespace xe { namespace gfx {
         R5G5B5X1,
         R5G5B5A1,
         R5G6B5,
-        R8G8B8,
-        R8G8B8A8,
-        B8G8R8,
-        B8G8R8A8,
-        R16G16B16, 
-        R16G16B16A16,
-        R16
+        RGB_8,
+        RGBA_8,
+        BGR_8,
+        BGRA_8,
+        RGB_16, 
+        RGBA_16,
+        R_16
     };
 
     std::size_t getSize(PixelFormat format);

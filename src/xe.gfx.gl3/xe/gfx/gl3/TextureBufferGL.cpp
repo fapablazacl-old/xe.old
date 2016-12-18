@@ -23,10 +23,10 @@ namespace xe { namespace gfx { namespace gl3 {
         case xe::gfx::PixelFormat::R5G6B5:
             size *= 2;
 
-        case xe::gfx::PixelFormat::R8G8B8:
+        case xe::gfx::PixelFormat::RGB_8:
             size *= 3;
 
-        case xe::gfx::PixelFormat::R8G8B8A8:
+        case xe::gfx::PixelFormat::RGBA_8:
             size *= 4;
             
         default: assert(false);
