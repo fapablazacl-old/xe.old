@@ -58,8 +58,9 @@ namespace xe { namespace sg {
         std::vector<std::uint32_t> genIndices() const;
 
         std::vector<xe::Vector3f> genNormals(const Plane &plane) const;
+        
+        std::vector<xe::Vector3f> genTexCoords() const;
     };
-
 }}
 
 #endif

@@ -18,7 +18,9 @@ namespace demo {
         "m_texture"
     };
 
-    PhongMaterial::PhongMaterial() {}
+    PhongMaterial::PhongMaterial() {
+        m_layers.resize(4);
+    }
 
     PhongMaterial::~PhongMaterial() {}
 

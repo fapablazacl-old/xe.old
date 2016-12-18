@@ -123,13 +123,14 @@ namespace demo {
     }
 
     xe::sg::RenderablePtr Application::createPlaneRenderable() {
-        xe::sg::PlaneGenerator generator;
-
+        xe::sg::Generator generator;
+        xe::sg::PlaneGenerator planeGenerator;
+        
         const xe::sg::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
         
-        std::vector<xe::Vector3f> coords = generator.genCoords(plane);
-        std::vector<std::uint32_t> indices = generator.genIndices();
-        std::vector<xe::Vector3f> normals = generator.genNormals(plane);
+        std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane);
+        std::vector<std::uint32_t> indices = planeGenerator.genIndices();
+        std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
@@ -210,35 +211,47 @@ namespace demo {
         std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
         textures["rusted_plates_normalmap"] = this->createTexture("assets/materials/rusted/rusted_plates_normalmap.tif");
         
-        /*
-        std::cout << "Loading texture 'assets/textures/density.tiff'" << std::endl;
-        textures["rusted_plates_normalmap"] = this->createTexture("assets/textures/density.tiff");
-        */
-        
         return textures;
+    }
+
+    xe::gfx::MaterialPtr Application::createCustomMaterial() {
+        auto material = std::make_unique<PhongMaterial>();
+        
+        material->getLayer(0)->texture = m_textures["rusted_plates_diffuse"].get();
+        
+        material->getStatus()->cullFace = false;
+        material->getStatus()->depthTest = true;
+        material->getProperties()->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+        
+        //material->getLayer(0);
+        
+        return material;
+    }
+    
+    xe::gfx::MaterialPtr Application::createBlankMaterial() {
+        auto blankMaterial = std::make_unique<PhongMaterial>();
+        
+        auto status = blankMaterial->getStatus();
+        status->cullFace = true;
+        status->depthTest = true;
+        
+        auto properties = blankMaterial->getProperties();
+        properties->ambient = {0.2f, 0.2f, 0.2f, 1.0f};
+        properties->emission = {0.2f, 0.2f, 0.2f, 1.0f};
+        properties->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+        
+        return blankMaterial;
     }
     
     std::map<std::string, xe::gfx::MaterialPtr> Application::createMaterials() {
         std::map<std::string, xe::gfx::MaterialPtr> materials;
 
-        auto blankMaterial = std::make_unique<PhongMaterial>();
-
-        auto status = blankMaterial->getStatus();
-
-        status->cullFace = false;
-        status->depthTest = true;
+        materials["blank"] = this->createBlankMaterial();
+        materials["custom"] = this->createCustomMaterial();
         
-        auto properties = blankMaterial->getProperties();
-
-        properties->ambient = {0.2f, 0.2f, 0.2f, 1.0f};
-        properties->emission = {0.2f, 0.2f, 0.2f, 1.0f};
-        properties->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-
-        materials["blank"] = std::move(blankMaterial);
-
         return materials;
     }
-
+    
     xe::sg::ScenePtr Application::createScene() {
         xe::sg::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
         xe::sg::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
@@ -258,7 +271,7 @@ namespace demo {
         scene->getNode()->createNode()->setRenderable(light);
 
         scene->getNode()->createNode()->setRenderable(sphereMesh);
-        scene->getNode()->createNode()->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
+        scene->getNode()->createNode()->setRenderable(planeMesh)/*->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}))*/;
         
         return scene;
     }

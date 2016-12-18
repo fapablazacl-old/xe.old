@@ -71,6 +71,7 @@ namespace xe { namespace sg {
 
         return normals;
     }
+    
     std::size_t SphereGenerator::getCoordCount() const {
         return (stacks - 1) * slices + 2;
     }
@@ -269,18 +270,24 @@ namespace xe { namespace sg {
         coords.reserve(this->getCoordCount());
 
         const xe::Vector3f points[] = {
-            {-0.5f, 0.0f,  0.5f},
-            { 0.5f, 0.0f,  0.5f},
-            {-0.5f, 0.0f, -0.5f},
-            { 0.5f, 0.0f, -0.5f}
+            /*
+            {-0.25f, 0.0f,  0.25f},
+            { 0.25f, 0.0f,  0.25f},
+            {-0.25f, 0.0f, -0.25f},
+            { 0.25f, 0.0f, -0.25f}, 
+            */
+            {-0.25f, 0.25f,  0.0f},
+            { 0.25f, 0.25f,  0.0f},
+            {-0.25f, -0.25f, 0.0f},
+            { 0.25f, -0.25f, 0.0f}
         };
 
         coords.push_back(points[0]);
-        coords.push_back(points[1]);
         coords.push_back(points[2]);
+        coords.push_back(points[1]);
 
-        coords.push_back(points[2]);
         coords.push_back(points[1]);
+        coords.push_back(points[2]);
         coords.push_back(points[3]);
         
         for (auto coord : coords) {
@@ -316,5 +323,12 @@ namespace xe { namespace sg {
         }
 
         return normals;
+    }
+    
+    std::vector<xe::Vector3f> PlaneGenerator::genTexCoords() const {
+        std::vector<xe::Vector3f> texCoords;
+        
+        
+        return texCoords;
     }
 }}

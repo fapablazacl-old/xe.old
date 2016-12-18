@@ -64,16 +64,22 @@ namespace xe { namespace gfx {
         }
 
         MaterialLayer* getLayer(const std::size_t index) {
+            assert(index >= 0);
+            assert(index < this->getLayerCount());
+            
             return &m_layers[index];
         }
 
         const MaterialLayer* getLayer(const std::size_t index) const {
+            assert(index >= 0);
+            assert(index < this->getLayerCount());
+            
             return &m_layers[index];
         }
 
         virtual void render(xe::gfx::Device *device) = 0;
 
-    private:
+    protected:
         std::vector<MaterialLayer> m_layers;
         MaterialStatus m_status;
     };

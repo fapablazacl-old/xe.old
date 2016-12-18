@@ -30,13 +30,17 @@ namespace demo {
         ~Application();
 
         int run();
-
+        
     private:
         xe::gfx::DevicePtr createDevice();
 
         xe::gfx::MeshFormatPtr createMeshFormat();
 
         xe::sg::ScenePtr createScene();
+        
+        xe::gfx::MaterialPtr createCustomMaterial();
+        
+        xe::gfx::MaterialPtr createBlankMaterial();
         
         std::map<std::string, xe::gfx::MaterialPtr> createMaterials();
 
@@ -47,7 +51,6 @@ namespace demo {
         std::map<std::string, xe::gfx::TexturePtr> createTextures();
         
 
-    private:
         xe::sg::RenderablePtr createSphereRenderable();
 
         xe::sg::RenderablePtr createPlaneRenderable();
@@ -68,6 +71,7 @@ namespace demo {
 
         std::unique_ptr<xe::sg::Pipeline> m_pipeline;
         std::unique_ptr<xe::sg::SceneRenderer> m_sceneRenderer;
+        
     };
 }
 
