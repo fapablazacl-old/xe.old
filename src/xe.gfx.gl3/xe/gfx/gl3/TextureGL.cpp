@@ -5,6 +5,8 @@
 namespace xe { namespace gfx { namespace gl3  {
 
     TextureGL::TextureGL(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData) {
+        assert(sourceFormat != PixelFormat::Unknown);
+        
         GLenum target = convertTarget(desc.type);
         GLint iformat = (GLint)convertFormat(desc.format);
         

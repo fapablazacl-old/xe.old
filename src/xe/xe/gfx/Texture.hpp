@@ -41,7 +41,7 @@ namespace xe { namespace gfx {
                 }
             }
 
-            result *= size(format);
+            result *= xe::gfx::getSize(format);
 
             return result;
         }

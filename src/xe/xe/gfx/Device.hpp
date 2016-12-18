@@ -77,7 +77,7 @@ namespace xe { namespace gfx {
         
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferCreateParams> createParams);
         
-        virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data=nullptr) = 0;
+        virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data=nullptr) = 0;
 
         template<typename Container>
         BufferPtr  createBuffer(const BufferType type, const Container& values) {

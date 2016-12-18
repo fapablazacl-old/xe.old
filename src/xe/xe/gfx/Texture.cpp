@@ -17,7 +17,7 @@ namespace xe { namespace gfx {
         assert(tilesInY > 0);
 
         auto pixelFormat = PixelFormat::R8G8B8;
-        auto pixelArray = std::vector<uint8_t>(desc.width * desc.height * size(pixelFormat));
+        auto pixelArray = std::vector<uint8_t>(desc.width * desc.height * getSize(pixelFormat));
         auto pixels = pixelArray.data();
         
         const size_t tileWidth = desc.width / tilesInX;

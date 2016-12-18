@@ -181,6 +181,8 @@ namespace demo {
         
         const xe::gfx::ImageDesc imageDesc = image->getDesc();
         
+        assert(imageDesc.format != xe::gfx::PixelFormat::Unknown);
+        
         //const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData
         
         xe::gfx::TextureDesc desc;
@@ -189,7 +191,7 @@ namespace demo {
         desc.width = imageDesc.width;
         desc.height = imageDesc.height;
         
-        return m_device->createTexture(desc, imageDesc.format, xe::gfx::getType(imageDesc.format), image->getPointer());
+        return m_device->createTexture(desc, imageDesc.format, xe::gfx::getDataType(imageDesc.format), image->getPointer());
     }
     
     std::map<std::string, xe::gfx::TexturePtr> Application::createTextures() {

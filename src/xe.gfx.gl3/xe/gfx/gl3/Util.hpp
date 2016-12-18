@@ -28,8 +28,10 @@ namespace xe { namespace gfx { namespace gl3 {
         case PixelFormat::B8G8R8: return GL_BGR;
         case PixelFormat::B8G8R8A8: return GL_BGRA;
 
+        case PixelFormat::R16: return GL_RED;
+            
         default: 
-            std::cout << (int)pixelFormat << std::endl;
+            std::clog << pixelFormat << std::endl;
             assert(false); 
         }
 

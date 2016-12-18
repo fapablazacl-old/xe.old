@@ -40,38 +40,25 @@ namespace xe { namespace gfx {
 	FIT_RGBF	= 11,	//! 96-bit RGB float image	: 3 x 32-bit IEEE floating point
 	FIT_RGBAF	= 12	//! 128-bit RGBA float image	: 4 x 32-bit IEEE floating point
     */
-        
         unsigned bpp = FreeImage_GetBPP(m_bitmap);
         
         switch (type) {
         case FIT_BITMAP:
             switch (bpp) {
-            case 16:
-                desc.format = PixelFormat::R5G6B5;
-                break;
-                
-            case 24:
-                desc.format = PixelFormat::R8G8B8;
-                break;
-                
-            case 32:
-                desc.format = PixelFormat::B8G8R8A8;
-                break;
-                
-            default:
-                assert(false);
+            case 16: desc.format = PixelFormat::R5G6B5; break;
+            case 24: desc.format = PixelFormat::R8G8B8; break;
+            case 32: desc.format = PixelFormat::R8G8B8A8; break;
+            default: assert(false);
             }
         
             break;
         
-        case FIT_RGB16: 
-            assert(bpp == 48);
-            desc.format = PixelFormat::R16G16B16;
+        case FIT_RGB16:
+            desc.format = PixelFormat::R16G16B16; 
             break;
             
-        case FIT_RGBA16:
-            assert(bpp == 64);
-            desc.format = PixelFormat::R16G16B16A16;
+        case FIT_UINT16: 
+            desc.format = PixelFormat::R16;
             break;
             
         default:

@@ -32,7 +32,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers)  override;
 
-        virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data)  override;
+        virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data)  override;
 
         virtual TexturePtr createTexture(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData)  override;
 

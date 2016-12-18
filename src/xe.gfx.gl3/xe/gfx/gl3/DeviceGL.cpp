@@ -68,8 +68,6 @@ namespace xe { namespace gfx { namespace gl3  {
     };
     
     BufferPtr DeviceGL::createBuffer(const BufferType type, const std::size_t size, const void *data) { 
-        std::cout << "Creating buffer: " << type << ", size: " << size << std::endl;
-        
         GLenum target = targets[static_cast<int>(type)];
         GLenum usage = GL_DYNAMIC_DRAW;
         

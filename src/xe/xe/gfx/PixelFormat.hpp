@@ -7,12 +7,14 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <xe/PreDef.hpp>
 #include <xe/DataType.hpp>
+#include <ostream>
 
 namespace xe { namespace gfx {
     
     /** 
-     * @brief The image pixel format
+     * @brief Pixel Format for textures and images
      */
     enum class PixelFormat {
         Unknown,
@@ -23,14 +25,16 @@ namespace xe { namespace gfx {
         R8G8B8A8,
         B8G8R8,
         B8G8R8A8,
-        
         R16G16B16, 
-        R16G16B16A16
+        R16G16B16A16,
+        R16
     };
 
-    std::size_t size(PixelFormat format);
+    std::size_t getSize(PixelFormat format);
     
-    xe::DataType getType(const PixelFormat format);
+    xe::DataType getDataType(const PixelFormat format);
 }}
+
+extern std::ostream& XE_API operator<< (std::ostream &os, const xe::gfx::PixelFormat format);
 
 #endif
