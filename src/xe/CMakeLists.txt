@@ -95,6 +95,8 @@ set (sources_sg
     xe/sg/Light.cpp
     xe/sg/Geometry.cpp
     xe/sg/Generator.cpp
+    xe/sg/PlaneGenerator.cpp
+    xe/sg/SphereGenerator.cpp
     
     xe/sg/Forward.hpp 
     xe/sg/Renderable.hpp
@@ -114,6 +116,8 @@ set (sources_sg
     xe/sg/Sphere.hpp
     xe/sg/Triangle.hpp
     xe/sg/Generator.hpp
+    xe/sg/PlaneGenerator.hpp
+    xe/sg/SphereGenerator.hpp
     xe/sg/Generators.hpp
 )
 

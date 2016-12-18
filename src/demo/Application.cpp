@@ -13,6 +13,8 @@
 #include <xe/FileStream.hpp>
 #include <xe/gfx/Image.hpp>
 #include <xe/sg/Generator.hpp>
+#include <xe/sg/SphereGenerator.hpp>
+#include <xe/sg/PlaneGenerator.hpp>
 
 namespace demo {
 
@@ -196,7 +198,6 @@ namespace demo {
     }
     
     std::map<std::string, xe::gfx::TexturePtr> Application::createTextures() {
-        
         std::map<std::string, xe::gfx::TexturePtr> textures;
         
         std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_albedo.tif'" << std::endl;
