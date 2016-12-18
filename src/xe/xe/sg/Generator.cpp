@@ -325,9 +325,23 @@ namespace xe { namespace sg {
         return normals;
     }
     
-    std::vector<xe::Vector3f> PlaneGenerator::genTexCoords() const {
-        std::vector<xe::Vector3f> texCoords;
+    std::vector<xe::Vector2f> PlaneGenerator::genTexCoords() const {
+        const xe::Vector2f points[] = {
+            {0.0f, 1.0f},
+            {1.0f, 1.0f},
+            {0.0f, 0.0f},
+            {1.0f, 0.0f},
+        };
         
+        std::vector<xe::Vector2f> texCoords;
+        
+        texCoords.push_back(points[0]);
+        texCoords.push_back(points[2]);
+        texCoords.push_back(points[1]);
+
+        texCoords.push_back(points[1]);
+        texCoords.push_back(points[2]);
+        texCoords.push_back(points[3]);        
         
         return texCoords;
     }

@@ -59,7 +59,7 @@ namespace xe { namespace sg {
 
         std::vector<xe::Vector3f> genNormals(const Plane &plane) const;
         
-        std::vector<xe::Vector3f> genTexCoords() const;
+        std::vector<xe::Vector2f> genTexCoords() const;
     };
 }}
 

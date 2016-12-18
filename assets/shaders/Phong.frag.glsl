@@ -2,7 +2,7 @@
 
 // vertex data
 in vec3 p_normal;
-//in vec2 p_texcoord;
+in vec2 p_texcoord;
 
 out vec4 p_color;
 
@@ -37,7 +37,7 @@ void main() {
 
     // compute diffuse component
     float factor = max(0.0f, dot(l_direction, p_normal));
-    vec4 diffuse = factor * (l_diffuse * m_diffuse);
+    vec4 diffuse = factor * (l_diffuse * m_diffuse * texture2D(m_texture, p_texcoord));
 
     // compute specular component
     /*

@@ -92,7 +92,10 @@ namespace demo {
         auto meshFormat = new xe::gfx::SubsetFormat {
             {0, xe::DataType::Float32, 3, "v_coord"},
             {1, xe::DataType::Float32, 3, "v_normal"},
-            {2, xe::DataType::UInt32, 1}    // index buffer
+            {2, xe::DataType::Float32, 2, "v_texcoord"},
+                
+            // index buffer
+            {3, xe::DataType::UInt32, 1}
         };
 
         return xe::gfx::MeshFormatPtr(meshFormat);
@@ -102,13 +105,18 @@ namespace demo {
         xe::sg::SphereGenerator sphereGenerator(16, 16);
 
         std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.25f);
+        
+        // TODO: Generate texture coordinates for spheres
+        std::vector<xe::Vector2f> texcoords;
+        texcoords.resize(coords.size());
+        
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
-
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
 
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
             {xe::gfx::BufferType::Vertex, normals}, 
+            {xe::gfx::BufferType::Vertex, texcoords}, 
             {xe::gfx::BufferType::Index, indices}
         };
         
@@ -131,29 +139,31 @@ namespace demo {
         std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane);
         std::vector<std::uint32_t> indices = planeGenerator.genIndices();
         std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
-
+        std::vector<xe::Vector2f> texcoords = planeGenerator.genTexCoords();
+        
         std::vector<xe::gfx::BufferCreateParams> params = {
             {xe::gfx::BufferType::Vertex, coords}, 
             {xe::gfx::BufferType::Vertex, normals}, 
+            {xe::gfx::BufferType::Vertex, texcoords}, 
             {xe::gfx::BufferType::Index, indices}
         };
         
         auto subset = m_device->createSubset(m_meshFormat.get(), params);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
-        mesh->getEnvelope(0)->material = m_materials["blank"].get();
+        mesh->getEnvelope(0)->material = m_materials["custom"].get();
         mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
         mesh->getEnvelope(0)->count = indices.size();
 
         return std::move(mesh);
     }
-
+    
     xe::sg::RenderablePtr Application::createLightRenderable() {
         auto light = std::make_unique<xe::sg::PhongLight>();
 
         return std::move(light);
     }
-
+    
     std::map<std::string, xe::sg::RenderablePtr> Application::createRenderables() {
         std::map<std::string, xe::sg::RenderablePtr> renderables;
 
@@ -169,11 +179,6 @@ namespace demo {
     xe::gfx::TexturePtr Application::createTexture(const std::string &file) {
         assert(m_device);
         assert(file.size() > 0);
-     
-        //std::ifstream fs;
-        //fs.open(file.c_str());
-        //assert(fs.is_open());
-        //xe::IosStream stream(&fs);
         
         xe::FileStream stream(file);
         
@@ -183,8 +188,6 @@ namespace demo {
         const xe::gfx::ImageDesc imageDesc = image->getDesc();
         
         assert(imageDesc.format != xe::gfx::PixelFormat::Unknown);
-        
-        //const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData
         
         xe::gfx::TextureDesc desc;
         desc.type = xe::gfx::TextureType::Tex2D;
@@ -222,8 +225,6 @@ namespace demo {
         material->getStatus()->cullFace = false;
         material->getStatus()->depthTest = true;
         material->getProperties()->diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-        
-        //material->getLayer(0);
         
         return material;
     }
@@ -271,7 +272,7 @@ namespace demo {
         scene->getNode()->createNode()->setRenderable(light);
 
         scene->getNode()->createNode()->setRenderable(sphereMesh);
-        scene->getNode()->createNode()->setRenderable(planeMesh)/*->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}))*/;
+        scene->getNode()->createNode()->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
         
         return scene;
     }

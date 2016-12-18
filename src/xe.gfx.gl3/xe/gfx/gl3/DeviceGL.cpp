@@ -134,14 +134,20 @@ namespace xe { namespace gfx { namespace gl3  {
 
         if (status->depthTest) {
             glEnable(GL_DEPTH_TEST);
+        } else {
+            glDisable(GL_DEPTH_TEST);
         }
 
         if (status->cullFace) {
             glEnable(GL_CULL_FACE);
+        } else {
+            glDisable(GL_CULL_FACE);
         }
 
         if (status->blending) {
             glEnable(GL_BLEND);
+        } else {
+            glDisable(GL_BLEND);
         }
 
         XE_GL_CHECK_ERROR();
