@@ -15,8 +15,9 @@ namespace xe { namespace gfx { namespace gl3  {
     public:
         MeshGL() = default;
         
-        MeshGL(const SubsetFormat *format, std::vector<BufferPtr> buffers) {
-            this->construct(format, std::move(buffers));
+        MeshGL(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) {
+            assert(format);
+            this->construct(format, std::move(buffers), std::move(indexBuffer));
         }
         
         ~MeshGL();
@@ -30,25 +31,42 @@ namespace xe { namespace gfx { namespace gl3  {
         }
 
         virtual BufferGL* getBuffer(const std::size_t index) override {
+            assert(index >= 0);
+            assert(index < m_buffers.size());
+            
             return m_buffers[index].get();
         }
 
         virtual const BufferGL* getBuffer(const std::size_t index) const override {
+            assert(index >= 0);
+            assert(index < m_buffers.size());
+            
             return m_buffers[index].get();
         }
 
         const SubsetFormat* getFormat() const override {
+            assert(m_format);
+            
             return m_format;
         }
 
+        virtual Buffer* getIndexBuffer() override {
+            //assert(m_indexBuffer->getTarget() == GL_ELEMENT_ARRAY_BUFFER);
+            return m_indexBuffer.get();
+        }
+        
+        virtual const Buffer* getIndexBuffer() const override {
+            //assert(m_indexBuffer->getTarget() == GL_ELEMENT_ARRAY_BUFFER);
+            return m_indexBuffer.get();
+        }
+        
     protected:
-        //void construct(const SubsetFormat &format, std::vector<BufferPtr> buffers);
-
-        void construct(const SubsetFormat *format, std::vector<BufferPtr> buffers);
+        void construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer);
 
     private:
         GLuint m_id = 0;
         std::vector<BufferGLPtr> m_buffers;
+        BufferGLPtr m_indexBuffer;
         const SubsetFormat *m_format = nullptr;
     };
 

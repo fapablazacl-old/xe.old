@@ -48,19 +48,22 @@ namespace xe { namespace gfx {
         }
     }
 
-    struct BufferCreateParams {
-        BufferType type = BufferType::Unknown;
+    struct BufferDesc {
         std::size_t size = 0;
         const void *data = nullptr;
 
-        BufferCreateParams() = default;
+        BufferDesc() = default;
 
-        BufferCreateParams(const BufferType type_, const std::size_t size_, const void *data_ = nullptr) 
-            : type(type_), size(size_), data(data_) {}
+        BufferDesc(const std::size_t size_, const void *data_ = nullptr) 
+            : size(size_), data(data_) {}
             
         template<typename Container>
-        BufferCreateParams(const BufferType type_, const Container& values) 
-            : type(type_), size(sizeof(typename Container::value_type) * values.size()), data(values.data()) {}
+        BufferDesc(const Container& values) 
+            : size(sizeof(typename Container::value_type) * values.size()), data(values.data()) {}
+        
+        operator bool() const {
+            return size > 0;
+        }
     };
 
     class XE_API Device {
@@ -73,9 +76,11 @@ namespace xe { namespace gfx {
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, BufferPtr buffer);
         
-        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers) = 0;
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) = 0;
         
-        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferCreateParams> createParams);
+        virtual SubsetPtr createSubset(const SubsetFormat *format, const BufferDesc &desc);
+        
+        virtual SubsetPtr createSubset(const SubsetFormat *format, const std::vector<BufferDesc> &buffersDescs, const BufferDesc &indexBufferDesc = BufferDesc());
         
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data=nullptr) = 0;
 

@@ -11,7 +11,7 @@
 namespace xe {
     /**
      * @brief Stream implementation using i/o C++ streams.
-     * @note Buggy implementation.
+     * @note Buggy implementation. Fix pending.
      */
     class XE_API IosStream : public Stream {
     public:;

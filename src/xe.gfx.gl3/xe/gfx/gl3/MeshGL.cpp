@@ -18,15 +18,20 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
     
-    void MeshGL::construct(const SubsetFormat *format, std::vector<BufferPtr> buffers) {
+    void MeshGL::construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) {
         XE_GL_CHECK_ERROR();
 
         m_format = format;
 
         // downcast the buffers to BufferGL
         for (BufferPtr &buffer : buffers) {
+            assert(buffer.get());
+            
             m_buffers.emplace_back(static_cast<BufferGL*>(buffer.release()));
         }
+        
+        // downcast the index buffers
+        m_indexBuffer.reset(static_cast<BufferGL*>(indexBuffer.release()));
         
         auto bufferIndices = m_format->getBufferIndices();
         
@@ -41,11 +46,9 @@ namespace xe { namespace gfx { namespace gl3  {
             const BufferGL *buffer = m_buffers[bufferIndex].get();
             const auto &attribs = m_format->getAttribs(bufferIndex);
             
-            glBindBuffer(buffer->getTarget(), buffer->getId());
+            assert(buffer);
             
-            if (buffer->getTarget() != GL_ARRAY_BUFFER) {
-                continue;
-            }
+            glBindBuffer(buffer->getTarget(), buffer->getId());
             
             std::uint8_t *offset = 0;
             
@@ -65,6 +68,15 @@ namespace xe { namespace gfx { namespace gl3  {
                 offset += static_cast<int>(attrib.getSize());
                 vertexAttrib ++;
             }
+        }
+        
+        // bind index buffer 
+        if (m_indexBuffer) {
+            assert(m_indexBuffer->getTarget() == GL_ELEMENT_ARRAY_BUFFER);
+            assert(m_indexBuffer->getId() != 0);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer->getId());
+        } else {
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         }
         
         glBindVertexArray(0);

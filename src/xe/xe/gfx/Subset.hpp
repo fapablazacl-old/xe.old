@@ -27,6 +27,10 @@ namespace xe { namespace gfx {
         virtual std::size_t getBufferCount() const = 0;
         virtual Buffer* getBuffer(const std::size_t index) = 0;
         virtual const Buffer* getBuffer(const std::size_t index) const = 0;
+        
+        virtual Buffer* getIndexBuffer() = 0;
+        
+        virtual const Buffer* getIndexBuffer() const = 0;
     };
 
     typedef std::unique_ptr<Subset> SubsetPtr;

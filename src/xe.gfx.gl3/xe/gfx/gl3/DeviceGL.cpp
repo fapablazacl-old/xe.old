@@ -78,8 +78,8 @@ namespace xe { namespace gfx { namespace gl3  {
         return std::make_unique<TextureGL>(desc, sourceFormat, sourceType, sourceData);
     }
     
-    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers)   { 
-        return std::make_unique<MeshGL>(format, std::move(buffers));
+    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) { 
+        return std::make_unique<MeshGL>(format, std::move(buffers), std::move(indexBuffer));
     }
 
     ProgramPtr DeviceGL::createProgram(const std::list<ShaderSource> &sources)  { 

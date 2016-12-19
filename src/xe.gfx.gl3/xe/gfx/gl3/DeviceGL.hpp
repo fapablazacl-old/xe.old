@@ -30,7 +30,7 @@ namespace xe { namespace gfx { namespace gl3  {
             return &m_inputManager;
         }
 
-        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers)  override;
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer)  override;
 
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data)  override;
 

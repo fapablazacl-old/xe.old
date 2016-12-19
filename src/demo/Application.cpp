@@ -94,10 +94,7 @@ namespace demo {
         auto meshFormat = new xe::gfx::SubsetFormat {
             {0, xe::DataType::Float32, 3, "v_coord"},
             {1, xe::DataType::Float32, 3, "v_normal"},
-            {2, xe::DataType::Float32, 2, "v_texcoord"},
-                
-            // index buffer
-            {3, xe::DataType::UInt32, 1}
+            {2, xe::DataType::Float32, 2, "v_texcoord"}
         };
 
         return xe::gfx::MeshFormatPtr(meshFormat);
@@ -112,14 +109,13 @@ namespace demo {
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
         std::vector<xe::Vector2f> texcoords = sphereGenerator.genTexCoords(normals);
 
-        std::vector<xe::gfx::BufferCreateParams> params = {
-            {xe::gfx::BufferType::Vertex, coords}, 
-            {xe::gfx::BufferType::Vertex, normals}, 
-            {xe::gfx::BufferType::Vertex, texcoords}, 
-            {xe::gfx::BufferType::Index, indices}
+        std::vector<xe::gfx::BufferDesc> descs = {
+            {coords}, 
+            {normals}, 
+            {texcoords}
         };
         
-        auto subset = m_device->createSubset(m_meshFormat.get(), params);
+        auto subset = m_device->createSubset(m_meshFormat.get(), descs, indices);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();
@@ -140,14 +136,13 @@ namespace demo {
         std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
         std::vector<xe::Vector2f> texcoords = planeGenerator.genTexCoords();
         
-        std::vector<xe::gfx::BufferCreateParams> params = {
-            {xe::gfx::BufferType::Vertex, coords}, 
-            {xe::gfx::BufferType::Vertex, normals}, 
-            {xe::gfx::BufferType::Vertex, texcoords}, 
-            {xe::gfx::BufferType::Index, indices}
+        std::vector<xe::gfx::BufferDesc> descs = {
+            {coords}, 
+            {normals}, 
+            {texcoords}
         };
         
-        auto subset = m_device->createSubset(m_meshFormat.get(), params);
+        auto subset = m_device->createSubset(m_meshFormat.get(), descs, indices);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();
