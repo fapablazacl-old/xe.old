@@ -52,7 +52,7 @@ namespace xe { namespace gfx {
     }
 }}
 
-std::ostream& XE_API operator<< (std::ostream &os, const xe::gfx::PixelFormat format) {
+std::ostream& operator<< (std::ostream &os, const xe::gfx::PixelFormat format) {
     
     switch (format) {
     case xe::gfx::PixelFormat::Unknown: os << "PixelFormat::Unknown"; break;

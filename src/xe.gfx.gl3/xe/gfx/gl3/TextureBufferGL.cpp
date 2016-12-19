@@ -50,7 +50,7 @@ namespace xe { namespace gfx { namespace gl3 {
 
         switch (desc.type) {
         case xe::gfx::TextureType::Tex1D:
-            glTexSubImage1D(GL_TEXTURE_1D, 0, 0, desc.width, GL_RG, GL_UNSIGNED_BYTE, (const char*)source + source_offset);
+            glTexSubImage1D(GL_TEXTURE_1D, 0, 0, (GLsizei)desc.width, GL_RG, GL_UNSIGNED_BYTE, (const char*)source + source_offset);
             
         default: assert(false);
         }

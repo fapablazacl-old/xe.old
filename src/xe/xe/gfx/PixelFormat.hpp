@@ -30,11 +30,11 @@ namespace xe { namespace gfx {
         R_16
     };
 
-    std::size_t getSize(PixelFormat format);
+    XE_API std::size_t getSize(PixelFormat format);
     
-    xe::DataType getDataType(const PixelFormat format);
+    XE_API xe::DataType getDataType(const PixelFormat format);
 }}
 
-extern std::ostream& XE_API operator<< (std::ostream &os, const xe::gfx::PixelFormat format);
+extern XE_API std::ostream& operator<< (std::ostream &os, const xe::gfx::PixelFormat format);
 
 #endif

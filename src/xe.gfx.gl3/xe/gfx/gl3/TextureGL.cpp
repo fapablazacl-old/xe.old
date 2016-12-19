@@ -18,20 +18,20 @@ namespace xe { namespace gfx { namespace gl3  {
 
         switch (target) {
         case GL_TEXTURE_1D:
-            ::glTexImage1D(target, 0, iformat, desc.width, 0, sformat, type, sourceData);
+            ::glTexImage1D(target, 0, iformat, (GLsizei)desc.width, 0, sformat, type, sourceData);
             break;
 
         case GL_TEXTURE_2D:
-            ::glTexImage2D(target, 0, iformat, desc.width, desc.height, 0, sformat, type, sourceData);
+            ::glTexImage2D(target, 0, iformat, (GLsizei)desc.width, (GLsizei)desc.height, 0, sformat, type, sourceData);
             break;
 
         case GL_TEXTURE_3D:
-            ::glTexImage3D(target, 0, iformat, desc.width, desc.height, desc.depth, 0, sformat, type, sourceData);
+            ::glTexImage3D(target, 0, iformat, (GLsizei)desc.width, (GLsizei)desc.height, (GLsizei)desc.depth, 0, sformat, type, sourceData);
             break;
 
         case GL_TEXTURE_CUBE_MAP: 
             for (int i=0; i<6; i++) {
-                ::glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, iformat, desc.width, desc.height, 0, sformat, type, sourceData);
+                ::glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, iformat, (GLsizei)desc.width, (GLsizei)desc.height, 0, sformat, type, sourceData);
             }
             break;
             

@@ -5,6 +5,7 @@
 #define __xe_filestream_hpp__
 
 #include <cstdint>
+#include <cstddef>
 #include <xe/Stream.hpp>
 
 namespace xe {

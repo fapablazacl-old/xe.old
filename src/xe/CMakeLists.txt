@@ -17,8 +17,6 @@ set (sources
     xe/Box.hpp
     xe/FileLocator.hpp 
     xe/FileLocator.cpp
-    xe/FileUtil.hpp 
-    xe/FileUtil.cpp
     xe/Core.hpp 
     xe/Core.cpp
     xe/Stream.hpp 

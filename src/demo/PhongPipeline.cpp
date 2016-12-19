@@ -22,8 +22,8 @@ namespace xe { namespace sg {
         assert(device);
         
         m_program = device->createProgram({
-            {xe::gfx::ShaderType::Vertex, FileUtil::loadTextFile("assets/shaders/Phong.vert.glsl")}, 
-            {xe::gfx::ShaderType::Fragment, FileUtil::loadTextFile("assets/shaders/Phong.frag.glsl")}
+            {xe::gfx::ShaderType::Vertex, FileUtil::load("assets/shaders/Phong.vert.glsl")}, 
+            {xe::gfx::ShaderType::Fragment, FileUtil::load("assets/shaders/Phong.frag.glsl")}
         });
         
         assert(m_program);
