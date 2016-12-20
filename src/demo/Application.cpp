@@ -101,21 +101,22 @@ namespace demo {
     }
 
     xe::sg::RenderablePtr Application::createSphereRenderable() {
-        xe::sg::SphereGenerator sphereGenerator(16, 16);
+        xe::sg::SphereGenerator sphereGenerator(64, 64);
 
-        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.5f);
+        std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.75f);
         
         std::vector<std::uint32_t> indices = sphereGenerator.genIndices();
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
         std::vector<xe::Vector2f> texcoords = sphereGenerator.genTexCoords(normals);
 
-        std::vector<xe::gfx::BufferDesc> descs = {
-            {coords}, 
-            {normals}, 
-            {texcoords}
+        xe::gfx::SubsetDesc subsetDesc = {
+            m_meshFormat.get(), 
+            {{coords}, {normals}, {texcoords}}, 
+            xe::DataType::UInt32, 
+            {indices}
         };
-        
-        auto subset = m_device->createSubset(m_meshFormat.get(), descs, indices);
+
+        auto subset = m_device->createSubset(subsetDesc);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();
@@ -136,13 +137,14 @@ namespace demo {
         std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
         std::vector<xe::Vector2f> texcoords = planeGenerator.genTexCoords();
         
-        std::vector<xe::gfx::BufferDesc> descs = {
-            {coords}, 
-            {normals}, 
-            {texcoords}
+        xe::gfx::SubsetDesc subsetDesc = {
+            m_meshFormat.get(), 
+            {{coords}, {normals}, {texcoords}}, 
+            xe::DataType::UInt32, 
+            {indices}
         };
         
-        auto subset = m_device->createSubset(m_meshFormat.get(), descs, indices);
+        auto subset = m_device->createSubset(subsetDesc);
         auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();

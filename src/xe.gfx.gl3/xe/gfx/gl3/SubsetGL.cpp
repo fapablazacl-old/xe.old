@@ -1,5 +1,5 @@
 
-#include "MeshGL.hpp"
+#include "SubsetGL.hpp"
 #include "Util.hpp"
 
 #include <map>
@@ -9,7 +9,7 @@
 
 namespace xe { namespace gfx { namespace gl3  {
     
-    MeshGL::~MeshGL() {
+    SubsetGL::~SubsetGL() {
         if (m_id) {
             glDeleteVertexArrays(1, &m_id);
             m_id = 0;
@@ -18,7 +18,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
     
-    void MeshGL::construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) {
+    void SubsetGL::construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) {
         XE_GL_CHECK_ERROR();
 
         m_format = format;
@@ -30,9 +30,9 @@ namespace xe { namespace gfx { namespace gl3  {
             m_buffers.emplace_back(static_cast<BufferGL*>(buffer.release()));
         }
         
-        // downcast the index buffers
+        // downcast the index buffer
+        m_indexType = indexType;
         m_indexBuffer.reset(static_cast<BufferGL*>(indexBuffer.release()));
-        
         auto bufferIndices = m_format->getBufferIndices();
         
         // create the vertex array object

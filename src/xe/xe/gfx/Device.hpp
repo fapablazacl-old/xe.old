@@ -66,6 +66,23 @@ namespace xe { namespace gfx {
         }
     };
 
+    struct SubsetDesc {
+        const SubsetFormat *format;
+        std::vector<BufferDesc> buffersDescs;
+
+        DataType indexType;
+        BufferDesc indexBufferDesc;
+
+        SubsetDesc(const SubsetFormat *format_, const BufferDesc &bufferDesc_, const DataType indexType_=DataType::Unknown, const BufferDesc indexBufferDesc_=BufferDesc())
+            : format(format_), indexType(indexType_), indexBufferDesc(indexBufferDesc_) {
+            buffersDescs.push_back(bufferDesc_);
+        }
+
+        SubsetDesc(const SubsetFormat *format_, const std::vector<BufferDesc> &buffersDescs_, const DataType indexType_=DataType::Unknown, const BufferDesc indexBufferDesc_=BufferDesc())
+            : format(format_), buffersDescs(buffersDescs_), indexType(indexType_), indexBufferDesc(indexBufferDesc_) {
+        }
+    };
+
     class XE_API Device {
     public:
         virtual ~Device() {}
@@ -74,15 +91,11 @@ namespace xe { namespace gfx {
 
         virtual const xe::input::InputManager* getInputManager() const = 0;
 
-        virtual SubsetPtr createSubset(const SubsetFormat *format, BufferPtr buffer);
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) = 0;
         
-        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) = 0;
+        virtual SubsetPtr createSubset(const SubsetDesc &subsetDesc);
         
-        virtual SubsetPtr createSubset(const SubsetFormat *format, const BufferDesc &desc);
-        
-        virtual SubsetPtr createSubset(const SubsetFormat *format, const std::vector<BufferDesc> &buffersDescs, const BufferDesc &indexBufferDesc = BufferDesc());
-        
-        virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data=nullptr) = 0;
+        virtual BufferPtr createBuffer(const BufferType type, const std::size_t size, const void *data=nullptr) = 0;
 
         template<typename Container>
         BufferPtr  createBuffer(const BufferType type, const Container& values) {

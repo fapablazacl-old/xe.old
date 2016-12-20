@@ -39,7 +39,7 @@ namespace xe {
             break;
             
         case StreamOffset::End:
-            m_offset = offset - m_size;
+            m_offset = offset - (int)m_size;
             break;
             
         default:

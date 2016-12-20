@@ -27,8 +27,8 @@ set (sources
     xe/gfx/gl3/ProgramGL.cpp 
     xe/gfx/gl3/ShaderGL.hpp        
     xe/gfx/gl3/ShaderGL.cpp 
-    xe/gfx/gl3/MeshGL.hpp          
-    xe/gfx/gl3/MeshGL.cpp
+    xe/gfx/gl3/SubsetGL.hpp          
+    xe/gfx/gl3/SubsetGL.cpp
     xe/gfx/gl3/InputManagerGLFW.hpp    
     xe/gfx/gl3/InputManagerGLFW.cpp
     xe/gfx/gl3/gl_core_3_3.h

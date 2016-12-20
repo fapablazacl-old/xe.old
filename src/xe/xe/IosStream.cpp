@@ -44,7 +44,7 @@ namespace xe {
         if (size == 1) {
             ios->read((char*) bufferOut, size * count);
             
-            return ios->gcount();
+            return (int)ios->gcount();
             
         } else {
             // emulate C's fread.

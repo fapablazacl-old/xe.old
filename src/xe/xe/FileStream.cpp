@@ -18,7 +18,7 @@ namespace xe {
     int FileStream::read(void *bufferOut, const int size, const int count) {
         assert(m_file);
         //std::cout << "xe::FileStream::read: size=" << size << ", count=" << count << std::endl;
-        return std::fread(bufferOut, size, count, m_file);
+        return (int)std::fread(bufferOut, size, count, m_file);
     }
     
     bool FileStream::seek(const int offset, const StreamOffset position) {

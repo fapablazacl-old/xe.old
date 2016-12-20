@@ -78,8 +78,8 @@ namespace xe { namespace gfx { namespace gl3  {
         return std::make_unique<TextureGL>(desc, sourceFormat, sourceType, sourceData);
     }
     
-    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) { 
-        return std::make_unique<MeshGL>(format, std::move(buffers), std::move(indexBuffer));
+    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) { 
+        return std::make_unique<SubsetGL>(format, std::move(buffers), indexType, std::move(indexBuffer));
     }
 
     ProgramPtr DeviceGL::createProgram(const std::list<ShaderSource> &sources)  { 
@@ -210,7 +210,7 @@ namespace xe { namespace gfx { namespace gl3  {
     }
 
     void DeviceGL::setMesh(Subset *mesh) {
-        m_mesh = static_cast<MeshGL*>(mesh);
+        m_mesh = static_cast<SubsetGL*>(mesh);
 
         if (m_mesh) {
             glBindVertexArray(m_mesh->getId());
@@ -236,14 +236,19 @@ namespace xe { namespace gfx { namespace gl3  {
         assert(start >= 0);
         assert(count > 0);
 
-        GLenum mode = primitives[static_cast<int>(primitive)];
+        const GLenum mode = primitives[static_cast<int>(primitive)];
         
         const auto elementCount = static_cast<GLsizei>(count);
         const auto elementStart = static_cast<GLint>(start);
         
         // check if the geometry is indexed
         DataType indexType = DataType::Unknown;
-        
+
+        if (m_mesh->getIndexBuffer()) {
+            indexType = m_mesh->getIndexType();
+        }
+
+        /*
         for (int i=0; i<m_mesh->getFormat()->getAttribCount(); i++) {
             auto attrib = m_mesh->getFormat()->getAttrib(i);
             auto buffer = m_mesh->getBuffer(attrib->bufferIndex);
@@ -252,6 +257,7 @@ namespace xe { namespace gfx { namespace gl3  {
                 indexType = attrib->type;
             }
         }
+        */
         
         const bool isIndexed = indexType != DataType::Unknown;
         

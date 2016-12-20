@@ -11,16 +11,16 @@
 
 namespace xe { namespace gfx { namespace gl3  {
 
-    class MeshGL : public Subset {
+    class SubsetGL : public Subset {
     public:
-        MeshGL() = default;
+        SubsetGL() = default;
         
-        MeshGL(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer) {
+        SubsetGL(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) {
             assert(format);
-            this->construct(format, std::move(buffers), std::move(indexBuffer));
+            this->construct(format, std::move(buffers), indexType, std::move(indexBuffer));
         }
         
-        ~MeshGL();
+        ~SubsetGL();
 
         GLuint getId() const {
             return m_id;
@@ -60,17 +60,23 @@ namespace xe { namespace gfx { namespace gl3  {
             return m_indexBuffer.get();
         }
         
+        virtual DataType getIndexType() const override {
+            return m_indexType;
+        }
+
     protected:
-        void construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer);
+        void construct(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer);
 
     private:
         GLuint m_id = 0;
         std::vector<BufferGLPtr> m_buffers;
         BufferGLPtr m_indexBuffer;
         const SubsetFormat *m_format = nullptr;
+
+        DataType m_indexType = DataType::Unknown;
     };
 
-    typedef std::unique_ptr<MeshGL> MeshGLPtr;
+    typedef std::unique_ptr<SubsetGL> MeshGLPtr;
 }}}
 
 #endif

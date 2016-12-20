@@ -31,6 +31,8 @@ namespace xe { namespace gfx {
         virtual Buffer* getIndexBuffer() = 0;
         
         virtual const Buffer* getIndexBuffer() const = 0;
+
+        virtual DataType getIndexType() const = 0;
     };
 
     typedef std::unique_ptr<Subset> SubsetPtr;

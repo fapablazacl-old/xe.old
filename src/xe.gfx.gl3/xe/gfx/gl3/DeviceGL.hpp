@@ -12,7 +12,7 @@
 #include "InputManagerGLFW.hpp"
 #include "OpenGL.hpp"
 #include "ProgramGL.hpp"
-#include "MeshGL.hpp"
+#include "SubsetGL.hpp"
 
 namespace xe { namespace gfx { namespace gl3  {
 
@@ -30,7 +30,7 @@ namespace xe { namespace gfx { namespace gl3  {
             return &m_inputManager;
         }
 
-        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, BufferPtr indexBuffer)  override;
+        virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer)  override;
 
         virtual BufferPtr createBuffer(const BufferType type, const std::size_t getSize, const void *data)  override;
 
@@ -71,7 +71,7 @@ namespace xe { namespace gfx { namespace gl3  {
         GLFWwindow *m_window = nullptr;
 
         Material *m_material = nullptr;
-        MeshGL *m_mesh = nullptr;
+        SubsetGL *m_mesh = nullptr;
         ProgramGL *m_program = nullptr;
 
         InputManagerGLFW m_inputManager;
