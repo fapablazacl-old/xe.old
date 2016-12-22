@@ -9,11 +9,13 @@
 #include <iosfwd>
 
 namespace xe { namespace gfx {
+
     /**
      * @brief Underlying device implementation technology
      */
     enum class Driver {
         Software,   //! Software implementation
+        D3D_10,     //! Microsoft Direct3D 10
         GL_1_5,     //! Fixed Function OpenGL
         GL_core,    //! OpenGL Core Profile
         GLES_1_1,   //! Fixed Function Embedded OpenGL
@@ -26,7 +28,7 @@ namespace xe { namespace gfx {
      */
     enum class Language {
         GLSL,
-        CG
+        HLSL
     };
     
     /**

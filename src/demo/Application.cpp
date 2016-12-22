@@ -72,20 +72,19 @@ namespace demo {
     Application::Application() {
         this->getPluginManager()->load("xe.gfx.fi");
         this->getPluginManager()->load("xe.gfx.gl3");
+        this->getPluginManager()->load("xe.gfx.d3d10");
     }
 
     Application::~Application() {}
 
     xe::gfx::DevicePtr Application::createDevice() {
-        /*
-        auto deviceInfos = core.getGraphicsManager()->enumerateDevices();
+        auto deviceInfos = this->getGraphicsManager()->enumerateDevices();
 
         std::cout << "Available graphics devices:" << std::endl;
 
         for (const xe::gfx::DeviceInfo &deviceInfo : deviceInfos) {
             std::cout << deviceInfo << std::endl;
         }
-        */
 
         return this->getGraphicsManager()->createDevice();
     }
