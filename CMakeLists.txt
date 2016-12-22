@@ -26,10 +26,14 @@ add_definitions(-DXE_VERSION_BUILD=0)
 
 set(CMAKE_CXX_STANDARD 14)
 
+include_directories(src)
 include_directories(src/xe)
 
 add_subdirectory(src/xe)
+add_subdirectory(src/glad)
 add_subdirectory(src/xe.gfx.gl3)
+#add_subdirectory(src/xe.gfx.gles2)
+add_subdirectory(src/xe.gfx.d3d10)
 add_subdirectory(src/xe.tests)
 add_subdirectory(src/xe.gfx.fi)
 #add_subdirectory(src/xe.gfx.png)

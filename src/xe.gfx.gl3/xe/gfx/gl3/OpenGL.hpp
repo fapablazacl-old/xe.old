@@ -10,7 +10,7 @@
 #pragma warning (disable:4251)
 #endif
 
-#include "gl_core_3_3.h"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 // #include <glbinding/Binding.h>

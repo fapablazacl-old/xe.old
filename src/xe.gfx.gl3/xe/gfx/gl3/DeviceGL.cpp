@@ -46,7 +46,7 @@ namespace xe { namespace gfx { namespace gl3  {
         glbinding::Binding::initialize(true);
         
 #else 
-        ogl_LoadFunctions();
+        ::gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 #endif
         
         XE_GL_CHECK_ERROR();

@@ -1,9 +1,4 @@
 
-# OpenGL
-find_package (OpenGL REQUIRED)
-include_directories (${OpenGL_INCLUDE_DIRS})
-link_directories (${OpenGL_LIBRARY_DIR})
-
 # GLFW3
 # for some reason, glfw's cmake on Windows doesn't work, so we hack the paths...
 find_package(glfw3 3.2 REQUIRED)
@@ -31,8 +26,8 @@ set (sources
     xe/gfx/gl3/SubsetGL.cpp
     xe/gfx/gl3/InputManagerGLFW.hpp    
     xe/gfx/gl3/InputManagerGLFW.cpp
-    xe/gfx/gl3/gl_core_3_3.h
-    xe/gfx/gl3/gl_core_3_3.c
+    #xe/gfx/gl3/gl_core_3_3.h
+    #xe/gfx/gl3/gl_core_3_3.c
     xe/gfx/gl3/PluginGL.hpp
     xe/gfx/gl3/PluginGL.cpp
     xe/gfx/gl3/Util.hpp
@@ -44,4 +39,4 @@ add_definitions(-DXE_BUILD -DXE_SHARED)
 
 add_library(${target} SHARED ${sources})
 
-target_link_libraries(${target} xe ${OPENGL_LIBRARIES} glfw)
+target_link_libraries(${target} xe glad glfw)
