@@ -1,5 +1,5 @@
 
-#include <GLES2/gl2.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <xe/gfx/Device.hpp>
 

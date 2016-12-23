@@ -19,7 +19,8 @@ namespace xe { namespace gfx {
         std::set<ImageLoader*> imageLoaders;
     };
 
-    Manager::Manager() : m_impl(new Manager::Private()) {}
+    Manager::Manager() 
+        : m_impl(new Manager::Private()) {}
 
     Manager::~Manager() {
         delete m_impl;

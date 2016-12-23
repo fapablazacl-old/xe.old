@@ -5,7 +5,23 @@ namespace xe { namespace gfx {
     DeviceGLES2::DeviceGLES2() 
     {
         ::glfwInit();
-        ::glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+
+        int hints[][2] = {
+            // version
+            {GLFW_CLIENT_API, GLFW_OPENGL_ES_API},
+            
+            // framebuffer
+            {GLFW_RED_BITS, 8},
+            {GLFW_GREEN_BITS, 8},
+            {GLFW_BLUE_BITS, 8},
+            {GLFW_ALPHA_BITS, 8} ,
+            {GLFW_DEPTH_BITS,  24},
+            {GLFW_STENCIL_BITS, 8}
+        };
+
+        for (auto hintPair : hints) {
+            ::glfwWindowHint(hintPair[0], hintPair[1]);
+        }
 
         m_window = ::glfwCreateWindow(640, 480, "test", nullptr, nullptr);
 

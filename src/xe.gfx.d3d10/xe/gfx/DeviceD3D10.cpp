@@ -11,7 +11,7 @@ namespace xe { namespace gfx {
         // create the window
         m_hWnd = ::CreateWindow (
             class_.c_str(), 
-            "TEST", 
+            "test", 
             WS_OVERLAPPEDWINDOW, 
             CW_USEDEFAULT, CW_USEDEFAULT, 
             DefaultWidth, DefaultHeight, 
@@ -143,6 +143,7 @@ namespace xe { namespace gfx {
         assert(m_swapChain);
 
         m_device->ClearRenderTargetView(m_renderTargetView, params.color.values);
+
     }
 
     void DeviceD3D10::endFrame() 

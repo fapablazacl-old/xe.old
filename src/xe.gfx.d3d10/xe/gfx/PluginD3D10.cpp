@@ -18,6 +18,8 @@ namespace xe { namespace gfx {
     }
 
     void PluginD3D10::start(Core *core) {
+        return;
+
         assert(core);
         assert(!m_factory);
 
@@ -39,6 +41,8 @@ namespace xe { namespace gfx {
     }
 
     void PluginD3D10::stop(Core *core) {
+        return;
+
         assert(core);
         assert(m_factory);
 

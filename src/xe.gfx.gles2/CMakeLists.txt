@@ -12,10 +12,14 @@ set (target xe.gfx.gles2)
 set (sources 
 	xe/gfx/DeviceGLES2.hpp 
 	xe/gfx/DeviceGLES2.cpp
+	xe/gfx/PluginGLES2.hpp 
+	xe/gfx/PluginGLES2.cpp
+	xe/gfx/FactoryGLES2.hpp
+	xe/gfx/FactoryGLES2.cpp
 )
 
 source_group(\\ FILES ${sources})
 
 add_library(${target} SHARED ${sources})
 
-target_link_libraries(${target} xe glfw)
+target_link_libraries(${target} xe glad glfw)
