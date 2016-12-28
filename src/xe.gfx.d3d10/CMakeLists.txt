@@ -9,6 +9,12 @@ set (sources
 	xe/gfx/PluginD3D10.cpp
 	xe/gfx/FactoryD3D10.hpp 
 	xe/gfx/FactoryD3D10.cpp
+	xe/gfx/BufferD3D10.hpp 
+	xe/gfx/BufferD3D10.cpp
+	xe/gfx/TextureD3D10.hpp 
+	xe/gfx/TextureD3D10.cpp
+	xe/gfx/ProgramD3D10.hpp 
+	xe/gfx/ProgramD3D10.cpp
 )
 
 source_group(\\ FILES ${sources})
