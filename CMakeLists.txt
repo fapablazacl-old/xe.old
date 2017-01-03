@@ -3,6 +3,23 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(xe)
 
+# options
+option (XE_GFX_ENABLE_GL3 "Enable OpenGL 3.3 Core support" ON)
+option (XE_GFX_ENABLE_GLES2 "Enable OpenGL ES 2.0 support" OFF)
+option (XE_GFX_ENABLE_D3D10 "Enable Direct3D 10 support" OFF)
+
+option (XE_GFX_ENABLE_FREEIMAGE "Enable FreeImage loader support" ON)
+option (XE_GFX_ENABLE_PNG "Enable PNG loader support" OFF)
+
+option (XE_SFX_ENABLE_AL "Enable OpenAL Core support" OFF)
+
+# setup dependency targets
+if (XE_GFX_ENABLE_GL3 OR XE_GFX_ENABLE_GLES2)
+	set (XE_GFX_ENABLE_GL_DEPENDENCIES ON)
+else()
+	set (XE_GFX_ENABLE_GL_DEPENDENCIES OFF)
+endif()
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 # 
@@ -29,14 +46,36 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(src)
 include_directories(src/xe)
 
+# mandatory target
 add_subdirectory(src/xe)
-add_subdirectory(src/glad)
-add_subdirectory(src/xe.gfx.gl3)
-add_subdirectory(src/xe.gfx.gles2)
-add_subdirectory(src/xe.gfx.d3d10)
-add_subdirectory(src/xe.tests)
-add_subdirectory(src/xe.gfx.fi)
-#add_subdirectory(src/xe.gfx.png)
-#add_subdirectory(src/xe.sfx.al)
-
 add_subdirectory(src/demo)
+add_subdirectory(src/xe.tests)
+
+# optional targets
+if(XE_GFX_ENABLE_GL_DEPENDENCIES)
+	add_subdirectory(src/glad)
+endif()
+
+if(XE_GFX_ENABLE_GL3)
+	add_subdirectory(src/xe.gfx.gl3)
+endif()
+
+if(XE_GFX_ENABLE_GLES2)
+	add_subdirectory(src/xe.gfx.gles2)
+endif()
+
+if(XE_GFX_ENABLE_D3D10)
+	add_subdirectory(src/xe.gfx.d3d10)
+endif()
+
+if(XE_GFX_ENABLE_FREEIMAGE)
+	add_subdirectory(src/xe.gfx.fi)
+endif()
+
+if(XE_GFX_ENABLE_PNG)
+	add_subdirectory(src/xe.gfx.png)
+endif()
+
+if(XE_SFX_ENABLE_AL)
+	add_subdirectory(src/xe.sfx.al)
+endif()

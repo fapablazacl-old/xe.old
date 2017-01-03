@@ -23,7 +23,7 @@ namespace xe {
         Core() {
             std::cout << 
                 "The XE C++ engine. \n"
-                "Copyright (c) 2016 Felipe Apablaza\n\n"
+                "Copyright (c) 2016, 2017 Felipe Apablaza\n\n"
                 "The license and distribution terms for this library may be\n"
                 "found in the file LICENSE in this distribution.\n" << std::endl;
         }
