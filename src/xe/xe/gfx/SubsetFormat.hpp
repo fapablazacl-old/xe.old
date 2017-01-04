@@ -10,7 +10,7 @@
 #include <xe/DataFormat.hpp>
 #include <xe/gfx/BufferType.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     /**
      * @brief Mesh attribute descriptor.
@@ -89,6 +89,6 @@ namespace xe { namespace gfx {
     };
 
     typedef std::unique_ptr<SubsetFormat> MeshFormatPtr;
-}}
+}
 
 #endif

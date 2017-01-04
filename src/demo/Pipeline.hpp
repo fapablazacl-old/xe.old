@@ -7,7 +7,7 @@
 #include <xe/Matrix.hpp>
 #include <xe/Vector.hpp>
 
-namespace xe { namespace sg {
+namespace xe { 
     class Renderable;
     class Renderer;
 
@@ -25,6 +25,6 @@ namespace xe { namespace sg {
 
         virtual void endFrame() = 0;
     };
-}}
+}
 
 #endif

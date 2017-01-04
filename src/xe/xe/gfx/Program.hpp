@@ -11,9 +11,9 @@
 #include "xe/gfx/UniformFormat.hpp"
 #include "xe/gfx/ShaderType.hpp"
 
-namespace xe { namespace gfx {
+namespace xe { 
     struct ShaderSource {
-        xe::gfx::ShaderType type;
+        ShaderType type;
         std::string source;
     };
 
@@ -27,6 +27,6 @@ namespace xe { namespace gfx {
     };
 
     typedef std::unique_ptr<Program> ProgramPtr;
-}}
+}
 
 #endif 

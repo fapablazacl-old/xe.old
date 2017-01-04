@@ -10,7 +10,7 @@
 #include <xe/input/KeyStatus.hpp>
 #include <xe/input/KeyCode.hpp>
 
-namespace xe { namespace input {
+namespace xe {
     class XE_API KeyboardStatus {
     public:
         KeyboardStatus();
@@ -48,6 +48,6 @@ namespace xe { namespace input {
         Status m_current;
         Status m_previous;
     };
-}}
+}
 
 #endif 

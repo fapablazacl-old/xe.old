@@ -11,8 +11,8 @@ set (sources
     xe/gfx/gl3/OpenGL.hpp 
     xe/gfx/gl3/BufferGL.hpp        
     xe/gfx/gl3/BufferGL.cpp
-    xe/gfx/gl3/DeviceGL.hpp        
-    xe/gfx/gl3/DeviceGL.cpp 
+    xe/gfx/gl3/GraphicsDeviceGL.hpp        
+    xe/gfx/gl3/GraphicsDeviceGL.cpp 
     xe/gfx/gl3/TextureGL.hpp       
     xe/gfx/gl3/TextureGL.cpp 
     xe/gfx/gl3/TextureBufferGL.hpp 

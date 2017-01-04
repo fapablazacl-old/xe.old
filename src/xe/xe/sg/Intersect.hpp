@@ -23,7 +23,7 @@
 
 #include <limits>
 
-namespace xe { namespace sg {
+namespace xe {
     bool intersect(const Ray &ray, const Boxf &box, IntersectInfo *info);
     bool intersect(const Ray &ray, const Plane &plane, IntersectInfo *info);
     bool intersect(const Ray &ray, const Sphere &sphere, IntersectInfo *info);
@@ -126,7 +126,7 @@ namespace xe { namespace sg {
     {
         return sphere.intersect(ray, info);
     }
-}}
+}
 
 #if defined(_WIN32)
 #  pragma pop_macro("max")

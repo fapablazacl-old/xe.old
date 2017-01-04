@@ -1,11 +1,11 @@
 
 #include "PhongMaterial.hpp"
 
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
 namespace demo {
 
-    static xe::gfx::UniformFormat s_format = {{
+    static xe::UniformFormat s_format = {{
         {"m_texture", 1, xe::DataType::Int32, 1},
         {"m_ambient", 4, xe::DataType::Float32, 1}, 
         {"m_diffuse", 4, xe::DataType::Float32, 1}, 
@@ -24,7 +24,7 @@ namespace demo {
 
     PhongMaterial::~PhongMaterial() {}
 
-    void PhongMaterial::render(xe::gfx::Device *device) {
+    void PhongMaterial::render(xe::GraphicsDevice *device) {
         assert(device);
 
         // render material properties

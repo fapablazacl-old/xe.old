@@ -12,11 +12,11 @@
 #include "xe/sg/Plane.hpp"
 #include "xe/gfx/Primitive.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     template<typename Type>
     struct Shape {
-        xe::gfx::Primitive primitive;
+        xe::Primitive primitive;
         std::vector<Vector<Type, 3>> coords;
     };
 
@@ -61,7 +61,7 @@ namespace xe { namespace sg {
             }
         }
 
-        shape.primitive = xe::gfx::Primitive::TriangleList;
+        shape.primitive = xe::Primitive::TriangleList;
 
         return shape;
     }
@@ -83,6 +83,6 @@ namespace xe { namespace sg {
 
         return texcoords;
     }
-}}
+}
 
 #endif

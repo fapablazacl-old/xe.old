@@ -1,7 +1,7 @@
 
 #include "SceneNode.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     class SceneNode;
     typedef std::unique_ptr<SceneNode> SceneNodePtr;
@@ -97,4 +97,4 @@ namespace xe { namespace sg {
 
         return m_impl->m_childs[index].get();
     }
-}}
+}

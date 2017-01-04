@@ -7,13 +7,13 @@
 #include "Pipeline.hpp"
 
 #include <typeindex>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
 
     class PhongPipeline : public Pipeline {
     public:
-        explicit PhongPipeline(xe::gfx::Device *device);
+        explicit PhongPipeline(GraphicsDevice *device);
 
         virtual ~PhongPipeline();
 
@@ -39,8 +39,8 @@ namespace xe { namespace sg {
         void unregisterRenderer(const std::type_index &renderableType, Renderer *renderer);
 
     private:
-        xe::gfx::Device *m_device = nullptr;
-        xe::gfx::ProgramPtr m_program;
+        xe::GraphicsDevice *m_device = nullptr;
+        xe::ProgramPtr m_program;
 
         xe::Matrix4f m_proj = xe::Matrix4f::makeIdentity();
         xe::Matrix4f m_view = xe::Matrix4f::makeIdentity();
@@ -54,6 +54,6 @@ namespace xe { namespace sg {
 
         bool m_frame = false;
     };
-}}
+}
 
 #endif

@@ -8,9 +8,9 @@
 
 #include <xe/Vector.hpp>
 #include <xe/Matrix.hpp>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
-namespace xe { namespace sg {
+namespace xe { 
 
     class Camera : public Renderable {
     public:
@@ -61,6 +61,6 @@ namespace xe { namespace sg {
     };
 
     typedef AnyCamera<PerspectiveProjPolicy, LookAtViewPolicy> LookAtPerspectiveCamera;
-}}
+}
 
 #endif

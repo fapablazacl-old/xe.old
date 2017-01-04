@@ -6,7 +6,7 @@
 
 #include <xe/input/EventHandler.hpp>
 
-namespace xe { namespace input {
+namespace xe {
     template<typename EventData>
     class Event {
     public:
@@ -20,6 +20,6 @@ namespace xe { namespace input {
 
         virtual void raise(const EventData &) = 0;
     };
-}}
+}
 
 #endif

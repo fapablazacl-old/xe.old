@@ -2,7 +2,7 @@
 #include "BufferGL.hpp"
 #include "Util.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
     BufferGL::~BufferGL() {
         if (m_id) {
             glDeleteBuffers(1, &m_id);
@@ -55,4 +55,4 @@ namespace xe { namespace gfx { namespace gl3  {
             this->write(data);
         }
     }
-}}}
+}

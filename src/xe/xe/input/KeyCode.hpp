@@ -4,7 +4,7 @@
 #ifndef __xe_input_keycode__
 #define __xe_input_keycode__
 
-namespace xe { namespace input {
+namespace xe {
     enum class KeyCode {
         Unknown,
         KeyEsc,
@@ -18,6 +18,6 @@ namespace xe { namespace input {
         KeyRShift,
         Total
     };
-}}
+}
 
 #endif

@@ -11,7 +11,7 @@
 #include <xe/Vector.hpp>
 #include <xe/sg/Plane.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     struct XE_API PlaneGenerator {
         std::size_t slices = 1;
         std::size_t stacks = 1;
@@ -31,6 +31,6 @@ namespace xe { namespace sg {
         
         std::vector<xe::Vector2f> genTexCoords() const;
     };
-}}
+}
 
 #endif 

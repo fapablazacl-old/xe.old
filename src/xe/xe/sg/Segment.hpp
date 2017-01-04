@@ -5,7 +5,7 @@
 #include <xe/Vector.hpp>
 #include <array>
 
-namespace xe { namespace sg {
+namespace xe {
     /**
      * @brief Line segment
      */
@@ -105,8 +105,6 @@ namespace xe { namespace sg {
     int Segment<Type>::getPointCount() const {
         return this->points.size();
     }
-}}
-
-
+}
 
 #endif  // __EXENG_SCENEGRAPH_SEGMENT_HPP__

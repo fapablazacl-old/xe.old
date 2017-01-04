@@ -11,7 +11,7 @@
 #include "OpenGL.hpp"
 #include "xe/Buffer.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
     class BufferGL : public Buffer {
     public:
@@ -54,6 +54,6 @@ namespace xe { namespace gfx { namespace gl3  {
     
     typedef std::unique_ptr<BufferGL> BufferGLPtr;
     typedef std::vector<BufferPtr> BufferGLVector;
-}}}
+}
 
 #endif

@@ -2,9 +2,9 @@
 #include "PhongLightRenderer.hpp"
 #include "PhongLight.hpp"
 
-namespace xe { namespace sg {
+namespace xe { 
 
-    PhongLightRenderer::PhongLightRenderer(xe::gfx::Device *device) : m_device(device) {
+    PhongLightRenderer::PhongLightRenderer(xe::GraphicsDevice *device) : m_device(device) {
         assert(device);
     }
 
@@ -19,4 +19,4 @@ namespace xe { namespace sg {
 
         light->render(m_device);
     }
-}}
+}

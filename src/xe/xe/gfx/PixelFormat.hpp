@@ -11,7 +11,7 @@
 #include <xe/DataType.hpp>
 #include <ostream>
 
-namespace xe { namespace gfx {
+namespace xe {
     
     /** 
      * @brief Pixel Format for textures and images
@@ -33,8 +33,8 @@ namespace xe { namespace gfx {
     XE_API std::size_t getSize(PixelFormat format);
     
     XE_API xe::DataType getDataType(const PixelFormat format);
-}}
+}
 
-extern XE_API std::ostream& operator<< (std::ostream &os, const xe::gfx::PixelFormat format);
+extern XE_API std::ostream& operator<< (std::ostream &os, const xe::PixelFormat format);
 
 #endif

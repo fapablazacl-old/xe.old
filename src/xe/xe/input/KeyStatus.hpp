@@ -4,7 +4,7 @@
 #ifndef __xe_input_keystatus__
 #define __xe_input_keystatus__
 
-namespace xe { namespace input {
+namespace xe {
     enum class KeyStatus {
         Release,
         Press,
@@ -18,6 +18,6 @@ namespace xe { namespace input {
     inline bool isReleased(KeyStatus status) {
         return status==KeyStatus::Release;
     }
-}}
+}
 
 #endif

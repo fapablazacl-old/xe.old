@@ -1,7 +1,7 @@
 
 #include "Scene.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     struct Scene::Private {
         Vector4f backcolor = {0.2f, 0.2f, 0.2f, 1.0f};
@@ -34,4 +34,4 @@ namespace xe { namespace sg {
     Scene::~Scene() {
         delete m_impl;
     }
-}}
+}

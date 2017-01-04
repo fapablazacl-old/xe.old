@@ -2,7 +2,7 @@
 #include "ImageLoaderFI.hpp"
 #include "ImageFI.hpp"
 
-namespace xe { namespace gfx { 
+namespace xe {
 
     void FreeImageErrorHandler(FREE_IMAGE_FORMAT fif, const char *message) {
         std::cerr << message << std::endl;
@@ -18,7 +18,7 @@ namespace xe { namespace gfx {
         assert(stream);
         assert(stream->isReadable());
         
-        //std::clog << "xe::gfx::StreamRead: size=" << size << ", count=" << count << std::endl;
+        //std::clog << "xe::StreamRead: size=" << size << ", count=" << count << std::endl;
         
         return stream->read(buffer, size, count);
     }
@@ -69,7 +69,7 @@ namespace xe { namespace gfx {
             assert(false);
         }
         
-        //std::clog << "xe::gfx::StreamSeek: offset=" << offset << ", origin=" << position << std::endl;
+        //std::clog << "xe::StreamSeek: offset=" << offset << ", origin=" << position << std::endl;
         
         if (stream->seek(offset, position)) {
             return 0;
@@ -83,7 +83,7 @@ namespace xe { namespace gfx {
         
         Stream *stream = (Stream*) handle;
         
-        //std::clog << "xe::gfx::StreamTell: tell=" << stream->tell() << std::endl;
+        //std::clog << "xe::StreamTell: tell=" << stream->tell() << std::endl;
         
         return stream->tell();
     }
@@ -150,4 +150,4 @@ namespace xe { namespace gfx {
         
         return std::make_unique<ImageProxyFI>(stream);
     }
-}}
+}

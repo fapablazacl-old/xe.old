@@ -4,7 +4,7 @@
 #include "xe/DataType.hpp"
 #include "xe/DataFormat.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
     struct UniformDescriptor : public xe::Attrib {
         size_t count = 0;   //! How many elements has the array
 
@@ -23,4 +23,4 @@ namespace xe { namespace gfx {
     };
     
     typedef xe::DataFormat<UniformDescriptor> UniformFormat;
-}}
+}

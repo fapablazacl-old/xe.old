@@ -7,7 +7,7 @@
 #include <FreeImage.h>
 #include <xe/gfx/Image.hpp>
 
-namespace xe { namespace gfx { 
+namespace xe {
     class ImageFI : public Image {
     public:
         explicit ImageFI(FIBITMAP *bitmap);
@@ -23,6 +23,6 @@ namespace xe { namespace gfx {
     private:
         FIBITMAP *m_bitmap = nullptr;
     };
-}}
+}
 
 #endif

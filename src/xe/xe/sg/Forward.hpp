@@ -4,7 +4,7 @@
 #ifndef __XE_SG_FORWARD_HPP__
 #define __XE_SG_FORWARD_HPP__
 
-namespace xe { namespace sg {
+namespace xe {
     class SceneManager;
     
     class SceneLoader;
@@ -16,6 +16,6 @@ namespace xe { namespace sg {
 
     class Renderable;
     class Pipeline;
-}}
+}
 
 #endif

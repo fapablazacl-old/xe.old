@@ -4,7 +4,7 @@
 #include <cstring>
 #include <iostream>
 
-namespace xe { namespace input {
+namespace xe {
     KeyboardStatus::KeyboardStatus() {}
 
     void KeyboardStatus::setKeyStatus(KeyCode keyCode, KeyStatus keyStatus) {
@@ -37,4 +37,4 @@ namespace xe { namespace input {
 
         return result;
     }
-}}
+}

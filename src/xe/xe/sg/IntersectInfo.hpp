@@ -18,7 +18,7 @@
 #include <xe/Vector.hpp>
 #include <xe/gfx/Material.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     /**
      * @brief Store information about the intersection between a ray and a object.
      */
@@ -31,28 +31,28 @@ namespace xe { namespace sg {
         float distance;                                 
         
         //! Surface normal at the intersection point.
-        xe::Vector3f normal;                   
+        Vector3f normal;                   
         
         //! Ray - surface intersection point.
-        xe::Vector3f point;                    
+        Vector3f point;                    
         
         //! Surface material.
-        const xe::gfx::Material* material;   
+        const Material* material;   
     
     public:
         IntersectInfo();
     };
-}}
+}
 
-namespace xe { namespace sg {
+namespace xe {
     inline IntersectInfo::IntersectInfo() {
         this->intersect = false;
         this->distance = 0.0f;
-        this->normal = xe::Vector3f(0.0f);
-        this->point = xe::Vector3f(0.0f);
+        this->normal = Vector3f(0.0f);
+        this->point = Vector3f(0.0f);
         this->material = nullptr;
     } 
-}}
+}
 
 
 #endif  //__EXENG_SCENEGRAPH_INTERSECTINFO_HPP__

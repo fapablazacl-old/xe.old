@@ -8,7 +8,7 @@
 #include "xe/Buffer.hpp"
 #include "xe/gfx/PixelFormat.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
 
     enum class TextureType {
         Unknown,
@@ -41,7 +41,7 @@ namespace xe { namespace gfx {
                 }
             }
 
-            result *= xe::gfx::getSize(format);
+            result *= xe::getSize(format);
 
             return result;
         }
@@ -50,7 +50,7 @@ namespace xe { namespace gfx {
     class XE_API Texture;
     typedef std::unique_ptr<Texture> TexturePtr;
 
-    class XE_API Device;
+    class XE_API GraphicsDevice;
     class XE_API Texture {
     public:
         virtual ~Texture() {}
@@ -61,8 +61,8 @@ namespace xe { namespace gfx {
 
         virtual void buildMipmaps();
 
-        static TexturePtr createCheckerboard(Device *device, const TextureDesc &desc, const int tilesInX, const int tilesInY);
+        static TexturePtr createCheckerboard(GraphicsDevice *device, const TextureDesc &desc, const int tilesInX, const int tilesInY);
     };    
-}}
+}
 
 #endif

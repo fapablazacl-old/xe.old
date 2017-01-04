@@ -8,9 +8,9 @@
 
 #include <cstdint>
 #include <xe/Vector.hpp>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
-namespace xe { namespace sg {
+namespace xe { 
 
     enum class LightType : std::int32_t {
         Point = 0,
@@ -42,7 +42,7 @@ namespace xe { namespace sg {
             return &m_properties;
         }
 
-        void render(xe::gfx::Device *device);
+        void render(GraphicsDevice *device);
 
         virtual std::type_index getTypeIndex() const override {
             return std::type_index(typeid(PhongLight));
@@ -51,6 +51,6 @@ namespace xe { namespace sg {
     private:
         PhongLightProperties m_properties;
     };
-}}
+}
 
 #endif

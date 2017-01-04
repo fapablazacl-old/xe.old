@@ -8,7 +8,7 @@
 #include "xe/Vector.hpp"
 #include "xe/sg/Renderable.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     enum class LightType {
         Global,
@@ -38,6 +38,6 @@ namespace xe { namespace sg {
     };
 
     typedef std::unique_ptr<Light> LightPtr;
-}}
+}
 
 #endif

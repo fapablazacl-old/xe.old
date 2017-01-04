@@ -23,7 +23,7 @@
 #include <xe/PreDef.hpp>
 #include <xe/gfx/PixelFormat.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     enum class ImageType {
         Unknown,
@@ -51,6 +51,6 @@ namespace xe { namespace gfx {
     };
 
     typedef std::unique_ptr<Image> ImagePtr;
-}}
+}
 
 #endif 

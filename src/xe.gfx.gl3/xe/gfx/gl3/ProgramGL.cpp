@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe { 
     ProgramGL::ProgramGL(ShaderGLVector shaders) {
         m_shaders = std::move(shaders);
 
@@ -62,4 +62,4 @@ namespace xe { namespace gfx { namespace gl3  {
 
         return glGetAttribLocation(m_id, attribName.c_str());
     }
-}}}
+}

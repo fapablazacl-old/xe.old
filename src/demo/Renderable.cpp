@@ -1,6 +1,6 @@
 
 #include "Renderable.hpp"
 
-namespace xe { namespace sg {
+namespace xe { 
     Renderable::~Renderable() {}
-}}
+}

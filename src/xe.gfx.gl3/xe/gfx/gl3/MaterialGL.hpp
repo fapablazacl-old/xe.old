@@ -8,7 +8,7 @@
 //#include "xe/DataFormat.hpp"
 //#include "xe/Vector.hpp"
 //
-//namespace xe { namespace gfx { namespace gl3  {
+//namespace xe { 
 //
 //    typedef xe::DataFormat<xe::Attrib> MaterialFormat;
 //

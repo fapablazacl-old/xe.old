@@ -10,7 +10,7 @@
 #include <xe/input/KeyboardStatus.hpp>
 #include <xe/input/KeyStroke.hpp>
 
-namespace xe { namespace input {
+namespace xe {
 
     /**
      * @brief Interface to the keyboard device
@@ -29,8 +29,8 @@ namespace xe { namespace input {
         /**
          * @brief Get the key stroke event interface
          */
-        virtual Event<xe::input::KeyStroke>* getKeyStrokeEvent() = 0;
+        virtual Event<KeyStroke>* getKeyStrokeEvent() = 0;
     };
-}}
+}
 
 #endif 

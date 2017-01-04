@@ -1,25 +1,25 @@
 
 
 #include "InputManagerGLFW.hpp"
-#include "DeviceGL.hpp"
+#include "GraphicsDeviceGL.hpp"
 
 #include <map>
 
-namespace xe { namespace gfx { namespace gl3 {
+namespace xe {
 
-    static std::map<int, xe::input::KeyCode> keymaps = {
-        {GLFW_KEY_ESCAPE    , xe::input::KeyCode::KeyEsc},
-        {GLFW_KEY_LEFT      , xe::input::KeyCode::KeyLeft},
-        {GLFW_KEY_RIGHT     , xe::input::KeyCode::KeyRight},
-        {GLFW_KEY_UP        , xe::input::KeyCode::KeyUp},
-        {GLFW_KEY_DOWN      , xe::input::KeyCode::KeyDown},
-        {GLFW_KEY_ENTER     , xe::input::KeyCode::KeyEnter}, 
-        {GLFW_KEY_SPACE     , xe::input::KeyCode::KeySpace}
+    static std::map<int, xe::KeyCode> keymaps = {
+        {GLFW_KEY_ESCAPE    , xe::KeyCode::KeyEsc},
+        {GLFW_KEY_LEFT      , xe::KeyCode::KeyLeft},
+        {GLFW_KEY_RIGHT     , xe::KeyCode::KeyRight},
+        {GLFW_KEY_UP        , xe::KeyCode::KeyUp},
+        {GLFW_KEY_DOWN      , xe::KeyCode::KeyDown},
+        {GLFW_KEY_ENTER     , xe::KeyCode::KeyEnter}, 
+        {GLFW_KEY_SPACE     , xe::KeyCode::KeySpace}
     };
 
-    static xe::input::KeyStatus s_status[] = {
-        xe::input::KeyStatus::Release,
-        xe::input::KeyStatus::Press
+    static xe::KeyStatus s_status[] = {
+        xe::KeyStatus::Release,
+        xe::KeyStatus::Press
     };
 
     void KeyboardGLFW::poll() {
@@ -39,18 +39,18 @@ namespace xe { namespace gfx { namespace gl3 {
             return;
         }
         
-        //auto driver = static_cast<xe::gfx::gl3::DeviceGL*>(::glfwGetWindowUserPointer(window));
+        //auto driver = static_cast<xe::GraphicsDeviceGLDeviceGL*>(::glfwGetWindowUserPointer(window));
         //auto manager = static_cast<InputManagerGLFW*>(driver->getInputManager());
 
         //// determine key code
-        //auto code = xe::input::KeyCode::Unknown;
+        //auto code = xe::KeyCode::Unknown;
 
         //auto keyIterator = keymaps.find(key);
         //if (keyIterator != keymaps.end()) {
         //    code = keyIterator->second;
         //}
 
-        //if (code == xe::input::KeyCode::Unknown) {
+        //if (code == xe::KeyCode::Unknown) {
         //    return;
         //}
 
@@ -79,4 +79,4 @@ namespace xe { namespace gfx { namespace gl3 {
         m_window = window;
         m_keyboard.window = window;
     }
-}}}
+}

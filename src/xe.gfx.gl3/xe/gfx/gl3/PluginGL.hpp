@@ -6,11 +6,11 @@
 
 #include <xe/Core.hpp>
 #include <xe/Plugin.hpp>
-#include <xe/gfx/FactoryImpl.hpp>
+#include <xe/gfx/GraphicsFactoryImpl.hpp>
 
-#include "DeviceGL.hpp"
+#include "GraphicsDeviceGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3 {
+namespace xe {
     class PluginGL : public Plugin<Core> {
     public:
         PluginGL();
@@ -23,8 +23,8 @@ namespace xe { namespace gfx { namespace gl3 {
         virtual void stop(Core *core) override;
 
     private:
-        xe::gfx::FactoryImpl<DeviceGL> m_factory;
+        xe::FactoryImpl<GraphicsDeviceGL> m_factory;
     };
-}}}
+}
 
 #endif

@@ -7,7 +7,7 @@
 #include <xe/Stream.hpp>
 #include <xe/gfx/Image.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     /**
      * @brief Image Proxy Interface.
@@ -34,6 +34,6 @@ namespace xe { namespace gfx {
         
         virtual ImageProxyPtr createProxy(xe::Stream *stream) = 0;
     };
-}}
+}
 
 #endif

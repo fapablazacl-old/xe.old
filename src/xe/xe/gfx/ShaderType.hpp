@@ -4,12 +4,12 @@
 #ifndef __xe_gfx_shadertype__
 #define __xe_gfx_shadertype__
 
-namespace xe { namespace gfx {
+namespace xe {
     enum class ShaderType {
         Vertex,
         Fragment,
         Geometry
     };
-}}
+}
 
 #endif 

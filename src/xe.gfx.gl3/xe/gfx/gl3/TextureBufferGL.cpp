@@ -2,10 +2,10 @@
 #include "TextureGL.hpp"
 #include "TextureBufferGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3 {
+namespace xe {
 
     std::size_t TextureBufferGL::getSize() const {
-        xe::gfx::TextureDesc desc = m_texture->getDesc();
+        xe::TextureDesc desc = m_texture->getDesc();
 
         std::size_t size = desc.width;
 
@@ -18,15 +18,15 @@ namespace xe { namespace gfx { namespace gl3 {
         }
 
         switch (desc.format) {
-        case xe::gfx::PixelFormat::R5G5B5A1:
-        case xe::gfx::PixelFormat::R5G5B5X1:
-        case xe::gfx::PixelFormat::R5G6B5:
+        case xe::PixelFormat::R5G5B5A1:
+        case xe::PixelFormat::R5G5B5X1:
+        case xe::PixelFormat::R5G6B5:
             size *= 2;
 
-        case xe::gfx::PixelFormat::RGB_8:
+        case xe::PixelFormat::RGB_8:
             size *= 3;
 
-        case xe::gfx::PixelFormat::RGBA_8:
+        case xe::PixelFormat::RGBA_8:
             size *= 4;
             
         default: assert(false);
@@ -46,13 +46,13 @@ namespace xe { namespace gfx { namespace gl3 {
         assert(size == 0);
         assert(offset == 0);
 
-        xe::gfx::TextureDesc desc = m_texture->getDesc();
+        xe::TextureDesc desc = m_texture->getDesc();
 
         switch (desc.type) {
-        case xe::gfx::TextureType::Tex1D:
+        case xe::TextureType::Tex1D:
             glTexSubImage1D(GL_TEXTURE_1D, 0, 0, (GLsizei)desc.width, GL_RG, GL_UNSIGNED_BYTE, (const char*)source + source_offset);
             
         default: assert(false);
         }
     }
-}}}
+}

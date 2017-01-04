@@ -8,19 +8,19 @@
 
 #include "Pipeline.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     class SceneRenderer {
     public:
-        explicit SceneRenderer(xe::sg::Pipeline *pipeline);
+        explicit SceneRenderer(Pipeline *pipeline);
 
         ~SceneRenderer();
 
-        void renderFrame(const xe::sg::Scene *scene);
+        void renderFrame(const Scene *scene);
 
     private:
         struct Private;
         Private *m_impl = nullptr;
     };
-}}
+}
 
 #endif

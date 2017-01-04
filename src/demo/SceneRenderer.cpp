@@ -4,13 +4,13 @@
 #include <cstring>
 #include <vector>
 
-namespace xe { namespace sg {
+namespace xe {
 
     struct RenderElement {
         xe::Matrix4f transformation;
-        xe::sg::Renderable *renderable = nullptr;
+        xe::Renderable *renderable = nullptr;
 
-        RenderElement(const xe::Matrix4f &transformation_, xe::sg::Renderable *renderable_) 
+        RenderElement(const xe::Matrix4f &transformation_, xe::Renderable *renderable_) 
             : transformation(transformation_), renderable(renderable_) {
 
             assert(renderable);
@@ -18,13 +18,13 @@ namespace xe { namespace sg {
     };
 
     struct SceneRenderer::Private {
-        xe::sg::Pipeline *pipeline = nullptr;
+        xe::Pipeline *pipeline = nullptr;
 
-        void filterNode(std::vector<RenderElement> &elements, const xe::Matrix4f &parentTransformation, const xe::sg::SceneNode *node) {
+        void filterNode(std::vector<RenderElement> &elements, const xe::Matrix4f &parentTransformation, const xe::SceneNode *node) {
             assert(node);
 
             xe::Matrix4f transformation = parentTransformation * node->getMatrix();
-            xe::sg::Renderable *renderable = node->getRenderable();
+            xe::Renderable *renderable = node->getRenderable();
 
             if (renderable) {
                 elements.push_back({transformation, renderable});
@@ -35,7 +35,7 @@ namespace xe { namespace sg {
             }
         }
 
-        std::vector<RenderElement> filterScene(const xe::sg::Scene *scene) {
+        std::vector<RenderElement> filterScene(const xe::Scene *scene) {
             assert(scene);
 
             std::vector<RenderElement> elements;
@@ -46,7 +46,7 @@ namespace xe { namespace sg {
         }
     };
 
-    SceneRenderer::SceneRenderer(xe::sg::Pipeline *pipeline)
+    SceneRenderer::SceneRenderer(xe::Pipeline *pipeline)
         : m_impl(new SceneRenderer::Private()) {
 
         assert(pipeline);
@@ -58,7 +58,7 @@ namespace xe { namespace sg {
         delete m_impl;
     }
 
-    void SceneRenderer::renderFrame(const xe::sg::Scene *scene) {
+    void SceneRenderer::renderFrame(const xe::Scene *scene) {
         assert(m_impl);
         assert(scene);
 
@@ -67,7 +67,7 @@ namespace xe { namespace sg {
 
         const std::vector<RenderElement> elements = m_impl->filterScene(scene);
 
-        xe::sg::Pipeline *pipeline = m_impl->pipeline;
+        xe::Pipeline *pipeline = m_impl->pipeline;
         assert(pipeline);
 
         // render the full scene
@@ -80,4 +80,4 @@ namespace xe { namespace sg {
 
         pipeline->endFrame();
     }
-}}
+}

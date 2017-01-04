@@ -4,7 +4,7 @@
 
 #include <xe/Boundary.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     template<typename OtherSolid>
     xe::Boxf box(const OtherSolid &solid);
     
@@ -18,6 +18,6 @@ namespace xe { namespace sg {
     inline xe::Boxf box(const xe::Boxf &solid) {
         return solid;
     }
-}}
+}
 
 #endif  

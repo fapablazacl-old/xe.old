@@ -11,7 +11,7 @@
 #include <xe/Matrix.hpp>
 #include <xe/sg/Forward.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
 
     /**
      * @brief Node of some scene.
@@ -77,6 +77,6 @@ namespace xe { namespace sg {
         struct Private;
         Private *m_impl = nullptr;
     };
-}}
+}
 
 #endif

@@ -9,7 +9,7 @@
 #include "xe/gfx/UniformFormat.hpp"
 #include "xe/gfx/Texture.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
 
     enum class TextureFilter {
         Linear,
@@ -77,7 +77,7 @@ namespace xe { namespace gfx {
             return &m_layers[index];
         }
 
-        virtual void render(xe::gfx::Device *device) = 0;
+        virtual void render(GraphicsDevice *device) = 0;
 
     protected:
         std::vector<MaterialLayer> m_layers;
@@ -85,4 +85,4 @@ namespace xe { namespace gfx {
     };
 
     typedef std::unique_ptr<Material> MaterialPtr; 
-}} 
+}

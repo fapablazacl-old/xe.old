@@ -8,7 +8,7 @@
 #include <xe/input/Keyboard.hpp>
 #include <xe/input/Mouse.hpp>
 
-namespace xe { namespace input {
+namespace xe {
     class XE_API InputManager {
     public:
         virtual ~InputManager() {}
@@ -28,6 +28,6 @@ namespace xe { namespace input {
          */
         virtual void poll() = 0;
     };
-}}
+}
 
 #endif 

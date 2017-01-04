@@ -2,9 +2,9 @@
 #include "MeshRenderer.hpp"
 #include "Mesh.hpp"
 
-namespace xe { namespace sg {  
+namespace xe {
 
-    MeshRenderer::MeshRenderer(xe::gfx::Device *device) : m_device(device) {
+    MeshRenderer::MeshRenderer(xe::GraphicsDevice *device) : m_device(device) {
         assert(device);
     }
 
@@ -18,8 +18,8 @@ namespace xe { namespace sg {
         auto mesh = static_cast<Mesh*>(renderable);
 
         for (std::size_t i=0; i<mesh->getSubsetCount(); i++) {
-            xe::gfx::Subset *subset = mesh->getSubset(i);
-            xe::sg::Envelope *envelope = mesh->getEnvelope(i);
+            xe::Subset *subset = mesh->getSubset(i);
+            xe::Envelope *envelope = mesh->getEnvelope(i);
 
             assert(subset);
             assert(envelope);
@@ -31,4 +31,4 @@ namespace xe { namespace sg {
             m_device->draw(envelope->primitive, envelope->start, envelope->count);
         }
     }
-}}
+}

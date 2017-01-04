@@ -3,8 +3,8 @@
 
 #include "xe/sg/Pipeline.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     void Light::renderWith(Pipeline *pipeline) {
         pipeline->render(this);
     }
-}}
+}

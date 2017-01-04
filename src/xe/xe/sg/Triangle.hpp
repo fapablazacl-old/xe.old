@@ -8,7 +8,7 @@
 #include <xe/sg/Ray.hpp>
 #include <xe/sg/IntersectInfo.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     template<typename VectorType>
     struct Triangle {
         const VectorType &p1;
@@ -98,8 +98,6 @@ namespace xe { namespace sg {
             }
         }
     }
+}
 
-}}
-
-
-#endif  //__EXENG_SCENEGRAPH_TRIANGLE_HPP__
+#endif 

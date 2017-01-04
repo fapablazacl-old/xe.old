@@ -11,7 +11,7 @@
 #include <xe/Vector.hpp>
 #include <xe/sg/Plane.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     struct XE_API SphereGenerator {
         std::size_t slices = 4;
         std::size_t stacks = 5;
@@ -34,6 +34,6 @@ namespace xe { namespace sg {
         
         std::vector<xe::Vector2f> genTexCoords(const std::vector<xe::Vector3f> &normals) const;
     };
-}}
+}
 
 #endif

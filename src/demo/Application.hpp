@@ -11,10 +11,10 @@
 #include <xe/Core.hpp>
 #include <xe/Matrix.hpp>
 #include <xe/PluginManager.hpp>
-#include <xe/gfx/Manager.hpp>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsManager.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/Material.hpp>
-#include <xe/gfx/DeviceInfo.hpp>
+#include <xe/gfx/GraphicsDeviceInfo.hpp>
 #include <xe/sg/SceneNode.hpp>
 #include <xe/sg/Scene.hpp>
 
@@ -32,46 +32,44 @@ namespace demo {
         int run();
         
     private:
-        xe::gfx::DevicePtr createDevice();
+        xe::GraphicsDevicePtr createDevice();
 
-        xe::gfx::MeshFormatPtr createMeshFormat();
+        xe::MeshFormatPtr createMeshFormat();
 
-        xe::sg::ScenePtr createScene();
+        xe::ScenePtr createScene();
         
-        xe::gfx::MaterialPtr createCustomMaterial();
+        xe::MaterialPtr createCustomMaterial();
         
-        xe::gfx::MaterialPtr createBlankMaterial();
+        xe::MaterialPtr createBlankMaterial();
         
-        std::map<std::string, xe::gfx::MaterialPtr> createMaterials();
+        std::map<std::string, xe::MaterialPtr> createMaterials();
 
-        std::map<std::string, xe::sg::RenderablePtr> createRenderables();
+        std::map<std::string, xe::RenderablePtr> createRenderables();
         
-        xe::gfx::TexturePtr createTexture(const std::string &file);
+        xe::TexturePtr createTexture(const std::string &file);
         
-        std::map<std::string, xe::gfx::TexturePtr> createTextures();
+        std::map<std::string, xe::TexturePtr> createTextures();
         
+        xe::RenderablePtr createSphereRenderable();
 
-        xe::sg::RenderablePtr createSphereRenderable();
+        xe::RenderablePtr createPlaneRenderable();
 
-        xe::sg::RenderablePtr createPlaneRenderable();
-
-        xe::sg::RenderablePtr createLightRenderable();
+        xe::RenderablePtr createLightRenderable();
 
     private:
-        xe::gfx::DevicePtr m_device;
-        xe::gfx::MeshFormatPtr m_meshFormat;
-        xe::sg::ScenePtr m_scene;
+        xe::GraphicsDevicePtr m_device;
+        xe::MeshFormatPtr m_meshFormat;
+        xe::ScenePtr m_scene;
 
-        xe::sg::SceneNode *m_meshNode = nullptr;
+        xe::SceneNode *m_meshNode = nullptr;
         //float m_angle = 0.0f;
 
-        std::map<std::string, xe::sg::RenderablePtr> m_renderables;
-        std::map<std::string, xe::gfx::MaterialPtr> m_materials;
-        std::map<std::string, xe::gfx::TexturePtr> m_textures;
+        std::map<std::string, xe::RenderablePtr> m_renderables;
+        std::map<std::string, xe::MaterialPtr> m_materials;
+        std::map<std::string, xe::TexturePtr> m_textures;
 
-        std::unique_ptr<xe::sg::Pipeline> m_pipeline;
-        std::unique_ptr<xe::sg::SceneRenderer> m_sceneRenderer;
-        
+        std::unique_ptr<xe::Pipeline> m_pipeline;
+        std::unique_ptr<xe::SceneRenderer> m_sceneRenderer;
     };
 }
 

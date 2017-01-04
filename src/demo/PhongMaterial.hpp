@@ -18,13 +18,13 @@ namespace demo {
         float shininess = 0.0f;
     };
 
-    class PhongMaterial : public xe::gfx::Material {
+    class PhongMaterial : public xe::Material {
     public:
         PhongMaterial();
 
         virtual ~PhongMaterial();
 
-        virtual void render(xe::gfx::Device *device) override;
+        virtual void render(xe::GraphicsDevice *device) override;
 
         PhongMaterialProperties* getProperties() {
             return &m_properties;

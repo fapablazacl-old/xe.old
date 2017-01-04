@@ -11,7 +11,7 @@
 #include "xe/sg/Renderable.hpp"
 #include "xe/sg/Pipeline.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     class Camera : public Renderable {
     public:
@@ -30,6 +30,6 @@ namespace xe { namespace sg {
     };
 
     typedef std::unique_ptr<Camera> CameraPtr;
-}}
+}
 
 #endif

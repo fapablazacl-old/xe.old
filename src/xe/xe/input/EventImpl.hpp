@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <xe/input/Event.hpp>
 
-namespace xe { namespace input {
+namespace xe {
     template<typename EventData>
     class EventImpl : public Event<EventData> {
     public:
@@ -45,6 +45,6 @@ namespace xe { namespace input {
     private:
         std::vector<EventHandler<EventData>*> handlers;
     };
-}}
+}
 
 #endif 

@@ -1,6 +1,6 @@
 
 #include "ImageLoader.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
     ImageLoader::~ImageLoader() {}
-}}
+}

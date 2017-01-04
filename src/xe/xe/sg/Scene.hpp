@@ -8,7 +8,7 @@
 #include "xe/Vector.hpp"
 #include "xe/sg/SceneNode.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     class XE_API Scene {
     public:
         Scene();
@@ -28,6 +28,6 @@ namespace xe { namespace sg {
     };
 
     typedef std::unique_ptr<Scene> ScenePtr;
-}}
+}
 
 #endif

@@ -6,7 +6,7 @@
 
 #include <cassert>
 
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/UniformFormat.hpp>
 
 #include "InputManagerGLFW.hpp"
@@ -14,19 +14,19 @@
 #include "ProgramGL.hpp"
 #include "SubsetGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
-    class DeviceGL : public Device {
+    class GraphicsDeviceGL : public GraphicsDevice {
     public:
-        DeviceGL();
+        GraphicsDeviceGL();
 
-        virtual ~DeviceGL();
+        virtual ~GraphicsDeviceGL();
 
-        virtual xe::input::InputManager* getInputManager() override {
+        virtual InputManager* getInputManager() override {
             return &m_inputManager;
         }
 
-        virtual const xe::input::InputManager* getInputManager() const override {
+        virtual const InputManager* getInputManager() const override {
             return &m_inputManager;
         }
 
@@ -76,6 +76,6 @@ namespace xe { namespace gfx { namespace gl3  {
 
         InputManagerGLFW m_inputManager;
     };
-}}}
+}
 
 #endif

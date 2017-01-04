@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <numeric>
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe { 
     
     SubsetGL::~SubsetGL() {
         if (m_id) {
@@ -83,4 +83,4 @@ namespace xe { namespace gfx { namespace gl3  {
 
         XE_GL_CHECK_ERROR();
     }
-}}}
+}

@@ -6,7 +6,7 @@
 
 #include <xe/gfx/ImageLoader.hpp>
 
-namespace xe { namespace gfx { 
+namespace xe {
     class ImageLoaderFI : public ImageLoader {
     public:
         ImageLoaderFI();
@@ -15,6 +15,6 @@ namespace xe { namespace gfx {
         
         virtual ImageProxyPtr createProxy(xe::Stream *stream) override;
     };
-}}
+}
 
 #endif

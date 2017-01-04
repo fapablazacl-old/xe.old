@@ -3,7 +3,7 @@
 
 #include "PluginGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3 {
+namespace xe {
     static const char *s_pluginName = "OpenGL 3.3 Core Graphics Plugin";
     static const char *s_pluginDesc = "No description.";
 
@@ -23,6 +23,6 @@ namespace xe { namespace gfx { namespace gl3 {
     void PluginGL::stop(Core *core) {
         core->getGraphicsManager()->unregisterFactory(&m_factory);
     }
-}}}
+}
 
-XE_EXPORT_PLUGIN(xe::Core, xe::gfx::gl3::PluginGL)
+XE_EXPORT_PLUGIN(xe::Core, xe::PluginGL)
