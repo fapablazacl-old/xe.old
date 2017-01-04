@@ -53,7 +53,8 @@ add_subdirectory(src/xe.tests)
 
 # optional targets
 if(XE_GFX_ENABLE_GL_DEPENDENCIES)
-	add_subdirectory(src/glad)
+    find_package(glbinding REQUIRED)
+	#add_subdirectory(src/glad)
 endif()
 
 if(XE_GFX_ENABLE_GL3)

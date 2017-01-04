@@ -1,4 +1,5 @@
 
+
 #GLES2
 include_directories(./)
 
@@ -22,4 +23,4 @@ source_group(\\ FILES ${sources})
 
 add_library(${target} SHARED ${sources})
 
-target_link_libraries(${target} xe glad glfw)
+target_link_libraries(${target} xe glfw)
