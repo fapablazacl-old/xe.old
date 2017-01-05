@@ -11,10 +11,10 @@
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/ImageLoader.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     struct Manager::Private {
-        std::map<DeviceInfo, Factory*> factories;
+        std::map<GraphicsDeviceInfo, Factory*> factories;
         
         std::set<ImageLoader*> imageLoaders;
     };
@@ -26,10 +26,10 @@ namespace xe { namespace gfx {
         delete m_impl;
     }
 
-    std::vector<DeviceInfo> Manager::enumerateDevices() {
+    std::vector<GraphicsDeviceInfo> Manager::enumerateDevices() {
         assert(m_impl);
 
-        std::vector<DeviceInfo> deviceInfos;
+        std::vector<GraphicsDeviceInfo> deviceInfos;
 
         for (const auto &pair : m_impl->factories) {
             deviceInfos.push_back(pair.first);
@@ -38,12 +38,12 @@ namespace xe { namespace gfx {
         return deviceInfos;
     }
 
-    std::unique_ptr<Device> Manager::createDevice() {
+    std::unique_ptr<GraphicsDevice> Manager::createDevice() {
         assert(m_impl);
 
         if (m_impl->factories.size() == 0) {
-            std::clog << "xe::gfx::Manager::createDevice: No registered device factories." << std::endl;
-            return std::unique_ptr<Device>();
+            std::clog << "xe::Manager::createDevice: No registered device factories." << std::endl;
+            return std::unique_ptr<GraphicsDevice>();
         }
 
         auto first = m_impl->factories.begin();
@@ -51,18 +51,18 @@ namespace xe { namespace gfx {
         return first->second->createDevice();
     }
 
-    std::unique_ptr<Device> Manager::createDevice(const DeviceInfo &info) {
+    std::unique_ptr<GraphicsDevice> Manager::createDevice(const GraphicsDeviceInfo &info) {
         assert(m_impl);
         
         if (m_impl->factories.size() == 0) {
-            std::clog << "xe::gfx::Manager::createDevice: No registered device factories." << std::endl;
-            return std::unique_ptr<Device>();
+            std::clog << "xe::Manager::createDevice: No registered device factories." << std::endl;
+            return std::unique_ptr<GraphicsDevice>();
         }
 
         auto pos = m_impl->factories.find(info);
 
         if (pos == m_impl->factories.end()) {
-            std::clog << "xe::gfx::Manager::createDevice: The specified device key isn't registered." << std::endl;
+            std::clog << "xe::Manager::createDevice: The specified device key isn't registered." << std::endl;
         }
 
         return pos->second->createDevice();
@@ -72,14 +72,14 @@ namespace xe { namespace gfx {
         assert(m_impl);
         assert(factory);
 
-        DeviceInfo info = factory->getDeviceInfo();
+        GraphicsDeviceInfo info = factory->getDeviceInfo();
 
         auto pos = m_impl->factories.find(info);
 
         if (pos == m_impl->factories.end()) {
             m_impl->factories.insert({info, factory});
         } else {
-            std::clog << "xe::gfx::Manager::registerFactory: Replacing previous factory." << std::endl;
+            std::clog << "xe::Manager::registerFactory: Replacing previous factory." << std::endl;
         }
     }
 
@@ -87,14 +87,14 @@ namespace xe { namespace gfx {
         assert(m_impl);
         assert(factory);
 
-        DeviceInfo info = factory->getDeviceInfo();
+        GraphicsDeviceInfo info = factory->getDeviceInfo();
 
         auto pos = m_impl->factories.find(info);
 
         if (pos != m_impl->factories.end()) {
             m_impl->factories.erase(pos);
         } else {
-            std::clog << "xe::gfx::Manager::unregisterFactory: The specified factory isn't registered." << std::endl;
+            std::clog << "xe::Manager::unregisterFactory: The specified factory isn't registered." << std::endl;
         }
     }
     
@@ -118,7 +118,7 @@ namespace xe { namespace gfx {
         assert(stream);
         
         std::clog 
-                << "xe::gfx::Manager::createImage: Trying from the stream from " 
+                << "xe::Manager::createImage: Trying from the stream from " 
                 << m_impl->imageLoaders.size() 
                 << " ImageLoader implementation(s)" 
                 << std::endl;
@@ -136,11 +136,11 @@ namespace xe { namespace gfx {
                 image = proxy->getImage();
                 break;
             } else {
-                std::clog << "xe::gfx::Manager::createImage: Error while the image loading: " << std::endl;
+                std::clog << "xe::Manager::createImage: Error while the image loading: " << std::endl;
                 std::clog << "    " << proxy->getErrorMessage() << std::endl;
             }
         }   
         
         return std::move(image);
     }
-}}
+}

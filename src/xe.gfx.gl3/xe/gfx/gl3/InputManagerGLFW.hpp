@@ -9,45 +9,45 @@
 #include <xe/input/EventImpl.hpp>
 #include "OpenGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3 {
+namespace xe {
 
-    class KeyboardGLFW : public xe::input::Keyboard {
+    class KeyboardGLFW : public Keyboard {
     public:
         KeyboardGLFW() {}
 
         virtual ~KeyboardGLFW() {}
 
-        virtual xe::input::KeyboardStatus* getStatus() override {
+        virtual KeyboardStatus* getStatus() override {
             return &status;
         }
 
-        virtual const xe::input::KeyboardStatus* getStatus() const override {
+        virtual const KeyboardStatus* getStatus() const override {
             return &status;
         }
 
-        virtual xe::input::Event<xe::input::KeyStroke>* getKeyStrokeEvent() override {
+        virtual Event<KeyStroke>* getKeyStrokeEvent() override {
             return &keyStrokeEvent;
         }
 
         virtual void poll() override;
 
-        xe::input::KeyboardStatus status;
-        xe::input::EventImpl<xe::input::KeyStroke> keyStrokeEvent;
+        KeyboardStatus status;
+        EventImpl<KeyStroke> keyStrokeEvent;
         GLFWwindow *window = nullptr;
     };
 
-    class MouseGLFW : public xe::input::Mouse {
+    class MouseGLFW : public Mouse {
     public:
-        virtual xe::input::MouseStatus getStatus() override {
+        virtual MouseStatus getStatus() override {
             return status;
         }
 
         virtual void poll() override {}
 
-        xe::input::MouseStatus status;
+        MouseStatus status;
     };
 
-    class InputManagerGLFW : public xe::input::InputManager {
+    class InputManagerGLFW : public InputManager {
     public:
         InputManagerGLFW();
         explicit InputManagerGLFW(GLFWwindow* window);
@@ -79,6 +79,6 @@ namespace xe { namespace gfx { namespace gl3 {
         KeyboardGLFW m_keyboard;
         MouseGLFW m_mouse;
     };
-}}}
+}
 
 #endif 

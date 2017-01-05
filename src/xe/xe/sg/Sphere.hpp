@@ -18,7 +18,7 @@
 #include <xe/sg/Ray.hpp>
 #include <xe/sg/IntersectInfo.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
 
     class Ray;
     struct IntersectInfo;
@@ -222,6 +222,6 @@ namespace xe { namespace sg {
         return ! (*this == sphere);
     }  
 
-}}
+}
 
 #endif  //__EXENG_SCENEGRAPH_SPHERE_HPP__

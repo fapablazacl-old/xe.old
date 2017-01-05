@@ -3,7 +3,7 @@
 
 #include <xe/DataType.hpp>
 
-namespace xe { namespace gfx { 
+namespace xe {
     ImageFI::ImageFI(FIBITMAP *bitmap) 
         : m_bitmap(bitmap) {
         assert(m_bitmap);
@@ -79,4 +79,4 @@ namespace xe { namespace gfx {
         
         return ::FreeImage_GetBits(m_bitmap);
     }
-}}
+}

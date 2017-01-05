@@ -3,6 +3,6 @@
 
 #include <cassert>
 
-namespace xe { namespace gfx {
+namespace xe {
     Program::~Program() {}
-}}
+}

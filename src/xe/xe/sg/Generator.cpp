@@ -4,7 +4,7 @@
 #include <array>
 #include <xe/Matrix.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
 
     //struct Triangle {
     //    Triangle(const xe::Vector3f p0_, const xe::Vector3f p1_, const xe::Vector3f p2_) 
@@ -70,6 +70,5 @@ namespace xe { namespace sg {
         }
 
         return normals;
-    }
-    
-}}
+    }   
+}

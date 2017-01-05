@@ -19,7 +19,7 @@
 #include <xe/sg/Ray.hpp>
 #include <xe/sg/IntersectInfo.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     
     struct Ray;
     struct IntersectInfo;
@@ -80,11 +80,11 @@ namespace xe { namespace sg {
     
         return result;
     }
-}}
+}
 
-std::ostream& operator<< (std::ostream& os, const xe::sg::Plane &plane);
+std::ostream& operator<< (std::ostream& os, const xe::Plane &plane);
 
-inline std::ostream& operator<< (std::ostream& os, const xe::sg::Plane &plane) {
+inline std::ostream& operator<< (std::ostream& os, const xe::Plane &plane) {
     return os << "Point : {" << plane.point << "}, Normal : {" << plane.normal << "}";
 }
 

@@ -7,7 +7,7 @@
 #include "Renderer.hpp"
 #include "PhongPipeline.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     class CameraRenderer : public Renderer {
     public:
         CameraRenderer(PhongPipeline *pipeline);
@@ -19,6 +19,6 @@ namespace xe { namespace sg {
     private:
         PhongPipeline *m_pipeline;
     };
-}}
+}
 
 #endif 

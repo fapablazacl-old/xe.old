@@ -1,6 +1,6 @@
 
 #include "Renderer.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     Renderer::~Renderer() {}
-}}
+}

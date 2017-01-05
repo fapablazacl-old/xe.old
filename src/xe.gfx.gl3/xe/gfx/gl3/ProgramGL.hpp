@@ -13,7 +13,7 @@
 
 #include "ShaderGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
     class ProgramGL : public Program {
     public:
@@ -37,6 +37,6 @@ namespace xe { namespace gfx { namespace gl3  {
     };
     
     typedef std::unique_ptr<ProgramGL> ProgramGLPtr;
-}}}
+}
 
 #endif

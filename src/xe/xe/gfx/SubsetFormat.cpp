@@ -5,7 +5,7 @@
 #include <map>
 #include <algorithm>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     struct SubsetFormat::Private {
         std::vector<MeshAttrib> attribs;
@@ -51,4 +51,4 @@ namespace xe { namespace gfx {
 
         return m_impl->indexedAttribs[bufferIndex];
     }
-}}
+}

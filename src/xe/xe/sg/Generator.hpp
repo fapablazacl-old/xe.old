@@ -10,8 +10,7 @@
 #include <xe/sg/Plane.hpp>
 #include <vector>
 
-namespace xe { namespace sg {
-
+namespace xe {
     struct XE_API Generator {
         std::vector<xe::Vector3f> genNormals(const std::vector<xe::Vector3f> &coords) const;
 
@@ -19,8 +18,6 @@ namespace xe { namespace sg {
 
         //std::vector<xe::Vector3f> genSmoothNormals(const std::vector<xe::Vector3f> &coords, const std::vector<std::uint32_t> &indices) const;
     };
-
-
-}}
+}
 
 #endif

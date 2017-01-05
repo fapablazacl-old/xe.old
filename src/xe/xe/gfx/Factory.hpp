@@ -7,15 +7,15 @@
 #include <xe/PreDef.hpp>
 #include <memory>
 
-namespace xe { namespace gfx {
-    struct DeviceInfo;
-    class XE_API Device;
+namespace xe {
+    struct GraphicsDeviceInfo;
+    class XE_API GraphicsDevice;
     class XE_API Factory {
     public:
         virtual ~Factory();
-        virtual DeviceInfo getDeviceInfo() = 0;
-        virtual std::unique_ptr<Device> createDevice() = 0;
+        virtual GraphicsDeviceInfo getDeviceInfo() = 0;
+        virtual std::unique_ptr<GraphicsDevice> createDevice() = 0;
     };
-}}
+}
 
 #endif

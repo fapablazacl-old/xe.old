@@ -17,4 +17,6 @@ add_definitions(-DXE_BUILD -DXE_SHARED)
 
 add_library (${target} SHARED ${sources})
 
+source_group(\\ FILES ${sources})
+
 target_link_libraries(${target} xe ${FREEIMAGE_LIBRARIES})

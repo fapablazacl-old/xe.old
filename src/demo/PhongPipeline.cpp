@@ -14,16 +14,15 @@
 
 #include <xe/FileUtil.hpp>
 
-namespace xe { namespace sg {
-    
-    PhongPipeline::PhongPipeline(xe::gfx::Device *device) 
+namespace xe { 
+    PhongPipeline::PhongPipeline(xe::GraphicsDevice *device) 
         : m_device(device) {
         
         assert(device);
         
         m_program = device->createProgram({
-            {xe::gfx::ShaderType::Vertex, FileUtil::load("assets/shaders/Phong.vert.glsl")}, 
-            {xe::gfx::ShaderType::Fragment, FileUtil::load("assets/shaders/Phong.frag.glsl")}
+            {xe::ShaderType::Vertex, FileUtil::load("assets/shaders/Phong.vert.glsl")}, 
+            {xe::ShaderType::Fragment, FileUtil::load("assets/shaders/Phong.frag.glsl")}
         });
         
         assert(m_program);
@@ -32,9 +31,9 @@ namespace xe { namespace sg {
         m_renderersStorage.emplace_back(new MeshRenderer(m_device));
         m_renderersStorage.emplace_back(new PhongLightRenderer(m_device));
         
-        this->registerRenderer(std::type_index(typeid(xe::sg::Camera)), m_renderersStorage[0].get());
-        this->registerRenderer(std::type_index(typeid(xe::sg::Mesh)), m_renderersStorage[1].get());
-        this->registerRenderer(std::type_index(typeid(xe::sg::PhongLight)), m_renderersStorage[2].get());
+        this->registerRenderer(std::type_index(typeid(Camera)), m_renderersStorage[0].get());
+        this->registerRenderer(std::type_index(typeid(Mesh)), m_renderersStorage[1].get());
+        this->registerRenderer(std::type_index(typeid(PhongLight)), m_renderersStorage[2].get());
     }
 
     PhongPipeline::~PhongPipeline() {}
@@ -93,7 +92,7 @@ namespace xe { namespace sg {
         m_frame = true;
 
         m_device->setProgram(m_program.get());
-        m_device->beginFrame(xe::gfx::ClearFlags::All, xe::gfx::ClearParams(clearColor));
+        m_device->beginFrame(xe::ClearFlags::All, xe::ClearParams(clearColor));
     }
 
     void PhongPipeline::render(Renderable *renderable) {
@@ -131,4 +130,4 @@ namespace xe { namespace sg {
 
         m_renderers.erase(m_renderers.find(renderableType));
     }
-}}
+}

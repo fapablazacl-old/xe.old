@@ -9,19 +9,19 @@
 
 #include <xe/gfx/Device.hpp>
 
-namespace xe { namespace sg {  
+namespace xe { 
 
     class MeshRenderer : public Renderer {
     public:
-        explicit MeshRenderer(xe::gfx::Device *device);
+        explicit MeshRenderer(xe::GraphicsDevice *device);
 
         virtual ~MeshRenderer();
 
         virtual void render(Renderable *renderable) override;
 
     private:
-        xe::gfx::Device *m_device;
+        xe::GraphicsDevice *m_device;
     };
-}}
+}
 
 #endif 

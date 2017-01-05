@@ -6,12 +6,12 @@
 #include "xe/gfx/Texture.hpp"
 #include "xe/gfx/Device.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
     void Texture::buildMipmaps() {
         std::cout << "Texture::buildMipmaps: Not Implemented" << std::endl;
     }
 
-    TexturePtr Texture::createCheckerboard(Device *device, const TextureDesc &desc, const int tilesInX, const int tilesInY) {
+    TexturePtr Texture::createCheckerboard(GraphicsDevice *device, const TextureDesc &desc, const int tilesInX, const int tilesInY) {
         assert(device);
         assert(tilesInX > 0);
         assert(tilesInY > 0);
@@ -37,4 +37,4 @@ namespace xe { namespace gfx {
 
         return device->createTexture(desc, pixelFormat, DataType::UInt8, pixels);
     }
-}}
+}

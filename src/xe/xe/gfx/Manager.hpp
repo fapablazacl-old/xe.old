@@ -11,14 +11,11 @@
 
 namespace xe {
     class XE_API Stream;
-}
 
-namespace xe { namespace gfx {
-    
-    struct DeviceInfo;
+    struct GraphicsDeviceInfo;
     
     class XE_API Factory;
-    class XE_API Device;
+    class XE_API GraphicsDevice;
     class XE_API ImageLoader;
     class XE_API Image;
     
@@ -27,11 +24,11 @@ namespace xe { namespace gfx {
         Manager();
         ~Manager();
 
-        std::vector<DeviceInfo> enumerateDevices();
+        std::vector<GraphicsDeviceInfo> enumerateDevices();
 
-        std::unique_ptr<Device> createDevice();
+        std::unique_ptr<GraphicsDevice> createDevice();
 
-        std::unique_ptr<Device> createDevice(const DeviceInfo &info);
+        std::unique_ptr<GraphicsDevice> createDevice(const GraphicsDeviceInfo &info);
 
         void registerFactory(Factory *factory);
 
@@ -51,6 +48,6 @@ namespace xe { namespace gfx {
         struct Private;
         Private *m_impl = nullptr;
     };
-}}
+}
 
 #endif

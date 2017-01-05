@@ -14,7 +14,7 @@
 
 #include "xe/Vector.hpp"
 
-namespace xe { namespace sg { 
+namespace xe {
     
     /**
      * @brief Ray abstraction.
@@ -44,9 +44,9 @@ namespace xe { namespace sg {
         xe::Vector3f point = {0.0f, 0.0f, 0.0f};
         xe::Vector3f direction = {0.0f, 0.0f, 0.0f};
     };
-}}
+}
 
-inline std::ostream& operator<< (std::ostream& os, const xe::sg::Ray& ray) {
+inline std::ostream& operator<< (std::ostream& os, const xe::Ray& ray) {
     return os << "Point : {" << ray.point << "}, Direction : {" << ray.direction << "}";
 }
 

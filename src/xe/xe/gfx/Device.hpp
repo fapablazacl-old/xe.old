@@ -18,7 +18,7 @@
 #include <xe/gfx/Primitive.hpp>
 #include <xe/input/InputManager.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     struct ClearParams {
         xe::Vector4f color;
@@ -83,13 +83,13 @@ namespace xe { namespace gfx {
         }
     };
 
-    class XE_API Device {
+    class XE_API GraphicsDevice {
     public:
-        virtual ~Device() {}
+        virtual ~GraphicsDevice() {}
 
-        virtual xe::input::InputManager* getInputManager() = 0;
+        virtual InputManager* getInputManager() = 0;
 
-        virtual const xe::input::InputManager* getInputManager() const = 0;
+        virtual const InputManager* getInputManager() const = 0;
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) = 0;
         
@@ -129,7 +129,7 @@ namespace xe { namespace gfx {
         virtual void setUniform(const UniformFormat* format, const void *uniforms);
     };
 
-    typedef std::unique_ptr<Device> DevicePtr;
-}}
+    typedef std::unique_ptr<GraphicsDevice> GraphicsDevicePtr;
+}
 
 #endif

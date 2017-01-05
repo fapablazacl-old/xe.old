@@ -6,7 +6,7 @@
 
 #include <xe/input/InputManager.hpp>
 
-namespace xe { namespace input {
+namespace xe {
 
     /**
      * @brief InputManager base implementation
@@ -27,6 +27,6 @@ namespace xe { namespace input {
         Keyboard *keyboard = nullptr;
         Mouse *mouse = nullptr;
     };
-}}
+}
 
 #endif 

@@ -10,7 +10,7 @@
 
 #include <xe/gfx/SubsetFormat.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     /**
      * @brief Abstract geometry mesh subset interface
@@ -36,6 +36,6 @@ namespace xe { namespace gfx {
     };
 
     typedef std::unique_ptr<Subset> SubsetPtr;
-}}
+}
 
 #endif 

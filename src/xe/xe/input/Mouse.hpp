@@ -5,7 +5,7 @@
 #include <xe/input/InputDevice.hpp>
 #include <xe/input/KeyStatus.hpp>
 
-namespace xe { namespace input {
+namespace xe {
 
     enum class MouseButton {
         Unknown,
@@ -84,4 +84,4 @@ namespace xe { namespace input {
 
         virtual MouseStatus getStatus() = 0;
     };
-}}
+}

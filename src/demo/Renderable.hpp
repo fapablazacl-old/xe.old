@@ -7,7 +7,7 @@
 #include <memory>
 #include <typeindex>
 
-namespace xe { namespace sg {
+namespace xe {
     class Renderable {
     public:
         virtual ~Renderable();
@@ -16,6 +16,6 @@ namespace xe { namespace sg {
     };
 
     typedef std::unique_ptr<Renderable> RenderablePtr;
-}}
+}
 
 #endif 

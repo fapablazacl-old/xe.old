@@ -7,25 +7,25 @@
 #include <xe/gfx/Factory.hpp>
 #include <xe/gfx/DeviceInfo.hpp>
 
-namespace xe { namespace gfx {
+namespace xe {
     template<typename DeviceImpl>
     class FactoryImpl : public Factory {
     public:
-        explicit FactoryImpl(const DeviceInfo &info) : m_info(info) {}
+        explicit FactoryImpl(const GraphicsDeviceInfo &info) : m_info(info) {}
 
         virtual ~FactoryImpl() {}
 
-        virtual DeviceInfo getDeviceInfo() override {
+        virtual GraphicsDeviceInfo getDeviceInfo() override {
             return m_info;
         }
 
-        virtual std::unique_ptr<Device> createDevice() override {
+        virtual std::unique_ptr<GraphicsDevice> createDevice() override {
             return std::make_unique<DeviceImpl>();
         }
 
     private:
-        DeviceInfo  m_info;
+        GraphicsDeviceInfo  m_info;
     };
-}}
+}
 
 #endif

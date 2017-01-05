@@ -11,7 +11,7 @@
 
 #include "Renderable.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     /**
      * @brief Mesh envelope
@@ -21,12 +21,12 @@ namespace xe { namespace sg {
     public:
         Envelope() {}
         
-        Envelope* setMaterial(xe::gfx::Material *material) {
+        Envelope* setMaterial(xe::Material *material) {
             this->material = material;
             return this;
         }
         
-        Envelope* setPrimitive(xe::gfx::Material *material) {
+        Envelope* setPrimitive(xe::Material *material) {
             this->material = material;
             return this;
         }
@@ -41,15 +41,15 @@ namespace xe { namespace sg {
             return this;
         }
         
-        const xe::gfx::Material* getMaterial() const {
+        const xe::Material* getMaterial() const {
             return material;
         }
         
-        xe::gfx::Material* getMaterial() {
+        xe::Material* getMaterial() {
             return material;
         }
         
-        xe::gfx::Primitive getPrimitive() const {
+        xe::Primitive getPrimitive() const {
             return primitive;
         }
         
@@ -64,8 +64,8 @@ namespace xe { namespace sg {
     private:
         */
     public:
-        xe::gfx::Material *material = nullptr;
-        xe::gfx::Primitive primitive = xe::gfx::Primitive::TriangleStrip;
+        Material *material = nullptr;
+        Primitive primitive = Primitive::TriangleStrip;
 
         std::size_t start = 0;
         std::size_t count = 0;
@@ -76,8 +76,8 @@ namespace xe { namespace sg {
      */
     class Mesh : public Renderable {
     public:
-        Mesh(xe::gfx::SubsetPtr subset);
-        Mesh(std::vector<xe::gfx::SubsetPtr> subsets);
+        Mesh(SubsetPtr subset);
+        Mesh(std::vector<SubsetPtr> subsets);
 
         virtual ~Mesh();
 
@@ -87,18 +87,18 @@ namespace xe { namespace sg {
 
         std::size_t getSubsetCount() const;
 
-        xe::gfx::Subset* getSubset(const std::size_t index);
+        Subset* getSubset(const std::size_t index);
 
-        const xe::gfx::Subset* getSubset(const std::size_t index) const;
+        const Subset* getSubset(const std::size_t index) const;
 
         Envelope* getEnvelope(const std::size_t subsetIndex);
 
         const Envelope* getEnvelope(const std::size_t subsetIndex) const;
 
     private:
-        std::vector<xe::gfx::SubsetPtr> m_subsets;
+        std::vector<SubsetPtr> m_subsets;
         std::vector<Envelope> m_envelopes;
     };
-}}
+}
 
 #endif 

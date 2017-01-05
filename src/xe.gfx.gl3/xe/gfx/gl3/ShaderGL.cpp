@@ -5,7 +5,7 @@
 #include <cassert>
 #include <iostream>
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
     ShaderGL::ShaderGL(GLenum type_, const std::string &glsl) {
         type = type_;
@@ -42,4 +42,4 @@ namespace xe { namespace gfx { namespace gl3  {
 
         XE_GL_CHECK_ERROR();
     }
-}}}
+}

@@ -8,7 +8,7 @@
 #include <string>
 #include <iosfwd>
 
-namespace xe { namespace gfx {
+namespace xe {
 
     /**
      * @brief Underlying device implementation technology
@@ -32,24 +32,24 @@ namespace xe { namespace gfx {
     };
     
     /**
-     * @brief Graphics Device description
+     * @brief Graphics SoundDevice description
      */
-    struct DeviceInfo {
+    struct GraphicsDeviceInfo {
         std::string name;
         std::string desc;
         Driver driver;
         Language lang;
     };
 
-    extern XE_API bool operator== (const DeviceInfo &info1, const DeviceInfo &info2);
+    extern XE_API bool operator== (const GraphicsDeviceInfo &info1, const GraphicsDeviceInfo &info2);
 
-    inline bool operator!= (const DeviceInfo &info1, const DeviceInfo &info2) {
+    inline bool operator!= (const GraphicsDeviceInfo &info1, const GraphicsDeviceInfo &info2) {
         return !(info1 == info2);
     }
 
-    extern XE_API bool operator< (const DeviceInfo &info1, const DeviceInfo &info2);
-}}
+    extern XE_API bool operator< (const GraphicsDeviceInfo &info1, const GraphicsDeviceInfo &info2);
+}
 
-extern XE_API std::ostream& operator<< (std::ostream& os, const xe::gfx::DeviceInfo &info);
+extern XE_API std::ostream& operator<< (std::ostream& os, const xe::GraphicsDeviceInfo &info);
 
 #endif

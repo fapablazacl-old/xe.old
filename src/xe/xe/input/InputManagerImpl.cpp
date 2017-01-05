@@ -1,7 +1,7 @@
 
 #include "InputManagerImpl.hpp"
 
-namespace xe { namespace input {
+namespace xe {
 
     InputManagerImpl::InputManagerImpl() {}
 
@@ -24,4 +24,4 @@ namespace xe { namespace input {
             }
         }
     }
-}}
+}

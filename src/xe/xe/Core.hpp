@@ -40,12 +40,12 @@ namespace xe {
         /** 
          * @brief Get the graphics engine manager.
          */
-        xe::gfx::Manager* getGraphicsManager() {
+        Manager* getGraphicsManager() {
             return &m_graphicsManager;
         }
 
     private:
-        xe::gfx::Manager m_graphicsManager;
+        Manager m_graphicsManager;
     };
 }
 

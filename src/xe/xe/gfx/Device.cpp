@@ -1,8 +1,8 @@
 
 #include "Device.hpp"
 
-namespace xe { namespace gfx {
-    void Device::setUniform(const UniformFormat* format, const void *uniforms) {
+namespace xe {
+    void GraphicsDevice::setUniform(const UniformFormat* format, const void *uniforms) {
         assert(format && format->attribs.size() > 0);
         assert(uniforms);
         
@@ -17,13 +17,13 @@ namespace xe { namespace gfx {
         }
     }
 
-    SubsetPtr Device::createSubset(const SubsetDesc &subsetDesc) {
+    SubsetPtr GraphicsDevice::createSubset(const SubsetDesc &subsetDesc) {
 
         std::vector<BufferPtr> buffers;
 
         for (int i=0; i<subsetDesc.buffersDescs.size(); i++) {
             auto &desc = subsetDesc.buffersDescs[i];
-            auto buffer = this->createBuffer(xe::gfx::BufferType::Vertex, desc.size, desc.data);
+            auto buffer = this->createBuffer(xe::BufferType::Vertex, desc.size, desc.data);
             
             buffers.push_back(std::move(buffer));
         }
@@ -31,9 +31,9 @@ namespace xe { namespace gfx {
         BufferPtr indexBuffer;
         
         if (subsetDesc.indexBufferDesc) {
-            indexBuffer = this->createBuffer(xe::gfx::BufferType::Index, subsetDesc.indexBufferDesc.size, subsetDesc.indexBufferDesc.data);
+            indexBuffer = this->createBuffer(xe::BufferType::Index, subsetDesc.indexBufferDesc.size, subsetDesc.indexBufferDesc.data);
         }
         
         return this->createSubset(subsetDesc.format, std::move(buffers), subsetDesc.indexType, std::move(indexBuffer));
     }
-}}
+}

@@ -4,7 +4,7 @@
 #ifndef __xe_sg_renderer_hpp__
 #define __xe_sg_renderer_hpp__
 
-namespace xe { namespace sg {
+namespace xe { 
     class Renderable;
     class Renderer {
     public:
@@ -12,6 +12,6 @@ namespace xe { namespace sg {
 
         virtual void render(Renderable *renderable) = 0;
     };
-}}
+}
 
 #endif 

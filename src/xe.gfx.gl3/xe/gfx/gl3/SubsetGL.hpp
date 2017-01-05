@@ -9,7 +9,7 @@
 #include "xe/gfx/Subset.hpp"
 #include "BufferGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
     class SubsetGL : public Subset {
     public:
@@ -77,6 +77,6 @@ namespace xe { namespace gfx { namespace gl3  {
     };
 
     typedef std::unique_ptr<SubsetGL> MeshGLPtr;
-}}}
+}
 
 #endif

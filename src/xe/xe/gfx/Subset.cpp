@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace xe { namespace gfx {
+namespace xe {
     //bool Mesh::isIndexed() const {
     //    auto attribs = this->getFormat().attribs;
     //    auto pos = std::find_if(attribs.begin(), attribs.end(), [](const MeshAttrib &attrib) {
@@ -12,4 +12,4 @@ namespace xe { namespace gfx {
 
     //    return pos != attribs.end();
     //}
-}}
+}

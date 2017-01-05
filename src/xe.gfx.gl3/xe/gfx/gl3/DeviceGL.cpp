@@ -6,12 +6,12 @@
 #include <cassert>
 #include <algorithm>
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
     void window_size_callback(GLFWwindow* m_window, int width, int height) {
         glViewport(0, 0, width, height);
     }
 
-    DeviceGL::DeviceGL() {
+    GraphicsDeviceGL::GraphicsDeviceGL() {
         ::glfwInit();
     
         int hints[][2] = {
@@ -57,7 +57,7 @@ namespace xe { namespace gfx { namespace gl3  {
         m_inputManager.setWindow(m_window);
     }
 
-    DeviceGL::~DeviceGL() {
+    GraphicsDeviceGL::~GraphicsDeviceGL() {
         ::glfwDestroyWindow(m_window);
         ::glfwTerminate();
     }
@@ -67,22 +67,22 @@ namespace xe { namespace gfx { namespace gl3  {
         GL_ELEMENT_ARRAY_BUFFER
     };
     
-    BufferPtr DeviceGL::createBuffer(const BufferType type, const std::size_t size, const void *data) { 
+    BufferPtr GraphicsDeviceGL::createBuffer(const BufferType type, const std::size_t size, const void *data) { 
         GLenum target = targets[static_cast<int>(type)];
         GLenum usage = GL_DYNAMIC_DRAW;
         
         return std::make_unique<BufferGL>(target, usage, size, data);
     }
 
-    TexturePtr DeviceGL::createTexture(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData)   { 
+    TexturePtr GraphicsDeviceGL::createTexture(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData)   { 
         return std::make_unique<TextureGL>(desc, sourceFormat, sourceType, sourceData);
     }
     
-    SubsetPtr DeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) { 
+    SubsetPtr GraphicsDeviceGL::createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) { 
         return std::make_unique<SubsetGL>(format, std::move(buffers), indexType, std::move(indexBuffer));
     }
 
-    ProgramPtr DeviceGL::createProgram(const std::list<ShaderSource> &sources)  { 
+    ProgramPtr GraphicsDeviceGL::createProgram(const std::list<ShaderSource> &sources)  { 
         ShaderGLVector shaders;
         for (const ShaderSource source : sources) {
             shaders.emplace_back(new ShaderGL(converShaderType(source.type), source.source));
@@ -91,7 +91,7 @@ namespace xe { namespace gfx { namespace gl3  {
         return std::make_unique<ProgramGL>(std::move(shaders));
     }
 
-    void DeviceGL::beginFrame(const ClearFlags flags, const ClearParams &params) {
+    void GraphicsDeviceGL::beginFrame(const ClearFlags flags, const ClearParams &params) {
         GLenum clearFlags = 0L;
 
         if (flags&ClearFlags::Color) {
@@ -114,14 +114,14 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::endFrame() {
+    void GraphicsDeviceGL::endFrame() {
         glFlush();
         glfwSwapBuffers(m_window);
 
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::setProgram(Program *program) {
+    void GraphicsDeviceGL::setProgram(Program *program) {
         m_program = static_cast<ProgramGL*>(program);
 
         glUseProgram(m_program->getId());
@@ -129,7 +129,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::renderMaterialStatus(const MaterialStatus *status) {
+    void GraphicsDeviceGL::renderMaterialStatus(const MaterialStatus *status) {
         assert(status);
 
         if (status->depthTest) {
@@ -153,7 +153,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::preRenderMaterialLayers(const Material *material) {
+    void GraphicsDeviceGL::preRenderMaterialLayers(const Material *material) {
         assert(material);
 
         // apply texturing
@@ -173,7 +173,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::postRenderMaterialLayers(const Material *material) {
+    void GraphicsDeviceGL::postRenderMaterialLayers(const Material *material) {
         assert(material);
 
         // apply texturing
@@ -191,7 +191,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::setMaterial(Material *material) {
+    void GraphicsDeviceGL::setMaterial(Material *material) {
         assert(material);
         
         if (m_material == material) {
@@ -209,7 +209,7 @@ namespace xe { namespace gfx { namespace gl3  {
         m_material = material;
     }
 
-    void DeviceGL::setMesh(Subset *mesh) {
+    void GraphicsDeviceGL::setMesh(Subset *mesh) {
         m_mesh = static_cast<SubsetGL*>(mesh);
 
         if (m_mesh) {
@@ -231,7 +231,7 @@ namespace xe { namespace gfx { namespace gl3  {
         GL_TRIANGLE_FAN
     };
     
-    void DeviceGL::draw(Primitive primitive, size_t start, size_t count) {
+    void GraphicsDeviceGL::draw(Primitive primitive, size_t start, size_t count) {
         assert(m_mesh);
         assert(start >= 0);
         assert(count > 0);
@@ -277,13 +277,13 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::setUniformMatrix(int location, int total, bool transpose, float *values) {
+    void GraphicsDeviceGL::setUniformMatrix(int location, int total, bool transpose, float *values) {
         glUniformMatrix4fv(location, total, transpose?GL_TRUE:GL_FALSE, values);
         
         XE_GL_CHECK_ERROR();
     }
 
-    void DeviceGL::setUniform(const UniformDescriptor &desc, const void* uniform) {
+    void GraphicsDeviceGL::setUniform(const UniformDescriptor &desc, const void* uniform) {
         assert(desc.dim >= 1);
         assert(desc.dim <= 4);
         assert(desc.count > 0);
@@ -296,7 +296,7 @@ namespace xe { namespace gfx { namespace gl3  {
 
 #if defined(_DEBUG)
         if (location > -1) {
-            std::clog << "DeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been used in the shader, or isn't defined. Ignoring uniform." << std::endl;
+            std::clog << "GraphicsDeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been used in the shader, or isn't defined. Ignoring uniform." << std::endl;
         }
 #endif
 
@@ -335,7 +335,7 @@ namespace xe { namespace gfx { namespace gl3  {
         XE_GL_CHECK_ERROR();  
     }
 
-    void DeviceGL::setUniform(const UniformFormat *format, const void *uniforms) {
+    void GraphicsDeviceGL::setUniform(const UniformFormat *format, const void *uniforms) {
         assert(format && format->attribs.size() > 0);
         assert(uniforms);
 
@@ -349,4 +349,4 @@ namespace xe { namespace gfx { namespace gl3  {
             uniform += size;
         }
     }
-}}}
+}

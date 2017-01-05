@@ -5,7 +5,7 @@
 #include "xe/Vector.hpp"
 #include "xe/Buffer.hpp"
 
-namespace xe { namespace sfx { 
+namespace xe {
     
     struct SourceDesc {
         float pitch = 1.0;
@@ -26,7 +26,7 @@ namespace xe { namespace sfx {
         
         virtual void setBuffer(Buffer* buffer) = 0;
     };
-}}
+}
 
 #endif
 

@@ -6,12 +6,12 @@
 
 #include <xe/PreDef.hpp>
 
-namespace xe { namespace input {
+namespace xe {
     class XE_API InputDevice {
     public:
         virtual ~InputDevice() {}
         virtual void poll() = 0;
     };
-}}
+}
 
 #endif 

@@ -5,7 +5,7 @@
 
 #include "ImageLoaderFI.hpp"
 
-namespace xe { namespace gfx { 
+namespace xe {
     class PluginFI : public xe::Plugin<xe::Core> {
     public:
         PluginFI() {}
@@ -35,6 +35,6 @@ namespace xe { namespace gfx {
     private:
         std::unique_ptr<ImageLoaderFI> m_imageLoader;
     };
-}}
+}
 
-XE_EXPORT_PLUGIN(xe::Core, xe::gfx::PluginFI)
+XE_EXPORT_PLUGIN(xe::Core, xe::PluginFI)

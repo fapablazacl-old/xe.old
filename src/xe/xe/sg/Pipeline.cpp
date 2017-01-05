@@ -1,6 +1,6 @@
 
 #include "Pipeline.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     Pipeline::~Pipeline() {}
-}}
+}

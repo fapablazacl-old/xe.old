@@ -1,7 +1,7 @@
 
 #include "PlaneGenerator.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
     //std::vector<xe::Vector3f> PlaneGenerator::genCoords(const Plane &plane) const {
     //    std::vector<xe::Vector3f> coords;
@@ -134,5 +134,4 @@ namespace xe { namespace sg {
         
         return texCoords;
     }
-}}
-
+}

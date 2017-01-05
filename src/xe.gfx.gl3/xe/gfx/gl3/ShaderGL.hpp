@@ -5,7 +5,7 @@
 #include <memory>
 #include "OpenGL.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
     class ShaderGL {
     public:
         ShaderGL() {}
@@ -28,6 +28,5 @@ namespace xe { namespace gfx { namespace gl3  {
     };
     
     typedef std::unique_ptr<ShaderGL> ShaderGLPtr;
-    typedef std::vector<ShaderGLPtr> ShaderGLVector;
-    
-}}}
+    typedef std::vector<ShaderGLPtr> ShaderGLVector;   
+}

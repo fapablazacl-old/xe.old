@@ -8,18 +8,18 @@
 
 #include <xe/gfx/Device.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
 
     class PhongLightRenderer : public Renderer {
     public:
-        PhongLightRenderer(xe::gfx::Device *device);
+        PhongLightRenderer(xe::GraphicsDevice *device);
         virtual ~PhongLightRenderer();
 
         virtual void render(Renderable *renderable);
 
     private:
-        xe::gfx::Device *m_device;
+        xe::GraphicsDevice *m_device;
     };
-}}
+}
 
 #endif 

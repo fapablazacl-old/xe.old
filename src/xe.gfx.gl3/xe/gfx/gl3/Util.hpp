@@ -8,8 +8,8 @@
 #include <iostream>
 #include <string>
 
-namespace xe { namespace gfx { namespace gl3 {
-    inline GLenum convertFormat(xe::gfx::PixelFormat pixelFormat) {
+namespace xe {
+    inline GLenum convertFormat(xe::PixelFormat pixelFormat) {
         switch (pixelFormat) {
         case PixelFormat::RGB_8: 
         case PixelFormat::RGB_16:
@@ -38,7 +38,7 @@ namespace xe { namespace gfx { namespace gl3 {
         return GLenum();
     }
     
-    inline GLenum getTypeFromFormat(const xe::gfx::PixelFormat pixelFormat) {
+    inline GLenum getTypeFromFormat(const xe::PixelFormat pixelFormat) {
         switch (pixelFormat) {
         
         case PixelFormat::BGR_8:
@@ -133,6 +133,6 @@ namespace xe { namespace gfx { namespace gl3 {
 #endif
     }
 
-}}}
+}
 
-#define XE_GL_CHECK_ERROR() xe::gfx::gl3::checkError(__FILE__, __LINE__)
+#define XE_GL_CHECK_ERROR() xe::checkError(__FILE__, __LINE__)

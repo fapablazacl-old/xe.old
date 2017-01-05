@@ -6,7 +6,7 @@
 #include "xe/Vector.hpp"
 #include "xe/Buffer.hpp"
 
-namespace xe { namespace sfx { 
+namespace xe {
     
     struct Listener {
         xe::Vector3f position = {0.0f, 0.0f, 0.0f};
@@ -18,15 +18,15 @@ namespace xe { namespace sfx {
         } orientation;
     };
     
-    class Device {
+    class SoundDevice {
     public:
-        ~Device() {}
+        ~SoundDevice() {}
         
         virtual BufferPtr createBuffer() = 0;
         
         virtual void setListener(const Listener &listener) = 0;
         virtual Listener getListener() const = 0;
     };
-}}
+}
 
 #endif

@@ -19,14 +19,14 @@
 namespace demo {
 
     int Application::run() {
-        using xe::input::isPressed;
-        using xe::input::KeyCode;
+        using xe::isPressed;
+        using xe::KeyCode;
 
         m_device = this->createDevice();
         m_meshFormat = this->createMeshFormat();
 
-        m_pipeline = std::make_unique<xe::sg::PhongPipeline>(m_device.get());
-        m_sceneRenderer = std::make_unique<xe::sg::SceneRenderer>(m_pipeline.get());
+        m_pipeline = std::make_unique<xe::PhongPipeline>(m_device.get());
+        m_sceneRenderer = std::make_unique<xe::SceneRenderer>(m_pipeline.get());
 
         m_textures = this->createTextures();
         
@@ -78,30 +78,30 @@ namespace demo {
 
     Application::~Application() {}
 
-    xe::gfx::DevicePtr Application::createDevice() {
+    xe::GraphicsDevicePtr Application::createDevice() {
         auto deviceInfos = this->getGraphicsManager()->enumerateDevices();
 
         std::cout << "Available graphics devices:" << std::endl;
 
-        for (const xe::gfx::DeviceInfo &deviceInfo : deviceInfos) {
+        for (const xe::GraphicsDeviceInfo &deviceInfo : deviceInfos) {
             std::cout << deviceInfo << std::endl;
         }
 
         return this->getGraphicsManager()->createDevice();
     }
 
-    xe::gfx::MeshFormatPtr Application::createMeshFormat() {
-        auto meshFormat = new xe::gfx::SubsetFormat {
+    xe::MeshFormatPtr Application::createMeshFormat() {
+        auto meshFormat = new xe::SubsetFormat {
             {0, xe::DataType::Float32, 3, "v_coord"},
             {1, xe::DataType::Float32, 3, "v_normal"},
             {2, xe::DataType::Float32, 2, "v_texcoord"}
         };
 
-        return xe::gfx::MeshFormatPtr(meshFormat);
+        return xe::MeshFormatPtr(meshFormat);
     }
 
-    xe::sg::RenderablePtr Application::createSphereRenderable() {
-        xe::sg::SphereGenerator sphereGenerator(64, 64);
+    xe::RenderablePtr Application::createSphereRenderable() {
+        xe::SphereGenerator sphereGenerator(64, 64);
 
         std::vector<xe::Vector3f> coords = sphereGenerator.genCoords(0.75f);
         
@@ -109,7 +109,7 @@ namespace demo {
         std::vector<xe::Vector3f> normals = sphereGenerator.genNormals(coords);
         std::vector<xe::Vector2f> texcoords = sphereGenerator.genTexCoords(normals);
 
-        xe::gfx::SubsetDesc subsetDesc = {
+        xe::SubsetDesc subsetDesc = {
             m_meshFormat.get(), 
             {{coords}, {normals}, {texcoords}}, 
             xe::DataType::UInt32, 
@@ -117,27 +117,27 @@ namespace demo {
         };
 
         auto subset = m_device->createSubset(subsetDesc);
-        auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
+        auto mesh = std::make_unique<xe::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();
-        mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
+        mesh->getEnvelope(0)->primitive = xe::Primitive::TriangleList;
         mesh->getEnvelope(0)->count = indices.size();
 
         return std::move(mesh);
     }
 
-    xe::sg::RenderablePtr Application::createPlaneRenderable() {
-        xe::sg::Generator generator;
-        xe::sg::PlaneGenerator planeGenerator;
+    xe::RenderablePtr Application::createPlaneRenderable() {
+        xe::Generator generator;
+        xe::PlaneGenerator planeGenerator;
         
-        const xe::sg::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+        const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
         
         std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane);
         std::vector<std::uint32_t> indices = planeGenerator.genIndices();
         std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
         std::vector<xe::Vector2f> texcoords = planeGenerator.genTexCoords();
         
-        xe::gfx::SubsetDesc subsetDesc = {
+        xe::SubsetDesc subsetDesc = {
             m_meshFormat.get(), 
             {{coords}, {normals}, {texcoords}}, 
             xe::DataType::UInt32, 
@@ -145,26 +145,26 @@ namespace demo {
         };
         
         auto subset = m_device->createSubset(subsetDesc);
-        auto mesh = std::make_unique<xe::sg::Mesh>(std::move(subset));
+        auto mesh = std::make_unique<xe::Mesh>(std::move(subset));
 
         mesh->getEnvelope(0)->material = m_materials["custom"].get();
-        mesh->getEnvelope(0)->primitive = xe::gfx::Primitive::TriangleList;
+        mesh->getEnvelope(0)->primitive = xe::Primitive::TriangleList;
         mesh->getEnvelope(0)->count = indices.size();
 
         return std::move(mesh);
     }
     
-    xe::sg::RenderablePtr Application::createLightRenderable() {
-        auto light = std::make_unique<xe::sg::PhongLight>();
+    xe::RenderablePtr Application::createLightRenderable() {
+        auto light = std::make_unique<xe::PhongLight>();
 
         return std::move(light);
     }
     
-    std::map<std::string, xe::sg::RenderablePtr> Application::createRenderables() {
-        std::map<std::string, xe::sg::RenderablePtr> renderables;
+    std::map<std::string, xe::RenderablePtr> Application::createRenderables() {
+        std::map<std::string, xe::RenderablePtr> renderables;
 
         // create a basic camera 
-        renderables["lookAtCamera"] = std::make_unique<xe::sg::LookAtPerspectiveCamera>();
+        renderables["lookAtCamera"] = std::make_unique<xe::LookAtPerspectiveCamera>();
         renderables["sphereMesh"] = this->createSphereRenderable();
         renderables["planeMesh"] = this->createPlaneRenderable();
         renderables["light"] = this->createLightRenderable();
@@ -172,30 +172,30 @@ namespace demo {
         return renderables;
     }
 
-    xe::gfx::TexturePtr Application::createTexture(const std::string &file) {
+    xe::TexturePtr Application::createTexture(const std::string &file) {
         assert(m_device);
         assert(file.size() > 0);
         
         xe::FileStream stream(file);
         
-        xe::gfx::ImagePtr image = this->getGraphicsManager()->createImage(&stream);
+        xe::ImagePtr image = this->getGraphicsManager()->createImage(&stream);
         assert(image);
         
-        const xe::gfx::ImageDesc imageDesc = image->getDesc();
+        const xe::ImageDesc imageDesc = image->getDesc();
         
-        assert(imageDesc.format != xe::gfx::PixelFormat::Unknown);
+        assert(imageDesc.format != xe::PixelFormat::Unknown);
         
-        xe::gfx::TextureDesc desc;
-        desc.type = xe::gfx::TextureType::Tex2D;
-        desc.format = xe::gfx::PixelFormat::RGB_8;
+        xe::TextureDesc desc;
+        desc.type = xe::TextureType::Tex2D;
+        desc.format = xe::PixelFormat::RGB_8;
         desc.width = imageDesc.width;
         desc.height = imageDesc.height;
         
-        return m_device->createTexture(desc, imageDesc.format, xe::gfx::getDataType(imageDesc.format), image->getPointer());
+        return m_device->createTexture(desc, imageDesc.format, xe::getDataType(imageDesc.format), image->getPointer());
     }
     
-    std::map<std::string, xe::gfx::TexturePtr> Application::createTextures() {
-        std::map<std::string, xe::gfx::TexturePtr> textures;
+    std::map<std::string, xe::TexturePtr> Application::createTextures() {
+        std::map<std::string, xe::TexturePtr> textures;
         
         std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_albedo.tif'" << std::endl;
         textures["rusted_plates_albedo"] = this->createTexture("assets/materials/rusted/rusted_plates_albedo.tif");
@@ -212,7 +212,7 @@ namespace demo {
         return textures;
     }
 
-    xe::gfx::MaterialPtr Application::createCustomMaterial() {
+    xe::MaterialPtr Application::createCustomMaterial() {
         auto material = std::make_unique<PhongMaterial>();
         
         material->getLayer(0)->texture = m_textures["rusted_plates_diffuse"].get();
@@ -224,7 +224,7 @@ namespace demo {
         return material;
     }
     
-    xe::gfx::MaterialPtr Application::createBlankMaterial() {
+    xe::MaterialPtr Application::createBlankMaterial() {
         auto blankMaterial = std::make_unique<PhongMaterial>();
         
         auto status = blankMaterial->getStatus();
@@ -239,8 +239,8 @@ namespace demo {
         return blankMaterial;
     }
     
-    std::map<std::string, xe::gfx::MaterialPtr> Application::createMaterials() {
-        std::map<std::string, xe::gfx::MaterialPtr> materials;
+    std::map<std::string, xe::MaterialPtr> Application::createMaterials() {
+        std::map<std::string, xe::MaterialPtr> materials;
 
         materials["blank"] = this->createBlankMaterial();
         materials["custom"] = this->createCustomMaterial();
@@ -248,17 +248,17 @@ namespace demo {
         return materials;
     }
     
-    xe::sg::ScenePtr Application::createScene() {
-        xe::sg::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
-        xe::sg::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
-        xe::sg::Renderable* planeMesh = m_renderables["planeMesh"].get();
-        xe::sg::Renderable* light = m_renderables["light"].get();
+    xe::ScenePtr Application::createScene() {
+        xe::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
+        xe::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
+        xe::Renderable* planeMesh = m_renderables["planeMesh"].get();
+        xe::Renderable* light = m_renderables["light"].get();
 
         assert(lookAtCamera);
         assert(sphereMesh);
         assert(planeMesh);
 
-        auto scene = std::make_unique<xe::sg::Scene>();
+        auto scene = std::make_unique<xe::Scene>();
 
         scene
             ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})

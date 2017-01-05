@@ -4,7 +4,7 @@
 
 #include <cassert>
 
-namespace xe { namespace sg {
+namespace xe {
 
     CameraRenderer::CameraRenderer(PhongPipeline *pipeline) : m_pipeline(pipeline) {
         assert(pipeline);
@@ -22,4 +22,4 @@ namespace xe { namespace sg {
         m_pipeline->setProjMatrix(camera->getProjMatrix());
         m_pipeline->setViewMatrix(camera->getViewMatrix());
     }
-}}
+}

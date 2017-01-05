@@ -1,6 +1,6 @@
 
 #include "Factory.hpp"
 
-namespace xe { namespace gfx {
+namespace xe { 
     Factory::~Factory() {}
-}}
+}

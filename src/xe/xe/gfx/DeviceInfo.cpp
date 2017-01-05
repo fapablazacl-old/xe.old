@@ -3,9 +3,9 @@
 
 #include <ostream>
 
-namespace xe { namespace gfx {
+namespace xe {
 
-    XE_API bool operator== (const DeviceInfo &info1, const DeviceInfo &info2) {
+    XE_API bool operator== (const GraphicsDeviceInfo &info1, const GraphicsDeviceInfo &info2) {
         if (info1.name != info2.name) {
             return false;
         }
@@ -25,7 +25,7 @@ namespace xe { namespace gfx {
         return true;
     }
 
-    XE_API bool operator< (const DeviceInfo &info1, const DeviceInfo &info2) {
+    XE_API bool operator< (const GraphicsDeviceInfo &info1, const GraphicsDeviceInfo &info2) {
         if (info1.name >= info2.name) {
             return false;
         }
@@ -44,9 +44,9 @@ namespace xe { namespace gfx {
 
         return true;
     }    
-}}
+}
 
-XE_API std::ostream& operator<< (std::ostream& os, const xe::gfx::DeviceInfo &info) {
+XE_API std::ostream& operator<< (std::ostream& os, const xe::GraphicsDeviceInfo &info) {
     os << "name: " << info.name << ", desc: "  << info.desc;
 
     return os;

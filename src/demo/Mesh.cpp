@@ -1,15 +1,15 @@
 
 #include "Mesh.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
 
-    Mesh::Mesh(xe::gfx::SubsetPtr subset) {
+    Mesh::Mesh(xe::SubsetPtr subset) {
         m_subsets.push_back(std::move(subset));
 
         m_envelopes.resize(m_subsets.size());
     }
 
-    Mesh::Mesh(std::vector<xe::gfx::SubsetPtr> subsets) 
+    Mesh::Mesh(std::vector<xe::SubsetPtr> subsets) 
         : m_subsets(std::move(subsets)) {
 
         m_envelopes.resize(m_subsets.size());
@@ -21,22 +21,22 @@ namespace xe { namespace sg {
         return m_subsets.size();
     }
 
-    xe::gfx::Subset* Mesh::getSubset(const std::size_t index) {
+    xe::Subset* Mesh::getSubset(const std::size_t index) {
         assert(index >= 0);
         assert(index < this->getSubsetCount());
 
-        xe::gfx::Subset* subset = m_subsets[index].get();
+        xe::Subset* subset = m_subsets[index].get();
 
         assert(subset);
 
         return subset;
     }
 
-    const xe::gfx::Subset* Mesh::getSubset(const std::size_t index) const {
+    const xe::Subset* Mesh::getSubset(const std::size_t index) const {
         assert(index >= 0);
         assert(index < this->getSubsetCount());
 
-        xe::gfx::Subset* subset = m_subsets[index].get();
+        xe::Subset* subset = m_subsets[index].get();
 
         assert(subset);
 
@@ -56,4 +56,4 @@ namespace xe { namespace sg {
 
         return &m_envelopes[subsetIndex];
     }
-}}
+}

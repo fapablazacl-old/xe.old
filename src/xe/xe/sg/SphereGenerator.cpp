@@ -4,7 +4,7 @@
 #include <xe/Math.hpp>
 #include <xe/Matrix.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
     
     std::size_t SphereGenerator::getCoordCount() const {
         return (stacks - 1) * slices + 2;
@@ -159,4 +159,4 @@ namespace xe { namespace sg {
         
         return texCoords;
     }
-}}
+}

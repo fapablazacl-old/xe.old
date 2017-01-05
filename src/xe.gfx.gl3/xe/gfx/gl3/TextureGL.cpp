@@ -2,7 +2,7 @@
 #include "TextureGL.hpp"
 #include "Util.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
     TextureGL::TextureGL(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData) {
         assert(sourceFormat != PixelFormat::Unknown);
@@ -50,11 +50,11 @@ namespace xe { namespace gfx { namespace gl3  {
         m_desc = desc;
     }
 
-    xe::Buffer* TextureGL::getBuffer(xe::gfx::TextureCubeSide side, size_t level) {
+    xe::Buffer* TextureGL::getBuffer(xe::TextureCubeSide side, size_t level) {
         return nullptr;
     }
 
-    const xe::Buffer* TextureGL::getBuffer(xe::gfx::TextureCubeSide side, size_t level) const {
+    const xe::Buffer* TextureGL::getBuffer(xe::TextureCubeSide side, size_t level) const {
         return nullptr;
     }
-}}}
+}

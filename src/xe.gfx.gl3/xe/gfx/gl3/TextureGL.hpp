@@ -11,9 +11,9 @@
 #include "xe/Vector.hpp"
 #include "xe/gfx/Texture.hpp"
 
-namespace xe { namespace gfx { namespace gl3  {
+namespace xe {
 
-    class TextureGL : public xe::gfx::Texture {
+    class TextureGL : public xe::Texture {
     public:
         TextureGL(const TextureDesc &desc, const PixelFormat sourceFormat, const DataType sourceType, const void* sourceData);
 
@@ -25,13 +25,13 @@ namespace xe { namespace gfx { namespace gl3  {
             return m_target;
         }
 
-        virtual xe::gfx::TextureDesc getDesc() const override {
+        virtual xe::TextureDesc getDesc() const override {
             return m_desc;
         }
 
-        virtual xe::Buffer* getBuffer(xe::gfx::TextureCubeSide side = xe::gfx::TextureCubeSide::Unknown, size_t level = 0) override;
+        virtual xe::Buffer* getBuffer(xe::TextureCubeSide side = xe::TextureCubeSide::Unknown, size_t level = 0) override;
 
-        virtual const xe::Buffer* getBuffer(xe::gfx::TextureCubeSide side = xe::gfx::TextureCubeSide::Unknown, size_t level = 0) const override;
+        virtual const xe::Buffer* getBuffer(xe::TextureCubeSide side = xe::TextureCubeSide::Unknown, size_t level = 0) const override;
 
     private:
         GLuint m_id = 0;
@@ -40,6 +40,6 @@ namespace xe { namespace gfx { namespace gl3  {
     };
 
     typedef std::unique_ptr<TextureGL> TextureGLPtr;
-}}}
+}
 
 #endif 

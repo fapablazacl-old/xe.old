@@ -1,6 +1,6 @@
 #pragma once
 
-namespace xe { namespace gfx {
+namespace xe {
     enum class Primitive {
 	PointList,
 	LineList,
@@ -10,4 +10,4 @@ namespace xe { namespace gfx {
 	TriangleStrip,
 	TriangleFan
     };
-}}
+}
