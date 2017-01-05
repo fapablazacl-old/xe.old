@@ -4,12 +4,12 @@
 #ifndef __xe_gfx_factoryimpl_hpp__
 #define __xe_gfx_factoryimpl_hpp__
 
-#include <xe/gfx/Factory.hpp>
-#include <xe/gfx/DeviceInfo.hpp>
+#include <xe/gfx/GraphicsFactory.hpp>
+#include <xe/gfx/GraphicsDeviceInfo.hpp>
 
 namespace xe {
     template<typename DeviceImpl>
-    class FactoryImpl : public Factory {
+    class FactoryImpl : public GraphicsFactory {
     public:
         explicit FactoryImpl(const GraphicsDeviceInfo &info) : m_info(info) {}
 

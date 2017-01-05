@@ -6,7 +6,7 @@
 
 #include <cassert>
 
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/UniformFormat.hpp>
 
 #include "InputManagerGLFW.hpp"

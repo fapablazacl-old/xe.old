@@ -11,10 +11,10 @@
 #include <xe/Core.hpp>
 #include <xe/Matrix.hpp>
 #include <xe/PluginManager.hpp>
-#include <xe/gfx/Manager.hpp>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsManager.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/Material.hpp>
-#include <xe/gfx/DeviceInfo.hpp>
+#include <xe/gfx/GraphicsDeviceInfo.hpp>
 #include <xe/sg/SceneNode.hpp>
 #include <xe/sg/Scene.hpp>
 

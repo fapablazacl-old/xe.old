@@ -1,5 +1,5 @@
 
-#include "DeviceInfo.hpp"
+#include "GraphicsDeviceInfo.hpp"
 
 #include <ostream>
 

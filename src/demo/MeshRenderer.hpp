@@ -7,7 +7,7 @@
 #include "Renderer.hpp"
 #include "Mesh.hpp"
 
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 
 

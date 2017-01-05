@@ -1,7 +1,7 @@
 
 #include "PhongMaterial.hpp"
 
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
 namespace demo {
 

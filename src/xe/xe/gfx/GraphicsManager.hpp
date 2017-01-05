@@ -14,15 +14,15 @@ namespace xe {
 
     struct GraphicsDeviceInfo;
     
-    class XE_API Factory;
+    class XE_API GraphicsFactory;
     class XE_API GraphicsDevice;
     class XE_API ImageLoader;
     class XE_API Image;
     
-    class XE_API Manager {
+    class XE_API GraphicsManager {
     public:
-        Manager();
-        ~Manager();
+        GraphicsManager();
+        ~GraphicsManager();
 
         std::vector<GraphicsDeviceInfo> enumerateDevices();
 
@@ -30,9 +30,9 @@ namespace xe {
 
         std::unique_ptr<GraphicsDevice> createDevice(const GraphicsDeviceInfo &info);
 
-        void registerFactory(Factory *factory);
+        void registerFactory(GraphicsFactory *factory);
 
-        void unregisterFactory(Factory *factory);
+        void unregisterFactory(GraphicsFactory *factory);
         
         void registerImageLoader(ImageLoader *loader);
         
@@ -41,8 +41,8 @@ namespace xe {
         std::unique_ptr<Image> createImage(Stream *stream);
         
     private:
-        Manager(const Manager& other) = delete;
-        void operator= (const Manager& other) = delete;
+        GraphicsManager(const GraphicsManager& other) = delete;
+        void operator= (const GraphicsManager& other) = delete;
 
     private:
         struct Private;

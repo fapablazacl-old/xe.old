@@ -6,9 +6,9 @@
 
 #include <xe/Core.hpp>
 #include <xe/Plugin.hpp>
-#include <xe/gfx/FactoryImpl.hpp>
+#include <xe/gfx/GraphicsFactoryImpl.hpp>
 
-#include "DeviceGL.hpp"
+#include "GraphicsDeviceGL.hpp"
 
 namespace xe {
     class PluginGL : public Plugin<Core> {

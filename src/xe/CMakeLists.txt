@@ -48,11 +48,17 @@ set (sources_input
 )
 
 set (sources_gfx 
-    xe/gfx/Device.hpp 
-    xe/gfx/Device.cpp 
-    xe/gfx/DeviceInfo.hpp
-    xe/gfx/DeviceInfo.cpp
-    xe/gfx/BufferType.hpp
+    xe/gfx/GraphicsDevice.hpp 
+    xe/gfx/GraphicsDevice.cpp 
+    xe/gfx/GraphicsDeviceInfo.hpp
+    xe/gfx/GraphicsDeviceInfo.cpp
+    xe/gfx/GraphicsManager.hpp
+    xe/gfx/GraphicsManager.cpp
+    xe/gfx/GraphicsFactory.hpp
+    xe/gfx/GraphicsFactory.cpp
+    xe/gfx/GraphicsFactoryImpl.hpp
+    xe/gfx/GraphicsFactoryImpl.cpp
+	xe/gfx/BufferType.hpp
     xe/gfx/Program.hpp 
     xe/gfx/Program.cpp
     xe/gfx/ShaderType.hpp
@@ -67,12 +73,6 @@ set (sources_gfx
     xe/gfx/PixelFormat.cpp
     xe/gfx/UniformFormat.hpp
     xe/gfx/Material.hpp
-    xe/gfx/Manager.hpp
-    xe/gfx/Manager.cpp
-    xe/gfx/Factory.hpp
-    xe/gfx/Factory.cpp
-    xe/gfx/FactoryImpl.hpp
-    xe/gfx/FactoryImpl.cpp
     xe/gfx/ImageLoader.cpp
     xe/gfx/ImageLoader.hpp
 )

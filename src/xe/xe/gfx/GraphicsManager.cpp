@@ -1,32 +1,32 @@
 
-#include "Manager.hpp"
+#include "GraphicsManager.hpp"
 
 #include <map>
 #include <set>
 #include <iostream>
 #include <cassert>
-#include <xe/gfx/Device.hpp>
-#include <xe/gfx/DeviceInfo.hpp>
-#include <xe/gfx/Factory.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
+#include <xe/gfx/GraphicsDeviceInfo.hpp>
+#include <xe/gfx/GraphicsFactory.hpp>
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/ImageLoader.hpp>
 
 namespace xe {
 
-    struct Manager::Private {
-        std::map<GraphicsDeviceInfo, Factory*> factories;
+    struct GraphicsManager::Private {
+        std::map<GraphicsDeviceInfo, GraphicsFactory*> factories;
         
         std::set<ImageLoader*> imageLoaders;
     };
 
-    Manager::Manager() 
-        : m_impl(new Manager::Private()) {}
+    GraphicsManager::GraphicsManager() 
+        : m_impl(new GraphicsManager::Private()) {}
 
-    Manager::~Manager() {
+    GraphicsManager::~GraphicsManager() {
         delete m_impl;
     }
 
-    std::vector<GraphicsDeviceInfo> Manager::enumerateDevices() {
+    std::vector<GraphicsDeviceInfo> GraphicsManager::enumerateDevices() {
         assert(m_impl);
 
         std::vector<GraphicsDeviceInfo> deviceInfos;
@@ -38,11 +38,11 @@ namespace xe {
         return deviceInfos;
     }
 
-    std::unique_ptr<GraphicsDevice> Manager::createDevice() {
+    std::unique_ptr<GraphicsDevice> GraphicsManager::createDevice() {
         assert(m_impl);
 
         if (m_impl->factories.size() == 0) {
-            std::clog << "xe::Manager::createDevice: No registered device factories." << std::endl;
+            std::clog << "xe::GraphicsManager::createDevice: No registered device factories." << std::endl;
             return std::unique_ptr<GraphicsDevice>();
         }
 
@@ -51,24 +51,24 @@ namespace xe {
         return first->second->createDevice();
     }
 
-    std::unique_ptr<GraphicsDevice> Manager::createDevice(const GraphicsDeviceInfo &info) {
+    std::unique_ptr<GraphicsDevice> GraphicsManager::createDevice(const GraphicsDeviceInfo &info) {
         assert(m_impl);
         
         if (m_impl->factories.size() == 0) {
-            std::clog << "xe::Manager::createDevice: No registered device factories." << std::endl;
+            std::clog << "xe::GraphicsManager::createDevice: No registered device factories." << std::endl;
             return std::unique_ptr<GraphicsDevice>();
         }
 
         auto pos = m_impl->factories.find(info);
 
         if (pos == m_impl->factories.end()) {
-            std::clog << "xe::Manager::createDevice: The specified device key isn't registered." << std::endl;
+            std::clog << "xe::GraphicsManager::createDevice: The specified device key isn't registered." << std::endl;
         }
 
         return pos->second->createDevice();
     }
 
-    void Manager::registerFactory(Factory *factory) {
+    void GraphicsManager::registerFactory(GraphicsFactory *factory) {
         assert(m_impl);
         assert(factory);
 
@@ -79,11 +79,11 @@ namespace xe {
         if (pos == m_impl->factories.end()) {
             m_impl->factories.insert({info, factory});
         } else {
-            std::clog << "xe::Manager::registerFactory: Replacing previous factory." << std::endl;
+            std::clog << "xe::GraphicsManager::registerFactory: Replacing previous factory." << std::endl;
         }
     }
 
-    void Manager::unregisterFactory(Factory *factory) {
+    void GraphicsManager::unregisterFactory(GraphicsFactory *factory) {
         assert(m_impl);
         assert(factory);
 
@@ -94,11 +94,11 @@ namespace xe {
         if (pos != m_impl->factories.end()) {
             m_impl->factories.erase(pos);
         } else {
-            std::clog << "xe::Manager::unregisterFactory: The specified factory isn't registered." << std::endl;
+            std::clog << "xe::GraphicsManager::unregisterFactory: The specified factory isn't registered." << std::endl;
         }
     }
     
-    void Manager::registerImageLoader(ImageLoader *loader) {
+    void GraphicsManager::registerImageLoader(ImageLoader *loader) {
         assert(m_impl);
         assert(loader);
         
@@ -106,19 +106,19 @@ namespace xe {
         
     }
     
-    void Manager::unregisterImageLoader(ImageLoader *loader) {
+    void GraphicsManager::unregisterImageLoader(ImageLoader *loader) {
         assert(m_impl);
         assert(loader);
 
         m_impl->imageLoaders.erase(loader);
     }
     
-    std::unique_ptr<Image> Manager::createImage(Stream *stream) {
+    std::unique_ptr<Image> GraphicsManager::createImage(Stream *stream) {
         assert(m_impl);
         assert(stream);
         
         std::clog 
-                << "xe::Manager::createImage: Trying from the stream from " 
+                << "xe::GraphicsManager::createImage: Trying from the stream from " 
                 << m_impl->imageLoaders.size() 
                 << " ImageLoader implementation(s)" 
                 << std::endl;
@@ -136,7 +136,7 @@ namespace xe {
                 image = proxy->getImage();
                 break;
             } else {
-                std::clog << "xe::Manager::createImage: Error while the image loading: " << std::endl;
+                std::clog << "xe::GraphicsManager::createImage: Error while the image loading: " << std::endl;
                 std::clog << "    " << proxy->getErrorMessage() << std::endl;
             }
         }   

@@ -1,5 +1,5 @@
 
-#include "Device.hpp"
+#include "GraphicsDevice.hpp"
 
 namespace xe {
     void GraphicsDevice::setUniform(const UniformFormat* format, const void *uniforms) {

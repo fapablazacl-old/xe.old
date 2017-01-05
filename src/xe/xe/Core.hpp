@@ -6,7 +6,7 @@
 
 #include <xe/Version.hpp>
 #include <xe/CoreBase.hpp>
-#include <xe/gfx/Manager.hpp>
+#include <xe/gfx/GraphicsManager.hpp>
 #include <xe/sg/SceneManager.hpp>
 
 #include <iostream>
@@ -40,12 +40,12 @@ namespace xe {
         /** 
          * @brief Get the graphics engine manager.
          */
-        Manager* getGraphicsManager() {
+        GraphicsManager* getGraphicsManager() {
             return &m_graphicsManager;
         }
 
     private:
-        Manager m_graphicsManager;
+        GraphicsManager m_graphicsManager;
     };
 }
 

@@ -1,5 +1,5 @@
 
-#include "DeviceGL.hpp"
+#include "GraphicsDeviceGL.hpp"
 #include "TextureGL.hpp"
 #include "Util.hpp"
 

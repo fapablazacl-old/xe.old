@@ -10,9 +10,9 @@
 namespace xe {
     struct GraphicsDeviceInfo;
     class XE_API GraphicsDevice;
-    class XE_API Factory {
+    class XE_API GraphicsFactory {
     public:
-        virtual ~Factory();
+        virtual ~GraphicsFactory();
         virtual GraphicsDeviceInfo getDeviceInfo() = 0;
         virtual std::unique_ptr<GraphicsDevice> createDevice() = 0;
     };

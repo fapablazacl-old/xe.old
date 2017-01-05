@@ -8,7 +8,7 @@
 
 #include <cstdint>
 #include <xe/Vector.hpp>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 
 
