@@ -4,7 +4,7 @@
 
 #include "xe/Vector.hpp"
 #include "xe/gfx/Texture.hpp"
-#include "xe/gfx/Device.hpp"
+#include "xe/gfx/GraphicsDevice.hpp"
 
 namespace xe {
     void Texture::buildMipmaps() {

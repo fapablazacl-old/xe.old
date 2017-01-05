@@ -1,7 +1,7 @@
 
 #include "DeviceGLES2.hpp"
 
-namespace xe { namespace gfx {
+namespace xe {
     DeviceGLES2::DeviceGLES2() 
     {
         ::glfwInit();
@@ -34,12 +34,12 @@ namespace xe { namespace gfx {
         ::glfwTerminate();
     }
 
-    xe::input::InputManager* DeviceGLES2::getInputManager() 
+    InputManager* DeviceGLES2::getInputManager() 
     {
         return nullptr;
     }
 
-    const xe::input::InputManager* DeviceGLES2::getInputManager() const 
+    const InputManager* DeviceGLES2::getInputManager() const 
     {
         return nullptr;
     }
@@ -115,4 +115,4 @@ namespace xe { namespace gfx {
         assert(uniform);
 
     }
-}}
+}

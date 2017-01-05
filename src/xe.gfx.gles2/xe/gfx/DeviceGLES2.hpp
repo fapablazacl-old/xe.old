@@ -1,18 +1,18 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <xe/gfx/Device.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
 
-namespace xe { namespace gfx {
-    class DeviceGLES2 : public Device {
+namespace xe {
+    class DeviceGLES2 : public GraphicsDevice {
     public:
         DeviceGLES2();
 
         virtual ~DeviceGLES2();
 
-        virtual xe::input::InputManager* getInputManager() override;
+        virtual InputManager* getInputManager() override;
 
-        virtual const xe::input::InputManager* getInputManager() const override;
+        virtual const InputManager* getInputManager() const override;
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) override;
         
@@ -43,4 +43,4 @@ namespace xe { namespace gfx {
     private:
         GLFWwindow *m_window = nullptr;
     };
-}}
+}

@@ -4,7 +4,7 @@
 #ifndef __xe_stream_hpp__
 #define __xe_stream_hpp__
 
-#include <xe/PreDef.hpp>
+#include "xe/PreDef.hpp"
 
 namespace xe {
 
