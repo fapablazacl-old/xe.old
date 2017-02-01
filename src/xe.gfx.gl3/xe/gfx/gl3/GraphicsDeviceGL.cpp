@@ -92,7 +92,7 @@ namespace xe {
     }
 
     void GraphicsDeviceGL::beginFrame(const ClearFlags flags, const ClearParams &params) {
-        GLenum clearFlags = 0L;
+        auto clearFlags = GL_COLOR_BUFFER_BIT ^ GL_COLOR_BUFFER_BIT;
 
         if (flags&ClearFlags::Color) {
             clearFlags |= GL_COLOR_BUFFER_BIT;

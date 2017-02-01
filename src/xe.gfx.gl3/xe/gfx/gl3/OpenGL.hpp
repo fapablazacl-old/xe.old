@@ -13,8 +13,4 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-// #include <glbinding/Binding.h>
-// #include <glbinding/gl33core/gl.h>
-// using namespace gl33core;
-
 #endif

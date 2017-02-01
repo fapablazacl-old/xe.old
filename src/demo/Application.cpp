@@ -72,8 +72,8 @@ namespace demo {
     Application::Application() {
         this->getPluginManager()->load("xe.gfx.fi");
         this->getPluginManager()->load("xe.gfx.gl3");
-        this->getPluginManager()->load("xe.gfx.gles2");
-        this->getPluginManager()->load("xe.gfx.d3d10");
+        //this->getPluginManager()->load("xe.gfx.gles2");
+        //this->getPluginManager()->load("xe.gfx.d3d10");
     }
 
     Application::~Application() {}
