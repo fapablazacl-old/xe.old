@@ -13,13 +13,6 @@ option (XE_GFX_ENABLE_PNG "Enable PNG loader support" OFF)
 
 option (XE_SFX_ENABLE_AL "Enable OpenAL Core support" OFF)
 
-# setup dependency targets
-if (XE_GFX_ENABLE_GL3 OR XE_GFX_ENABLE_GLES2)
-	set (XE_GFX_ENABLE_GL_DEPENDENCIES ON)
-else()
-	set (XE_GFX_ENABLE_GL_DEPENDENCIES OFF)
-endif()
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 # 
@@ -51,17 +44,16 @@ add_subdirectory(src/xe)
 add_subdirectory(src/demo)
 add_subdirectory(src/xe.tests)
 
-# optional targets
-if(XE_GFX_ENABLE_GL_DEPENDENCIES)
-    find_package(glbinding REQUIRED)
-	#add_subdirectory(src/glad)
-endif()
-
 if(XE_GFX_ENABLE_GL3)
+    add_subdirectory(src/glad-gl-3.3)
+    add_subdirectory(src/glad-gl-3.3-d)
+    
 	add_subdirectory(src/xe.gfx.gl3)
 endif()
 
 if(XE_GFX_ENABLE_GLES2)
+    add_subdirectory(src/glad-gles-2.0)
+    add_subdirectory(src/glad-gles-2.0-d)
 	add_subdirectory(src/xe.gfx.gles2)
 endif()
 
