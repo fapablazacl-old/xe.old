@@ -10,11 +10,14 @@
 #pragma warning (disable:4251)
 #endif
 
+#ifdef GL_BINDING
+#include <glbinding/Binding.h>
+#include <glbinding/gl33core/gl.h>
+using namespace gl33core;
+#else 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#endif
 
-// #include <glbinding/Binding.h>
-// #include <glbinding/gl33core/gl.h>
-// using namespace gl33core;
+#include <GLFW/glfw3.h>
 
 #endif

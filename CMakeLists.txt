@@ -31,10 +31,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_definitions (-D_CRT_SECURE_NO_WARNINGS)    
 add_definitions (-D_SCL_SECURE_NO_WARNINGS)
 
-# XE.SYS
-find_package(xe.sys REQUIRED)
-include_directories(${XE_SYS_INCLUDE_DIR})
-
 # Version Information
 add_definitions(-DXE_VERSION_MAJOR=1)
 add_definitions(-DXE_VERSION_MINOR=0)
@@ -53,8 +49,12 @@ add_subdirectory(src/xe.tests)
 
 # optional targets
 if(XE_GFX_ENABLE_GL_DEPENDENCIES)
-    find_package(glbinding REQUIRED)
-	#add_subdirectory(src/glad)
+    #find_package(glbinding REQUIRED)
+	#include_directories(${glbinding_DIR}/include)
+	#link_directories(${glbinding_DIR}/lib)
+	#add_definitions(-DGL_BINDING)
+
+	add_subdirectory(src/glad)
 endif()
 
 if(XE_GFX_ENABLE_GL3)

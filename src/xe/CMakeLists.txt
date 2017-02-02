@@ -28,6 +28,27 @@ set (sources
     xe/MemoryStream.hpp 
     xe/MemoryStream.cpp
     xe/Meta.hpp 
+	xe/PreDef.cpp 
+	xe/PreDef.hpp
+	xe/CoreBase.cpp 
+	xe/CoreBase.hpp 
+	xe/FileUtil.cpp 
+	xe/FileUtil.hpp 
+	xe/Library.hpp
+	xe/LibraryPosix.cpp  
+	xe/LibraryWin.cpp 
+	xe/Plugin.cpp 
+	xe/Plugin.hpp 
+	xe/PluginData.cpp
+	xe/PluginData.hpp
+	xe/PluginLibrary.cpp 
+	xe/PluginLibrary.hpp 
+	xe/PluginManager.cpp 
+	xe/PluginManager.hpp 
+	xe/PluginManagerImpl.cpp 
+	xe/PluginManagerImpl.hpp 
+	xe/Version.cpp 
+	xe/Version.hpp
 )
 
 set (sources_input
@@ -135,4 +156,4 @@ add_library(${target} SHARED
     ${sources_input}
 )
 
-target_link_libraries(${target} ${Boost_LIBRARIES} ${XE_SYS_LIBRARY})
+target_link_libraries(${target} ${Boost_LIBRARIES})
