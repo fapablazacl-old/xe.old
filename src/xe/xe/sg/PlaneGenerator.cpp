@@ -5,10 +5,10 @@
 #include <xe/Matrix.hpp>
 
 namespace xe {
-
     std::vector<xe::Vector3f> PlaneGenerator::genCoords(const Plane &plane, const float width, const float length) const {
         assert(width > 0.0f);
         assert(length > 0.0f);
+        assert(xe::norm(plane.normal) > 0.0f);
 
         std::vector<xe::Vector3f> coords(this->getCoordCount());
 
@@ -18,7 +18,6 @@ namespace xe {
         xe::Matrix4f rotation;
 
         if (top != plane.normal) {
-
             const auto radians = std::acos(xe::dot(plane.normal, top));
             const auto axis = xe::cross(plane.normal, top);
 

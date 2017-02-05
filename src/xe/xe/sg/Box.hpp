@@ -1,6 +1,8 @@
 
-#ifndef __EXENG_SCENEGRAPH_BOX_HPP__
-#define __EXENG_SCENEGRAPH_BOX_HPP__
+#pragma once
+
+#ifndef __xe_sg_box_hpp__
+#define __xe_sg_box_hpp__
 
 #include <xe/Boundary.hpp>
 
