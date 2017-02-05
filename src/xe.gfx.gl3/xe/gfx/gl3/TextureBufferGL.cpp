@@ -30,7 +30,6 @@ namespace xe {
             size *= 4;
             
         default: assert(false);
-            
         }
 
         return size;
@@ -39,12 +38,15 @@ namespace xe {
     void TextureBufferGL::read(void* destination, const int size, const int offset, const int destination_offset) const {
         assert(size == 0);
         assert(offset == 0);
+
+        assert(false);
     }
 
     void TextureBufferGL::write(const void *source, const int size, const int offset, const int source_offset) {
         assert(source);
         assert(size == 0);
         assert(offset == 0);
+        assert(false);
 
         xe::TextureDesc desc = m_texture->getDesc();
 

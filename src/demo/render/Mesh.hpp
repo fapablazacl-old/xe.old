@@ -16,58 +16,17 @@ namespace xe {
     /**
      * @brief Mesh envelope
      */ 
-    class Envelope {
-        /*
-    public:
-        Envelope() {}
-        
-        Envelope* setMaterial(xe::Material *material) {
-            this->material = material;
-            return this;
-        }
-        
-        Envelope* setPrimitive(xe::Material *material) {
-            this->material = material;
-            return this;
-        }
-        
-        Envelope* setStart(const std::size_t start) {
-            this->start = start;
-            return this;
-        }
-        
-        Envelope* setCount(const std::size_t count) {
-            this->count = count;
-            return this;
-        }
-        
-        const xe::Material* getMaterial() const {
-            return material;
-        }
-        
-        xe::Material* getMaterial() {
-            return material;
-        }
-        
-        xe::Primitive getPrimitive() const {
-            return primitive;
-        }
-        
-        std::size_t getStart() const {
-            return start;
-        }
-        
-        std::size_t getCount() const {
-            return count;
-        }
-        
-    private:
-        */
-    public:
+    struct Envelope {
+        //! Material
         Material *material = nullptr;
+
+        //! Primitive
         Primitive primitive = Primitive::TriangleStrip;
 
+        //! Start Index
         std::size_t start = 0;
+
+        //! End Index
         std::size_t count = 0;
     };
     

@@ -1,11 +1,11 @@
 
 #include "Application.hpp"
 
-#include "Camera.hpp"
-#include "PhongMaterial.hpp"
-#include "PhongPipeline.hpp"
-#include "PhongLight.hpp"
-#include "Mesh.hpp"
+#include "render/Camera.hpp"
+#include "render/PhongMaterial.hpp"
+#include "render/PhongPipeline.hpp"
+#include "render/PhongLight.hpp"
+#include "render/Mesh.hpp"
 
 #include <fstream>
 
@@ -17,7 +17,6 @@
 #include <xe/sg/PlaneGenerator.hpp>
 
 namespace demo {
-
     int Application::run() {
         using xe::isPressed;
         using xe::KeyCode;
@@ -74,6 +73,8 @@ namespace demo {
         this->getPluginManager()->load("xe.gfx.gl3");
         //this->getPluginManager()->load("xe.gfx.gles2");
         //this->getPluginManager()->load("xe.gfx.d3d10");
+
+        m_archive = xe::Archive::create("assets/");
     }
 
     Application::~Application() {}
@@ -130,9 +131,12 @@ namespace demo {
         xe::Generator generator;
         xe::PlaneGenerator planeGenerator;
         
-        const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+        planeGenerator.slices = 5;
+        planeGenerator.stacks = 5;
+
+        const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
         
-        std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane);
+        std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane, 5.0f, 5.0f);
         std::vector<std::uint32_t> indices = planeGenerator.genIndices();
         std::vector<xe::Vector3f> normals = generator.genNormals(coords, indices);
         std::vector<xe::Vector2f> texcoords = planeGenerator.genTexCoords();
@@ -176,9 +180,9 @@ namespace demo {
         assert(m_device);
         assert(file.size() > 0);
         
-        xe::FileStream stream(file);
-        
-        xe::ImagePtr image = this->getGraphicsManager()->createImage(&stream);
+        auto stream = m_archive->open(file);
+
+        xe::ImagePtr image = this->getGraphicsManager()->createImage(stream.get());
         assert(image);
         
         const xe::ImageDesc imageDesc = image->getDesc();
@@ -197,17 +201,17 @@ namespace demo {
     std::map<std::string, xe::TexturePtr> Application::createTextures() {
         std::map<std::string, xe::TexturePtr> textures;
         
-        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_albedo.tif'" << std::endl;
-        textures["rusted_plates_albedo"] = this->createTexture("assets/materials/rusted/rusted_plates_albedo.tif");
+        std::cout << "Loading texture 'rusted/rusted_plates_albedo.tif'" << std::endl;
+        textures["rusted_plates_albedo"] = this->createTexture("materials/rusted/rusted_plates_albedo.tif");
         
-        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
-        textures["rusted_plates_diffuse"] = this->createTexture("assets/materials/rusted/rusted_plates_diffuse.tif");
+        std::cout << "Loading texture 'materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
+        textures["rusted_plates_diffuse"] = this->createTexture("materials/rusted/rusted_plates_diffuse.tif");
         
-        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
-        textures["rusted_plates_heightmap"] = this->createTexture("assets/materials/rusted/rusted_plates_heightmap.tif");
+        std::cout << "Loading texture 'materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
+        textures["rusted_plates_heightmap"] = this->createTexture("materials/rusted/rusted_plates_heightmap.tif");
         
-        std::cout << "Loading texture 'assets/materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
-        textures["rusted_plates_normalmap"] = this->createTexture("assets/materials/rusted/rusted_plates_normalmap.tif");
+        std::cout << "Loading texture 'materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
+        textures["rusted_plates_normalmap"] = this->createTexture("materials/rusted/rusted_plates_normalmap.tif");
         
         return textures;
     }

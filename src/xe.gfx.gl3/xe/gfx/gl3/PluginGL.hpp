@@ -11,7 +11,7 @@
 #include "GraphicsDeviceGL.hpp"
 
 namespace xe {
-    class PluginGL : public Plugin<Core> {
+    class PluginGL : public Plugin {
     public:
         PluginGL();
         ~PluginGL();

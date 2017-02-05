@@ -18,9 +18,10 @@
 #include <xe/sg/SceneNode.hpp>
 #include <xe/sg/Scene.hpp>
 
-#include "Renderable.hpp"
-#include "SceneRenderer.hpp"
-#include "Pipeline.hpp"
+#include "ResourceManager.hpp"
+#include "render/Renderable.hpp"
+#include "render/SceneRenderer.hpp"
+#include "render/Pipeline.hpp"
 
 namespace demo {
     class Application : public xe::Core {
@@ -70,6 +71,7 @@ namespace demo {
 
         std::unique_ptr<xe::Pipeline> m_pipeline;
         std::unique_ptr<xe::SceneRenderer> m_sceneRenderer;
+        std::unique_ptr<xe::Archive> m_archive;
     };
 }
 

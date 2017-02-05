@@ -1,4 +1,6 @@
 
 #include "Plugin.hpp"
 
-namespace xe { }
+namespace xe { 
+    Plugin::~Plugin() {}
+}

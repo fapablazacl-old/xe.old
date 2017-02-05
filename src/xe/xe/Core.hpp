@@ -5,47 +5,43 @@
 #define __xe_core_hpp__
 
 #include <xe/Version.hpp>
-#include <xe/CoreBase.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
 #include <xe/sg/SceneManager.hpp>
 
 #include <iostream>
 
 namespace xe {
-    
-    /**
-    * @brief The core class of the engine. 
-    * 
-    * Holds all the extensible interfaces of the engine.
-    */
-    class Core : public CoreBase<Core> {
-    public:
-        Core() {
-            std::cout << 
-                "The XE C++ engine. \n"
-                "Copyright (c) 2016, 2017 Felipe Apablaza\n\n"
-                "The license and distribution terms for this library may be\n"
-                "found in the file LICENSE in this distribution.\n" << std::endl;
-        }
+    class PluginManager;
 
-        virtual ~Core() {}
+    /**
+     * @brief The core class of the engine. 
+     * 
+     * Holds all the extensible interfaces of the engine.
+     */
+    class XE_API Core {
+    public:
+        Core();
+
+        virtual ~Core();
 
         /** 
          * @brief Get the engine version
          */
-        Version getVersion() const {
-            return {XE_VERSION_MAJOR, XE_VERSION_MINOR};
-        }
+        Version getVersion() const;
 
         /** 
          * @brief Get the graphics engine manager.
          */
-        GraphicsManager* getGraphicsManager() {
-            return &m_graphicsManager;
-        }
+        GraphicsManager* getGraphicsManager();
+
+        /**
+         *
+         */
+        PluginManager* getPluginManager();
 
     private:
-        GraphicsManager m_graphicsManager;
+        struct Private;
+        Private *m_impl = nullptr;
     };
 }
 

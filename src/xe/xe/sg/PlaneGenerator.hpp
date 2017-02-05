@@ -21,7 +21,7 @@ namespace xe {
         PlaneGenerator(const std::size_t slices_, const std::size_t stacks_)
             : slices(slices_), stacks(stacks_) {}
     
-        std::vector<xe::Vector3f> genCoords(const Plane &plane) const;
+        std::vector<xe::Vector3f> genCoords(const Plane &plane, const float width, const float length) const;
     
         std::size_t getCoordCount() const;
     

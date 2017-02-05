@@ -9,8 +9,9 @@
 #include <xe/PluginData.hpp>
 
 namespace xe {
-    template<class Core>
-    class PluginManager {
+    
+    class XE_API Core;
+    class XE_API PluginManager {
     public:
         virtual ~PluginManager() {}
 

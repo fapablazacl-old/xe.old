@@ -6,7 +6,7 @@
 #include "ImageLoaderFI.hpp"
 
 namespace xe {
-    class PluginFI : public xe::Plugin<xe::Core> {
+    class PluginFI : public xe::Plugin {
     public:
         PluginFI() {}
         

@@ -37,8 +37,6 @@ set (sources
     xe/Meta.hpp 
 	xe/PreDef.cpp 
 	xe/PreDef.hpp
-	xe/CoreBase.cpp 
-	xe/CoreBase.hpp 
 	xe/FileUtil.cpp 
 	xe/FileUtil.hpp 
 	xe/Library.hpp

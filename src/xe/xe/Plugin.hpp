@@ -4,14 +4,14 @@
 #ifndef __xe_plugin_hpp__
 #define __xe_plugin_hpp__
 
-//#include <xe/RefCounted.hpp>
+#include <xe/PreDef.hpp>
 #include <xe/PluginData.hpp>
 
 namespace xe {
-    template<class Core>
-    class Plugin /*: public RefCounted*/ {
+    class XE_API Core;
+    class XE_API Plugin {
     public:
-        virtual ~Plugin() {}
+        virtual ~Plugin();
         
         virtual PluginData getData() const = 0;
 
@@ -20,8 +20,7 @@ namespace xe {
         virtual void stop(Core *core) = 0;
     };
 
-    template<typename Core>
-    using XE_CreatePluginProc = Plugin<Core>* (*)(); 
+    typedef Plugin* (*XE_CreatePluginProc) ();
 
 #define XE_STR(value)                    #value
 #define XE_GET_PLUGIN_OBJECT_NAME        XE_CreatePlugin
@@ -29,7 +28,7 @@ namespace xe {
 
 #define XE_EXPORT_PLUGIN(Core, PluginImpl) \
     extern "C" { \
-        XE_API_EXPORT xe::Plugin<Core>* XE_CALLCONV XE_GET_PLUGIN_OBJECT_NAME() { \
+        XE_API_EXPORT xe::Plugin* XE_CALLCONV XE_GET_PLUGIN_OBJECT_NAME() { \
             return new PluginImpl(); \
         } \
     }
