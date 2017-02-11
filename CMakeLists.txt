@@ -36,6 +36,7 @@ include_directories(src/xe)
 # mandatory targets
 add_subdirectory(src/xe)
 add_subdirectory(src/demo)
+add_subdirectory(src/tetris)
 add_subdirectory(src/xe.tests)
 
 # optional targets

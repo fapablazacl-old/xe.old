@@ -1,4 +1,6 @@
 
+#pragma once
+
 #ifndef __xe_resourcemanager_hpp__
 #define __xe_resourcemanager_hpp__
 
