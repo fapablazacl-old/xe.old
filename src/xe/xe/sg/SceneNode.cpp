@@ -1,6 +1,8 @@
 
 #include "SceneNode.hpp"
 
+#include <sstream>
+
 namespace xe {
 
     class SceneNode;
@@ -30,10 +32,12 @@ namespace xe {
         delete m_impl;
     }
 
-    SceneNode* SceneNode::createNode() {
+    SceneNode* SceneNode::createNode(const std::string &name) {
         assert(m_impl);
 
         auto* node = new SceneNode();
+
+        node->setName(name);
 
         m_impl->m_childs.emplace_back(node);
 
@@ -96,5 +100,32 @@ namespace xe {
         assert(m_impl);
 
         return m_impl->m_childs[index].get();
+    }
+
+    SceneNode* SceneNode::getNode(const std::string &name) const {
+        assert(m_impl);
+
+        for (auto &child : m_impl->m_childs) {
+            if (child->getName() == name) {
+                return child.get();
+            }
+        }
+
+        return nullptr;
+    }
+
+    SceneNode* SceneNode::findNode(const std::string &path) const {
+        assert(m_impl);
+
+        std::stringstream ss(path);
+        std::string nodeName;
+
+        SceneNode *node = const_cast<SceneNode*>(this);
+
+        while (std::getline(ss, nodeName, '/')) {
+            node = node->getNode(nodeName);
+        }
+
+        return node;
     }
 }

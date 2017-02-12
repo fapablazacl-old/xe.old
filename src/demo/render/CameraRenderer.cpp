@@ -19,7 +19,7 @@ namespace xe {
 
         auto camera = static_cast<Camera*>(renderable);
 
-        m_pipeline->setProjMatrix(camera->getProjMatrix());
-        m_pipeline->setViewMatrix(camera->getViewMatrix());
+        m_pipeline->setTransform(TransformType::Proj, camera->getProjMatrix());
+        m_pipeline->setTransform(TransformType::View, camera->getViewMatrix());
     }
 }

@@ -14,9 +14,9 @@ namespace xe {
         Scene();
         ~Scene();
 
-        const SceneNode* getNode() const;
+        const SceneNode* getRootNode() const;
         
-        SceneNode* getNode();
+        SceneNode* getRootNode();
 
         Vector4f getBackColor() const;
 

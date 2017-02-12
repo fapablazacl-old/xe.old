@@ -17,15 +17,13 @@ namespace xe {
 
         virtual ~PhongPipeline();
 
-        virtual xe::Matrix4f getTransformation() const override;
+        virtual xe::Matrix4f getProjViewModel() const override;
 
-        virtual void setModelMatrix(const xe::Matrix4f &transformation) override;
+        virtual xe::Matrix4f getTransform(const TransformType transformType) const override;
 
-        virtual void setProjMatrix(const xe::Matrix4f &proj);
+        virtual void setTransform(const TransformType transformType, const xe::Matrix4f &transform) override;
 
-        virtual void setViewMatrix(const xe::Matrix4f &view);
-
-        virtual void beginFrame(const xe::Vector4f &clearColor) override;
+        virtual void beginFrame() override;
 
         virtual void render(Renderable *renderable) override;
 
@@ -42,11 +40,9 @@ namespace xe {
         xe::GraphicsDevice *m_device = nullptr;
         xe::ProgramPtr m_program;
 
-        xe::Matrix4f m_proj = xe::Matrix4f::makeIdentity();
-        xe::Matrix4f m_view = xe::Matrix4f::makeIdentity();
-        xe::Matrix4f m_model = xe::Matrix4f::makeIdentity();
+        std::array<xe::Matrix4f, 3> m_transforms;
 
-        xe::Matrix4f m_projViewModel = xe::Matrix4f::makeIdentity();
+        xe::Matrix4f m_mvpTransform = xe::Matrix4f::makeIdentity();
 
         std::vector<std::unique_ptr<Renderer>> m_renderersStorage;
 

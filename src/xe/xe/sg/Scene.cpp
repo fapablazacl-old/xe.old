@@ -10,12 +10,12 @@ namespace xe {
 
     Scene::Scene() : m_impl(new Scene::Private()) {}
 
-    const SceneNode* Scene::getNode() const {
+    const SceneNode* Scene::getRootNode() const {
         assert(m_impl);
         return &m_impl->rootNode;
     }
 
-    SceneNode* Scene::getNode() {
+    SceneNode* Scene::getRootNode() {
         assert(m_impl);
         return &m_impl->rootNode;
     }

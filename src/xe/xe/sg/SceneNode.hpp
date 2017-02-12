@@ -26,7 +26,7 @@ namespace xe {
         /**
          * @brief Create and returns a new child node.
          */
-        SceneNode* createNode();
+        SceneNode* createNode(const std::string &name="");
         
         /** 
          * @brief Destroys the supplied child scene node only if a child of the current node.
@@ -71,7 +71,17 @@ namespace xe {
         /**
          * @brief Returns the node located at the specified index.
          */
-        SceneNode* getNode(const std::size_t index) const ;
+        SceneNode* getNode(const std::size_t index) const;
+
+        /**
+         * @brief Get the node with the specified name
+         */
+        SceneNode* getNode(const std::string &name) const;
+
+        /**
+         * @brief Get the node located at the specified path.
+         */
+        SceneNode* findNode(const std::string &path) const;
 
     private:
         struct Private;

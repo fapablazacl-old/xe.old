@@ -40,7 +40,7 @@ namespace xe {
 
             std::vector<RenderElement> elements;
 
-            this->filterNode(elements, xe::Matrix4f::makeIdentity(), scene->getNode());
+            this->filterNode(elements, xe::Matrix4f::makeIdentity(), scene->getRootNode());
 
             return elements;
         }
@@ -71,10 +71,10 @@ namespace xe {
         assert(pipeline);
 
         // render the full scene
-        pipeline->beginFrame(backColor);
+        pipeline->beginFrame();
 
         for (const RenderElement &element : elements) {
-            pipeline->setModelMatrix(element.transformation);
+            pipeline->setTransform(TransformType::Model, element.transformation);
             pipeline->render(element.renderable);
         }
 

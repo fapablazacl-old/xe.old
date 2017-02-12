@@ -1,10 +1,14 @@
 
 set (target demo)
 set (sources 
-	Application.hpp 
-	Application.cpp
+	DemoApp.hpp 
+	DemoApp.cpp
 	ResourceManager.hpp
 	ResourceManager.cpp
+	Resources.hpp
+	Resources.cpp
+	CameraController.hpp
+	CameraController.cpp
 )
 
 set (sources_render

@@ -1,5 +1,5 @@
 
-#include "DemoResources.hpp"
+#include "Resources.hpp"
 
 #include "ResourceManager.hpp"
 
@@ -14,7 +14,6 @@
 #include <xe/IosStream.hpp>
 #include <xe/FileStream.hpp>
 #include <xe/Matrix.hpp>
-#include <xe/PluginManager.hpp>
 
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
@@ -32,7 +31,7 @@
 
 namespace demo {
 
-    struct DemoResources::Private {
+    struct Resources::Private {
     public:
         Private(xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
             : m_device(device), m_manager(manager) {
@@ -101,7 +100,7 @@ namespace demo {
             planeGenerator.slices = 5;
             planeGenerator.stacks = 5;
 
-            const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f});
+            const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
         
             std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane, 5.0f, 5.0f);
             std::vector<std::uint32_t> indices = planeGenerator.genIndices();
@@ -167,17 +166,17 @@ namespace demo {
     
         std::map<std::string, xe::TexturePtr> createTextures() {
             std::map<std::string, xe::TexturePtr> textures;
-        
-            std::cout << "Loading texture 'rusted/rusted_plates_albedo.tif'" << std::endl;
+
+            // std::cout << "Loading texture 'rusted/rusted_plates_albedo.tif'" << std::endl;
             textures["rusted_plates_albedo"] = this->createTexture("materials/rusted/rusted_plates_albedo.tif");
         
-            std::cout << "Loading texture 'materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
+            // std::cout << "Loading texture 'materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
             textures["rusted_plates_diffuse"] = this->createTexture("materials/rusted/rusted_plates_diffuse.tif");
         
-            std::cout << "Loading texture 'materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
+            // std::cout << "Loading texture 'materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
             textures["rusted_plates_heightmap"] = this->createTexture("materials/rusted/rusted_plates_heightmap.tif");
         
-            std::cout << "Loading texture 'materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
+            // std::cout << "Loading texture 'materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
             textures["rusted_plates_normalmap"] = this->createTexture("materials/rusted/rusted_plates_normalmap.tif");
         
             return textures;
@@ -219,7 +218,7 @@ namespace demo {
             return materials;
         }
     
-        xe::ScenePtr createScene() {
+        std::unique_ptr<xe::Scene> createScene() {
             xe::Renderable* lookAtCamera = m_renderables["lookAtCamera"].get();
             xe::Renderable* sphereMesh = m_renderables["sphereMesh"].get();
             xe::Renderable* planeMesh = m_renderables["planeMesh"].get();
@@ -233,24 +232,32 @@ namespace demo {
 
             scene
                 ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
-                ->getNode()->setRenderable(lookAtCamera);
+                ->getRootNode()->setRenderable(lookAtCamera);
 
-            scene->getNode()->createNode()->setRenderable(light);
+            scene->getRootNode()->createNode("light")->setRenderable(light);
 
-            scene->getNode()->createNode()->setRenderable(sphereMesh);
-            scene->getNode()->createNode()->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
+            scene->getRootNode()->createNode("sphere")->setRenderable(sphereMesh);
+            scene->getRootNode()->createNode("plane")->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
         
             return scene;
         }
     };
 
-    DemoResources::DemoResources(xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
-        : m_impl(new DemoResources::Private(device, manager)) {
+    Resources::Resources(xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
+        : m_impl(new Resources::Private(device, manager)) {
     }
 
-    DemoResources::~DemoResources() {}
+    Resources::~Resources() {}
 
-    xe::Scene* DemoResources::getScene() {
+    xe::Scene* Resources::getScene() {
+        assert(m_impl);
+
         return m_impl->m_scene.get();
+    }
+
+    xe::Renderable* Resources::getRenderable(const std::string &name) {
+        assert(m_impl);
+        
+        return m_impl->m_renderables[name].get();
     }
 }

@@ -38,53 +38,39 @@ namespace xe {
 
     PhongPipeline::~PhongPipeline() {}
 
-    xe::Matrix4f PhongPipeline::getTransformation() const {
-        return m_projViewModel;
+    xe::Matrix4f PhongPipeline::getProjViewModel() const {
+        return m_mvpTransform;
     }
-    
+
+    xe::Matrix4f PhongPipeline::getTransform(const TransformType transformType) const {
+        return m_transforms[(int)transformType];
+    }
+
     void PhongPipeline::syncModelViewProj() {
         assert(m_device);
         assert(m_program);
         assert(m_device->getProgram() == m_program.get());
 
-        m_projViewModel = m_proj * m_view * m_model;
+        m_mvpTransform = this->getTransform(TransformType::Proj) * 
+                        this->getTransform(TransformType::View) * 
+                        this->getTransform(TransformType::Model);
 
         int location = m_program->getUniform("mat_projViewModel");
 
-        m_device->setUniformMatrix(location, 1, false, m_projViewModel.getPtr());
+        m_device->setUniformMatrix(location, 1, false, m_mvpTransform.getPtr());
     }
 
-    void PhongPipeline::setModelMatrix(const xe::Matrix4f &transformation) {
+    void PhongPipeline::setTransform(const TransformType transformType, const xe::Matrix4f &transform) {
         assert(m_device);
         assert(m_program);
         assert(m_device->getProgram() == m_program.get());
 
-        m_model = transformation;
+        m_transforms[(int)transformType] = transform;
 
         this->syncModelViewProj();
     }
 
-    void PhongPipeline::setProjMatrix(const xe::Matrix4f &proj) {
-        assert(m_device);
-        assert(m_program);
-        assert(m_device->getProgram() == m_program.get());
-
-        m_proj = proj;
-
-        this->syncModelViewProj();
-    }
-
-    void PhongPipeline::setViewMatrix(const xe::Matrix4f &view) {
-        assert(m_device);
-        assert(m_program);
-        assert(m_device->getProgram() == m_program.get());
-
-        m_view = view;
-
-        this->syncModelViewProj();
-    }
-
-    void PhongPipeline::beginFrame(const xe::Vector4f &clearColor) {
+    void PhongPipeline::beginFrame() {
         assert(m_device);
         assert(m_program);
         assert(!m_frame);
@@ -92,7 +78,7 @@ namespace xe {
         m_frame = true;
 
         m_device->setProgram(m_program.get());
-        m_device->beginFrame(xe::ClearFlags::All, xe::ClearParams(clearColor));
+        m_device->beginFrame(xe::ClearFlags::All, xe::ClearParams());
     }
 
     void PhongPipeline::render(Renderable *renderable) {
