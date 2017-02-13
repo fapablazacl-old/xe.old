@@ -7,6 +7,8 @@
 #include <xe/Vector.hpp>
 #include "render/Camera.hpp"
 
+#include "Entity.hpp"
+
 namespace demo {
 
     enum class ControlType {
@@ -18,11 +20,11 @@ namespace demo {
         TurnRight
     };
 
-    class CameraController {
+    class CameraController : public Entity {
     public:
         CameraController(xe::LookAtPerspectiveCamera *camera, const float turnSpeed, const float forwardSpeed, const float stepSpeed);
 
-        void update(const float seconds);
+        virtual void update(const float seconds) override;
 
         void control(const ControlType controlType);
 

@@ -7,6 +7,8 @@ set (sources
 	ResourceManager.cpp
 	Resources.hpp
 	Resources.cpp
+	Entity.hpp
+	Entity.cpp
 	CameraController.hpp
 	CameraController.cpp
 )

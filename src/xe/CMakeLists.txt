@@ -57,6 +57,13 @@ set (sources
 )
 
 set (sources_input
+	xe/input/InputManager2.cpp 
+	xe/input/InputManager2.hpp 
+	xe/input/InputCode.cpp 
+	xe/input/InputCode.hpp 
+	xe/input/InputStatus.cpp 
+	xe/input/InputStatus.hpp 
+
     xe/input/EventImpl.hpp 
     xe/input/Event.hpp 
     xe/input/EventHandler.hpp 
