@@ -11,22 +11,15 @@
 
 namespace demo {
 
-    enum class ControlType {
-        Forward, 
-        Backward, 
-        StepLeft,
-        StepRight,
-        TurnLeft, 
-        TurnRight
-    };
+    class Message;
 
-    class CameraController : public Entity {
+    class CameraEntity : public Entity {
     public:
-        CameraController(xe::LookAtPerspectiveCamera *camera, const float turnSpeed, const float forwardSpeed, const float stepSpeed);
+        CameraEntity(xe::LookAtPerspectiveCamera *camera, const float turnSpeed, const float forwardSpeed, const float stepSpeed);
 
         virtual void update(const float seconds) override;
 
-        void control(const ControlType controlType);
+        virtual void handle(Message *message) override;
 
     private:
         xe::LookAtPerspectiveCamera *m_camera;

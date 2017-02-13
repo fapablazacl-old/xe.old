@@ -1,7 +1,9 @@
 
 #include "DemoApp.hpp"
 
-#include "CameraController.hpp"
+#include "CameraEntity.hpp"
+#include "MessageBus.hpp"
+#include "MoveMessage.hpp"
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>
@@ -29,7 +31,11 @@ namespace demo {
 
         std::unique_ptr<Resources> m_resources;
 
-        std::unique_ptr<demo::CameraController> m_cameraController;
+        demo::CameraEntity *m_cameraEntity = nullptr;
+
+        std::vector<std::unique_ptr<Entity>> m_entities;
+
+        std::unique_ptr<MessageBus> m_messageBus;
 
     public:
         Private(DemoApp *app) : m_app(app) {}
@@ -57,9 +63,40 @@ namespace demo {
             m_meshNode = m_resources->getScene()->getRootNode()->getNode("sphere");
 
             auto camera = static_cast<xe::LookAtPerspectiveCamera*>(m_resources->getRenderable("lookAtCamera"));
-            m_cameraController = std::make_unique<CameraController>(camera, 0.1f, 0.5f, 0.5f);
+            
+            m_cameraEntity = new CameraEntity(camera, 0.1f, 0.5f, 0.5f);
+
+            m_entities.emplace_back(m_cameraEntity);
+
+            m_messageBus = std::make_unique<MessageBus>();
 
             return true;
+        }
+
+        bool doInput(xe::InputManager2 *inputManager) {
+            inputManager->poll();
+
+            if (inputManager->getStatus(xe::InputCode::KeyEsc) == xe::InputStatus::Press) {
+                return false;
+            }
+
+            if (inputManager->getStatus(xe::InputCode::KeyLeft) == xe::InputStatus::Press) {
+                m_messageBus->enqueue(std::make_unique<MoveMessage>(nullptr, m_cameraEntity, MoveType::StepLeft));
+            }
+
+            if (inputManager->getStatus(xe::InputCode::KeyRight) == xe::InputStatus::Press) {
+                m_messageBus->enqueue(std::make_unique<MoveMessage>(nullptr, m_cameraEntity, MoveType::StepRight));
+            }
+
+            return true;
+        }
+
+        void updateAll(const float seconds) {
+            m_messageBus->dispatch();
+
+            for (auto &entity : m_entities) {
+                entity->update(seconds);
+            }
         }
 
         void mainLoop() {
@@ -67,31 +104,23 @@ namespace demo {
 
             auto inputManager = m_device->getInputManager();
         
-            float angle = 0.0f;
-    
+            //float angle = 0.0f;
+            
             while(true) {
+                /*
                 angle += 0.3f;
 
                 if (angle > 360.0f) {
                     angle = 0.0f;
                 }
-
-                inputManager->poll();
-
-                if (inputManager->getStatus(xe::InputCode::KeyEsc) == xe::InputStatus::Press) {
+                */
+                if (!this->doInput(inputManager)) {
                     break;
                 }
 
-                if (inputManager->getStatus(xe::InputCode::KeyLeft) == xe::InputStatus::Press) {
-                    m_cameraController->control(ControlType::StepLeft);
-                }
+                this->updateAll(0.02f);
 
-                if (inputManager->getStatus(xe::InputCode::KeyRight) == xe::InputStatus::Press) {
-                    m_cameraController->control(ControlType::StepRight);
-                }
-
-                m_cameraController->update(0.01f);
-
+                /*
                 const float rad_angle = xe::rad(angle);
 
                 const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
@@ -99,6 +128,7 @@ namespace demo {
                 const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
 
                 m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
+                */
 
                 m_sceneRenderer->renderFrame(m_resources->getScene());
             }
