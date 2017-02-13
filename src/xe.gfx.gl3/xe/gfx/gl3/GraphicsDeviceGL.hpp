@@ -9,7 +9,7 @@
 #include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/UniformFormat.hpp>
 
-#include "InputManagerGLFW.hpp"
+#include "InputManager2GLFW.hpp"
 #include "OpenGL.hpp"
 #include "ProgramGL.hpp"
 #include "SubsetGL.hpp"
@@ -22,12 +22,8 @@ namespace xe {
 
         virtual ~GraphicsDeviceGL();
 
-        virtual InputManager* getInputManager() override {
-            return &m_inputManager;
-        }
-
-        virtual const InputManager* getInputManager() const override {
-            return &m_inputManager;
+        virtual InputManager2* getInputManager() override {
+            return m_inputManager.get();
         }
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer)  override;
@@ -74,7 +70,7 @@ namespace xe {
         SubsetGL *m_mesh = nullptr;
         ProgramGL *m_program = nullptr;
 
-        InputManagerGLFW m_inputManager;
+        std::unique_ptr<InputManager2GLFW> m_inputManager;
     };
 }
 

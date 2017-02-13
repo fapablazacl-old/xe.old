@@ -7,6 +7,8 @@
 #include <xe/Common.hpp>
 #include <xe/Matrix.hpp>
 #include <xe/PluginManager.hpp>
+#include <xe/input/InputCode.hpp>
+#include <xe/input/InputStatus.hpp>
 #include <xe/gfx/GraphicsDeviceInfo.hpp>
 #include <fstream>
 #include <iostream>
@@ -61,13 +63,9 @@ namespace demo {
         }
 
         void mainLoop() {
-            using xe::isPressed;
-            using xe::KeyCode;
-        
             assert(m_meshNode);
 
             auto inputManager = m_device->getInputManager();
-            auto keyboardStatus = inputManager->getKeyboard()->getStatus();
         
             float angle = 0.0f;
     
@@ -80,15 +78,15 @@ namespace demo {
 
                 inputManager->poll();
 
-                if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyEsc))) {
+                if (inputManager->getStatus(xe::InputCode::KeyEsc) == xe::InputStatus::Press) {
                     break;
                 }
 
-                if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyLeft))) {
+                if (inputManager->getStatus(xe::InputCode::KeyLeft) == xe::InputStatus::Press) {
                     m_cameraController->control(ControlType::StepLeft);
                 }
 
-                if (isPressed(keyboardStatus->getKeyStatus(KeyCode::KeyRight))) {
+                if (inputManager->getStatus(xe::InputCode::KeyRight) == xe::InputStatus::Press) {
                     m_cameraController->control(ControlType::StepRight);
                 }
 

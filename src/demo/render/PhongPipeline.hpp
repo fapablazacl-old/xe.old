@@ -7,6 +7,7 @@
 #include "Pipeline.hpp"
 
 #include <typeindex>
+#include <array>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe {

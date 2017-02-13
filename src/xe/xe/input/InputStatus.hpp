@@ -6,9 +6,11 @@
 
 namespace xe {
     enum class InputStatus {
-        Unknown, 
+        Unknown = -1, 
         Release,
-        Press
+        Press, 
+        Push, 
+        Pop
     };
 }
 

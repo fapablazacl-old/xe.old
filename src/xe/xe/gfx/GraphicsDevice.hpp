@@ -16,7 +16,7 @@
 #include <xe/gfx/UniformFormat.hpp>
 #include <xe/gfx/Material.hpp>
 #include <xe/gfx/Primitive.hpp>
-#include <xe/input/InputManager.hpp>
+#include <xe/input/InputManager2.hpp>
 
 namespace xe {
 
@@ -87,9 +87,7 @@ namespace xe {
     public:
         virtual ~GraphicsDevice() {}
 
-        virtual InputManager* getInputManager() = 0;
-
-        virtual const InputManager* getInputManager() const = 0;
+        virtual InputManager2* getInputManager() = 0;
 
         virtual SubsetPtr createSubset(const SubsetFormat *format, std::vector<BufferPtr> buffers, const DataType indexType, BufferPtr indexBuffer) = 0;
         
