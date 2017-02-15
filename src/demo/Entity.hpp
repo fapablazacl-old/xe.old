@@ -7,7 +7,6 @@
 #include "MessageHandler.hpp"
 
 namespace demo {
-    class AbstractMessage;
     class Entity : public MessageHandler {
     public:
         virtual ~Entity();

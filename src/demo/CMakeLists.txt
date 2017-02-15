@@ -21,6 +21,9 @@ set (sources
 	MessageHandler.cpp
 	FrameTimer.hpp
 	FrameTimer.cpp
+
+	ResourceManager.hpp
+	ResourceManager.cpp
 )
 
 set (sources_render

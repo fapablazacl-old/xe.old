@@ -1,8 +1,8 @@
 
 #pragma once
 
-#ifndef __xe_resourcemanager_hpp__
-#define __xe_resourcemanager_hpp__
+#ifndef __xe_archive_hpp__
+#define __xe_archive_hpp__
 
 #include <memory>
 #include <string>
