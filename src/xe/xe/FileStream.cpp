@@ -17,13 +17,10 @@ namespace xe {
     
     int FileStream::read(void *bufferOut, const int size, const int count) {
         assert(m_file);
-        //std::cout << "xe::FileStream::read: size=" << size << ", count=" << count << std::endl;
         return (int)std::fread(bufferOut, size, count, m_file);
     }
     
     bool FileStream::seek(const int offset, const StreamOffset position) {
-        //std::cout << "xe::FileStream::seek: offset=" << offset << ", count=" << (int)position << std::endl;
-        
         assert(m_file);
         
         int whence;
@@ -44,9 +41,7 @@ namespace xe {
     
     int FileStream::tell() const {
         assert(m_file);
-        
-        //std::cout << "xe::FileStream::tell: " << std::ftell(m_file) << std::endl;
-        
+
         return std::ftell(m_file);
     }
 }

@@ -3,8 +3,8 @@ set (target demo)
 set (sources 
 	DemoApp.hpp 
 	DemoApp.cpp
-	ResourceManager.hpp
-	ResourceManager.cpp
+	Archive.hpp
+	Archive.cpp
 	Resources.hpp
 	Resources.cpp
 	Entity.hpp

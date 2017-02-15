@@ -28,16 +28,16 @@ namespace demo {
         assert(message);
         assert(message->getDestination() == this);
 
-        if (MoveMessage *moveMessage = dynamic_cast<MoveMessage *>(message)) {
+        if (auto *moveMessage = dynamic_cast<Message<MoveType> *>(message)) {
             MoveType moveType = moveMessage->getData();
 
             switch (moveType) {
                 case MoveType::TurnRight: m_currentTurnSpeed = m_turnSpeed; break;
                 case MoveType::TurnLeft: m_currentTurnSpeed = -m_turnSpeed; break;
-                case MoveType::Forward: m_currentForwardSpeed = m_forwardSpeed; break;
-                case MoveType::Backward: m_currentForwardSpeed = -m_forwardSpeed; break;
-                case MoveType::StepRight: m_currentStepSpeed = m_stepSpeed; break;
-                case MoveType::StepLeft: m_currentStepSpeed = -m_stepSpeed; break;
+                case MoveType::Forward: m_currentForwardSpeed = -m_forwardSpeed; break;
+                case MoveType::Backward: m_currentForwardSpeed = m_forwardSpeed; break;
+                case MoveType::StepRight: m_currentStepSpeed = -m_stepSpeed; break;
+                case MoveType::StepLeft: m_currentStepSpeed = m_stepSpeed; break;
             }
         }
     }

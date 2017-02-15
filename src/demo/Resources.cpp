@@ -1,7 +1,7 @@
 
 #include "Resources.hpp"
 
-#include "ResourceManager.hpp"
+#include "Archive.hpp"
 
 #include "render/Camera.hpp"
 #include "render/PhongMaterial.hpp"
@@ -126,6 +126,10 @@ namespace demo {
     
         std::unique_ptr<xe::Renderable> createLightRenderable() {
             auto light = std::make_unique<xe::PhongLight>();
+
+            auto &properties = *light->getProperties();
+
+            properties.direction = xe::normalize(xe::Vector3f(-0.25f, 1.0f, -0.5f));
 
             return std::move(light);
         }

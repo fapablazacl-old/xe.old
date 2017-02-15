@@ -64,7 +64,7 @@ namespace demo {
 
             auto camera = static_cast<xe::LookAtPerspectiveCamera*>(m_resources->getRenderable("lookAtCamera"));
             
-            m_cameraEntity = new CameraEntity(camera, 0.1f, 0.5f, 0.5f);
+            m_cameraEntity = new CameraEntity(camera, 0.1f, 1.5f, 1.5f);
 
             m_entities.emplace_back(m_cameraEntity);
 
@@ -74,18 +74,25 @@ namespace demo {
         }
 
         bool doInput(xe::InputManager2 *inputManager) {
+            assert(inputManager);
+
             inputManager->poll();
 
             if (inputManager->getStatus(xe::InputCode::KeyEsc) == xe::InputStatus::Press) {
                 return false;
             }
 
-            if (inputManager->getStatus(xe::InputCode::KeyLeft) == xe::InputStatus::Press) {
-                m_messageBus->enqueue(std::make_unique<MoveMessage>(nullptr, m_cameraEntity, MoveType::StepLeft));
-            }
+            static const std::map<xe::InputCode, MoveType> inputCodeToMoveType = {
+                {xe::InputCode::KeyLeft, MoveType::StepLeft}, 
+                {xe::InputCode::KeyRight, MoveType::StepRight}, 
+                {xe::InputCode::KeyUp, MoveType::Forward}, 
+                {xe::InputCode::KeyDown, MoveType::Backward}
+            };
 
-            if (inputManager->getStatus(xe::InputCode::KeyRight) == xe::InputStatus::Press) {
-                m_messageBus->enqueue(std::make_unique<MoveMessage>(nullptr, m_cameraEntity, MoveType::StepRight));
+            for (const auto &pair : inputCodeToMoveType) {
+                if (inputManager->getStatus(pair.first) == xe::InputStatus::Press) {
+                    m_messageBus->enqueue(nullptr, m_cameraEntity, pair.second);
+                }
             }
 
             return true;
@@ -106,27 +113,25 @@ namespace demo {
             
             xe::FrameTimer timer;
 
-            //float angle = 0.0f;
-            
+            float angle = 0.0f;
+
             float seconds = timer.getSeconds();
 
             while(true) {
                 seconds = timer.getSeconds();
 
-                /*
-                angle += 0.3f;
+                angle += 60.0f * seconds;
 
                 if (angle > 360.0f) {
                     angle = 0.0f;
                 }
-                */
+                
                 if (!this->doInput(inputManager)) {
                     break;
                 }
 
                 this->updateAll(seconds);
 
-                /*
                 const float rad_angle = xe::rad(angle);
 
                 const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
@@ -134,7 +139,6 @@ namespace demo {
                 const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
 
                 m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
-                */
 
                 m_sceneRenderer->renderFrame(m_resources->getScene());
             }

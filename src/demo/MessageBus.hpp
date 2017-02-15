@@ -6,9 +6,10 @@
 
 #include <memory>
 
+#include "Message.hpp"
+
 namespace demo {
 
-    class AbstractMessage;
     class MessageBus {
     public:
         MessageBus();
@@ -19,9 +20,9 @@ namespace demo {
         
         void dispatch();
 
-        template<typename Message, typename ...Args>
-        void enqueue(Args... args) {
-            this->enqueue(std::make_unique<Message>());
+        template<typename MessageData>
+        void enqueue(MessageHandler *source, MessageHandler *destination, const MessageData &data) {
+            this->enqueue(std::make_unique<Message<MessageData>>(source, destination, data));
         }
 
     private:

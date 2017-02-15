@@ -9,7 +9,7 @@
 #include <xe/gfx/GraphicsDevice.hpp>
 
 #include "Resources.hpp"
-#include "ResourceManager.hpp"
+#include "Archive.hpp"
 #include "render/Renderable.hpp"
 #include "render/SceneRenderer.hpp"
 #include "render/Pipeline.hpp"
