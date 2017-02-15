@@ -8,7 +8,7 @@
 
 namespace demo {
     struct MessageBus::Private {
-        std::vector<std::unique_ptr<Message>> m_messages;
+        std::vector<std::unique_ptr<AbstractMessage>> m_messages;
     };
 
     MessageBus::MessageBus() : m_impl(new MessageBus::Private()) {
@@ -16,13 +16,13 @@ namespace demo {
 
     MessageBus::~MessageBus() {}
 
-    void MessageBus::enqueue(std::unique_ptr<Message> message) {
+    void MessageBus::enqueue(std::unique_ptr<AbstractMessage> message) {
         m_impl->m_messages.push_back(std::move(message));
     }
     
     void MessageBus::dispatch() {
         for (auto &message : m_impl->m_messages) {
-            Entity *destination = message->getDestination();
+            MessageHandler *destination = message->getDestination();
             destination->handle(message.get());
         }
 

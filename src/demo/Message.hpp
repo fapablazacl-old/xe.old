@@ -8,29 +8,29 @@
 
 namespace demo {
 
-    class Entity;
-    class Message {
+    class MessageHandler;
+    class AbstractMessage {
     public:
-        Message(Entity *source, Entity *destination);
+        AbstractMessage(MessageHandler *source, MessageHandler *destination);
 
-        virtual ~Message() = 0 {}
+        virtual ~AbstractMessage() = 0 {}
 
-        Entity* getSource() const;
+        MessageHandler* getSource() const;
 
-        Entity* getDestination() const;
+        MessageHandler* getDestination() const;
 
     protected:
-        Entity *m_source;
-        Entity *m_destination;
+        MessageHandler *m_source;
+        MessageHandler *m_destination;
     };
 
     template<typename MessageData>
-    class AnyMessage : public Message {
+    class Message : public AbstractMessage {
     public:
-        AnyMessage(Entity *source, Entity *destination, const MessageData &data) 
-            : Message(source, destination), m_data(data) {}
+        Message(MessageHandler *source, MessageHandler *destination, const MessageData &data) 
+            : AbstractMessage(source, destination), m_data(data) {}
 
-        virtual ~AnyMessage() {}
+        virtual ~Message() {}
 
         MessageData getData() const {
             return m_data;

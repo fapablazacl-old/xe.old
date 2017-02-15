@@ -4,6 +4,7 @@
 #include "CameraEntity.hpp"
 #include "MessageBus.hpp"
 #include "MoveMessage.hpp"
+#include "FrameTimer.hpp"
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>
@@ -34,7 +35,6 @@ namespace demo {
         demo::CameraEntity *m_cameraEntity = nullptr;
 
         std::vector<std::unique_ptr<Entity>> m_entities;
-
         std::unique_ptr<MessageBus> m_messageBus;
 
     public:
@@ -103,10 +103,16 @@ namespace demo {
             assert(m_meshNode);
 
             auto inputManager = m_device->getInputManager();
-        
+            
+            xe::FrameTimer timer;
+
             //float angle = 0.0f;
             
+            float seconds = timer.getSeconds();
+
             while(true) {
+                seconds = timer.getSeconds();
+
                 /*
                 angle += 0.3f;
 
@@ -118,7 +124,7 @@ namespace demo {
                     break;
                 }
 
-                this->updateAll(0.02f);
+                this->updateAll(seconds);
 
                 /*
                 const float rad_angle = xe::rad(angle);

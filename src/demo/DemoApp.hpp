@@ -14,6 +14,8 @@
 #include "render/SceneRenderer.hpp"
 #include "render/Pipeline.hpp"
 
+#include "MessageHandler.hpp"
+
 namespace demo {
     class DemoApp : public xe::Core {
     public:

@@ -8,16 +8,21 @@
 
 namespace demo {
 
-    class Message;
+    class AbstractMessage;
     class MessageBus {
     public:
         MessageBus();
 
         ~MessageBus();
 
-        void enqueue(std::unique_ptr<Message> message);
+        void enqueue(std::unique_ptr<AbstractMessage> message);
         
         void dispatch();
+
+        template<typename Message, typename ...Args>
+        void enqueue(Args... args) {
+            this->enqueue(std::make_unique<Message>());
+        }
 
     private:
         struct Private;

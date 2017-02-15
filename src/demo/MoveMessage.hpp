@@ -8,7 +8,7 @@
 #include "MoveType.hpp"
 
 namespace demo {
-    typedef AnyMessage<MoveType> MoveMessage;
+    typedef Message<MoveType> MoveMessage;
 }
 
 #endif

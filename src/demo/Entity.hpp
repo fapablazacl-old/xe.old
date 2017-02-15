@@ -4,15 +4,15 @@
 #ifndef __demo_entity_hpp__
 #define __demo_entity_hpp__
 
+#include "MessageHandler.hpp"
+
 namespace demo {
-    class Message;
-    class Entity {
+    class AbstractMessage;
+    class Entity : public MessageHandler {
     public:
         virtual ~Entity();
 
         virtual void update(const float seconds) = 0;
-
-        virtual void handle(Message *message) = 0;
     };
 }
 

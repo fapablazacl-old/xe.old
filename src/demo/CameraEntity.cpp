@@ -24,7 +24,7 @@ namespace demo {
         m_currentTurnSpeed = 0.0f;
     }
 
-    void CameraEntity::handle(Message *message) {
+    void CameraEntity::handle(AbstractMessage *message) {
         assert(message);
         assert(message->getDestination() == this);
 

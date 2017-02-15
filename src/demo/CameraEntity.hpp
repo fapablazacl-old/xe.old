@@ -11,7 +11,7 @@
 
 namespace demo {
 
-    class Message;
+    class AbstractMessage;
 
     class CameraEntity : public Entity {
     public:
@@ -19,7 +19,7 @@ namespace demo {
 
         virtual void update(const float seconds) override;
 
-        virtual void handle(Message *message) override;
+        virtual void handle(AbstractMessage *message) override;
 
     private:
         xe::LookAtPerspectiveCamera *m_camera;

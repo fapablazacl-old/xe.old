@@ -9,8 +9,18 @@ set (sources
 	Resources.cpp
 	Entity.hpp
 	Entity.cpp
-	CameraController.hpp
-	CameraController.cpp
+	CameraEntity.hpp
+	CameraEntity.cpp
+	#GameState.hpp
+	#GameState.cpp
+	Message.hpp
+	Message.cpp
+	MessageBus.hpp
+	MessageBus.cpp
+	MessageHandler.hpp
+	MessageHandler.cpp
+	FrameTimer.hpp
+	FrameTimer.cpp
 )
 
 set (sources_render
