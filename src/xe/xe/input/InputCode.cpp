@@ -1,6 +1,79 @@
 
 #include "InputCode.hpp"
 
-namespace demo {
+#include <map>
 
+namespace xe {
+    static const std::map<InputCode, std::string> s_inputCodeStr = {
+        {InputCode::Unknown, "InputCode::Unknown"}, 
+        {InputCode::KeyEsc, "InputCode::KeyEsc"}, 
+        {InputCode::KeyEnter, "InputCode::KeyEnter"}, 
+        {InputCode::KeyUp, "InputCode::KeyUp"}, 
+        {InputCode::KeyDown, "InputCode::KeyDown"}, 
+        {InputCode::KeyLeft, "InputCode::KeyLeft"},  
+        {InputCode::KeyRight,"InputCode::KeyRight"}, 
+        {InputCode::KeySpace,"InputCode::KeySpace"}, 
+        {InputCode::KeyLControl,"InputCode::KeyLControl"}, 
+        {InputCode::KeyRControl,"InputCode::KeyRControl"}, 
+        {InputCode::KeyLShift,"InputCode::KeyLShift"}, 
+        {InputCode::KeyRShift,"InputCode::KeyRShift"}, 
+        {InputCode::KeyTab,"InputCode::KeyTab"}, 
+        {InputCode::Key1,"InputCode::Key1"}, 
+        {InputCode::Key2,"InputCode::Key2"}, 
+        {InputCode::Key3,"InputCode::Key3"}, 
+        {InputCode::Key4,"InputCode::Key4"}, 
+        {InputCode::Key5,"InputCode::Key5"}, 
+        {InputCode::Key6,"InputCode::Key6"}, 
+        {InputCode::Key7,"InputCode::Key7"}, 
+        {InputCode::Key8,"InputCode::Key8"}, 
+        {InputCode::Key9,"InputCode::Key9"}, 
+        {InputCode::Key0,"InputCode::Key0"}, 
+        {InputCode::KeyF1,"InputCode::KeyF1"}, 
+        {InputCode::KeyF2,"InputCode::KeyF2"}, 
+        {InputCode::KeyF3,"InputCode::KeyF3"}, 
+        {InputCode::KeyF4,"InputCode::KeyF4"}, 
+        {InputCode::KeyF5,"InputCode::KeyF5"}, 
+        {InputCode::KeyF6,"InputCode::KeyF6"}, 
+        {InputCode::KeyF7,"InputCode::KeyF7"}, 
+        {InputCode::KeyF8,"InputCode::KeyF8"}, 
+        {InputCode::KeyF9,"InputCode::KeyF9"}, 
+        {InputCode::KeyF10,"InputCode::KeyF10"}, 
+        {InputCode::KeyF11,"InputCode::KeyF11"}, 
+        {InputCode::KeyF12,"InputCode::KeyF12"}, 
+        {InputCode::KeyQ,"InputCode::KeyQ"}, 
+        {InputCode::KeyW,"InputCode::KeyW"}, 
+        {InputCode::KeyE,"InputCode::KeyE"}, 
+        {InputCode::KeyR,"InputCode::KeyR"}, 
+        {InputCode::KeyT,"InputCode::KeyT"}, 
+        {InputCode::KeyY,"InputCode::KeyY"}, 
+        {InputCode::KeyU,"InputCode::KeyU"}, 
+        {InputCode::KeyI,"InputCode::KeyI"}, 
+        {InputCode::KeyO,"InputCode::KeyO"}, 
+        {InputCode::KeyP,"InputCode::KeyP"}, 
+        {InputCode::KeyA,"InputCode::KeyA"}, 
+        {InputCode::KeyS,"InputCode::KeyS"}, 
+        {InputCode::KeyD,"InputCode::KeyD"}, 
+        {InputCode::KeyF,"InputCode::KeyF"}, 
+        {InputCode::KeyG,"InputCode::KeyG"}, 
+        {InputCode::KeyH,"InputCode::KeyH"}, 
+        {InputCode::KeyJ,"InputCode::KeyJ"}, 
+        {InputCode::KeyK,"InputCode::KeyK"}, 
+        {InputCode::KeyL,"InputCode::KeyL"}, 
+        {InputCode::KeyZ,"InputCode::KeyZ"}, 
+        {InputCode::KeyX,"InputCode::KeyX"}, 
+        {InputCode::KeyC,"InputCode::KeyC"}, 
+        {InputCode::KeyV,"InputCode::KeyV"}, 
+        {InputCode::KeyB,"InputCode::KeyB"}, 
+        {InputCode::KeyN,"InputCode::KeyN"}, 
+        {InputCode::KeyM, "InputCode::KeyM"}, 
+        {InputCode::ButtonLeft,"InputCode::ButtonLeft"}, 
+        {InputCode::ButtonRight,"InputCode::ButtonRight"}, 
+        {InputCode::ButtonMiddle,"InputCode::ButtonMiddle"}, 
+        {InputCode::Max, "InputCode::Max"}, 
+    };
+
+    std::string toString(const InputCode code) {
+        const auto codeIt = s_inputCodeStr.find(code);
+        return codeIt->second;
+    }
 }

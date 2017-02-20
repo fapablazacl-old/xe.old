@@ -4,10 +4,12 @@
 #ifndef __xe_input_inputcode_hpp__
 #define __xe_input_inputcode_hpp__
 
+#include <xe/PreDef.hpp>
+#include <string>
+
 namespace xe {
     enum class InputCode {
         Unknown,
-
         KeyEsc,
         KeyEnter,
         KeyUp,
@@ -79,6 +81,8 @@ namespace xe {
 
         Max
     };
+
+    std::string XE_API toString(const InputCode code);
 }
 
 #endif
