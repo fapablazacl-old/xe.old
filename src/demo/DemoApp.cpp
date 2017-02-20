@@ -5,6 +5,8 @@
 #include "MessageBus.hpp"
 #include "MoveMessage.hpp"
 #include "FrameTimer.hpp"
+#include "InputSystem.hpp"
+
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>
@@ -36,6 +38,8 @@ namespace demo {
 
         std::vector<std::unique_ptr<Entity>> m_entities;
         std::unique_ptr<MessageBus> m_messageBus;
+
+        std::vector<std::unique_ptr<System>> m_systems;
 
     public:
         Private(DemoApp *app) : m_app(app) {}
@@ -70,30 +74,7 @@ namespace demo {
 
             m_messageBus = std::make_unique<MessageBus>();
 
-            return true;
-        }
-
-        bool doInput(xe::InputManager2 *inputManager) {
-            assert(inputManager);
-
-            inputManager->poll();
-
-            if (inputManager->getStatus(xe::InputCode::KeyEsc) == xe::InputStatus::Press) {
-                return false;
-            }
-
-            static const std::map<xe::InputCode, MoveType> inputCodeToMoveType = {
-                {xe::InputCode::KeyLeft, MoveType::StepLeft}, 
-                {xe::InputCode::KeyRight, MoveType::StepRight}, 
-                {xe::InputCode::KeyUp, MoveType::Forward}, 
-                {xe::InputCode::KeyDown, MoveType::Backward}
-            };
-
-            for (const auto &pair : inputCodeToMoveType) {
-                if (inputManager->getStatus(pair.first) == xe::InputStatus::Press) {
-                    m_messageBus->enqueue(nullptr, m_cameraEntity, pair.second);
-                }
-            }
+            m_systems.emplace_back(new InputSystem(m_messageBus.get(), m_device->getInputManager(), m_cameraEntity));
 
             return true;
         }
@@ -118,6 +99,7 @@ namespace demo {
             float seconds = timer.getSeconds();
 
             while(true) {
+                /*
                 seconds = timer.getSeconds();
 
                 angle += 60.0f * seconds;
@@ -125,13 +107,13 @@ namespace demo {
                 if (angle > 360.0f) {
                     angle = 0.0f;
                 }
+                */
                 
-                if (!this->doInput(inputManager)) {
-                    break;
-                }
+                //this->updateSystems();
 
                 this->updateAll(seconds);
 
+                /*
                 const float rad_angle = xe::rad(angle);
 
                 const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
@@ -139,6 +121,7 @@ namespace demo {
                 const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
 
                 m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
+                */
 
                 m_sceneRenderer->renderFrame(m_resources->getScene());
             }

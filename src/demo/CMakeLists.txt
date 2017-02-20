@@ -11,8 +11,6 @@ set (sources
 	Entity.cpp
 	CameraEntity.hpp
 	CameraEntity.cpp
-	#GameState.hpp
-	#GameState.cpp
 	Message.hpp
 	Message.cpp
 	MessageBus.hpp
@@ -21,7 +19,14 @@ set (sources
 	MessageHandler.cpp
 	FrameTimer.hpp
 	FrameTimer.cpp
-
+	System.hpp
+	System.cpp
+	InputSystem.hpp
+	InputSystem.cpp
+	GameSystem.hpp
+	GameSystem.cpp
+	RenderSystem.hpp
+	RenderSystem.cpp
 	ResourceManager.hpp
 	ResourceManager.cpp
 )

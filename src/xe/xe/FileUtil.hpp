@@ -9,10 +9,10 @@
 
 namespace xe {
     class XE_API FileUtil {
+    public:
         FileUtil() = delete;
         FileUtil(const FileUtil &) = delete;
 
-    public:
         static std::string load(const std::string &file);
 
         static void save(const std::string &file, const std::string &content);

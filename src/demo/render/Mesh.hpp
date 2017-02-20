@@ -35,8 +35,9 @@ namespace xe {
      */
     class Mesh : public Renderable {
     public:
-        Mesh(SubsetPtr subset);
-        Mesh(std::vector<SubsetPtr> subsets);
+        explicit Mesh(SubsetPtr subset);
+
+        explicit Mesh(std::vector<SubsetPtr> subsets);
 
         virtual ~Mesh();
 

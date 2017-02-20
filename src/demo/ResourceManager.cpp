@@ -72,7 +72,7 @@ namespace demo {
         desc.format = xe::PixelFormat::RGB_8;
         desc.width = imageDesc.width;
         desc.height = imageDesc.height;
-        
+
         std::unique_ptr<xe::Texture> texture = m_impl->m_device->createTexture (
             desc, 
             imageDesc.format, 
