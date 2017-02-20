@@ -22,8 +22,6 @@ set (sources
     xe/Forward.hpp
     xe/Rect.hpp
     xe/Box.hpp
-    xe/FileLocator.hpp 
-    xe/FileLocator.cpp
     xe/Core.hpp 
     xe/Core.cpp
     xe/Stream.hpp 
@@ -63,6 +61,8 @@ set (sources_input
 	xe/input/InputCode.hpp 
 	xe/input/InputStatus.cpp 
 	xe/input/InputStatus.hpp 
+	xe/input/InputState.cpp 
+	xe/input/InputState.hpp 
 
     xe/input/EventImpl.hpp 
     xe/input/Event.hpp 

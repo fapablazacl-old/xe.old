@@ -10,7 +10,8 @@
 namespace xe {
     enum class InputCode {
         Unknown,
-        KeyEsc,
+        First, 
+        KeyEsc = First,
         KeyEnter,
         KeyUp,
         KeyDown,
@@ -79,7 +80,7 @@ namespace xe {
         ButtonRight,
         ButtonMiddle,
 
-        Max
+        Last
     };
 
     std::string XE_API toString(const InputCode code);

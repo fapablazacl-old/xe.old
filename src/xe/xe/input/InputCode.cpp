@@ -69,7 +69,7 @@ namespace xe {
         {InputCode::ButtonLeft,"InputCode::ButtonLeft"}, 
         {InputCode::ButtonRight,"InputCode::ButtonRight"}, 
         {InputCode::ButtonMiddle,"InputCode::ButtonMiddle"}, 
-        {InputCode::Max, "InputCode::Max"}, 
+        {InputCode::Last, "InputCode::Last"}, 
     };
 
     std::string toString(const InputCode code) {
