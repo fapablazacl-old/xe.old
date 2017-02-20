@@ -1,7 +1,7 @@
 
 #include "InputState.hpp"
 
-#include "InputManager2.hpp"
+#include "InputManager.hpp"
 #include "InputCode.hpp"
 #include "InputStatus.hpp"
 
@@ -22,7 +22,7 @@ namespace xe {
         delete m_impl;
     }
 
-    void InputState::fill(InputManager2 *manager) {
+    void InputState::fill(InputManager *manager) {
         assert(m_impl);
         assert(manager);
 

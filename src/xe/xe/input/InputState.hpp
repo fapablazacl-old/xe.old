@@ -10,7 +10,7 @@ namespace xe {
     enum class InputStatus;
     enum class InputCode;
 
-    class InputManager2;
+    class InputManager;
 
     class XE_API InputState {
     public:
@@ -18,7 +18,7 @@ namespace xe {
 
         ~InputState();
 
-        void fill(InputManager2 *manager);
+        void fill(InputManager *manager);
 
         InputStatus getStatus(const InputCode code);
 

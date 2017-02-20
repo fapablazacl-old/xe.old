@@ -55,29 +55,14 @@ set (sources
 )
 
 set (sources_input
-	xe/input/InputManager2.cpp 
-	xe/input/InputManager2.hpp 
+	xe/input/InputManager.cpp 
+	xe/input/InputManager.hpp 
 	xe/input/InputCode.cpp 
 	xe/input/InputCode.hpp 
 	xe/input/InputStatus.cpp 
 	xe/input/InputStatus.hpp 
 	xe/input/InputState.cpp 
 	xe/input/InputState.hpp 
-
-    xe/input/EventImpl.hpp 
-    xe/input/Event.hpp 
-    xe/input/EventHandler.hpp 
-    xe/input/InputDevice.hpp 
-    xe/input/InputManager.hpp 
-    xe/input/Keyboard.hpp 
-    xe/input/Mouse.hpp 
-    xe/input/InputManagerImpl.hpp  
-    xe/input/InputManagerImpl.cpp 
-    xe/input/KeyboardStatus.hpp    
-    xe/input/KeyboardStatus.cpp 
-    xe/input/KeyCode.hpp 
-    xe/input/KeyStatus.hpp 
-    xe/input/KeyStroke.hpp 
 )
 
 set (sources_gfx 

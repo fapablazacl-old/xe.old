@@ -54,7 +54,7 @@ namespace xe {
         glfwSetWindowUserPointer(m_window, this);
         glfwSetWindowSizeCallback(m_window, window_size_callback);
 
-        m_inputManager = std::make_unique<InputManager2GLFW>(m_window);
+        m_inputManager = std::make_unique<InputManagerGLFW>(m_window);
     }
 
     GraphicsDeviceGL::~GraphicsDeviceGL() {

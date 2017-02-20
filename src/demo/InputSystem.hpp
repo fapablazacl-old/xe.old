@@ -8,7 +8,7 @@
 
 #include "System.hpp"
 
-#include <xe/input/InputManager2.hpp>
+#include <xe/input/InputManager.hpp>
 
 namespace demo {
 
@@ -20,7 +20,7 @@ namespace demo {
      */ 
     class InputSystem : public System {
     public:
-        explicit InputSystem(MessageBus *messageBus, xe::InputManager2 *inputManager, MessageHandler *camera);
+        explicit InputSystem(MessageBus *messageBus, xe::InputManager *inputManager, MessageHandler *camera);
 
         virtual ~InputSystem();
 

@@ -9,7 +9,7 @@
 #include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/gfx/UniformFormat.hpp>
 
-#include "InputManager2GLFW.hpp"
+#include "InputManagerGLFW.hpp"
 #include "OpenGL.hpp"
 #include "ProgramGL.hpp"
 #include "SubsetGL.hpp"
@@ -22,7 +22,7 @@ namespace xe {
 
         virtual ~GraphicsDeviceGL();
 
-        virtual InputManager2* getInputManager() override {
+        virtual InputManager* getInputManager() override {
             return m_inputManager.get();
         }
 
@@ -70,7 +70,7 @@ namespace xe {
         SubsetGL *m_mesh = nullptr;
         ProgramGL *m_program = nullptr;
 
-        std::unique_ptr<InputManager2GLFW> m_inputManager;
+        std::unique_ptr<InputManagerGLFW> m_inputManager;
     };
 }
 

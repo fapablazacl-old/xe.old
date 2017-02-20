@@ -15,7 +15,7 @@ namespace demo {
 
     struct InputSystem::Private {
         MessageBus *messageBus = nullptr;
-        xe::InputManager2 *manager = nullptr;
+        xe::InputManager *manager = nullptr;
         MessageHandler *cameraEntity = nullptr;
 
         std::map<xe::InputCode, MoveType> m_inputCodeToMoveType = {
@@ -26,7 +26,7 @@ namespace demo {
         };
     };
 
-    InputSystem::InputSystem(MessageBus *messageBus, xe::InputManager2 *inputManager, MessageHandler *cameraEntity) 
+    InputSystem::InputSystem(MessageBus *messageBus, xe::InputManager *inputManager, MessageHandler *cameraEntity) 
         : m_impl(new InputSystem::Private()) {
 
         m_impl->messageBus = messageBus;

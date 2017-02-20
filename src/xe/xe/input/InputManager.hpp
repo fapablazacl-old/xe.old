@@ -1,30 +1,31 @@
 
 #pragma once 
 
-#ifndef __xe_input_inputmanager__
-#define __xe_input_inputmanager__
+#ifndef __xe_input_inputmanager_hpp__
+#define __xe_input_inputmanager_hpp__
 
 #include <xe/PreDef.hpp>
-#include <xe/input/Keyboard.hpp>
-#include <xe/input/Mouse.hpp>
 
 namespace xe {
+    enum class InputStatus;
+    enum class InputCode;
+
+    /**
+     * @brief Main interface for input status gathering.
+     */
     class XE_API InputManager {
     public:
-        virtual ~InputManager() {}
-
+        virtual ~InputManager();
+        
         /**
-         * @brief Get the current keyboard interface
+         * @brief Get the status of the specified input code 
+         *
+         * The returned status is accurate only if the method 'poll' has been called recently.
          */
-        virtual Keyboard* getKeyboard() = 0;
+        virtual InputStatus getStatus(const InputCode code) = 0;
 
         /**
-         * @brief Get the current mouse interface
-         */
-        virtual Mouse* getMouse() = 0;
-
-        /**
-         * Poll all available devices
+         * @brief Get the status of all connected input devices.
          */
         virtual void poll() = 0;
     };
