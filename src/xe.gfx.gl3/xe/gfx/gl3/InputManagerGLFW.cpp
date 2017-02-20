@@ -34,15 +34,25 @@ namespace xe {
 
     InputManagerGLFW::~InputManagerGLFW() {}
 
-    InputStatus InputManagerGLFW::getStatus(const InputCode code) {
+    InputStatus InputManagerGLFW::getStatus(const InputCode code) const {
         assert(m_window);
+        assert(code != InputCode::Last);
 
-        int inputStatus = ::glfwGetKey(m_window, m_XEToglfw[code]);
-
-        return s_status[inputStatus];
+        return m_state.getStatus(code);
     }
 
     void InputManagerGLFW::poll() {
+        assert(m_window);
+
         ::glfwPollEvents();
+
+        for (int i=int(InputCode::First); i<int(InputCode::Last); i++) {
+            const auto code = InputCode(i);
+
+            const auto keyStatus = ::glfwGetKey(m_window, m_XEToglfw[code]);
+            const auto status = s_status[keyStatus];
+
+            m_state.setStatus(code, status);
+        }
     }
 }

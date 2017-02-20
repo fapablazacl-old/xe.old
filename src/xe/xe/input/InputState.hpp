@@ -18,9 +18,9 @@ namespace xe {
 
         ~InputState();
 
-        void fill(InputManager *manager);
+        InputStatus getStatus(const InputCode code) const;
 
-        InputStatus getStatus(const InputCode code);
+        void setStatus(const InputCode code, const InputStatus status);
 
     private:
         struct Private;

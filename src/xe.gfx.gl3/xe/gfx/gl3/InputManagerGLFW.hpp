@@ -7,6 +7,7 @@
 #include <map>
 #include <memory>
 #include <xe/input/InputManager.hpp>
+#include <xe/input/InputState.hpp>
 
 #include "OpenGL.hpp"
 
@@ -18,7 +19,7 @@ namespace xe {
 
         virtual ~InputManagerGLFW();
 
-        virtual InputStatus getStatus(const InputCode code) override;
+        virtual InputStatus getStatus(const InputCode code) const override;
 
         virtual void poll() override;
 
@@ -26,6 +27,7 @@ namespace xe {
         GLFWwindow *m_window = nullptr;
         std::map<int, InputCode> m_glfwToXE;
         std::map<InputCode, int> m_XEToglfw;
+        InputState m_state;
     };
 }
 

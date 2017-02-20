@@ -22,7 +22,7 @@ namespace xe {
          *
          * The returned status is accurate only if the method 'poll' has been called recently.
          */
-        virtual InputStatus getStatus(const InputCode code) = 0;
+        virtual InputStatus getStatus(const InputCode code) const = 0;
 
         /**
          * @brief Get the status of all connected input devices.
