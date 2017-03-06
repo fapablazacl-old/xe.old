@@ -602,8 +602,17 @@ namespace xe {
         }
     };
 
+    /**
+     * @brief Vector structure
+     *
+     * Internally, holds a stack allocated array for element storage.
+     */
     template<typename T, size_t C> 
     struct Vector : public VectorStorage<T, C> {
+        typedef T basic_type;               //! Basic data type for Vector structure.
+
+        static const size_t dimension = C;       //! Number of elements for Vector
+
         using VectorStorage<T, C>::VectorStorage;
 
         Vector() {}

@@ -93,13 +93,25 @@ set (sources_gfx
     xe/gfx/Material.hpp
     xe/gfx/ImageLoader.cpp
     xe/gfx/ImageLoader.hpp
+	xe/gfx/Vertex.cpp
+    xe/gfx/Vertex.hpp
 )
 
 set (sources_sfx
     xe/sfx/Source.hpp 
     xe/sfx/Source.cpp 
-    xe/sfx/Device.hpp 
-    xe/sfx/Device.cpp 
+	xe/sfx/SourceDesc.hpp 
+    xe/sfx/SourceDesc.cpp 
+	xe/sfx/BufferDesc.hpp 
+    xe/sfx/BufferDesc.cpp 
+    xe/sfx/SoundDevice.hpp 
+    xe/sfx/SoundDevice.cpp 
+	xe/sfx/SoundContext.hpp
+    xe/sfx/SoundContext.cpp
+	xe/sfx/SoundManager.hpp
+    xe/sfx/SoundManager.cpp
+	xe/sfx/Listener.hpp 
+    xe/sfx/Listener.cpp 
 )
 
 set (sources_sg    

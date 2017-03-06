@@ -22,7 +22,6 @@ namespace xe {
 
     template<typename DataAttrib>
     struct DataFormat {
-
         typedef std::vector<DataAttrib> AttribVector;
 
         AttribVector attribs;
