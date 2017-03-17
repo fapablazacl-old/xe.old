@@ -2,7 +2,7 @@
 #ifndef __xe_sfx_source_hpp__
 #define __xe_sfx_source_hpp__
 
-#include "xe/Vector.hpp"
+#include "xe/math/Vector.hpp"
 #include "xe/Buffer.hpp"
 
 namespace xe {

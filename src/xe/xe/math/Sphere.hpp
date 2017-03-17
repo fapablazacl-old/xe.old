@@ -18,71 +18,85 @@ namespace xe {
          * @brief Initializes a sphere in the origin with a 1.0 radius
          */ 
         Sphere() {
-            this->setCenter()
-            this->setRadius(T(1.0));
+            this->setRadius(T(1));
         }
     
         /**
          * @brief Initializes a sphere in the origin with the specified radius
          */
-        explicit Sphere(float radius);
+        explicit Sphere(T radius) {
+            this->setRadius(radius);
+        }
     
         /**
-         * @brief Inicializa una esfera cuyo centro este en la posicion y con el radio indicados.
-         * @param radius El radio de la esfera, en unidades de mundo.
-         * @param center La posicion en el espacio, en donde estara ubicado el centro de la esfera.
+         * @brief Initializes a Sphere from the given center and radius
          */
-        explicit Sphere(float radius, const xe::Vector3f &center);
+        Sphere(T radius, const Vector<T, 3> &center) {
+            this->setCenter(center)
+            this->setRadius(radius);
+        }
+        
+        /**
+         * @brief Sets the Sphere radius.
+         */
+        void setRadius(T radius) {
+            m_radius = radius;
+        }
     
         /**
-         * @brief Inicializa todos los atributos de la esfera de una sola vez.
+         * @brief Sets the location of the center of the sphere
          */
-        void setAttributes(float radius, const xe::Vector3f &center);
+        void setCenter(const Vector<T, 3> &center) {
+            m_center = center;
+        }
     
         /**
-         * @brief Establece el radio de la esfera
+         * @brief Get the radius of the sphere
          */
-        void setRadius(float radius);
+        T getRadius() const {
+            return m_radius;
+        }
     
         /**
-         * @brief Establece la posicion en donde estara ubicado el centro de la esfera.
+         * @brief Get the center location of the sphere
          */
-        void setCenter(const xe::Vector3f &center);
-    
-        /**
-         * @brief Devuelve el radio actual de la esfera
-         */
-        float getRadius() const;
-    
-        /**
-         * @brief Devuelve la posicion en donde esta ubicado el centro de la esfera
-         */
-        xe::Vector3f getCenter() const;
-    
-        /**
-         * @brief Calcula la interseccion entre el rayo indicado, y la esfera.
-         */
-        bool intersect(const Ray& ray, IntersectInfo *intersectInfo=nullptr) const;
-    
+        Vector<T, 3> getCenter() const {
+            return m_center;
+        }
+        
         /**
          * @brief Checks if two spheres are equal
          */
-        bool operator== (const Sphere &sphere) const;
+        bool operator== (const Sphere<T> &other) const {
+            if (m_radius != other.m_radius) {
+                return false;
+            }
+
+            if (m_center != other.m_center) {
+                return false;
+            }
+
+            return true;
+        }
     
         /**
          * @brief Checks if two spheres non equal
          */
-        bool operator!= (const Sphere &sphere) const;
+        bool operator!= (const Sphere<T> &other) const {
+            return !(*this == other);
+        }
     
     private:
         Vector<T, 3> m_center;
         T m_radius;        
     };
 
+    /**
+     * @brief Get a string representation of the Sphere
+     */
     template<typename T>
-    std::string to_string(const xe::Sphere<T> &s) {
-        std::cout << sphere.getCenter() << s.getRadius()
-        return os;
+    std::string to_string(const Sphere<T> &s) {
+        return to_string(sphere.getCenter()) + ", " + std::to_string(s.getRadius());
     }
 
     /*

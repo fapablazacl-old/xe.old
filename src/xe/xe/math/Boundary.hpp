@@ -168,8 +168,8 @@ namespace xe {
     };
 
     template<typename T, int S>
-    std::string to_string(const Boundary<Type, Size>& boundary) {
-        return os << "Center: {" << to_string(boundary.getCenter()) << "}, Size: {" << to_string(boundary.getSize()) << "}";
+    std::string to_string(const Boundary<T, S>& boundary) {
+        return "Center: {" + to_string(boundary.getCenter()) + "}, Size: {" + to_string(boundary.getSize()) + "}";
     }
 }
 

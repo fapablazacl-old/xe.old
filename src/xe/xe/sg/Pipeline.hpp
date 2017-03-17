@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include "xe/Vector.hpp"
-#include "xe/Matrix.hpp"
+#include "xe/math/Vector.hpp"
+#include "xe/math/Matrix.hpp"
 #include "xe/sg/Forward.hpp"
 
 namespace xe {

@@ -15,7 +15,7 @@
 #ifndef __EXENG_SCENEGRAPH_INTERSECTINFO_HPP__
 #define __EXENG_SCENEGRAPH_INTERSECTINFO_HPP__
 
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/Material.hpp>
 
 namespace xe {

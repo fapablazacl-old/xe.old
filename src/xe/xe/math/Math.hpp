@@ -12,12 +12,12 @@ namespace xe {
 
     template<typename T>
     inline T radians(const T degrees) {
-        return pi * degrees / T(180.0);
+        return pi<T> * degrees / T(180.0);
     }
 
     template<typename T>
     inline T degrees(const T radians) {
-        return radians * T(180.0) / pi;
+        return radians * T(180.0) / pi<T>;
     }
 }
 

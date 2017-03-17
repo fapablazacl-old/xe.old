@@ -20,7 +20,7 @@ namespace xe {
          */
         Plane() {
             m_position = {T(0.0), T(0.0), T(0.0)};
-            m_normal = {T(0.0), T(1.0, T(0.0)};
+            m_normal = {T(0.0), T(1.0), T(0.0)};
         }
     
         /**
@@ -118,7 +118,7 @@ namespace xe {
      */
     template<typename T>
     std::string to_string(const Plane<T> &plane) {
-        return os << "Point : {" << plane.point << "}, Normal : {" << plane.normal << "}";
+        return "Point : {" + plane.point + "}, Normal : {" + plane.normal + "}";
     }
 }
 

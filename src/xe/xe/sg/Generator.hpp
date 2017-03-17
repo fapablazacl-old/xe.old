@@ -5,9 +5,9 @@
 #define __xe_sg_generator_hpp__
 
 #include <xe/PreDef.hpp>
-#include <xe/Math.hpp>
-#include <xe/Vector.hpp>
-#include <xe/sg/Plane.hpp>
+#include <xe/math/Math.hpp>
+#include <xe/math/Vector.hpp>
+#include <xe/math/Plane.hpp>
 #include <vector>
 
 namespace xe {

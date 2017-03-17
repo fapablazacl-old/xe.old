@@ -6,7 +6,7 @@
 
 #include <typeindex>
 #include <memory>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 namespace xe { namespace sg {
     class Renderable;

@@ -7,8 +7,8 @@
 #include <vector>
 #include <cmath>
 
-#include "xe/Vector.hpp"
-#include "xe/Quaternion.hpp"
+#include "xe/math/Vector.hpp"
+#include "xe/math/Quaternion.hpp"
 #include "xe/sg/Plane.hpp"
 #include "xe/gfx/Primitive.hpp"
 

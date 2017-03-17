@@ -4,7 +4,7 @@
 #ifndef __demo_cameracontroller_hpp__
 #define __demo_cameracontroller_hpp__
 
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include "render/Camera.hpp"
 
 #include "Entity.hpp"

@@ -19,8 +19,8 @@
 
 #include <memory>
 #include <xe/Buffer.hpp>
-#include <xe/Vector.hpp>
 #include <xe/PreDef.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/PixelFormat.hpp>
 
 namespace xe {

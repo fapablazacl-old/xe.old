@@ -4,7 +4,7 @@
 #define __xe_sg_transformationstack_hpp__
 
 #include <stack>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 namespace xe { namespace sg {
     class TransformationStack {

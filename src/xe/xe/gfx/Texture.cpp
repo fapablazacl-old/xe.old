@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 
-#include "xe/Vector.hpp"
+#include "xe/math/Vector.hpp"
 #include "xe/gfx/Texture.hpp"
 #include "xe/gfx/GraphicsDevice.hpp"
 

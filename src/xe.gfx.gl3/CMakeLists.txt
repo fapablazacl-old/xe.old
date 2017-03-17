@@ -26,8 +26,6 @@ set (sources
     xe/gfx/gl3/SubsetGL.cpp
     xe/gfx/gl3/InputManagerGLFW.hpp    
     xe/gfx/gl3/InputManagerGLFW.cpp
-	xe/gfx/gl3/InputManager2GLFW.hpp    
-    xe/gfx/gl3/InputManager2GLFW.cpp
     xe/gfx/gl3/PluginGL.hpp
     xe/gfx/gl3/PluginGL.cpp
     xe/gfx/gl3/Util.hpp

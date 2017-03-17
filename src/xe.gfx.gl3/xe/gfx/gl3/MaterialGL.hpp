@@ -6,7 +6,7 @@
 //
 //#include "GL.hpp"
 //#include "xe/DataFormat.hpp"
-//#include "xe/Vector.hpp"
+//#include "xe/math/Vector.hpp"
 //
 //namespace xe { 
 //

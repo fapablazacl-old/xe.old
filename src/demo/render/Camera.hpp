@@ -6,8 +6,8 @@
 
 #include "Renderable.hpp"
 
-#include <xe/Vector.hpp>
-#include <xe/Matrix.hpp>
+#include <xe/math/Vector.hpp>
+#include <xe/math/Matrix.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 

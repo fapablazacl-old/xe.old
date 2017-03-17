@@ -1,6 +1,6 @@
 
 #include <UnitTest++/UnitTest++.h>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 TEST(TestMatrixAccessors)
 {

@@ -7,7 +7,7 @@
 #define __xe_sg_phonglight_hpp__
 
 #include <cstdint>
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 
