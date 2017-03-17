@@ -1,37 +1,29 @@
-/**
- * @file 
- * @brief 
- */
 
+#pragma once
 
-/*
- * Copyright (c) 2013 Felipe Apablaza.
- *
- * The license and distribution terms for this file may be
- * found in the file LICENSE in this distribution.
- */
+#ifndef __xe_sphere_hpp__
+#define __xe_sphere_hpp__
 
-#ifndef __EXENG_SCENEGRAPH_SPHERE_HPP__
-#define __EXENG_SCENEGRAPH_SPHERE_HPP__
-
-#include <xe/Vector.hpp>
-#include <xe/sg/Ray.hpp>
-#include <xe/sg/IntersectInfo.hpp>
+#include "Vector.hpp"
 
 namespace xe {
 
-    class Ray;
-    struct IntersectInfo;
-
     /**
-        * @brief Esfera en el espacio tridimensional.
-        */
+     * @brief Sphere in the 3-space
+     */
+    template<typename T>
     class Sphere {
     public:
-        Sphere();
+        /**
+         * @brief Initializes a sphere in the origin with a 1.0 radius
+         */ 
+        Sphere() {
+            this->setCenter()
+            this->setRadius(T(1.0));
+        }
     
         /**
-         * @brief Inicializa una esfera en el origen, y con radio arbitrario
+         * @brief Initializes a sphere in the origin with the specified radius
          */
         explicit Sphere(float radius);
     
@@ -73,72 +65,27 @@ namespace xe {
         bool intersect(const Ray& ray, IntersectInfo *intersectInfo=nullptr) const;
     
         /**
-         * @brief Comprueba si dos esferas son iguales.
+         * @brief Checks if two spheres are equal
          */
         bool operator== (const Sphere &sphere) const;
     
         /**
-         * @brief Comprueba si dos esferas son distintas.
+         * @brief Checks if two spheres non equal
          */
         bool operator!= (const Sphere &sphere) const;
     
     private:
-        xe::Vector3f center;
-        float radius;
-
-        friend std::ostream& operator<< (std::ostream &os, const xe::sg::Sphere &sphere)
-        {
-            std::cout << sphere.getCenter() << ", " << sphere.getRadius();
-            return os;
-        }
+        Vector<T, 3> m_center;
+        T m_radius;        
     };
 
-
-    inline Sphere::Sphere() {
-        this->setAttributes(1.0f, xe::Vector3f(0.0));
+    template<typename T>
+    std::string to_string(const xe::Sphere<T> &s) {
+        std::cout << sphere.getCenter() << s.getRadius()
+        return os;
     }
 
-
-    inline Sphere::Sphere(float radius) {
-        this->setAttributes(radius, xe::Vector3f(0.0));
-    }
-
-
-    inline Sphere::Sphere(float radius, const xe::Vector3f &center) {
-        this->setAttributes(radius, center);
-    }
-
-
-    inline void Sphere::setAttributes(float radius, const xe::Vector3f &center){
-        this->setRadius(radius);
-        this->setCenter(center);
-    }
-
-
-    inline auto Sphere::setRadius(float radius) -> void {
-        if (radius < 0.0f) {
-            radius = 0.0;
-        }
-    
-        this->radius = radius;
-    }
-
-
-    inline void Sphere::setCenter(const xe::Vector3f &center) {
-        this->center = center;
-    }
-
-
-    inline float Sphere::getRadius() const {
-        return this->radius;
-    }
-
-
-    inline xe::Vector3f Sphere::getCenter() const{
-        return this->center;
-    }
-
-
+    /*
     inline bool Sphere::intersect(const Ray& ray, IntersectInfo *intersectInfo) const {
     
         // Variables de apoyo al algoritmo
@@ -203,25 +150,7 @@ namespace xe {
     
         return result;
     }
-
-
-    inline bool Sphere::operator== (const Sphere &sphere) const {
-        if (this->getCenter() != sphere.getCenter()) {
-            return false;
-        }
-    
-        if (this->getRadius() != sphere.getRadius()) {
-            return false;
-        }
-    
-        return true;
-    }
-
-
-    inline bool Sphere::operator!= (const Sphere &sphere) const {
-        return ! (*this == sphere);
-    }  
-
+    */
 }
 
-#endif  //__EXENG_SCENEGRAPH_SPHERE_HPP__
+#endif

@@ -1,10 +1,13 @@
 
+#pragma once
+
 #ifndef __xe_boundary_hpp__
 #define __xe_boundary_hpp__
 
 #include <limits>
 #include <cassert>
-#include "xe/Vector.hpp"
+
+#include "Vector.hpp"
 
 namespace xe { 
 
@@ -159,15 +162,15 @@ namespace xe {
             return this->doIntersect(other) || other.doIntersect(*this);
         }
 
-    public:
-        friend std::ostream& operator<< (std::ostream &os, const Boundary<Type, Size>& boundary) {
-            return os << "Center: {" << boundary.getCenter() << "}, Size: {" << boundary.getSize() << "}";
-        }
-        
     private:
         Vector<Type, Size> minEdge;
         Vector<Type, Size> maxEdge;
     };
+
+    template<typename T, int S>
+    std::string to_string(const Boundary<Type, Size>& boundary) {
+        return os << "Center: {" << to_string(boundary.getCenter()) << "}, Size: {" << to_string(boundary.getSize()) << "}";
+    }
 }
 
 #endif 

@@ -8,9 +8,14 @@
 #include <cmath>
 #include <iostream>
 #include <cassert>
-#include <xe/Vector.hpp>
+
+#include "Vector.hpp"
 
 namespace xe {
+    
+    /**
+     * @brief NxM dimensional Matrix
+     */
     template<typename T, int R, int C>
     class Matrix {
     public:
