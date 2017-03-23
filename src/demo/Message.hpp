@@ -4,7 +4,7 @@
 #ifndef __demo_message_hpp__
 #define __demo_message_hpp__
 
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 
 namespace demo {
 
@@ -13,7 +13,7 @@ namespace demo {
     public:
         AbstractMessage(MessageHandler *source, MessageHandler *destination);
 
-        virtual ~AbstractMessage() = 0 {}
+        virtual ~AbstractMessage() {}
 
         MessageHandler* getSource() const;
 

@@ -6,12 +6,12 @@
 
 #include <memory>
 
-#include <xe/input/InputManager2.hpp>
+#include <xe/input/InputManager.hpp>
 
 namespace demo {
     class GameState {
     public:
-        GameState(xe::InputManager2 *inputManager);
+        GameState(xe::InputManager *inputManager);
 
         ~GameState();
 

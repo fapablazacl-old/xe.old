@@ -5,7 +5,7 @@
 #define __demo_modelpart_hpp__
 
 #include <vector>
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/Material.hpp>
 #include <xe/gfx/Mesh.hpp>
 

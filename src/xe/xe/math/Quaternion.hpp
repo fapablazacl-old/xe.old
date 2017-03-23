@@ -9,7 +9,7 @@
 #ifndef __xe_quaternion_hpp__
 #define __xe_quaternion_hpp__
 
-#include <xe/Vector.hpp>
+#include "Vector.hpp"
 
 namespace xe {
     template<typename Type>
@@ -39,6 +39,8 @@ namespace xe {
         Quaternion() {}
         
         explicit Quaternion(const T *values_) {
+            assert(values_);
+            
             std::memcpy(values, values_, sizeof(Quaternion<T>));
         }
         
@@ -194,15 +196,10 @@ namespace xe {
         auto quat = q * Quaternion<T>(v) * inverse(q);
         return quat.v;
     }
-}
 
-#include <iostream>
-#include <iomanip>
-
-namespace std {
     template<typename T>
-    inline std::ostream& operator<< (std::ostream &os, const xe::Quaternion<T> &q) {
-        return (os << q.q);
+    std::string to_string(const Quaternion<T> &q) {
+        return to_string(q.q);
     }
 }
 

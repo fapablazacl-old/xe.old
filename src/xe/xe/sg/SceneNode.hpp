@@ -8,7 +8,7 @@
 #include <memory>
 
 #include <xe/PreDef.hpp>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 #include <xe/sg/Forward.hpp>
 
 namespace xe {

@@ -4,12 +4,13 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 project(xe)
 
 # options
-option (XE_GFX_ENABLE_GL3		"Enable OpenGL 3.3 Core support"		ON)
+option (XE_GFX_ENABLE_GL3		"Enable OpenGL 3.3 Core support"	ON)
 option (XE_GFX_ENABLE_GLES2		"Enable OpenGL ES 2.0 support"		OFF)
-option (XE_GFX_ENABLE_D3D10		"Enable Direct3D 10 support"			OFF)
+option (XE_GFX_ENABLE_D3D10		"Enable Direct3D 10 support"		OFF)
 option (XE_GFX_ENABLE_FREEIMAGE "Enable FreeImage loader support"	ON)
 option (XE_GFX_ENABLE_PNG		"Enable PNG loader support"			OFF)
-option (XE_SFX_ENABLE_AL			"Enable OpenAL support"				OFF)
+option (XE_SFX_ENABLE_AL	    "Enable OpenAL support"				OFF)
+option (XE_ENABLE_TEST	        "Enable Unit Testings"				OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -39,6 +40,10 @@ add_subdirectory(src/demo)
 add_subdirectory(src/tetris)
 add_subdirectory(src/Snd01)
 add_subdirectory(src/xe.tests)
+
+if (XE_ENABLE_TEST)
+    add_subdirectory(src/xe.tests)
+endif()
 
 # optional targets
 if(XE_GFX_ENABLE_GL3)

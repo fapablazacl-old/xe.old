@@ -2,7 +2,7 @@
 #include "Generator.hpp"
 
 #include <array>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 namespace xe {
 

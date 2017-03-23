@@ -13,7 +13,7 @@
 
 #include <xe/IosStream.hpp>
 #include <xe/FileStream.hpp>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
@@ -100,7 +100,7 @@ namespace demo {
             planeGenerator.slices = 5;
             planeGenerator.stacks = 5;
 
-            const xe::Plane plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
+            const xe::Plane_f plane({0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
         
             std::vector<xe::Vector3f> coords = planeGenerator.genCoords(plane, 5.0f, 5.0f);
             std::vector<std::uint32_t> indices = planeGenerator.genIndices();

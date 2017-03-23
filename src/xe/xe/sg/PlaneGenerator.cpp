@@ -2,24 +2,27 @@
 #include "PlaneGenerator.hpp"
 
 #include <array>
-#include <xe/Matrix.hpp>
+#include <xe/math/Matrix.hpp>
 
 namespace xe {
-    std::vector<xe::Vector3f> PlaneGenerator::genCoords(const Plane &plane, const float width, const float length) const {
+    std::vector<xe::Vector3f> PlaneGenerator::genCoords(const Plane_f &plane, const float width, const float length) const {
         assert(width > 0.0f);
         assert(length > 0.0f);
-        assert(xe::norm(plane.normal) > 0.0f);
+        assert(xe::norm(plane.getNormal()) > 0.0f);
 
         std::vector<xe::Vector3f> coords(this->getCoordCount());
+
+        const auto pn = plane.getNormal();
+        const auto pp = plane.getPosition();
 
         const xe::Vector3f top = {0.0, 1.0, 0.0};
         const xe::Vector2f delta = {1.0f/slices, 1.0f/stacks};
 
         xe::Matrix4f rotation;
 
-        if (top != plane.normal) {
-            const auto radians = std::acos(xe::dot(plane.normal, top));
-            const auto axis = xe::cross(plane.normal, top);
+        if (top != pn) {
+            const auto radians = std::acos(xe::dot(pn, top));
+            const auto axis = xe::cross(pn, top);
 
             rotation = xe::Matrix4f::makeRotate(radians, axis);
         } else {
@@ -29,7 +32,7 @@ namespace xe {
         const xe::Vector3f up = {0.0f, 1.0f, 0.0f};
         const xe::Vector3f right = xe::transform(rotation, {1.0, 0.0, 0.0}) * width;
         const xe::Vector3f forward = xe::transform(rotation, {0.0, 0.0, -1.0}) * length;
-        const xe::Vector3f center = plane.point;
+        const xe::Vector3f center = pp;
 
         int index = 0;
 
@@ -72,13 +75,13 @@ namespace xe {
         return indices;
     }
 
-    std::vector<xe::Vector3f> PlaneGenerator::genNormals(const Plane &plane) const {
+    std::vector<xe::Vector3f> PlaneGenerator::genNormals(const Plane_f &plane) const {
         std::vector<xe::Vector3f> normals;
 
         normals.resize(this->getCoordCount());
 
         for (xe::Vector3f &normal : normals) {
-            normal = plane.normal;
+            normal = plane.getNormal();
         }
 
         return normals;

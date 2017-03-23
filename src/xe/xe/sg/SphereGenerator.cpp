@@ -1,8 +1,8 @@
 
 #include "SphereGenerator.hpp"
 
-#include <xe/Math.hpp>
-#include <xe/Matrix.hpp>
+#include <xe/math/Math.hpp>
+#include <xe/math/Matrix.hpp>
 
 namespace xe {
     
@@ -17,8 +17,8 @@ namespace xe {
     
         float angle = 0.0f;
     
-        const float slices_delta = 2.0f * pi / slices;
-        const float stacks_delta = pi / stacks;
+        const float slices_delta = 2.0f * pi<float> / slices;
+        const float stacks_delta = pi<float> / stacks;
     
         const xe::Vector3f slices_axis = {0.0f, 1.0f, 0.0f};
         const xe::Vector3f stacks_axis = {1.0f, 0.0f, 0.0f};
@@ -151,8 +151,8 @@ namespace xe {
         texCoords.reserve(normals.size());
         
         for (const xe::Vector3f &normal : normals) {
-            const float x = std::asin(normal.x) / xe::pi + 0.5f;
-            const float y = std::asin(normal.y) / xe::pi + 0.5f;
+            const float x = std::asin(normal.x) / xe::pi<float> + 0.5f;
+            const float y = std::asin(normal.y) / xe::pi<float> + 0.5f;
             
             texCoords.push_back({x, y});
         }

@@ -5,7 +5,7 @@
 #define __xe_sg_light__
 
 #include <memory>
-#include "xe/Vector.hpp"
+#include "xe/math/Vector.hpp"
 #include "xe/sg/Renderable.hpp"
 
 namespace xe {

@@ -4,7 +4,7 @@
 #ifndef __demo_phongmaterial_hpp__
 #define __demo_phongmaterial_hpp__
 
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/Material.hpp>
 
 namespace demo {

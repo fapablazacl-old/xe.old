@@ -8,8 +8,8 @@
 #include <vector>
 
 #include <xe/PreDef.hpp>
-#include <xe/Vector.hpp>
-#include <xe/sg/Plane.hpp>
+#include <xe/math/Vector.hpp>
+#include <xe/math/Plane.hpp>
 
 namespace xe {
     struct XE_API PlaneGenerator {
@@ -21,13 +21,13 @@ namespace xe {
         PlaneGenerator(const std::size_t slices_, const std::size_t stacks_)
             : slices(slices_), stacks(stacks_) {}
     
-        std::vector<xe::Vector3f> genCoords(const Plane &plane, const float width, const float length) const;
+        std::vector<xe::Vector3f> genCoords(const Plane_f &plane, const float width, const float length) const;
     
         std::size_t getCoordCount() const;
     
         std::vector<std::uint32_t> genIndices() const;
     
-        std::vector<xe::Vector3f> genNormals(const Plane &plane) const;
+        std::vector<xe::Vector3f> genNormals(const Plane_f &plane) const;
         
         std::vector<xe::Vector2f> genTexCoords() const;
     };

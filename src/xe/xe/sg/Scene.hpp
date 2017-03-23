@@ -5,7 +5,7 @@
 #define __xe_sg_scene_hpp__
 
 #include <memory>
-#include "xe/Vector.hpp"
+#include "xe/math/Vector.hpp"
 #include "xe/sg/SceneNode.hpp"
 
 namespace xe {

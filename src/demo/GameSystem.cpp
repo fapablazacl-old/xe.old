@@ -11,10 +11,10 @@ namespace demo {
         std::vector<std::unique_ptr<Entity>> m_entities;
         MessageBus m_messageBus;
 
-        xe::InputManager2 *inputManager = nullptr;
+        xe::InputManager *inputManager = nullptr;
     };
 
-    GameState::GameState(xe::InputManager2 *inputManager) 
+    GameState::GameState(xe::InputManager *inputManager) 
         : m_impl(new GameState::Private()) {}
 
     GameState::~GameState() {}

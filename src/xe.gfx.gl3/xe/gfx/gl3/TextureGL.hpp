@@ -8,7 +8,7 @@
 #include "OpenGL.hpp"
 
 #include "xe/DataType.hpp"
-#include "xe/Vector.hpp"
+#include "xe/math/Vector.hpp"
 #include "xe/gfx/Texture.hpp"
 
 namespace xe {

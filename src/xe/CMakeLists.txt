@@ -13,15 +13,8 @@ set (sources
     xe/Common.hpp 
     xe/DataFormat.hpp 
     xe/DataType.hpp 
-    xe/Traits.hpp 
-    xe/Array.hpp
-    xe/Vector.hpp 
-    xe/Matrix.hpp 
-    xe/Quaternion.hpp 
-    xe/Boundary.hpp
+    xe/Traits.hpp
     xe/Forward.hpp
-    xe/Rect.hpp
-    xe/Box.hpp
     xe/Core.hpp 
     xe/Core.cpp
     xe/Stream.hpp 
@@ -52,6 +45,22 @@ set (sources
 	xe/PluginManagerImpl.hpp 
 	xe/Version.cpp 
 	xe/Version.hpp
+)
+
+set (sources_math 
+    xe/math/Box.hpp            
+    xe/math/Ray.hpp            
+    xe/math/Plane.hpp          
+    xe/math/Intersect.hpp      
+    xe/math/IntersectInfo.hpp  
+    xe/math/Sphere.hpp
+    xe/math/Array.hpp
+    xe/math/Vector.hpp 
+    xe/math/Matrix.hpp 
+    xe/math/Quaternion.hpp 
+    xe/math/Boundary.hpp
+    xe/math/Rect.hpp
+    xe/math/Box.hpp
 )
 
 set (sources_input
@@ -125,7 +134,6 @@ set (sources_sg
     xe/sg/Generator.cpp
     xe/sg/PlaneGenerator.cpp
     xe/sg/SphereGenerator.cpp
-    
     xe/sg/Forward.hpp 
     xe/sg/Renderable.hpp
     xe/sg/Pipeline.hpp
@@ -135,13 +143,6 @@ set (sources_sg
     xe/sg/Light.hpp          
     xe/sg/Geometry.hpp       
     xe/sg/TSolidGeometry.hpp 
-    xe/sg/Segment.hpp 
-    xe/sg/Box.hpp            
-    xe/sg/Ray.hpp            
-    xe/sg/Plane.hpp          
-    xe/sg/Intersect.hpp      
-    xe/sg/IntersectInfo.hpp  
-    xe/sg/Sphere.hpp
     xe/sg/Triangle.hpp
     xe/sg/Generator.hpp
     xe/sg/PlaneGenerator.hpp
@@ -154,6 +155,7 @@ source_group(\\gfx      FILES ${sources_gfx})
 source_group(\\sfx      FILES ${sources_sfx})
 source_group(\\sg       FILES ${sources_sg})
 source_group(\\input    FILES ${sources_input})
+source_group(\\math     FILES ${sources_math})
 
 add_definitions(-DXE_BUILD -DXE_SHARED)
 
@@ -163,6 +165,7 @@ add_library(${target} SHARED
     ${sources_sfx} 
     ${sources_sg} 
     ${sources_input}
+    ${sources_math}
 )
 
 target_link_libraries(${target} ${XE_DEP_LIBRARIES})

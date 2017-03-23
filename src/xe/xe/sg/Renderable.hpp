@@ -6,7 +6,7 @@
 
 #include <xe/PreDef.hpp>
 #include <memory>
-#include <xe/Box.hpp>
+#include <xe/math/Box.hpp>
 #include <xe/sg/Forward.hpp>
 
 namespace xe {

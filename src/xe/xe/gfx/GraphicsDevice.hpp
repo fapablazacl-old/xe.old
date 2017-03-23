@@ -7,7 +7,7 @@
 #include <list>
 
 #include <xe/Buffer.hpp>
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 #include <xe/gfx/BufferType.hpp>
 #include <xe/gfx/Subset.hpp>
 #include <xe/gfx/ShaderType.hpp>

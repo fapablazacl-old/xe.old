@@ -6,11 +6,16 @@
 
 #include <cassert>
 #include <cmath>
-#include <iostream>
+#include <string>
 #include <cassert>
-#include <xe/Vector.hpp>
+
+#include "Vector.hpp"
 
 namespace xe {
+    
+    /**
+     * @brief NxM dimensional Matrix
+     */
     template<typename T, int R, int C>
     class Matrix {
     public:
@@ -144,27 +149,6 @@ namespace xe {
             return values;
         }
 
-        // operators
-        friend std::ostream& operator<< (std::ostream &os, const Matrix<T, R, C>& Other) {
-            os << std::endl;
-
-            for (int i=0; i<R; ++i) {
-                os << "[";
-            
-                for(int j=0; j<C; ++j) {
-                    os << std::fixed << std::setprecision( 4 ) << Other.get(i, j);
-                
-                    if (j + 1 != C) {
-                        os << ", ";
-                    }
-                }
-                os << "]" << std::endl;
-            }
-
-            os << std::endl;
-
-            return os;
-        }
 
         const T& operator() (const int i, const int j) const {
             return this->get(i, j);
@@ -616,6 +600,30 @@ namespace xe {
         }
 
         return result;
+    }
+
+    template<typename T, int R, int C>
+    std::string to_string(const Matrix<T, R, C>& other) {
+        std::string str;
+
+        str += "\n";
+
+        for (int i=0; i<R; ++i) {
+            str += "[";
+        
+            for(int j=0; j<C; ++j) {
+                str += other.get(i, j);
+                
+                if (j + 1 != C) {
+                    str += ", ";
+                }
+            }
+            str += "]\n";
+        }
+
+        str += "\n";
+
+        return str;
     }
 
     typedef Matrix<float, 2, 2> Matrix2f;

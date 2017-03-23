@@ -4,8 +4,8 @@
 #ifndef __xe_sg_pipeline_hpp__
 #define __xe_sg_pipeline_hpp__
 
-#include <xe/Matrix.hpp>
-#include <xe/Vector.hpp>
+#include <xe/math/Matrix.hpp>
+#include <xe/math/Vector.hpp>
 
 namespace xe { 
     class Renderable;

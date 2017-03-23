@@ -8,8 +8,8 @@
 #include <vector>
 
 #include <xe/PreDef.hpp>
-#include <xe/Vector.hpp>
-#include <xe/sg/Plane.hpp>
+#include <xe/math/Vector.hpp>
+#include <xe/math/Plane.hpp>
 
 namespace xe {
     struct XE_API SphereGenerator {
