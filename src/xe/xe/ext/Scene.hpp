@@ -5,6 +5,7 @@
 #define __xe_toolkit_scene_hpp__
 
 #include <xe/PreDef.hpp>
+#include <memory>
 
 namespace xe { namespace ext {  //! Extension namespace
 

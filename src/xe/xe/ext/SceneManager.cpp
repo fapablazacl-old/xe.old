@@ -3,7 +3,5 @@
 
 namespace xe { namespace ext {
     SceneManager::~SceneManager() {
-        
     }
 }}
-

@@ -312,7 +312,7 @@ namespace xe {
         std::string str;
 
         for(std::size_t i=0; i<C; ++i) {
-            str += v[i];
+            str += std::to_string(v[i]);
     
             if (i+1 != C) {
                 str += ", ";

@@ -612,7 +612,7 @@ namespace xe {
             str += "[";
         
             for(int j=0; j<C; ++j) {
-                str += other.get(i, j);
+                str += std::to_string(other.get(i, j));
                 
                 if (j + 1 != C) {
                     str += ", ";

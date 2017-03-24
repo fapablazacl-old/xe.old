@@ -7,7 +7,6 @@
 #include <xe/PreDef.hpp>
 
 namespace xe { namespace ext {
-
     class SceneNode;
 
     class XE_API SceneManager {

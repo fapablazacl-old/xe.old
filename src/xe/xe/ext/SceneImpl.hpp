@@ -6,6 +6,9 @@
 
 #include "Scene.hpp"
 
+#include <memory>
+#include <vector>
+
 namespace xe { namespace ext {  //! Extension namespace
 
     class SceneNodeImpl;
@@ -16,8 +19,12 @@ namespace xe { namespace ext {  //! Extension namespace
 
         virtual ~SceneImpl();
 
+        virtual SceneNode* createNode() override;
 
+        virtual SceneNode* createNode(SceneNode *parent) override;
 
+    private:
+        std::vector<std::unique_ptr<SceneNodeImpl>> m_nodes;
     };
 }}
 

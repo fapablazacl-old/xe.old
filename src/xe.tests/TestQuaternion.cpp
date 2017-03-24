@@ -1,6 +1,8 @@
 
 #include <UnitTest++/UnitTest++.h>
-#include <xe/Quaternion.hpp>
+#include <xe/math/Quaternion.hpp>
+
+#include "Common.hpp"
 
 TEST(TestQuaternion_Accessors)
 {

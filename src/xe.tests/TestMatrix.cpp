@@ -2,6 +2,8 @@
 #include <UnitTest++/UnitTest++.h>
 #include <xe/math/Matrix.hpp>
 
+#include "Common.hpp"
+
 TEST(TestMatrixAccessors)
 {
     const xe::Matrix4f matA = {

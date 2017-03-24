@@ -1,15 +1,8 @@
 
-
-#include <ostream>
-
-template<typename T, int C>
-std::ostream& operator<< (std::ostream& os, const xe::Vector<T, C> &other) {
-    return (os << xe::to_string(other));
-}
-
-
-#include <UnitTest++/UnitTest++.h>
 #include <xe/math/Vector.hpp>
+#include <UnitTest++/UnitTest++.h>
+
+#include "Common.hpp"
 
 TEST(TestVector_Accessors)
 {

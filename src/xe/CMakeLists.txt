@@ -150,12 +150,30 @@ set (sources_sg
     xe/sg/Generators.hpp
 )
 
+set (sources_ext
+	"xe/ext/Renderable.cpp" 
+	"xe/ext/Renderable.hpp" 
+	"xe/ext/Scene.cpp" 
+	"xe/ext/Scene.hpp" 
+	"xe/ext/SceneImpl.cpp" 
+	"xe/ext/SceneImpl.hpp" 
+	"xe/ext/SceneManager.cpp" 
+	"xe/ext/SceneManager.hpp" 
+	"xe/ext/SceneNode.cpp" 
+	"xe/ext/SceneNode.hpp" 
+	"xe/ext/SceneNodeImpl.cpp" 
+	"xe/ext/SceneNodeImpl.hpp" 
+	"xe/ext/SceneManagerImpl.cpp" 
+	"xe/ext/SceneManagerImpl.hpp" 
+)
+
 source_group(\\         FILES ${sources})
 source_group(\\gfx      FILES ${sources_gfx})
 source_group(\\sfx      FILES ${sources_sfx})
 source_group(\\sg       FILES ${sources_sg})
 source_group(\\input    FILES ${sources_input})
 source_group(\\math     FILES ${sources_math})
+source_group(\\ext		FILES ${sources_ext})
 
 add_definitions(-DXE_BUILD -DXE_SHARED)
 
@@ -166,6 +184,7 @@ add_library(${target} SHARED
     ${sources_sg} 
     ${sources_input}
     ${sources_math}
+	${sources_toolkit}
 )
 
 target_link_libraries(${target} ${XE_DEP_LIBRARIES})
