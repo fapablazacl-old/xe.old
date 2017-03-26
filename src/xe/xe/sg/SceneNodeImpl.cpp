@@ -3,7 +3,7 @@
 
 #include <cassert>
 
-namespace xe { namespace ext {
+namespace xe { 
     SceneNodeImpl::SceneNodeImpl() {}
 
     SceneNodeImpl::SceneNodeImpl(SceneNodeImpl *parent) {
@@ -58,4 +58,4 @@ namespace xe { namespace ext {
             m_parent->m_childs.push_back(this);
         }
     }
-}}
+}

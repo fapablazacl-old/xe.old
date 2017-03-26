@@ -60,7 +60,15 @@ set (sources_math
     xe/math/Quaternion.hpp 
     xe/math/Boundary.hpp
     xe/math/Rect.hpp
-    xe/math/Box.hpp
+
+	xe/math/Triangle.hpp
+    xe/math/Generator.hpp
+    xe/math/PlaneGenerator.hpp
+    xe/math/SphereGenerator.hpp
+    xe/math/Generators.hpp
+    xe/math/Generator.cpp
+    xe/math/PlaneGenerator.cpp
+    xe/math/SphereGenerator.cpp
 )
 
 set (sources_input
@@ -123,48 +131,21 @@ set (sources_sfx
     xe/sfx/Listener.cpp 
 )
 
-set (sources_sg    
-    xe/sg/Renderable.cpp
-    xe/sg/Pipeline.cpp
-    xe/sg/SceneNode.cpp 
-    xe/sg/Scene.cpp
-    xe/sg/Camera.cpp 
-    xe/sg/Light.cpp
-    xe/sg/Geometry.cpp
-    xe/sg/Generator.cpp
-    xe/sg/PlaneGenerator.cpp
-    xe/sg/SphereGenerator.cpp
-    xe/sg/Forward.hpp 
-    xe/sg/Renderable.hpp
-    xe/sg/Pipeline.hpp
-    xe/sg/SceneNode.hpp      
-    xe/sg/Scene.hpp          
-    xe/sg/Camera.hpp         
-    xe/sg/Light.hpp          
-    xe/sg/Geometry.hpp       
-    xe/sg/TSolidGeometry.hpp 
-    xe/sg/Triangle.hpp
-    xe/sg/Generator.hpp
-    xe/sg/PlaneGenerator.hpp
-    xe/sg/SphereGenerator.hpp
-    xe/sg/Generators.hpp
-)
-
-set (sources_ext
-	"xe/ext/Renderable.cpp" 
-	"xe/ext/Renderable.hpp" 
-	"xe/ext/Scene.cpp" 
-	"xe/ext/Scene.hpp" 
-	"xe/ext/SceneImpl.cpp" 
-	"xe/ext/SceneImpl.hpp" 
-	"xe/ext/SceneManager.cpp" 
-	"xe/ext/SceneManager.hpp" 
-	"xe/ext/SceneNode.cpp" 
-	"xe/ext/SceneNode.hpp" 
-	"xe/ext/SceneNodeImpl.cpp" 
-	"xe/ext/SceneNodeImpl.hpp" 
-	"xe/ext/SceneManagerImpl.cpp" 
-	"xe/ext/SceneManagerImpl.hpp" 
+set (sources_sg
+	"xe/sg/Renderable.cpp" 
+	"xe/sg/Renderable.hpp" 
+	"xe/sg/Scene.cpp" 
+	"xe/sg/Scene.hpp" 
+	"xe/sg/SceneManager.cpp" 
+	"xe/sg/SceneManager.hpp" 
+	"xe/sg/SceneNode.cpp" 
+	"xe/sg/SceneNode.hpp" 
+	"xe/sg/SceneImpl.cpp" 
+	"xe/sg/SceneImpl.hpp" 
+	"xe/sg/SceneNodeImpl.cpp" 
+	"xe/sg/SceneNodeImpl.hpp" 
+	"xe/sg/SceneManagerImpl.cpp" 
+	"xe/sg/SceneManagerImpl.hpp" 
 )
 
 source_group(\\         FILES ${sources})

@@ -26,6 +26,7 @@ namespace demo {
 
         std::unique_ptr<xe::GraphicsDevice> m_device;
 
+        xe::SceneNode *m_rootNode = nullptr;
         xe::SceneNode *m_meshNode = nullptr;
         //float m_angle = 0.0f;
 
@@ -64,7 +65,10 @@ namespace demo {
             m_pipeline = std::make_unique<xe::PhongPipeline>(m_device.get());
             m_sceneRenderer = std::make_unique<xe::SceneRenderer>(m_pipeline.get());
 
-            m_meshNode = m_resources->getScene()->getRootNode()->getNode("sphere");
+            auto scene  = m_resources->getScene();
+
+            m_rootNode = scene->createNode();
+            m_meshNode = scene->createNode(m_rootNode);
 
             auto camera = static_cast<xe::LookAtPerspectiveCamera*>(m_resources->getRenderable("lookAtCamera"));
             

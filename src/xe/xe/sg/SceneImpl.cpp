@@ -2,7 +2,7 @@
 #include "SceneImpl.hpp"
 #include "SceneNodeImpl.hpp"
 
-namespace xe { namespace ext {
+namespace xe {
     SceneImpl::SceneImpl() {}
 
     SceneImpl::~SceneImpl() {}
@@ -18,4 +18,4 @@ namespace xe { namespace ext {
         
         return node;
     }
-}}
+}

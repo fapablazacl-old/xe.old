@@ -1,32 +1,27 @@
 
 #pragma once 
 
-#ifndef __xe_sg_scenerendererimpl__
-#define __xe_sg_scenerendererimpl__
+#ifndef __xe_sg_scenemanagerimpl_hpp__
+#define __xe_sg_scenemanagerimpl_hpp__
 
-#include "xe/sg/SceneManager.hpp"
+#include "SceneManager.hpp"
+#include <vector>
 
-namespace xe { namespace sg {
+namespace xe {
 
-    class SceneNode;
-    class Pipeline;
-    class TransformationStack;
-
-    class SceneManagerImpl : public SceneManager {
+    class Renderable;
+    class SceneNodeImpl;
+    class XE_API SceneManagerImpl : public SceneManager {
     public:
-        explicit SceneManagerImpl(Pipeline* pipeline) {
-            m_pipeline = pipeline;
-        }
+        SceneManagerImpl();
 
-        virtual ~SceneManagerImpl() {}
+        virtual ~SceneManagerImpl();
 
-        virtual void renderScene(Scene *scene) override;
+        virtual void renderAll(const SceneNode *node) override;
 
-    protected:
-        void renderNode(xe::sg::TransformationStack *transformStack, xe::sg::SceneNode* node);
-
-        Pipeline* m_pipeline = nullptr;
+    private:
+        void visit(std::vector<Renderable*> &renderables, const SceneNodeImpl *node);
     };
-}}
+}
 
 #endif

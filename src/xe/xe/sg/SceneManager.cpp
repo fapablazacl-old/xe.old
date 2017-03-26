@@ -1,6 +1,6 @@
 
 #include "SceneManager.hpp"
 
-namespace xe { namespace sg {
+namespace xe {
     SceneManager::~SceneManager() {}
-}}
+}

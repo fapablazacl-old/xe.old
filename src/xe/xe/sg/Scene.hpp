@@ -1,33 +1,25 @@
 
-#pragma once
+#pragma once 
 
 #ifndef __xe_sg_scene_hpp__
 #define __xe_sg_scene_hpp__
 
+#include <xe/PreDef.hpp>
 #include <memory>
-#include "xe/math/Vector.hpp"
-#include "xe/sg/SceneNode.hpp"
 
 namespace xe {
+    class SceneNode;
+    
+    /**
+     * @brief 
+     */
     class XE_API Scene {
     public:
-        Scene();
-        ~Scene();
+        virtual ~Scene();
 
-        const SceneNode* getRootNode() const;
-        
-        SceneNode* getRootNode();
-
-        Vector4f getBackColor() const;
-
-        Scene* setBackColor(const Vector4f &color);
-
-    private:
-        struct Private;
-        Private *m_impl = nullptr;
+        virtual SceneNode* createNode() = 0;
+        virtual SceneNode* createNode(SceneNode *parent) = 0;
     };
-
-    typedef std::unique_ptr<Scene> ScenePtr;
 }
 
 #endif

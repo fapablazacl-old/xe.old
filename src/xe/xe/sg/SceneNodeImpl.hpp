@@ -1,15 +1,15 @@
 
 #pragma once 
 
-#ifndef __xe_toolkit_scenenodeimpl_hpp__
-#define __xe_toolkit_scenenodeimpl_hpp__
+#ifndef __xe_sg_scenenodeimpl_hpp__
+#define __xe_sg_scenenodeimpl_hpp__
 
 #include "SceneNode.hpp"
 #include <vector>
 
-namespace xe { namespace ext {
+namespace xe {
 
-    class SceneNodeImpl : public SceneNode {
+    class XE_API SceneNodeImpl : public SceneNode {
     public:
         explicit SceneNodeImpl();
 
@@ -36,6 +36,6 @@ namespace xe { namespace ext {
         Renderable *m_renderable = nullptr;
         std::vector<SceneNodeImpl*> m_childs;
     };
-}}
+}
 
 #endif 

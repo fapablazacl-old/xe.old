@@ -1,44 +1,35 @@
 
 #include "SceneManagerImpl.hpp"
-
+#include "Renderable.hpp"
+#include "SceneNodeImpl.hpp"
 #include <cassert>
-#include <xe/sg/Scene.hpp>
-#include <xe/sg/SceneNode.hpp>
-#include <xe/sg/Renderable.hpp>
-#include <xe/sg/Pipeline.hpp>
-#include <xe/sg/TransformationStack.hpp>
 
-namespace xe { namespace sg {
+namespace xe {
+    SceneManagerImpl::SceneManagerImpl() {}
 
-    void SceneManagerImpl::renderScene(Scene *scene) {
-        assert(m_pipeline);
-        assert(scene);
-        
-        TransformationStack transformStack;
+    SceneManagerImpl::~SceneManagerImpl() {}
 
-        transformStack.reset(Matrix4f::makeIdentity());
-        
-        m_pipeline->beginFrame(scene->getBackColor());
-        this->renderNode(&transformStack, scene->getNode());
-        m_pipeline->endFrame();
-    }
-
-    void SceneManagerImpl::renderNode(TransformationStack *transformStack, SceneNode* node) {
-        assert(transformStack);
+    void SceneManagerImpl::renderAll(const SceneNode *node) {
         assert(node);
 
-        transformStack->push(node->getMatrix());
-        
-        m_pipeline->setWorldTransform(transformStack->top());
+        std::vector<Renderable*> renderables;
+
+        this->visit(renderables, static_cast<const SceneNodeImpl*>(node));
+
+        for (Renderable *renderable : renderables) {
+            renderable->render();
+        }
+    }
+
+    void SceneManagerImpl::visit(std::vector<Renderable*> &renderables, const SceneNodeImpl *node) {
+        assert(node);
 
         if (node->getRenderable()) {
-            node->getRenderable()->renderWith(m_pipeline);
+            renderables.push_back(node->getRenderable());
         }
 
-        for (std::size_t i=0; i<node->getNodeCount(); i++) {
-            this->renderNode(transformStack, node->getNode(i));
+        for (std::size_t i=0; i<node->getChildCount(); i++) {
+            this->visit(renderables, node->getChild(i));
         }
-
-        transformStack->pop();
     }
-}}
+}

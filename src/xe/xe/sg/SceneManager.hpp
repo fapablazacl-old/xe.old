@@ -1,21 +1,20 @@
 
-#pragma once
+#pragma once 
 
-#ifndef __xe_sg_scenerenderer__
-#define __xe_sg_scenerenderer__
+#ifndef __xe_sg_scenemanager_hpp__
+#define __xe_sg_scenemanager_hpp__
 
-#include <memory>
+#include <xe/PreDef.hpp>
 
-namespace xe { namespace sg {
-    class Scene;
-    class SceneManager {
+namespace xe {
+    class SceneNode;
+
+    class XE_API SceneManager {
     public:
         virtual ~SceneManager();
 
-        virtual void renderScene(Scene *scene) = 0;
+        virtual void renderAll(const SceneNode *node) = 0;
     };
-
-    typedef std::unique_ptr<SceneManager> SceneManagerPtr;
-}}
+}
 
 #endif 
