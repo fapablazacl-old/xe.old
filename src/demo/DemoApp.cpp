@@ -1,19 +1,23 @@
 
 #include "DemoApp.hpp"
-
+#include "Resources.hpp"
 #include "system/CameraEntity.hpp"
 #include "system/MessageBus.hpp"
 #include "system/MoveMessage.hpp"
 #include "system/InputSystem.hpp"
+#include "system/MessageHandler.hpp"
 #include "util/FrameTimer.hpp"
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>
-#include <xe/math/Matrix.hpp>
+#include <xe/Archive.hpp>
 #include <xe/PluginManager.hpp>
+#include <xe/math/Matrix.hpp>
 #include <xe/input/InputCode.hpp>
 #include <xe/input/InputStatus.hpp>
 #include <xe/gfx/GraphicsDeviceInfo.hpp>
+#include <xe/gfx/GraphicsDevice.hpp>
+#include <xe/sg/SceneManagerImpl.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -29,8 +33,8 @@ namespace demo {
         xe::SceneNode *m_meshNode = nullptr;
         //float m_angle = 0.0f;
 
-        std::unique_ptr<xe::Pipeline> m_pipeline;
-        std::unique_ptr<xe::SceneRenderer> m_sceneRenderer;
+        std::unique_ptr<xe::PhongPipeline> m_pipeline;
+        std::unique_ptr<xe::SceneManager> m_sceneManager;
 
         std::unique_ptr<Resources> m_resources;
 
@@ -62,7 +66,7 @@ namespace demo {
             m_device = this->createDevice();
             m_resources = std::make_unique<Resources>(m_device.get(), m_app->getGraphicsManager());
             m_pipeline = std::make_unique<xe::PhongPipeline>(m_device.get());
-            m_sceneRenderer = std::make_unique<xe::SceneRenderer>(m_pipeline.get());
+            m_sceneManager = std::make_unique<xe::SceneManagerImpl>();
 
             auto scene  = m_resources->getScene();
 
@@ -126,7 +130,7 @@ namespace demo {
                 m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
                 */
 
-                m_sceneRenderer->renderFrame(m_resources->getScene());
+                m_sceneManager->renderAll(m_resources->getScene()->getRoot());
             }
         }
     };

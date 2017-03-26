@@ -1,14 +1,13 @@
 
 #pragma once
 
-#include "Renderable.hpp"
-
 #ifndef __xe_sg_phonglight_hpp__
 #define __xe_sg_phonglight_hpp__
 
 #include <cstdint>
 #include <xe/math/Vector.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
+#include <xe/sg/Renderable.hpp>
 
 namespace xe { 
 
@@ -28,9 +27,10 @@ namespace xe {
         xe::Vector3f direction = {0.0f, 0.0f, -1.0f};
     };
 
+    class PhongPipeline;
     class PhongLight : public Renderable {
     public:
-        PhongLight();
+        PhongLight(PhongPipeline *pipeline);
 
         virtual ~PhongLight();
 
@@ -42,14 +42,11 @@ namespace xe {
             return &m_properties;
         }
 
-        void render(GraphicsDevice *device);
-
-        virtual std::type_index getTypeIndex() const override {
-            return std::type_index(typeid(PhongLight));
-        }
+        virtual void render() override;
 
     private:
         PhongLightProperties m_properties;
+        PhongPipeline *m_pipeline;
     };
 }
 

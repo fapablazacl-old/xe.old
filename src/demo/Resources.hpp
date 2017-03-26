@@ -9,6 +9,7 @@
 #include <xe/gfx/GraphicsManager.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
 #include <xe/sg/Scene.hpp>
+#include <xe/sg/Renderable.hpp>
 
 namespace demo {
     /**

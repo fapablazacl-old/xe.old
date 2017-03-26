@@ -1,5 +1,6 @@
 
 #include "PhongLight.hpp"
+#include "PhongPipeline.hpp"
 
 namespace xe { 
     static xe::UniformFormat s_format = {{
@@ -11,13 +12,13 @@ namespace xe {
         {"l_direction", 3, xe::DataType::Float32, 1}
     }};
 
-    PhongLight::PhongLight() {}
+    PhongLight::PhongLight(PhongPipeline *pipeline) : m_pipeline(pipeline) {
+        assert(pipeline);
+    }
 
     PhongLight::~PhongLight() {}
 
-    void PhongLight::render(xe::GraphicsDevice *device) {
-        assert(device);
-
-        device->setUniform(&s_format, &m_properties);
+    void PhongLight::render() {
+        m_pipeline->getDevice()->setUniform(&s_format, &m_properties);
     }
 }

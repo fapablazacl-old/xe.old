@@ -17,6 +17,8 @@ namespace xe {
     public:
         virtual ~Scene();
 
+        virtual SceneNode* getRoot() = 0;
+
         virtual SceneNode* createNode() = 0;
         virtual SceneNode* createNode(SceneNode *parent) = 0;
     };

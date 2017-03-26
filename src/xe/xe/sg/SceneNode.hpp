@@ -20,7 +20,7 @@ namespace xe {
 
         virtual Renderable* getRenderable() const = 0;
 
-        virtual void setRenderable(Renderable *data) = 0;
+        virtual SceneNode* setRenderable(Renderable *data) = 0;
 
         virtual std::size_t getChildCount() const = 0;
 
@@ -28,7 +28,7 @@ namespace xe {
 
         virtual SceneNode* getParent() const = 0;
 
-        virtual void setParent(SceneNode *parent) = 0;
+        virtual SceneNode* setParent(SceneNode *parent) = 0;
     };
 }
 

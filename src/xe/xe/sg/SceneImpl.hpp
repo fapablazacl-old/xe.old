@@ -13,15 +13,21 @@
 namespace xe {
     class SceneImpl : public Scene {
     public:
-        SceneImpl();
-
-        virtual ~SceneImpl();
-
-        virtual SceneNode* createNode() override {
-            return this->createNode(nullptr);
+        SceneImpl() {
+            m_root = this->createNode(nullptr);
         }
 
-        virtual SceneNode* createNode(SceneNode *parent) override {
+        virtual ~SceneImpl() {}
+
+        virtual SceneNodeImpl* getRoot() override {
+            return m_root;
+        }
+
+        virtual SceneNodeImpl* createNode() override {
+            return this->createNode(m_root);
+        }
+
+        virtual SceneNodeImpl* createNode(SceneNode *parent) override {
             auto node = new SceneNodeImpl(static_cast<SceneNodeImpl*>(parent));
 
             m_nodes.emplace_back(node);
@@ -31,6 +37,7 @@ namespace xe {
 
     private:
         std::vector<std::unique_ptr<SceneNodeImpl>> m_nodes;
+        SceneNodeImpl *m_root = nullptr;
     };
 }
 

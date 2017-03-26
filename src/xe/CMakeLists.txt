@@ -9,6 +9,8 @@ endif()
 set (target xe)
 
 set (sources 
+	xe/Archive.hpp
+	xe/Archive.cpp
     xe/Buffer.hpp 
     xe/Common.hpp 
     xe/DataFormat.hpp 

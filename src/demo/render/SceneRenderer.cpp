@@ -35,12 +35,12 @@ namespace xe {
             }
         }
 
-        std::vector<RenderElement> filterScene(const xe::Scene *scene) {
+        std::vector<RenderElement> filterScene(xe::Scene *scene) {
             assert(scene);
 
             std::vector<RenderElement> elements;
 
-            this->filterNode(elements, xe::Matrix4f::makeIdentity(), scene->getRootNode());
+            this->filterNode(elements, xe::Matrix4f::makeIdentity(), scene->getRoot());
 
             return elements;
         }
@@ -63,7 +63,7 @@ namespace xe {
         assert(scene);
 
         // extract render data
-        const xe::Vector4f backColor = scene->getBackColor();
+        const xe::Vector4f backColor = {0.2f, 0.2f, 0.2f, 1.0f};
 
         const std::vector<RenderElement> elements = m_impl->filterScene(scene);
 

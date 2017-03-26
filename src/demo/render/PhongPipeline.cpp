@@ -1,17 +1,11 @@
 
 #include "PhongPipeline.hpp"
 
-#include "Renderable.hpp"
-#include "Renderer.hpp"
-
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "PhongLight.hpp"
 
-#include "CameraRenderer.hpp"
-#include "MeshRenderer.hpp"
-#include "PhongLightRenderer.hpp"
-
+#include <xe/sg/Renderable.hpp>
 #include <xe/FileUtil.hpp>
 
 namespace xe { 
@@ -26,21 +20,9 @@ namespace xe {
         });
         
         assert(m_program);
-        
-        m_renderersStorage.emplace_back(new CameraRenderer(this));
-        m_renderersStorage.emplace_back(new MeshRenderer(m_device));
-        m_renderersStorage.emplace_back(new PhongLightRenderer(m_device));
-        
-        this->registerRenderer(std::type_index(typeid(Camera)), m_renderersStorage[0].get());
-        this->registerRenderer(std::type_index(typeid(Mesh)), m_renderersStorage[1].get());
-        this->registerRenderer(std::type_index(typeid(PhongLight)), m_renderersStorage[2].get());
     }
 
     PhongPipeline::~PhongPipeline() {}
-
-    xe::Matrix4f PhongPipeline::getProjViewModel() const {
-        return m_mvpTransform;
-    }
 
     xe::Matrix4f PhongPipeline::getTransform(const TransformType transformType) const {
         return m_transforms[(int)transformType];
@@ -87,11 +69,7 @@ namespace xe {
         assert(renderable);
         assert(m_frame);
 
-        auto rendererIt = m_renderers.find(renderable->getTypeIndex());
-
-        assert(rendererIt != m_renderers.end());
-
-        rendererIt->second->render(renderable);
+        renderable->render();
     }
 
     void PhongPipeline::endFrame() {
@@ -101,19 +79,5 @@ namespace xe {
 
         m_frame = false;
         m_device->endFrame();
-    }
-
-    void PhongPipeline::registerRenderer(const std::type_index &renderableType, Renderer *renderer) {
-        assert(renderer);
-        assert(m_renderers.find(renderableType) == m_renderers.end());
-
-        m_renderers.insert({renderableType, renderer});
-    }
-
-    void PhongPipeline::unregisterRenderer(const std::type_index &renderableType, Renderer *renderer) {
-        assert(renderer);
-        assert(m_renderers.find(renderableType) != m_renderers.end());
-
-        m_renderers.erase(m_renderers.find(renderableType));
     }
 }

@@ -1,8 +1,6 @@
 
 #include "Resources.hpp"
 
-#include "Archive.hpp"
-
 #include "render/Camera.hpp"
 #include "render/PhongMaterial.hpp"
 #include "render/PhongLight.hpp"
@@ -11,10 +9,13 @@
 #include <iostream>
 #include <map>
 
+#include <xe/Archive.hpp>
 #include <xe/IosStream.hpp>
 #include <xe/FileStream.hpp>
 #include <xe/math/Matrix.hpp>
-
+#include <xe/math/Generator.hpp>
+#include <xe/math/SphereGenerator.hpp>
+#include <xe/math/PlaneGenerator.hpp>
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
@@ -22,12 +23,8 @@
 #include <xe/gfx/Material.hpp>
 #include <xe/gfx/SubsetFormat.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
-
 #include <xe/sg/SceneNode.hpp>
 #include <xe/sg/Scene.hpp>
-#include <xe/sg/Generator.hpp>
-#include <xe/sg/SphereGenerator.hpp>
-#include <xe/sg/PlaneGenerator.hpp>
 
 namespace demo {
 
@@ -234,14 +231,12 @@ namespace demo {
 
             auto scene = std::make_unique<xe::Scene>();
 
-            scene
-                ->setBackColor({0.2f, 0.3f, 0.8f, 1.0f})
-                ->getRootNode()->setRenderable(lookAtCamera);
+            scene->getRoot()->setRenderable(lookAtCamera);
 
-            scene->getRootNode()->createNode("light")->setRenderable(light);
+            scene->createNode("light")->setRenderable(light);
 
-            scene->getRootNode()->createNode("sphere")->setRenderable(sphereMesh);
-            scene->getRootNode()->createNode("plane")->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
+            scene->createNode("sphere")->setRenderable(sphereMesh);
+            scene->createNode("plane")->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
         
             return scene;
         }

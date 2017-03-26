@@ -4,24 +4,27 @@
 #ifndef __xe_sg_camera_hpp__
 #define __xe_sg_camera_hpp__
 
-#include "Renderable.hpp"
-
 #include <xe/math/Vector.hpp>
 #include <xe/math/Matrix.hpp>
+#include <xe/sg/Renderable.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 
+    class PhongPipeline;
     class Camera : public Renderable {
     public:
-        virtual ~Camera() {}
+        Camera(PhongPipeline *pipeline);
 
-        virtual std::type_index getTypeIndex() const override {
-            return std::type_index(typeid(Camera));
-        }
+        virtual ~Camera();
 
         virtual xe::Matrix4f getProjMatrix() const = 0;
 
         virtual xe::Matrix4f getViewMatrix() const = 0;
+
+        virtual void render() override;
+
+    private:
+        PhongPipeline *m_pipeline;
     };
 
     template<typename ProjectionPolicy, typename ViewPolicy>

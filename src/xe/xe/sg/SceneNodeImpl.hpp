@@ -23,8 +23,10 @@ namespace xe {
             return m_renderable;
         }
 
-        virtual void setRenderable(Renderable *renderable) override {
+        virtual SceneNodeImpl* setRenderable(Renderable *renderable) override {
             m_renderable = renderable;
+
+            return this;
         }
 
         virtual std::size_t getChildCount() const override {
@@ -42,8 +44,10 @@ namespace xe {
             return m_parent;
         }
 
-        virtual void setParent(SceneNode *parent) override {
+        virtual SceneNodeImpl* setParent(SceneNode *parent) override {
             this->setParent(static_cast<SceneNodeImpl*>(parent));
+
+            return this;
         }
 
         void setParent(SceneNodeImpl *parent) {

@@ -1,41 +1,41 @@
 
 #pragma once
 
-#ifndef __xe_sg_phongpipeline_hpp__
-#define __xe_sg_phongpipeline_hpp__
+#ifndef __xe_sg_pipeline_hpp__
+#define __xe_sg_pipeline_hpp__
 
-#include "Pipeline.hpp"
-
-#include <typeindex>
 #include <array>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe {
+    enum class TransformType {
+        Model,
+        View, 
+        Proj
+    };
 
-    class PhongPipeline : public Pipeline {
+    class PhongPipeline {
     public:
         explicit PhongPipeline(GraphicsDevice *device);
 
-        virtual ~PhongPipeline();
+        ~PhongPipeline();
 
-        virtual xe::Matrix4f getProjViewModel() const override;
+        xe::Matrix4f getTransform(const TransformType transformType) const;
 
-        virtual xe::Matrix4f getTransform(const TransformType transformType) const override;
+        void setTransform(const TransformType transformType, const xe::Matrix4f &transform);
 
-        virtual void setTransform(const TransformType transformType, const xe::Matrix4f &transform) override;
+        void beginFrame();
 
-        virtual void beginFrame() override;
+        void render(Renderable *renderable) ;
 
-        virtual void render(Renderable *renderable) override;
+        void endFrame();
 
-        virtual void endFrame() override;
+        GraphicsDevice *getDevice() {
+            return m_device;
+        }
 
     protected:
         void syncModelViewProj();
-
-        void registerRenderer(const std::type_index &renderableType, Renderer *renderer);
-
-        void unregisterRenderer(const std::type_index &renderableType, Renderer *renderer);
 
     private:
         xe::GraphicsDevice *m_device = nullptr;
@@ -44,10 +44,6 @@ namespace xe {
         std::array<xe::Matrix4f, 3> m_transforms;
 
         xe::Matrix4f m_mvpTransform = xe::Matrix4f::makeIdentity();
-
-        std::vector<std::unique_ptr<Renderer>> m_renderersStorage;
-
-        std::map<std::type_index, Renderer*> m_renderers;
 
         bool m_frame = false;
     };

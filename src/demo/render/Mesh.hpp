@@ -8,8 +8,7 @@
 #include <xe/gfx/Primitive.hpp>
 #include <xe/gfx/Subset.hpp>
 #include <xe/gfx/Material.hpp>
-
-#include "Renderable.hpp"
+#include <xe/sg/Renderable.hpp>
 
 namespace xe {
 
@@ -30,20 +29,18 @@ namespace xe {
         std::size_t count = 0;
     };
     
+    class PhongPipeline;
+
     /**
      * @brief Geometric mesh class. Used for render static meshes
      */
     class Mesh : public Renderable {
     public:
-        explicit Mesh(SubsetPtr subset);
+        explicit Mesh(PhongPipeline *pipeline, SubsetPtr subset);
 
-        explicit Mesh(std::vector<SubsetPtr> subsets);
+        explicit Mesh(PhongPipeline *pipeline, std::vector<SubsetPtr> subsets);
 
         virtual ~Mesh();
-
-        virtual std::type_index getTypeIndex() const override {
-            return std::type_index(typeid(Mesh));
-        }
 
         std::size_t getSubsetCount() const;
 
@@ -55,7 +52,10 @@ namespace xe {
 
         const Envelope* getEnvelope(const std::size_t subsetIndex) const;
 
+        virtual void render() override;
+
     private:
+        PhongPipeline *m_pipeline;
         std::vector<SubsetPtr> m_subsets;
         std::vector<Envelope> m_envelopes;
     };
