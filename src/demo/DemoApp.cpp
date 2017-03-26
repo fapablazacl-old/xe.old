@@ -1,12 +1,11 @@
 
 #include "DemoApp.hpp"
 
-#include "CameraEntity.hpp"
-#include "MessageBus.hpp"
-#include "MoveMessage.hpp"
-#include "FrameTimer.hpp"
-#include "InputSystem.hpp"
-
+#include "system/CameraEntity.hpp"
+#include "system/MessageBus.hpp"
+#include "system/MoveMessage.hpp"
+#include "system/InputSystem.hpp"
+#include "util/FrameTimer.hpp"
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>

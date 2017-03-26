@@ -11,7 +11,6 @@
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe { 
-
     class Camera : public Renderable {
     public:
         virtual ~Camera() {}

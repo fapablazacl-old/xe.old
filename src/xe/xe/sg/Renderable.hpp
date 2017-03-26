@@ -7,6 +7,9 @@
 #include <xe/PreDef.hpp>
 
 namespace xe {
+    /**
+     * @brief A Renderable changes the multimedia state when it is rendered.
+     */
     class XE_API Renderable {
     public:
         virtual ~Renderable();

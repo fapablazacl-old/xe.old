@@ -6,30 +6,65 @@
 
 #include "SceneNode.hpp"
 #include <vector>
+#include <cassert>
 
 namespace xe {
-
-    class XE_API SceneNodeImpl : public SceneNode {
+    class SceneNodeImpl : public SceneNode {
     public:
-        explicit SceneNodeImpl();
+        explicit SceneNodeImpl() {}
 
-        explicit SceneNodeImpl(SceneNodeImpl *parent);
+        explicit SceneNodeImpl(SceneNodeImpl *parent) {
+            this->setParent(parent);
+        }
 
-        virtual ~SceneNodeImpl();
+        virtual ~SceneNodeImpl() {}
 
-        virtual Renderable* getRenderable() const override;
+        virtual Renderable* getRenderable() const override {
+            return m_renderable;
+        }
 
-        virtual void setRenderable(Renderable *renderable) override;
+        virtual void setRenderable(Renderable *renderable) override {
+            m_renderable = renderable;
+        }
 
-        virtual std::size_t getChildCount() const override;
+        virtual std::size_t getChildCount() const override {
+            return m_childs.size();
+        }
 
-        virtual SceneNodeImpl* getChild(const std::size_t index) const override;
+        virtual SceneNodeImpl* getChild(const std::size_t index) const override {
+            assert(index >= 0);
+            assert(index < this->getChildCount());
 
-        virtual SceneNodeImpl* getParent() const override;
+            return m_childs[index];
+        }
 
-        virtual void setParent(SceneNode *parent) override;
+        virtual SceneNodeImpl* getParent() const override {
+            return m_parent;
+        }
 
-        void setParent(SceneNodeImpl *parent);
+        virtual void setParent(SceneNode *parent) override {
+            this->setParent(static_cast<SceneNodeImpl*>(parent));
+        }
+
+        void setParent(SceneNodeImpl *parent) {
+            if (m_parent == parent) {
+                return;
+            }
+
+            if (m_parent) {
+                auto &childs = m_parent->m_childs;
+                auto where = std::find(childs.begin(), childs.end(), this);
+
+                assert(where != childs.end());
+                childs.erase(where);
+            }
+
+            m_parent = parent;
+
+            if (m_parent) {
+                m_parent->m_childs.push_back(this);
+            }
+        }
 
     private:
         SceneNodeImpl *m_parent = nullptr;
