@@ -39,11 +39,8 @@ namespace xe {
     private:
         xe::GraphicsDevice *m_device = nullptr;
         xe::ProgramPtr m_program;
-
         std::array<xe::Matrix4f, 3> m_transforms;
-
         xe::Matrix4f m_mvpTransform = xe::Matrix4f::makeIdentity();
-
         bool m_frame = false;
     };
 }
