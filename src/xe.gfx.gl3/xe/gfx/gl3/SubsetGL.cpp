@@ -44,7 +44,7 @@ namespace xe {
         
         for (const int bufferIndex : m_format->getBufferIndices()) {
             const BufferGL *buffer = m_buffers[bufferIndex].get();
-            const auto &attribs = m_format->getAttribs(bufferIndex);
+            const auto &attribs = m_format->getAttribArray(bufferIndex);
             
             assert(buffer);
             
@@ -53,11 +53,11 @@ namespace xe {
             std::uint8_t *offset = 0;
             
             // compute stride for current vertex buffer
-            GLsizei stride = std::accumulate(std::begin(attribs), std::end(attribs), 0, [](const GLsizei &accum, const MeshAttrib &attrib) {
+            GLsizei stride = std::accumulate(std::begin(attribs), std::end(attribs), 0, [](const GLsizei &accum, const SubsetAttrib &attrib) {
                 return accum + static_cast<GLsizei>(attrib.getSize());
             });
             
-            for (const MeshAttrib &attrib : attribs) {
+            for (const SubsetAttrib &attrib : attribs) {
                 glEnableVertexAttribArray(vertexAttrib);
                 
                 auto dim = static_cast<GLint>(attrib.dim);

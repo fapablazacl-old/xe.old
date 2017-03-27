@@ -11,7 +11,6 @@
 #include <xe/sg/Renderable.hpp>
 
 namespace xe {
-
     /**
      * @brief Mesh envelope
      */ 

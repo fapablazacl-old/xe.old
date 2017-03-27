@@ -15,19 +15,19 @@ namespace xe {
     /**
      * @brief Mesh attribute descriptor.
      */
-    struct MeshAttrib : public Attrib {
+    struct SubsetAttrib : public Attrib {
         int bufferIndex = 0;
         
-        MeshAttrib() {}
+        SubsetAttrib() {}
 
-        MeshAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_) {
+        SubsetAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_) {
             bufferIndex = bufferIndex_;
             type = type_;
             dim = dim_;
             name = "";
         }
 
-        MeshAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_, const std::string &name_) {
+        SubsetAttrib(const int bufferIndex_, const DataType type_, const std::size_t dim_, const std::string &name_) {
             bufferIndex = bufferIndex_;
             type = type_;
             dim = dim_;
@@ -53,13 +53,12 @@ namespace xe {
      */
     class XE_API SubsetFormat {
     public:
-        SubsetFormat(const SubsetFormat &other) = delete;
+        SubsetFormat();
 
-        SubsetFormat& operator=(const SubsetFormat &other) = delete;
+        SubsetFormat(std::initializer_list<SubsetAttrib> attribs);
 
-    public:
-        SubsetFormat(std::initializer_list<MeshAttrib> attribs);
-        
+        SubsetFormat(const SubsetFormat &other);
+
         ~SubsetFormat();
 
         /**
@@ -68,27 +67,35 @@ namespace xe {
         std::size_t getAttribCount() const;
 
         /**
-         * 
+         * @brief 
          */
-        const MeshAttrib* getAttrib(const std::size_t index) const;
+        const SubsetAttrib& getAttrib(const std::size_t index) const;
 
         /**
-         * 
+         * @brief 
          */
         bool isEmpty() const {
             return this->getAttribCount() == 0;
         }
 
+        /**
+         * @brief 
+         */
         const std::set<int>& getBufferIndices() const;
 
-        const std::vector<MeshAttrib>& getAttribs(const int bufferIndex) const;
+        /**
+         * @brief 
+         */
+        const std::vector<SubsetAttrib>& getAttribArray(const int bufferIndex) const;
         
+        SubsetFormat& operator= (const SubsetFormat &other);
+
     private:
         struct Private;
         Private *m_impl = nullptr;
     };
 
-    typedef std::unique_ptr<SubsetFormat> MeshFormatPtr;
+    typedef std::unique_ptr<SubsetFormat> SubsetFormatPtr;
 }
 
 #endif
