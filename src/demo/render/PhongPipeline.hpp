@@ -1,10 +1,11 @@
 
 #pragma once
 
-#ifndef __xe_sg_pipeline_hpp__
-#define __xe_sg_pipeline_hpp__
+#ifndef __xe_sg_phongpipeline_hpp__
+#define __xe_sg_phongpipeline_hpp__
 
 #include <array>
+#include <xe/math/Matrix.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
 
 namespace xe {
@@ -25,8 +26,6 @@ namespace xe {
         void setTransform(const TransformType transformType, const xe::Matrix4f &transform);
 
         void beginFrame();
-
-        void render(Renderable *renderable) ;
 
         void endFrame();
 

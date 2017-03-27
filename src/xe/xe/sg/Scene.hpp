@@ -6,6 +6,7 @@
 
 #include <xe/PreDef.hpp>
 #include <memory>
+#include <string>
 
 namespace xe {
     class SceneNode;
@@ -20,7 +21,8 @@ namespace xe {
         virtual SceneNode* getRoot() = 0;
 
         virtual SceneNode* createNode() = 0;
-        virtual SceneNode* createNode(SceneNode *parent) = 0;
+        virtual SceneNode* createNode(const std::string &name) = 0;
+        virtual SceneNode* createNode(const std::string &name, SceneNode *parent) = 0;
     };
 }
 

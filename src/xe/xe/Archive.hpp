@@ -17,7 +17,7 @@ namespace xe {
      *
      * By source, we mean a raw directory, a zipped folder, a base URL, etc.
      */
-    class Archive {
+    class XE_API Archive {
     public:
         virtual ~Archive() {}
 

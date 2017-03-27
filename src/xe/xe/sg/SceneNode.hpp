@@ -5,6 +5,7 @@
 #define __xe_sg_scenenode_hpp__
 
 #include <xe/PreDef.hpp>
+#include <string>
 #include <cstddef>
 
 namespace xe {
@@ -17,6 +18,8 @@ namespace xe {
     class XE_API SceneNode {
     public:
         virtual ~SceneNode();
+
+        virtual std::string getName() const = 0;
 
         virtual Renderable* getRenderable() const = 0;
 

@@ -13,11 +13,15 @@ namespace xe {
     public:
         explicit SceneNodeImpl() {}
 
-        explicit SceneNodeImpl(SceneNodeImpl *parent) {
-            this->setParent(parent);
+        explicit SceneNodeImpl(const std::string &name) {
+            m_name = name;
         }
 
         virtual ~SceneNodeImpl() {}
+
+        virtual std::string getName() const override {
+            return m_name;
+        }
 
         virtual Renderable* getRenderable() const override {
             return m_renderable;
@@ -71,6 +75,7 @@ namespace xe {
         }
 
     private:
+        std::string m_name;
         SceneNodeImpl *m_parent = nullptr;
         Renderable *m_renderable = nullptr;
         std::vector<SceneNodeImpl*> m_childs;

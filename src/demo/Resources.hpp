@@ -11,13 +11,15 @@
 #include <xe/sg/Scene.hpp>
 #include <xe/sg/Renderable.hpp>
 
+#include "render/PhongPipeline.hpp"
+
 namespace demo {
     /**
      * @brief Holds the manual resource creation, loading and generation, like scenes, materials, textures, etc.
      */
     class Resources {
     public:
-        Resources(xe::GraphicsDevice *device, xe::GraphicsManager *manager);
+        Resources(xe::PhongPipeline *pipeline, xe::GraphicsDevice *device, xe::GraphicsManager *manager);
 
         ~Resources();
 

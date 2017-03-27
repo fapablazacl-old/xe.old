@@ -1,6 +1,7 @@
 
 #include "Resources.hpp"
 
+#include "render/PhongPipeline.hpp"
 #include "render/Camera.hpp"
 #include "render/PhongMaterial.hpp"
 #include "render/PhongLight.hpp"
@@ -23,15 +24,15 @@
 #include <xe/gfx/Material.hpp>
 #include <xe/gfx/SubsetFormat.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
-#include <xe/sg/SceneNode.hpp>
-#include <xe/sg/Scene.hpp>
+#include <xe/sg/SceneNodeImpl.hpp>
+#include <xe/sg/SceneImpl.hpp>
 
 namespace demo {
 
     struct Resources::Private {
     public:
-        Private(xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
-            : m_device(device), m_manager(manager) {
+        Private(xe::PhongPipeline *pipeline, xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
+            : m_pipeline(pipeline), m_device(device), m_manager(manager) {
         
             m_archive = xe::Archive::create("assets/");
 
@@ -43,6 +44,7 @@ namespace demo {
             m_scene = this->createScene();
         }
 
+        xe::PhongPipeline *m_pipeline = nullptr;
         xe::GraphicsDevice *m_device = nullptr;
         xe::GraphicsManager *m_manager = nullptr;
 
@@ -81,7 +83,7 @@ namespace demo {
             };
 
             auto subset = m_device->createSubset(subsetDesc);
-            auto mesh = std::make_unique<xe::Mesh>(std::move(subset));
+            auto mesh = std::make_unique<xe::Mesh>(m_pipeline, std::move(subset));
 
             mesh->getEnvelope(0)->material = m_materials["custom"].get();
             mesh->getEnvelope(0)->primitive = xe::Primitive::TriangleList;
@@ -112,7 +114,7 @@ namespace demo {
             };
         
             auto subset = m_device->createSubset(subsetDesc);
-            auto mesh = std::make_unique<xe::Mesh>(std::move(subset));
+            auto mesh = std::make_unique<xe::Mesh>(m_pipeline, std::move(subset));
 
             mesh->getEnvelope(0)->material = m_materials["custom"].get();
             mesh->getEnvelope(0)->primitive = xe::Primitive::TriangleList;
@@ -122,7 +124,7 @@ namespace demo {
         }
     
         std::unique_ptr<xe::Renderable> createLightRenderable() {
-            auto light = std::make_unique<xe::PhongLight>();
+            auto light = std::make_unique<xe::PhongLight>(m_pipeline);
 
             auto &properties = *light->getProperties();
 
@@ -135,7 +137,7 @@ namespace demo {
             std::map<std::string, std::unique_ptr<xe::Renderable>> renderables;
 
             // create a basic camera 
-            renderables["lookAtCamera"] = std::make_unique<xe::LookAtPerspectiveCamera>();
+            renderables["lookAtCamera"] = std::make_unique<xe::LookAtPerspectiveCamera>(m_pipeline);
             renderables["sphereMesh"] = this->createSphereRenderable();
             renderables["planeMesh"] = this->createPlaneRenderable();
             renderables["light"] = this->createLightRenderable();
@@ -229,21 +231,21 @@ namespace demo {
             assert(sphereMesh);
             assert(planeMesh);
 
-            auto scene = std::make_unique<xe::Scene>();
+            auto scene = std::make_unique<xe::SceneImpl>();
 
             scene->getRoot()->setRenderable(lookAtCamera);
 
             scene->createNode("light")->setRenderable(light);
 
             scene->createNode("sphere")->setRenderable(sphereMesh);
-            scene->createNode("plane")->setRenderable(planeMesh)->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}));
+            scene->createNode("plane")->setRenderable(planeMesh)/*->setMatrix(xe::Matrix4f::makeTranslate({0.0f, -1.0f, 0.0f, 1.0f}))*/;
         
             return scene;
         }
     };
 
-    Resources::Resources(xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
-        : m_impl(new Resources::Private(device, manager)) {
+    Resources::Resources(xe::PhongPipeline *pipeline, xe::GraphicsDevice *device, xe::GraphicsManager *manager) 
+        : m_impl(new Resources::Private(pipeline, device, manager)) {
     }
 
     Resources::~Resources() {}

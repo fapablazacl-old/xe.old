@@ -64,14 +64,13 @@ namespace demo {
 
         bool initialize() {
             m_device = this->createDevice();
-            m_resources = std::make_unique<Resources>(m_device.get(), m_app->getGraphicsManager());
             m_pipeline = std::make_unique<xe::PhongPipeline>(m_device.get());
+            m_resources = std::make_unique<Resources>(m_pipeline.get(), m_device.get(), m_app->getGraphicsManager());
             m_sceneManager = std::make_unique<xe::SceneManagerImpl>();
 
             auto scene  = m_resources->getScene();
 
-            m_rootNode = scene->createNode();
-            m_meshNode = scene->createNode(m_rootNode);
+            m_meshNode = scene->createNode();
 
             auto camera = static_cast<xe::LookAtPerspectiveCamera*>(m_resources->getRenderable("lookAtCamera"));
             

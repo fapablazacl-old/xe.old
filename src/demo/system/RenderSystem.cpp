@@ -2,7 +2,6 @@
 #include "RenderSystem.hpp"
 
 #include <xe/gfx/GraphicsDevice.hpp>
-#include "render/Pipeline.hpp"
 #include "render/SceneRenderer.hpp"
 
 namespace demo {
@@ -22,7 +21,7 @@ namespace demo {
     RenderSystem::~RenderSystem() {}
 
     void RenderSystem::update()  {
-        m_impl->m_sceneRenderer->renderFrame(m_impl->m_scene);
+        //m_impl->m_sceneRenderer->renderFrame(m_impl->m_scene);
     }
 
     void RenderSystem::handle(AbstractMessage *message) {}

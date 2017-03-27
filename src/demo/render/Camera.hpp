@@ -30,6 +30,8 @@ namespace xe {
     template<typename ProjectionPolicy, typename ViewPolicy>
     class AnyCamera : public Camera, public ProjectionPolicy, public ViewPolicy {
     public:
+        AnyCamera(PhongPipeline *pipeline) : Camera(pipeline) {}
+
         virtual ~AnyCamera() {}
 
         virtual xe::Matrix4f getProjMatrix() const {

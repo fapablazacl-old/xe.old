@@ -24,11 +24,23 @@ namespace xe {
         }
 
         virtual SceneNodeImpl* createNode() override {
-            return this->createNode(m_root);
+            return this->createNode("", m_root);
         }
 
-        virtual SceneNodeImpl* createNode(SceneNode *parent) override {
-            auto node = new SceneNodeImpl(static_cast<SceneNodeImpl*>(parent));
+        virtual SceneNodeImpl* createNode(const std::string &name) override {
+            auto node = new SceneNodeImpl(name);
+
+            node->setParent(m_root);
+
+            m_nodes.emplace_back(node);
+        
+            return node;
+        }
+
+        virtual SceneNodeImpl* createNode(const std::string &name, SceneNode *parent) override {
+            auto node = new SceneNodeImpl(name);
+
+            node->setParent(parent);
 
             m_nodes.emplace_back(node);
         

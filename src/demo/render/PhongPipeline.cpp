@@ -63,15 +63,6 @@ namespace xe {
         m_device->beginFrame(xe::ClearFlags::All, xe::ClearParams());
     }
 
-    void PhongPipeline::render(Renderable *renderable) {
-        assert(m_device);
-        assert(m_program);
-        assert(renderable);
-        assert(m_frame);
-
-        renderable->render();
-    }
-
     void PhongPipeline::endFrame() {
         assert(m_device);
         assert(m_program);

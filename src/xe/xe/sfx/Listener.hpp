@@ -5,7 +5,7 @@
 #define __xe_sfx_listener_hpp__
 
 #include <xe/PreDef.hpp>
-#include <xe/Vector.hpp>
+#include <xe/math/Vector.hpp>
 
 namespace xe {
     class XE_API Listener {

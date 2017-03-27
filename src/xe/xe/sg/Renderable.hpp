@@ -36,7 +36,7 @@ namespace xe {
         /**
          * @brief Get the information of the renderable
          */
-        virtual RenderableInfo getInfo() = 0;
+        //virtual RenderableInfo getInfo() = 0;
 
         /**
          * @brief Render the renderable
