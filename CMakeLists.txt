@@ -37,8 +37,6 @@ include_directories(src/xe)
 
 # mandatory targets
 add_subdirectory(src/xe)
-add_subdirectory(src/demo)
-add_subdirectory(src/tetris)
 add_subdirectory(src/xe.tests)
 
 if (XE_ENABLE_EXAMPLES)
@@ -88,3 +86,6 @@ endif()
 if(XE_SFX_ENABLE_AL)
 	add_subdirectory(src/xe.sfx.al)
 endif()
+
+add_subdirectory(games/demo)
+add_subdirectory(games/tetris)
