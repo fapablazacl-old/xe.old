@@ -7,7 +7,8 @@
 #include <memory>
 #include <string>
 #include <set>
-#include <xe/Stream.hpp>
+
+#include "Stream.hpp"
 
 namespace xe {
     class Stream;

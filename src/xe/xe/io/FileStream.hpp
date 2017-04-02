@@ -5,8 +5,9 @@
 #define __xe_filestream_hpp__
 
 #include <string>
-#include <xe/Stream.hpp>
 #include <cstdio>
+
+#include "Stream.hpp"
 
 namespace xe {
 

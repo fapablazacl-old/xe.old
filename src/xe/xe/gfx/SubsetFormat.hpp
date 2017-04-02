@@ -15,8 +15,12 @@ namespace xe {
     /**
      * @brief Mesh attribute descriptor.
      */
-    struct SubsetAttrib : public Attrib {
+    struct SubsetAttrib : public Field {
+        //! Wich buffer has the attribute
         int bufferIndex = 0;
+
+        //! The used inside a shader
+        std::string name;
         
         SubsetAttrib() {}
 
@@ -55,7 +59,7 @@ namespace xe {
     public:
         SubsetFormat();
 
-        SubsetFormat(std::initializer_list<SubsetAttrib> attribs);
+        SubsetFormat(std::initializer_list<SubsetAttrib> fields);
 
         SubsetFormat(const SubsetFormat &other);
 

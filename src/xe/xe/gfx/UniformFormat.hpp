@@ -5,16 +5,24 @@
 #include "xe/DataFormat.hpp"
 
 namespace xe {
-    struct UniformDescriptor : public xe::Attrib {
-        size_t count = 0;   //! How many elements has the array
+    /**
+     * @brief The Uniform structure hold the information needed to interpret a memory address in the call GraphicsDevice::setUniform.
+     */
+    struct Uniform : public Field {
 
-        size_t getSize() const {
-            return count * xe::Attrib::getSize();
+        //! The used inside a shader
+        std::string name;
+
+        //! How many elements has an Uniform.
+        std::size_t count = 0; 
+
+        std::size_t getSize() const {
+            return count * Field::getSize();
         }
 
-        UniformDescriptor() {}
+        Uniform() {}
 
-        UniformDescriptor(const std::string name_, size_t dim_, DataType type_, size_t count_=1) {
+        Uniform(const std::string name_, size_t dim_, DataType type_, size_t count_=1) {
             name = name_;
             dim = dim_;
             type = type_;
@@ -22,5 +30,5 @@ namespace xe {
         }
     };
     
-    typedef xe::DataFormat<UniformDescriptor> UniformFormat;
+    typedef xe::Struct<Uniform> UniformFormat;
 }

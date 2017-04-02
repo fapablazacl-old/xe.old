@@ -20,15 +20,34 @@
 
 namespace xe {
 
+    /**
+     * @brief The clear information used in each call to GraphicsDevice::beginFrame
+     */
     struct ClearParams {
-        xe::Vector4f color;
-        double depth;
-        int stencil;
+        //! Color used to clear the Color Buffer
+        Vector4f color = {0.0f, 0.0f, 1.0f, 1.0f};
 
-        ClearParams(xe::Vector4f color_ = {0.0f, 0.0f, 0.0f, 1.0f}, double depth_ = 1.0f, int stencil_ = 0) 
-            : color(color_), depth(depth_), stencil(stencil_){}
+        //! Depth used to clear the Depth Buffer
+        double depth = 1.0f;
+
+        //! Value to clear the Stencil Buffer
+        int stencil = 0;
+
+        ClearParams() {}
+
+        ClearParams(const Vector4f &color) 
+            : color(color) {}
+
+        ClearParams(const Vector4f &color, const double depth) 
+            : color(color), depth(depth) {}
+
+        ClearParams(const Vector4f &color, const double depth, const int stencil) 
+            : color(color), depth(depth), stencil(stencil) {}
     };
 
+    /**
+     * @brief Specify wich buffer will be used to clear
+     */
     enum class ClearFlags {
         Color = 0x01,
         Depth = 0x02,
@@ -83,6 +102,26 @@ namespace xe {
         }
     };
 
+    /**
+     * @brief Interpretation information for geometry buffers
+     */
+    struct Envelope {
+        //! The primitive used for render
+        Primitive primitive;   
+
+        //! The count of vertices
+        std::size_t count;
+
+        //! The start offset used for vertex counting
+        std::size_t start = 0;
+
+        Envelope(const Primitive primitive, const std::size_t count) 
+            : primitive(primitive), count(count) {}
+
+        Envelope(const Primitive primitive, const std::size_t count, const std::size_t start) 
+            : primitive(primitive), count(count), start(start) {}
+    };
+
     class XE_API GraphicsDevice {
     public:
         virtual ~GraphicsDevice() {}
@@ -112,9 +151,11 @@ namespace xe {
         
         virtual void setMaterial(Material *material) = 0;
 
-        virtual void setMesh(Subset *mesh) = 0;
+        virtual void setSubset(Subset *subset) = 0;
 
-        virtual void draw(Primitive primitive, size_t start, size_t count) = 0;
+        virtual void draw(const Envelope &envelope) = 0;
+
+        virtual void draw(const std::vector<Envelope> &envelopes);
 
         virtual void beginFrame(const ClearFlags flags=ClearFlags::All, const ClearParams &params=ClearParams()) = 0;
 
@@ -122,7 +163,7 @@ namespace xe {
 
         virtual void setUniformMatrix(int location, int total, bool transpose, float *values) = 0;
 
-        virtual void setUniform(const UniformDescriptor &desc, const void* uniform) = 0;
+        virtual void setUniform(const Uniform &desc, const void* uniform) = 0;
 
         virtual void setUniform(const UniformFormat* format, const void *uniforms);
     };

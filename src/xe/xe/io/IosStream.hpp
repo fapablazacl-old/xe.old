@@ -5,8 +5,9 @@
 #define __xe_iosstream_hpp__
 
 #include <string>
-#include <xe/Stream.hpp>
 #include <istream>
+
+#include "Stream.hpp"
 
 namespace xe {
     /**

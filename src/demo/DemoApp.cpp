@@ -10,7 +10,7 @@
 #include "render/PhongPipeline.hpp"
 
 #include <xe/Common.hpp>
-#include <xe/Archive.hpp>
+#include <xe/io/Archive.hpp>
 #include <xe/PluginManager.hpp>
 #include <xe/math/Matrix.hpp>
 #include <xe/input/InputCode.hpp>

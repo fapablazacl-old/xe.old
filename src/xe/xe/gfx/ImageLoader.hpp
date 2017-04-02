@@ -4,7 +4,7 @@
 #ifndef __xe_gfx_imageloader_hpp__
 #define __xe_gfx_imageloader_hpp__
 
-#include <xe/Stream.hpp>
+#include <xe/io/Stream.hpp>
 #include <xe/gfx/Image.hpp>
 
 namespace xe {

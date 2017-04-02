@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <map>
-#include <xe/Archive.hpp>
+#include <xe/io/Archive.hpp>
 #include <xe/gfx/Texture.hpp>
 #include <xe/gfx/Image.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>

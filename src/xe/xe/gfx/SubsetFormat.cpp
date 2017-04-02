@@ -8,18 +8,18 @@
 namespace xe {
 
     struct SubsetFormat::Private {
-        std::vector<SubsetAttrib> attribs;
+        std::vector<SubsetAttrib> fields;
         std::set<int> bufferIndices;
         std::map<int, std::vector<SubsetAttrib>> indexedAttribs;
     };
 
     SubsetFormat::SubsetFormat() : m_impl(new SubsetFormat::Private()) {}
 
-    SubsetFormat::SubsetFormat(std::initializer_list<SubsetAttrib> attribs) 
+    SubsetFormat::SubsetFormat(std::initializer_list<SubsetAttrib> fields) 
         : m_impl(new SubsetFormat::Private()) {
 
-        for (auto &attrib : attribs) {
-            m_impl->attribs.push_back(attrib);
+        for (auto &attrib : fields) {
+            m_impl->fields.push_back(attrib);
             
             m_impl->bufferIndices.insert(attrib.bufferIndex);
             m_impl->indexedAttribs[attrib.bufferIndex].push_back(attrib);
@@ -37,7 +37,7 @@ namespace xe {
     std::size_t SubsetFormat::getAttribCount() const {
         assert(m_impl);
 
-        return m_impl->attribs.size();
+        return m_impl->fields.size();
     }
 
     const SubsetAttrib& SubsetFormat::getAttrib(const std::size_t index) const {
@@ -45,7 +45,7 @@ namespace xe {
         assert(index >= 0);
         assert(index < this->getAttribCount());
 
-        return m_impl->attribs[index];
+        return m_impl->fields[index];
     }
 
     const std::set<int>& SubsetFormat::getBufferIndices() const {
@@ -61,7 +61,7 @@ namespace xe {
     }
 
     SubsetFormat& SubsetFormat::operator= (const SubsetFormat &other) {
-        m_impl->attribs = other.m_impl->attribs;
+        m_impl->fields = other.m_impl->fields;
         m_impl->bufferIndices = other.m_impl->bufferIndices;
         m_impl->indexedAttribs = other.m_impl->indexedAttribs;
 

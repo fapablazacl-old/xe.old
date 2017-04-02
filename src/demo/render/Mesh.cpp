@@ -44,14 +44,14 @@ namespace xe {
         return subset;
     }
 
-    Envelope* Mesh::getEnvelope(const std::size_t subsetIndex) {
+    MeshEnvelope* Mesh::getEnvelope(const std::size_t subsetIndex) {
         assert(subsetIndex >= 0);
         assert(subsetIndex < this->getSubsetCount());
 
         return &m_envelopes[subsetIndex];
     }
 
-    const Envelope* Mesh::getEnvelope(const std::size_t subsetIndex) const {
+    const MeshEnvelope* Mesh::getEnvelope(const std::size_t subsetIndex) const {
         assert(subsetIndex >= 0);
         assert(subsetIndex < this->getSubsetCount());
 
@@ -63,7 +63,7 @@ namespace xe {
 
         for (std::size_t i=0; i<this->getSubsetCount(); i++) {
             xe::Subset *subset = this->getSubset(i);
-            xe::Envelope *envelope = this->getEnvelope(i);
+            xe::MeshEnvelope *envelope = this->getEnvelope(i);
 
             assert(subset);
             assert(envelope);
@@ -71,8 +71,8 @@ namespace xe {
             assert(envelope->count > 0);
 
             device->setMaterial(envelope->material);
-            device->setMesh(subset);
-            device->draw(envelope->primitive, envelope->start, envelope->count);
+            device->setSubset(subset);
+            device->draw({envelope->primitive, envelope->count, envelope->start});
         }
     }
 }

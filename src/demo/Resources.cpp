@@ -10,9 +10,9 @@
 #include <iostream>
 #include <map>
 
-#include <xe/Archive.hpp>
-#include <xe/IosStream.hpp>
-#include <xe/FileStream.hpp>
+#include <xe/io/Archive.hpp>
+#include <xe/io/IosStream.hpp>
+#include <xe/io/FileStream.hpp>
 #include <xe/math/Matrix.hpp>
 #include <xe/math/Generator.hpp>
 #include <xe/math/SphereGenerator.hpp>

@@ -42,9 +42,9 @@ namespace xe {
         
         virtual void setMaterial(Material *material) override;
 
-        virtual void setMesh(Subset *mesh) override;
+        virtual void setSubset(Subset *mesh) override;
 
-        virtual void draw(Primitive primitive, size_t start, size_t count) override;
+        virtual void draw(const Envelope &envelope) override;
 
         virtual void beginFrame(const ClearFlags flags, const ClearParams &params)  override;
 
@@ -52,7 +52,7 @@ namespace xe {
 
         virtual void setUniformMatrix(int location, int total, bool transpose, float *values) override;
 
-        virtual void setUniform(const UniformDescriptor &desc, const void* uniform) override;
+        virtual void setUniform(const Uniform &desc, const void* uniform) override;
 
         virtual void setUniform(const UniformFormat* format, const void *uniforms) override;
 

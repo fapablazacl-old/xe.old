@@ -209,7 +209,7 @@ namespace xe {
         m_material = material;
     }
 
-    void GraphicsDeviceGL::setMesh(Subset *mesh) {
+    void GraphicsDeviceGL::setSubset(Subset *mesh) {
         m_mesh = static_cast<SubsetGL*>(mesh);
 
         if (m_mesh) {
@@ -231,15 +231,13 @@ namespace xe {
         GL_TRIANGLE_FAN
     };
     
-    void GraphicsDeviceGL::draw(Primitive primitive, size_t start, size_t count) {
+    void GraphicsDeviceGL::draw(const Envelope &envelope) {
         assert(m_mesh);
-        assert(start >= 0);
-        assert(count > 0);
 
-        const GLenum mode = primitives[static_cast<int>(primitive)];
+        const GLenum mode = primitives[static_cast<int>(envelope.primitive)];
         
-        const auto elementCount = static_cast<GLsizei>(count);
-        const auto elementStart = static_cast<GLint>(start);
+        const auto elementCount = static_cast<GLsizei>(envelope.count);
+        const auto elementStart = static_cast<GLint>(envelope.start);
         
         // check if the geometry is indexed
         DataType indexType = DataType::Unknown;
@@ -283,7 +281,7 @@ namespace xe {
         XE_GL_CHECK_ERROR();
     }
 
-    void GraphicsDeviceGL::setUniform(const UniformDescriptor &desc, const void* uniform) {
+    void GraphicsDeviceGL::setUniform(const Uniform &desc, const void* uniform) {
         assert(desc.dim >= 1);
         assert(desc.dim <= 4);
         assert(desc.count > 0);
@@ -299,7 +297,6 @@ namespace xe {
             std::clog << "GraphicsDeviceGL::setUniform: The uniform '" + desc.name + "' hasn't been used in the shader, or isn't defined. Ignoring uniform." << std::endl;
         }
 #endif
-
         switch (desc.type) {
         case xe::DataType::Int32:
             switch (desc.dim) {
@@ -336,12 +333,12 @@ namespace xe {
     }
 
     void GraphicsDeviceGL::setUniform(const UniformFormat *format, const void *uniforms) {
-        assert(format && format->attribs.size() > 0);
+        assert(format && format->fields.size() > 0);
         assert(uniforms);
 
         auto uniform = static_cast<const std::uint8_t*>(uniforms);
 
-        for (const UniformDescriptor &desc : format->attribs) {
+        for (const Uniform &desc : format->fields) {
             this->setUniform(desc, uniform);
 
             const size_t size = desc.getSize();

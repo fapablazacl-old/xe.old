@@ -9,8 +9,6 @@ endif()
 set (target xe)
 
 set (sources 
-	xe/Archive.hpp
-	xe/Archive.cpp
     xe/Buffer.hpp 
     xe/Common.hpp 
     xe/DataFormat.hpp 
@@ -19,19 +17,9 @@ set (sources
     xe/Forward.hpp
     xe/Core.hpp 
     xe/Core.cpp
-    xe/Stream.hpp 
-    xe/Stream.cpp
-    xe/FileStream.hpp 
-    xe/FileStream.cpp
-    xe/IosStream.hpp 
-    xe/IosStream.cpp
-    xe/MemoryStream.hpp 
-    xe/MemoryStream.cpp
     xe/Meta.hpp 
 	xe/PreDef.cpp 
 	xe/PreDef.hpp
-	xe/FileUtil.cpp 
-	xe/FileUtil.hpp 
 	xe/Library.hpp
 	xe/LibraryPosix.cpp  
 	xe/LibraryWin.cpp 
@@ -47,6 +35,21 @@ set (sources
 	xe/PluginManagerImpl.hpp 
 	xe/Version.cpp 
 	xe/Version.hpp
+)
+
+set (sources_io
+	xe/io/Archive.hpp
+	xe/io/Archive.cpp
+    xe/io/Stream.hpp 
+    xe/io/Stream.cpp
+    xe/io/FileStream.hpp 
+    xe/io/FileStream.cpp
+    xe/io/IosStream.hpp 
+    xe/io/IosStream.cpp
+    xe/io/MemoryStream.hpp 
+    xe/io/MemoryStream.cpp
+	xe/io/FileUtil.cpp 
+	xe/io/FileUtil.hpp 
 )
 
 set (sources_math 
@@ -150,13 +153,27 @@ set (sources_sg
 	"xe/sg/SceneManagerImpl.hpp" 
 )
 
+set (sources_game
+	"xe/game/Entity.cpp"
+	"xe/game/Entity.hpp"
+	"xe/game/Message.cpp"
+	"xe/game/Message.hpp"
+	"xe/game/MessageBus.cpp"
+	"xe/game/MessageBus.hpp"
+	"xe/game/MessageHandler.cpp"
+	"xe/game/MessageHandler.hpp"
+	"xe/game/System.cpp"
+	"xe/game/System.hpp" 
+)
+
 source_group(\\         FILES ${sources})
 source_group(\\gfx      FILES ${sources_gfx})
 source_group(\\sfx      FILES ${sources_sfx})
 source_group(\\sg       FILES ${sources_sg})
 source_group(\\input    FILES ${sources_input})
 source_group(\\math     FILES ${sources_math})
-source_group(\\ext		FILES ${sources_ext})
+source_group(\\game		FILES ${sources_game})
+source_group(\\io		FILES ${sources_io})
 
 add_definitions(-DXE_BUILD -DXE_SHARED)
 
@@ -167,7 +184,8 @@ add_library(${target} SHARED
     ${sources_sg} 
     ${sources_input}
     ${sources_math}
-	${sources_toolkit}
+	${sources_game}
+	${sources_io}
 )
 
 target_link_libraries(${target} ${XE_DEP_LIBRARIES})

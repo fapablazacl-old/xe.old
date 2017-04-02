@@ -6,7 +6,7 @@
 
 #include <cstdint>
 #include <cstddef>
-#include <xe/Stream.hpp>
+#include "Stream.hpp"
 
 namespace xe {
     class XE_API MemoryStream : public Stream {

@@ -14,7 +14,7 @@ namespace xe {
     /**
      * @brief Mesh envelope
      */ 
-    struct Envelope {
+    struct MeshEnvelope {
         //! Material
         Material *material = nullptr;
 
@@ -47,16 +47,16 @@ namespace xe {
 
         const Subset* getSubset(const std::size_t index) const;
 
-        Envelope* getEnvelope(const std::size_t subsetIndex);
+        MeshEnvelope* getEnvelope(const std::size_t subsetIndex);
 
-        const Envelope* getEnvelope(const std::size_t subsetIndex) const;
+        const MeshEnvelope* getEnvelope(const std::size_t subsetIndex) const;
 
         virtual void render() override;
 
     private:
         PhongPipeline *m_pipeline;
         std::vector<SubsetPtr> m_subsets;
-        std::vector<Envelope> m_envelopes;
+        std::vector<MeshEnvelope> m_envelopes;
     };
 }
 

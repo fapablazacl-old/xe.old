@@ -5,12 +5,12 @@
 //#define __gl3_material__
 //
 //#include "GL.hpp"
-//#include "xe/DataFormat.hpp"
+//#include "xe/Struct.hpp"
 //#include "xe/math/Vector.hpp"
 //
 //namespace xe { 
 //
-//    typedef xe::DataFormat<xe::Attrib> MaterialFormat;
+//    typedef xe::Struct<xe::Field> MaterialFormat;
 //
 //    enum class FaceMode {
 //        Point,

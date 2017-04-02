@@ -6,7 +6,8 @@
 #include "PhongLight.hpp"
 
 #include <xe/sg/Renderable.hpp>
-#include <xe/FileUtil.hpp>
+
+#include <xe/io/FileUtil.hpp>
 
 namespace xe { 
     PhongPipeline::PhongPipeline(xe::GraphicsDevice *device) 

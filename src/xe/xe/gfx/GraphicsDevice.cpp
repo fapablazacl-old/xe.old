@@ -3,12 +3,12 @@
 
 namespace xe {
     void GraphicsDevice::setUniform(const UniformFormat* format, const void *uniforms) {
-        assert(format && format->attribs.size() > 0);
+        assert(format && format->fields.size() > 0);
         assert(uniforms);
         
         auto uniform = static_cast<const std::uint8_t*>(uniforms);
 
-        for (const UniformDescriptor &desc : format->attribs) {
+        for (const Uniform &desc : format->fields) {
             this->setUniform(desc, uniform);
 
             const size_t size = desc.getSize();
@@ -18,7 +18,6 @@ namespace xe {
     }
 
     SubsetPtr GraphicsDevice::createSubset(const SubsetDesc &subsetDesc) {
-
         std::vector<BufferPtr> buffers;
 
         for (int i=0; i<subsetDesc.buffersDescs.size(); i++) {
@@ -35,5 +34,11 @@ namespace xe {
         }
         
         return this->createSubset(subsetDesc.format, std::move(buffers), subsetDesc.indexType, std::move(indexBuffer));
+    }
+
+    void GraphicsDevice::draw(const std::vector<Envelope> &envelopes) {
+        for (const Envelope &envelope : envelopes) {
+            this->draw(envelope);
+        }
     }
 }
