@@ -10,7 +10,7 @@
 #pragma warning (disable:4251)
 #endif
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 #endif
