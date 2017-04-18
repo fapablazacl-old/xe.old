@@ -2,19 +2,22 @@
 set (target xe.gfx.png)
 
 set (sources 
-    PluginPNG.cpp
+    ImageLoaderPNG.cpp 
+    ImageLoaderPNG.hpp 
     ImagePNG.cpp 
     ImagePNG.hpp
-    ImageLoaderPNG.cpp 
-    ImageLoaderPNG.hpp
+
+	PluginPNG.cpp
 )
 
-find_package(PNG REQUIRED)
+set (lodepng_sources
+    lodepng/lodepng.cpp
+    lodepng/lodepng.h
+)
 
-include_directories(${PNG_INCLUDE_DIRS})
+source_group(\\ FILES ${sources})
+source_group(\\lodepng FILES ${lodepng_sources})
 
-add_definitions(-DXE_BUILD -DXE_SHARED)
+add_library(${target} SHARED ${sources} ${lodepng_sources})
 
-add_library (${target} SHARED ${sources})
-
-target_link_libraries(${target} xe ${PNG_LIBRARIES})
+target_link_libraries(${target} xe)
