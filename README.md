@@ -1,5 +1,7 @@
 
-Low level C++ multimedia engine.
+Low level C++ multimedia engine
+
+Planned features for Version 1.0
 
 Supported Platforms / Toolchains:
 	- Windows / Visual C++ 2015
@@ -10,10 +12,11 @@ Supported Platforms / Toolchains:
 	- Web / emscripten
 
 - Test-Driven development 
-- Support for Windows, Linux, Web and Android.
-
+- Support for Windows, Linux, Web and Android
 
 Features:
+
+Low Level Layer 
 
 Core
 	- Buffer Abstraction
@@ -98,17 +101,15 @@ Input
 	- Support for Touch (investigate more)
 	
 Graphics
-	- 3D Raster rendering.
-	- 3D Ray Tracing rendering
-	- 3D Rasterization Abstraction
-		- Raster Device
-		- Texture
-		- Buffer
+	- Images
+	- Textures
+	- 
+	- Modern Device Interface
+		- Custom Vertex Attributes
+		- Programmable Pipeline (Language depends on backend renderer)
 		
-	- Flexible vertex formats
-	- Extensible interface for additional image formats
-	- Extensible interface for additional mesh formats 
-	
+	- Legacy Device Interface
+		
 Audio
 	- Simple 2D Play
 		- Volume Control
@@ -122,7 +123,13 @@ Audio
 	- Audio Buffer Queues
 	- Extensible interface for loading Audio Samples 
 	- Extensible inteface for sound effects
+
+	
+High Level Layer 
+
 	
 Scene Graph 
 	- Scene - Based rendering 
+	- Extensible Scene Node Object Interface
+	
 	
