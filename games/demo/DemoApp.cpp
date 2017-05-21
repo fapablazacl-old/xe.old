@@ -17,7 +17,7 @@
 #include <xe/input/InputStatus.hpp>
 #include <xe/gfx/GraphicsDeviceInfo.hpp>
 #include <xe/gfx/GraphicsDevice.hpp>
-#include <xe/sg/SceneManagerImpl.hpp>
+#include <xe/sg/GenericSceneManager.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -66,7 +66,7 @@ namespace demo {
             m_device = this->createDevice();
             m_pipeline = std::make_unique<xe::PhongPipeline>(m_device.get());
             m_resources = std::make_unique<Resources>(m_pipeline.get(), m_device.get(), m_app->getGraphicsManager());
-            m_sceneManager = std::make_unique<xe::SceneManagerImpl>();
+            m_sceneManager = std::make_unique<xe::GenericSceneManager>();
 
             auto scene  = m_resources->getScene();
 
@@ -105,18 +105,19 @@ namespace demo {
             float seconds = timer.getSeconds();
 
             while(true) {
-                /*
+                inputManager->poll();
+
+                // get timing for current frame
                 seconds = timer.getSeconds();
 
+                // compute rotation angle
                 angle += 60.0f * seconds;
 
                 if (angle > 360.0f) {
                     angle = 0.0f;
                 }
-                */
-                
-                //this->updateSystems();
 
+                // update all entities
                 this->updateAll(seconds);
 
                 /*
@@ -125,11 +126,12 @@ namespace demo {
                 const auto rotationX = xe::Matrix4f::makeRotateX(rad_angle);
                 const auto rotationY = xe::Matrix4f::makeRotateY(rad_angle);
                 const auto rotationZ = xe::Matrix4f::makeRotateZ(rad_angle);
-
-                m_meshNode->setMatrix(rotationX * rotationY * rotationZ);
+                m_meshNode->set(rotationX * rotationY * rotationZ);
                 */
-
+                
+                m_device->beginFrame();
                 m_sceneManager->renderAll(m_resources->getScene()->getRoot());
+                m_device->endFrame();
             }
         }
     };
@@ -145,7 +147,7 @@ namespace demo {
     }
 
     DemoApp::DemoApp() : m_impl(new DemoApp::Private(this)) {
-        this->getPluginManager()->load("xe.gfx.fi");
+        this->getPluginManager()->load("xe.gfx.png");
         this->getPluginManager()->load("xe.gfx.gl3");
     }
 

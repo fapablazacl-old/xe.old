@@ -5,7 +5,7 @@
 #define __xe_sg_scenemanagerimpl_hpp__
 
 #include "SceneManager.hpp"
-#include "SceneNodeImpl.hpp"
+#include "GenericSceneNode.hpp"
 #include "Renderable.hpp"
 
 #include <vector>
@@ -14,19 +14,18 @@
 namespace xe {
 
     class Renderable;
-    class SceneNodeImpl;
-    class SceneManagerImpl : public SceneManager {
+    class GenericSceneManager : public SceneManager {
     public:
-        SceneManagerImpl() {}
+        GenericSceneManager() {}
 
-        virtual ~SceneManagerImpl() {}
+        virtual ~GenericSceneManager() {}
 
         virtual void renderAll(const SceneNode *node) override {
             assert(node);
 
             std::vector<Renderable*> renderables;
 
-            this->visit(renderables, static_cast<const SceneNodeImpl*>(node));
+            this->visit(renderables, static_cast<const GenericSceneNode*>(node));
 
             for (Renderable *renderable : renderables) {
                 renderable->render();
@@ -34,7 +33,7 @@ namespace xe {
         }
 
     private:
-        void visit(std::vector<Renderable*> &renderables, const SceneNodeImpl *node) {
+        void visit(std::vector<Renderable*> &renderables, const GenericSceneNode *node) {
             assert(node);
 
             if (node->getRenderable()) {

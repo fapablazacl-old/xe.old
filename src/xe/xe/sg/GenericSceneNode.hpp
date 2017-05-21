@@ -9,15 +9,15 @@
 #include <cassert>
 
 namespace xe {
-    class SceneNodeImpl : public SceneNode {
+    class GenericSceneNode : public SceneNode {
     public:
-        explicit SceneNodeImpl() {}
+        explicit GenericSceneNode() {}
 
-        explicit SceneNodeImpl(const std::string &name) {
+        explicit GenericSceneNode(const std::string &name) {
             m_name = name;
         }
 
-        virtual ~SceneNodeImpl() {}
+        virtual ~GenericSceneNode() {}
 
         virtual std::string getName() const override {
             return m_name;
@@ -27,7 +27,7 @@ namespace xe {
             return m_renderable;
         }
 
-        virtual SceneNodeImpl* setRenderable(Renderable *renderable) override {
+        virtual GenericSceneNode* setRenderable(Renderable *renderable) override {
             m_renderable = renderable;
 
             return this;
@@ -37,24 +37,24 @@ namespace xe {
             return m_childs.size();
         }
 
-        virtual SceneNodeImpl* getChild(const std::size_t index) const override {
+        virtual GenericSceneNode* getChild(const std::size_t index) const override {
             assert(index >= 0);
             assert(index < this->getChildCount());
 
             return m_childs[index];
         }
 
-        virtual SceneNodeImpl* getParent() const override {
+        virtual GenericSceneNode* getParent() const override {
             return m_parent;
         }
 
-        virtual SceneNodeImpl* setParent(SceneNode *parent) override {
-            this->setParent(static_cast<SceneNodeImpl*>(parent));
+        virtual GenericSceneNode* setParent(SceneNode *parent) override {
+            this->setParent(static_cast<GenericSceneNode*>(parent));
 
             return this;
         }
 
-        void setParent(SceneNodeImpl *parent) {
+        void setParent(GenericSceneNode *parent) {
             if (m_parent == parent) {
                 return;
             }
@@ -76,9 +76,9 @@ namespace xe {
 
     private:
         std::string m_name;
-        SceneNodeImpl *m_parent = nullptr;
+        GenericSceneNode *m_parent = nullptr;
         Renderable *m_renderable = nullptr;
-        std::vector<SceneNodeImpl*> m_childs;
+        std::vector<GenericSceneNode*> m_childs;
     };
 }
 

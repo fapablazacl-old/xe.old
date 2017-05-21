@@ -20,6 +20,8 @@ namespace xe {
             {xe::ShaderType::Fragment, FileUtil::load("assets/shaders/Phong.frag.glsl")}
         });
         
+        m_device->setProgram(m_program.get());
+
         assert(m_program);
     }
 
@@ -59,8 +61,7 @@ namespace xe {
         assert(!m_frame);
 
         m_frame = true;
-
-        m_device->setProgram(m_program.get());
+        
         m_device->beginFrame(xe::ClearFlags::All, xe::ClearParams());
     }
 

@@ -24,8 +24,8 @@
 #include <xe/gfx/Material.hpp>
 #include <xe/gfx/SubsetFormat.hpp>
 #include <xe/gfx/GraphicsManager.hpp>
-#include <xe/sg/SceneNodeImpl.hpp>
-#include <xe/sg/SceneImpl.hpp>
+#include <xe/sg/GenericSceneNode.hpp>
+#include <xe/sg/GenericScene.hpp>
 
 namespace demo {
 
@@ -170,18 +170,11 @@ namespace demo {
         std::map<std::string, xe::TexturePtr> createTextures() {
             std::map<std::string, xe::TexturePtr> textures;
 
-            // std::cout << "Loading texture 'rusted/rusted_plates_albedo.tif'" << std::endl;
-            textures["rusted_plates_albedo"] = this->createTexture("materials/rusted/rusted_plates_albedo.tif");
-        
-            // std::cout << "Loading texture 'materials/rusted/rusted_plates_diffuse.tif'" << std::endl;
-            textures["rusted_plates_diffuse"] = this->createTexture("materials/rusted/rusted_plates_diffuse.tif");
-        
-            // std::cout << "Loading texture 'materials/rusted/rusted_plates_heightmap.tif'" << std::endl;
-            textures["rusted_plates_heightmap"] = this->createTexture("materials/rusted/rusted_plates_heightmap.tif");
-        
-            // std::cout << "Loading texture 'materials/rusted/rusted_plates_normalmap.tif'" << std::endl;
-            textures["rusted_plates_normalmap"] = this->createTexture("materials/rusted/rusted_plates_normalmap.tif");
-        
+            textures["rusted_plates_albedo"] = this->createTexture("materials/rusted/albedo.png");
+            textures["rusted_plates_diffuse"] = this->createTexture("materials/rusted/diffuse.png");
+            textures["rusted_plates_heightmap"] = this->createTexture("materials/rusted/heightmap.png");
+            textures["rusted_plates_normalmap"] = this->createTexture("materials/rusted/normalmap.png");
+            
             return textures;
         }
 
@@ -231,7 +224,7 @@ namespace demo {
             assert(sphereMesh);
             assert(planeMesh);
 
-            auto scene = std::make_unique<xe::SceneImpl>();
+            auto scene = std::make_unique<xe::GenericScene>();
 
             scene->getRoot()->setRenderable(lookAtCamera);
 

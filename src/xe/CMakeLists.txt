@@ -145,12 +145,12 @@ set (sources_sg
 	"xe/sg/SceneManager.hpp" 
 	"xe/sg/SceneNode.cpp" 
 	"xe/sg/SceneNode.hpp" 
-	"xe/sg/SceneImpl.cpp" 
-	"xe/sg/SceneImpl.hpp" 
-	"xe/sg/SceneNodeImpl.cpp" 
-	"xe/sg/SceneNodeImpl.hpp" 
-	"xe/sg/SceneManagerImpl.cpp" 
-	"xe/sg/SceneManagerImpl.hpp" 
+	"xe/sg/GenericScene.cpp" 
+	"xe/sg/GenericScene.hpp" 
+	"xe/sg/GenericSceneNode.cpp" 
+	"xe/sg/GenericSceneNode.hpp" 
+	"xe/sg/GenericSceneManager.cpp" 
+	"xe/sg/GenericSceneManager.hpp" 
 )
 
 set (sources_game
