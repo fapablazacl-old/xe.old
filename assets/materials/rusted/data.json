@@ -1,0 +1,6 @@
+{
+	"type": "normal", 
+	"diffuse": "diffuse.png"
+	"heightmap": "heightmap.png"
+	"normalmap": "normalmap.png"
+}
