@@ -1,3 +1,6 @@
 [submodule "dep/glfw"]
 	path = dep/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "dep/unittest-cpp"]
+	path = dep/unittest-cpp
+	url = https://github.com/unittest-cpp/unittest-cpp

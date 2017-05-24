@@ -49,6 +49,8 @@ endif()
 
 # OpenGL 3 plugin
 if(XE_GFX_ENABLE_GL3)
+	add_subdirectory(dep/glfw)
+	
 	include_directories(src/glad-gl33)
 	add_subdirectory(src/glad-gl33)
 	add_subdirectory(src/xe-gfx-gl33)
@@ -56,6 +58,8 @@ endif()
 
 # OpenGL ES 2 plugin
 if(XE_GFX_ENABLE_GLES2)
+	add_subdirectory(dep/glfw)
+	
     include_directories(src/glad-es2)
 	add_subdirectory(src/glad-es2)
 	add_subdirectory(src/xe-gfx-es2)
