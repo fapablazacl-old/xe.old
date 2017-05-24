@@ -1,8 +1,4 @@
 
-find_package(UnitTest++ REQUIRED)
-
-include_directories(${UTPP_INCLUDE_DIRS})
-
 set (target xe-tdd)
 set (sources Main.cpp TestVector.cpp TestMatrix.cpp TestQuaternion.cpp TestMesh.cpp)
 

@@ -31,4 +31,4 @@ add_definitions(-DXE_BUILD -DXE_SHARED)
 
 add_library(${target} SHARED ${sources})
 
-target_link_libraries(${target} xe glfw glad.gl33)
+target_link_libraries(${target} xe glfw glad-gl33)

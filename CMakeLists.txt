@@ -35,10 +35,13 @@ add_definitions(-DXE_VERSION_BUILD=0)
 include_directories(src/khronos)
 
 # the multimedia engine core
+include_directories(src/xe/)
 add_subdirectory(src/xe)
 
 # unit test target
 if (XE_ENABLE_TEST)
+	add_subdirectory(dep/unittest-cpp)
+	include_directories(dep/unittest-cpp)
     add_subdirectory(src/xe-tdd)
 endif()
 
