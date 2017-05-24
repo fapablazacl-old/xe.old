@@ -6,6 +6,10 @@ else ()
     set (XE_DEP_LIBRARIES )
 endif()
 
+if (XE_PLUGIN_DYNAMIC_LINKING)
+	set (XE_PLUGINS )
+endif ()
+
 set (target xe)
 
 set (sources 
@@ -188,4 +192,8 @@ add_library(${target} SHARED
 	${sources_io}
 )
 
-target_link_libraries(${target} ${XE_DEP_LIBRARIES})
+target_link_libraries (
+	${target} 
+	${XE_DEP_LIBRARIES}
+	${XE_PLUGINS}
+)

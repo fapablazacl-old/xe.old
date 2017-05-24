@@ -18,6 +18,9 @@ set (lodepng_sources
 source_group(\\ FILES ${sources})
 source_group(\\lodepng FILES ${lodepng_sources})
 
-add_library(${target} SHARED ${sources} ${lodepng_sources})
-
-target_link_libraries(${target} xe)
+if (XE_PLUGIN_DYNAMIC_LINKING)
+	add_library(${target} SHARED ${sources} ${lodepng_sources})
+	target_link_libraries(${target} xe)
+else()
+	add_library(${target} ${sources} ${lodepng_sources})
+endif()

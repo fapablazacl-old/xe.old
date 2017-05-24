@@ -10,6 +10,30 @@
 #include <cassert>
 #include <xe/PluginManagerImpl.hpp>
 
+#if !defined(XE_PLUGIN_DYNAMIC_LINKING)
+
+#if defined(XE_GFX_ENABLE_GL3)
+#include "xe/gfx/gl3/PluginGL.hpp"
+#endif
+
+#if defined(XE_GFX_ENABLE_GLES2)
+#include "xe/gfx/es2/PluginES2.hpp"
+#endif
+
+#if defined(XE_GFX_ENABLE_FREEIMAGE)
+#include "xe/gfx/fi/PluginFI.hpp"
+#endif
+
+#if defined(XE_GFX_ENABLE_PNG)
+#include "xe/gfx/png/PluginPNG.hpp"
+#endif
+
+#if defined(XE_SFX_ENABLE_AL)
+#include "xe/gfx/al/PluginAL.hpp"
+#endif
+
+#endif
+
 namespace xe {
 
     struct Core::Private {
