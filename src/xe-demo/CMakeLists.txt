@@ -1,7 +1,7 @@
 
 include_directories(".")
 
-set (target demo)
+set (target xe-demo)
 
 set (sources 
 	DemoApp.hpp 

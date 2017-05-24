@@ -1,5 +1,5 @@
 
-set (target xe-gfx-gl3)
+set (target xe-gfx-gl33)
 
 set (sources
     xe/gfx/gl3/OpenGL.hpp 

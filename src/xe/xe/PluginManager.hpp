@@ -10,7 +10,8 @@
 
 namespace xe {
     
-    class XE_API Core;
+    class Core;
+    class Plugin;
     class XE_API PluginManager {
     public:
         virtual ~PluginManager() {}

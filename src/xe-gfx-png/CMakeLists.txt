@@ -2,12 +2,12 @@
 set (target xe-gfx-png)
 
 set (sources 
-    ImageLoaderPNG.cpp 
-    ImageLoaderPNG.hpp 
-    ImagePNG.cpp 
-    ImagePNG.hpp
-
-	PluginPNG.cpp
+    xe/gfx/png/ImageLoaderPNG.cpp 
+    xe/gfx/png/ImageLoaderPNG.hpp 
+    xe/gfx/png/ImagePNG.cpp 
+    xe/gfx/png/ImagePNG.hpp
+	xe/gfx/png/PluginPNG.cpp
+	xe/gfx/png/PluginPNG.hpp
 )
 
 set (lodepng_sources
@@ -15,7 +15,9 @@ set (lodepng_sources
     lodepng/lodepng.h
 )
 
-source_group(\\ FILES ${sources})
+include_directories(.)
+
+source_group(\\xe\\gfx\\png FILES ${sources})
 source_group(\\lodepng FILES ${lodepng_sources})
 
 if (XE_PLUGIN_DYNAMIC_LINKING)

@@ -25,4 +25,6 @@ namespace xe {
     }
 }
 
+#if defined(XE_PLUGIN_DYNAMIC_LINKING)
 XE_EXPORT_PLUGIN(xe::Core, xe::PluginGL)
+#endif
