@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD 14)
 # options
 option (XE_GFX_ENABLE_GL3		"Enable OpenGL 3.3 support"			ON)
 option (XE_GFX_ENABLE_GLES2		"Enable OpenGL ES 2.0 support"		OFF)
-option (XE_GFX_ENABLE_D3D10		"Enable Direct3D 10 support"		OFF)
 option (XE_GFX_ENABLE_FREEIMAGE "Enable FreeImage loader support"	ON)
 option (XE_GFX_ENABLE_PNG		"Enable PNG loader support"			OFF)
 option (XE_SFX_ENABLE_AL	    "Enable OpenAL support"				OFF)
@@ -33,50 +32,43 @@ add_definitions(-DXE_VERSION_MINOR=0)
 add_definitions(-DXE_VERSION_REVISION=0)
 add_definitions(-DXE_VERSION_BUILD=0)
 
-include_directories(src)
-include_directories(src/xe)
 include_directories(src/khronos)
 
-# mandatory targets
+# the multimedia engine core
 add_subdirectory(src/xe)
-add_subdirectory(src/xe.tests)
 
-if (XE_ENABLE_EXAMPLES)
-	add_subdirectory(examples/gfx-triangle)
-endif()
-
+# unit test target
 if (XE_ENABLE_TEST)
-    add_subdirectory(src/xe.tests)
+    add_subdirectory(src/xe-tdd)
 endif()
 
-# optional targets
-if(XE_GFX_ENABLE_GL3)
-	include_directories(src/glad.gl3_3)
-	add_subdirectory(src/glad.gl3_3)
-	add_subdirectory(src/xe.gfx.gl3)
-endif()
-
-if(XE_GFX_ENABLE_GLES2)
-    include_directories(src/glad.es2)
-	add_subdirectory(src/glad.es2)
-	add_subdirectory(src/xe.gfx.gles2)
-endif()
-
-if(XE_GFX_ENABLE_D3D10)
-	add_subdirectory(src/xe.gfx.d3d10)
-endif()
-
-if(XE_GFX_ENABLE_FREEIMAGE)
-	add_subdirectory(src/xe.gfx.fi)
-endif()
-
-if(XE_GFX_ENABLE_PNG)
-	add_subdirectory(src/xe.gfx.png)
-endif()
-
+# OpenAL plugin
 if(XE_SFX_ENABLE_AL)
-	add_subdirectory(src/xe.sfx.al)
+	add_subdirectory(src/xe-sfx-al)
 endif()
 
-add_subdirectory(games/demo)
-add_subdirectory(games/tetris)
+# OpenGL 3 plugin
+if(XE_GFX_ENABLE_GL3)
+	include_directories(src/glad-gl33)
+	add_subdirectory(src/glad-gl33)
+	add_subdirectory(src/xe-gfx-gl33)
+endif()
+
+# OpenGL ES 2 plugin
+if(XE_GFX_ENABLE_GLES2)
+    include_directories(src/glad-es2)
+	add_subdirectory(src/glad-es2)
+	add_subdirectory(src/xe-gfx-es2)
+endif()
+
+# FreeImage plugin
+if(XE_GFX_ENABLE_FREEIMAGE)
+	add_subdirectory(src/xe-gfx-fi)
+endif()
+
+# PNG plugin
+if(XE_GFX_ENABLE_PNG)
+	add_subdirectory(src/xe-gfx-png)
+endif()
+
+add_subdirectory(src/xe-demo)
