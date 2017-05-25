@@ -14,8 +14,8 @@
 
 #pragma once
 
-#ifndef __xe_graphics_image_hpp__
-#define __xe_graphics_image_hpp__
+#ifndef __xe_gfx_image_hpp__
+#define __xe_gfx_image_hpp__
 
 #include <memory>
 #include <xe/Buffer.hpp>
@@ -35,14 +35,14 @@ namespace xe {
     struct ImageDesc {
         ImageType type = ImageType::Unknown;
         PixelFormat format = PixelFormat::Unknown;
-        size_t width = 0;
-        size_t height = 0;
-        size_t depth = 0;
+        std::size_t width = 0;
+        std::size_t height = 0;
+        std::size_t depth = 0;
     };
 
     class XE_API Image {
     public:
-        virtual ~Image() {}
+        virtual ~Image();
 
         virtual ImageDesc getDesc() const = 0;
 

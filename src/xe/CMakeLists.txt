@@ -103,6 +103,7 @@ set (sources_gfx
     xe/gfx/GraphicsFactoryImpl.hpp
     xe/gfx/GraphicsFactoryImpl.cpp
 	xe/gfx/BufferType.hpp
+	xe/gfx/BufferType.cpp
     xe/gfx/Program.hpp 
     xe/gfx/Program.cpp
     xe/gfx/ShaderType.hpp
@@ -113,6 +114,7 @@ set (sources_gfx
     xe/gfx/Texture.hpp 
     xe/gfx/Texture.cpp
     xe/gfx/Image.hpp
+	xe/gfx/Image.cpp
     xe/gfx/PixelFormat.hpp 
     xe/gfx/PixelFormat.cpp
     xe/gfx/UniformFormat.hpp
@@ -121,6 +123,10 @@ set (sources_gfx
     xe/gfx/ImageLoader.hpp
 	xe/gfx/Vertex.cpp
     xe/gfx/Vertex.hpp
+	xe/gfx/Font.cpp
+    xe/gfx/Font.hpp
+	xe/gfx/FontRenderer.cpp
+	xe/gfx/FontRenderer.hpp
 )
 
 set (sources_sfx
