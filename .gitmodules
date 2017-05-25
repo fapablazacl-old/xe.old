@@ -4,3 +4,6 @@
 [submodule "dep/unittest-cpp"]
 	path = dep/unittest-cpp
 	url = https://github.com/unittest-cpp/unittest-cpp
+[submodule "dep/freetype2"]
+	path = dep/freetype2
+	url = git://git.sv.nongnu.org/freetype/freetype2.git
